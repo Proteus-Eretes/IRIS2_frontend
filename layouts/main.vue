@@ -1,11 +1,15 @@
 <template>
-	<div>
+	<div class="min-h-screen flex flex-row">
 		<aside>
-			<logo class="text-secondary-500 w-32 h-32" />
+			<Sidebar />
 		</aside>
 
-		<main>
-			<slot />
-		</main>
+		<div class="flex-grow min-h-screen flex flex-col">
+			<NavigationBar />
+
+			<main class="bg-gray-50 flex-grow">
+				<slot />
+			</main>
+		</div>
 	</div>
 </template>
