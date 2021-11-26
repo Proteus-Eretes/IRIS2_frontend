@@ -1,7 +1,94 @@
 <template>
-	<nav class="bg-white h-32 drop-shadow-sm">
+	<nav class="bg-white drop-shadow-sm">
 		<div class="px-2 sm:px-6 lg:px-8">
-			<div class="relative flex items-center justify-end h-16">
+			<div class="relative flex items-center justify-between h-24">
+				<div class="flex-1">
+					<template v-if="regattas.getSelectedRegetta != null">
+						<h1
+							class="
+								text-lg
+								font-semibold
+								leading-7
+								text-primary-900
+								sm:text-3xl sm:truncate
+							"
+						>
+							{{ regattas.getSelectedRegetta.name }}
+						</h1>
+						<div
+							class="
+								flex flex-col
+								sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6
+							"
+						>
+							<div
+								class="
+									mt-1
+									flex
+									items-center
+									text-sm text-gray-500
+								"
+							>
+								<CalendarIcon
+									class="
+										flex-shrink-0
+										mr-1.5
+										h-5
+										w-5
+										text-gray-400
+									"
+									aria-hidden="true"
+								/>
+								{{
+									formatDate(
+										regattas.getSelectedRegetta.start_date
+									)
+								}}
+							</div>
+							<div
+								class="
+									mt-1
+									flex
+									items-center
+									text-sm text-gray-500
+								"
+							>
+								<LocationMarkerIcon
+									class="
+										flex-shrink-0
+										mr-1.5
+										h-5
+										w-5
+										text-gray-400
+									"
+									aria-hidden="true"
+								/>
+								{{ regattas.getSelectedRegetta.venue_id }}
+							</div>
+							<div
+								class="
+									mt-1
+									flex
+									items-center
+									text-sm text-gray-500
+								"
+							>
+								<BookmarkIcon
+									class="
+										flex-shrink-0
+										mr-1.5
+										h-5
+										w-5
+										text-gray-400
+									"
+									aria-hidden="true"
+								/>
+								{{ regattas.getSelectedRegetta.race_type }}
+							</div>
+						</div>
+					</template>
+				</div>
+
 				<div
 					class="
 						absolute
@@ -25,7 +112,7 @@
 							focus:ring-2
 							focus:ring-offset-2
 							focus:ring-offset-white
-                            focus:ring-secondary-500
+							focus:ring-secondary-500
 						"
 					>
 						<span class="sr-only">View notifications</span>
@@ -106,10 +193,23 @@
 	</nav>
 </template>
 
+<script lang="ts" setup>
+import { useRegattas } from '~~/stores/regattas';
+
+const regattas = useRegattas();
+</script>
+
 <script lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline';
-import { UserIcon } from '@heroicons/vue/solid';
+import {
+	UserIcon,
+	CalendarIcon,
+	LocationMarkerIcon,
+	BookmarkIcon,
+} from '@heroicons/vue/solid';
+
+import * as dayjs from 'dayjs';
 
 export default defineComponent({
 	components: {
@@ -121,6 +221,14 @@ export default defineComponent({
 		MenuIcon,
 		XIcon,
 		UserIcon,
+		CalendarIcon,
+		LocationMarkerIcon,
+		BookmarkIcon,
+	},
+	methods: {
+		formatDate(date: Date) {
+			return dayjs(date).format('DD-MM-YYYY');
+		},
 	},
 });
 </script>

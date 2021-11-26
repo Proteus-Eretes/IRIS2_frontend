@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useStore } from '@/stores/counter';
+import { useStore } from '~/stores/test';
 
 const store = useStore();
 </script>

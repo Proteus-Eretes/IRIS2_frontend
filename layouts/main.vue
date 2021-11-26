@@ -13,3 +13,14 @@
 		</div>
 	</div>
 </template>
+
+<script lang="ts" setup>
+import { useRegattas } from '@/stores/regattas';
+const router = useRouter();
+
+router.beforeEach((to, from, next) => {
+	const regattas = useRegattas();
+	if (regattas.selectedId == null && to.path != '/regattas') next('/regattas');
+	else next();
+});
+</script>

@@ -1,25 +1,29 @@
 <template>
 	<NuxtLink :to="item.to" v-slot="{ isActive, isExactActive }">
 		<div
-			:class="[isActive ? 'bg-primary-900 text-white' : '', 'rounded-md']"
+			:class="[isActive ? 'bg-primary-800 text-white' : '', 'rounded-md']"
 		>
 			<div
 				:class="[
-					isExactActive ? 'bg-primary-800 text-white' : '',
-					'flex space-x-3 text-primary-300 hover:bg-primary-600 hover:text-white px-3 py-2 rounded-md text-base font-medium',
+					isExactActive
+						? 'text-white bg-secondary-500 hover:bg-secondary-400'
+						: 'text-primary-300 hover:bg-primary-600',
+					'flex space-x-3 hover:text-white px-3 py-2 rounded-md text-base font-medium',
 				]"
 			>
 				<component :is="item.icon" class="w-6 h-6" />
 				<span>{{ item.name }}</span>
 			</div>
 
-			<ul v-if="item.items">
+			<ul v-if="item.items && isActive">
 				<li v-for="subItem in item.items" :key="subItem.name">
-					<NuxtLink :to="subItem.to" v-slot="{ isActive }">
+					<NuxtLink :to="subItem.to" v-slot="{ isExactActive }">
 						<div
 							:class="[
-								isActive ? 'bg-primary-800 text-white' : '',
-								'text-primary-300 hover:bg-primary-600 hover:text-white px-3 py-2 ml-9 rounded-md text-base font-medium flex space-x-3',
+								isExactActive
+									? 'text-white bg-secondary-500 hover:bg-secondary-400'
+									: 'text-primary-300 hover:bg-primary-600',
+								'hover:text-white px-3 py-2 ml-9 rounded-md text-base font-medium flex space-x-3',
 							]"
 						>
 							{{ subItem.name }}
@@ -43,6 +47,7 @@ import {
 	ClipboardListIcon,
 	ShareIcon,
 	MicrophoneIcon,
+    CollectionIcon
 } from '@heroicons/vue/outline';
 
 export default defineComponent({
@@ -55,6 +60,7 @@ export default defineComponent({
 		ClipboardListIcon,
 		ShareIcon,
 		MicrophoneIcon,
+        CollectionIcon
 	},
 	props: ['item'],
 });
