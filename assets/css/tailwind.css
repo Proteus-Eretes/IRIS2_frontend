@@ -3,8 +3,15 @@
 @tailwind utilities;
 
 @layer components {
+	.sliding-container {
+		
+	}
+	.sliding-panel {
+		@apply flex flex-col bg-gray-100 rounded-md shadow-sm;
+	}
+
 	.blocks__assign-event {
-		@apply text-primary-900 cursor-move bg-white rounded-sm shadow-sm px-3 py-2;
+		@apply text-primary-900 cursor-move bg-white hover:bg-secondary-50 rounded-sm shadow-sm pl-2 pr-3 py-2 flex items-center gap-2;
 	}
 
 	.blocks__assign-event-ghost {

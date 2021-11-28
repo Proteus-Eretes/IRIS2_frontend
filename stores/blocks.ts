@@ -30,24 +30,31 @@
 
 import { defineStore } from 'pinia';
 
-import { Block } from '~~/types/block.model';
+import { Block, BlockDetail } from '~~/types/block.model';
 import blockService from '~~/services/block.service';
 
 interface BlockState {
 	ids: string[];
 	entities: { [id: string]: Block };
+	detailIds: string[];
+	detailEntities: { [id:string]: BlockDetail };
 	selectedId: string | null;
 }
 
 const state = (): BlockState => ({
 	ids: [],
 	entities: {},
+	detailIds: [],
+	detailEntities: {},
 	selectedId: null,
 });
 
 const getters = {
-	getBlocks(state: BlockState) {
+	getAllBlocks(state: BlockState) {
 		return state.ids.map((id: string) => state.entities[id]);
+	},
+	getBlockDetails(state: BlockState) {
+		return state.detailIds.map((id: string) => state.detailEntities[id]);
 	},
 	getSelectedBlock(state: BlockState) {
 		return (state.selectedId && state.entities[state.selectedId]) || null;
@@ -70,6 +77,22 @@ const actions = {
 
 		this.ids = blockIds;
 		this.entities = blockEntities;
+	},
+	async loadBlockDetails() {
+		const { data } = await blockService.loadBlockDetails();
+
+		const loadedBlocks = data;
+
+		const blockIds = loadedBlocks.map((block) => block.id);
+		const blockEntities = loadedBlocks.reduce(
+			(entities: { [id: string]: Block }, block: Block) => {
+				return { ...entities, [block.id]: block };
+			},
+			{}
+		);
+
+		this.detailIds = blockIds;
+		this.detailEntities = blockEntities;
 	},
 	selectBlock(id: string) {
 		this.selectedId = id;

@@ -14,12 +14,14 @@
 				}"
 				@change="log"
 				item-key="id"
-                class="flex flex-col h-full gap-1"
+				class="flex flex-col h-full gap-1"
 				ghost-class="hidden"
 			>
 				<template #item="{ element }">
 					<AssignItem>
-						{{ element.name }} {{ element.id }}
+						<p class="flex-grow text-sm">
+							{{ element.name }} {{ element.id }}
+						</p>
 					</AssignItem>
 				</template>
 			</Draggable>
@@ -35,33 +37,59 @@
 			"
 		>
 			<SlidingPanel
-				v-for="block in blocks.getBlocks"
+				v-for="block in blocks.getBlockDetails"
 				:key="block.id"
 				class="max-h-1/2-screen"
 			>
 				<template #header>Block {{ block.block }}</template>
 
-				<Draggable
-					:model-value="list2"
-					@update:model-value="updateList($event, 2)"
-					:group="{ name: 'blocks', pull: true, put: ['events'] }"
-					@change="log"
-					item-key="id"
-					class="flex flex-col h-full gap-1"
-					ghost-class="blocks__assign-event-ghost"
-				>
-					<template #item="{ element }">
-						<AssignItem>
-							{{ element.name }} {{ element.id }}
-						</AssignItem>
-					</template>
-				</Draggable>
+				<div v-for="round in block.rounds" :key="round.id">
+					<fieldset class="border-2 border-primary-500 rounded-md p-1.5">
+						<legend class="text-primary-600 px-1">{{ round.name }}</legend>
+
+						<Draggable
+							:model-value="round.fields"
+							@update:model-value="updateList($event, 2)"
+							:group="{
+								name: 'rounds',
+								pull: true,
+								put: ['events'],
+							}"
+							@change="log"
+							item-key="id"
+							class="flex flex-col h-full gap-1"
+							ghost-class="blocks__assign-event-ghost"
+						>
+							<template #item="{ element }">
+								<AssignItem
+									v-if="
+										events.entities &&
+										events.entities[element.id]
+									"
+								>
+									<p class="flex-grow text-sm">
+										{{ events.entities[element.id].name }}
+									</p>
+
+									<template #number-crews>
+										{{
+											events.entities[element.id].crews
+												.length
+										}}
+									</template>
+								</AssignItem>
+							</template>
+						</Draggable>
+					</fieldset>
+				</div>
 			</SlidingPanel>
 		</div>
 	</div>
 </template>
 
 <script lang="ts" setup>
+import { UserGroupIcon } from '@heroicons/vue/outline';
+
 import SlidingPanel from '~~/components/SlidingPanel.vue';
 import AssignItem from '~~/components/blocks/AssignItem.vue';
 
@@ -69,9 +97,12 @@ import AssignItem from '~~/components/blocks/AssignItem.vue';
 import Draggable from 'vuedraggable';
 
 import { useBlocks } from '~~/stores/blocks';
-
 const blocks = useBlocks();
-blocks.loadBlocks();
+blocks.loadBlockDetails();
+
+import { useEvents } from '~/stores/events';
+const events = useEvents();
+events.loadEvents();
 
 const list1 = ref([
 	{ name: 'John', id: 1 },
@@ -100,7 +131,7 @@ const updateList = (list: any[], id: number) => {
 	};
 
 	if (hasDuplicates(list)) {
-		alert('Has duplicates!');
+		alert('Already exists in list!');
 		return;
 	}
 
@@ -116,14 +147,6 @@ const updateList = (list: any[], id: number) => {
 	}
 };
 
-const add = () => {
-	list1.value.push({ name: 'Juan', id: 100 });
-};
-const clone = (el) => {
-	return {
-		name: el.name + ' cloned',
-	};
-};
 const log = (evt) => {
 	window.console.log(evt);
 };

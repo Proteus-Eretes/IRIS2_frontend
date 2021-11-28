@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { blocksMock } from '@/util/mock';
+import { blockDetailsMock, blocksMock } from '@/util/mock';
 import { Block } from '~~/types/block.model';
 
 const BASE_URL = '';
@@ -11,6 +11,9 @@ export default {
 
 		const url = BASE_URL + '/get-blocks';
 		return await axios.get<Block[]>(url);
+	},
+	async loadBlockDetails() {
+		if (this.useMock()) return { data: blockDetailsMock };
 	},
 
     // FIXME

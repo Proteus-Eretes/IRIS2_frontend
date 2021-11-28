@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-col bg-gray-100 rounded-md shadow-sm">
+	<div class="sliding-panel">
 		<h2
 			class="
 				uppercase
