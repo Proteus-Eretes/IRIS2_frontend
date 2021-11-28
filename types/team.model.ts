@@ -4,9 +4,9 @@ import { Crew } from "./crew.model";
 export interface Team {
     id_old:                number;
     crew_id_old:           number;
-    starting_order:        null;
-    toss_reason:           null;
-    shirt_number:          null;
+    starting_order:        number | null;
+    toss_reason:           string | null;
+    shirt_number:          number | null;
     result_status:         number;
     penalty_time:          number;
     penalty_reason:        string;

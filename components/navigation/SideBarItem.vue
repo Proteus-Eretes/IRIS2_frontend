@@ -1,7 +1,10 @@
 <template>
-	<NuxtLink :to="item.to" v-slot="{ isActive, isExactActive }">
+	<NuxtLink :to="item.to" v-slot="{ isExactActive }">
 		<div
-			:class="[isActive ? 'bg-primary-800 text-white' : '', 'rounded-md']"
+			:class="[
+				isParentActive(item.to) ? 'bg-primary-800 text-white' : '',
+				'rounded-md',
+			]"
 		>
 			<div
 				:class="[
@@ -15,7 +18,7 @@
 				<span>{{ item.name }}</span>
 			</div>
 
-			<ul v-if="item.items && isActive">
+			<ul v-if="item.items && isParentActive(item.to)">
 				<li v-for="subItem in item.items" :key="subItem.name">
 					<NuxtLink :to="subItem.to" v-slot="{ isExactActive }">
 						<div
@@ -35,6 +38,15 @@
 	</NuxtLink>
 </template>
 
+<script lang="ts" setup>
+const router = useRouter();
+
+const isParentActive = (base: string): boolean => {
+	if (base === '/') return router.currentRoute.value.fullPath == '/';
+	return router.currentRoute.value.fullPath.includes(base);
+};
+</script>
+
 <script lang="ts">
 import { defineComponent } from 'vue';
 
@@ -47,7 +59,7 @@ import {
 	ClipboardListIcon,
 	ShareIcon,
 	MicrophoneIcon,
-    CollectionIcon
+	CollectionIcon,
 } from '@heroicons/vue/outline';
 
 export default defineComponent({
@@ -60,7 +72,7 @@ export default defineComponent({
 		ClipboardListIcon,
 		ShareIcon,
 		MicrophoneIcon,
-        CollectionIcon
+		CollectionIcon,
 	},
 	props: ['item'],
 });

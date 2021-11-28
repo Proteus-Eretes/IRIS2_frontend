@@ -1,13 +1,13 @@
 <template>
 	<div class="min-h-screen flex flex-row">
 		<aside>
-			<Sidebar />
+			<side-bar />
 		</aside>
 
 		<div class="flex-grow min-h-screen flex flex-col">
-			<NavigationBar />
+			<navigation-bar />
 
-			<main class="bg-gray-100 flex-grow">
+			<main class="bg-gray-200 flex-grow">
 				<slot />
 			</main>
 		</div>
@@ -15,6 +15,9 @@
 </template>
 
 <script lang="ts" setup>
+import SideBar from '~~/components/navigation/SideBar.vue';
+import Navigationbar from '~~/components/navigation/NavigationBar.vue';
+
 import { useRegattas } from '@/stores/regattas';
 const router = useRouter();
 

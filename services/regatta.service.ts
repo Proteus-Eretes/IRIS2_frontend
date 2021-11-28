@@ -13,6 +13,7 @@ export default {
 		return await axios.get<Regatta[]>(url);
 	},
 
+    // FIXME
 	useMock() {
 		return true;
 	},

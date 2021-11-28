@@ -1,14 +1,16 @@
 <template>
-	<div class="grid grid-cols-3 gap-3 p-3">
-		<router-link
-			v-for="regatta in regattas.getRegettas"
-			:key="regatta.id"
-            to="/"
-			class="block p-3 bg-white rounded-md shadow-sm cursor-pointer"
-			@click="regattas.selectRegatta(regatta.id)"
-		>
-			{{ regatta.name }}
-		</router-link>
+	<div>
+		<div class="grid grid-cols-3 gap-3 p-3">
+			<router-link
+				v-for="regatta in regattas.getRegettas"
+				:key="regatta.id"
+				to="/"
+				class="block p-3 bg-white rounded-md shadow-sm cursor-pointer"
+				@click="regattas.selectRegatta(regatta.id)"
+			>
+				{{ regatta.name }}
+			</router-link>
+		</div>
 	</div>
 </template>
 

@@ -7,15 +7,18 @@ export interface Block {
     id_old:         number;
     regatta_id_old: number;
     block:          number;
-    start_date:     string;
-    start_time:     string;
+    start_date:     Date;
+    start_time:     Date;
     status:         number;
     id:             string;
     regatta_id:     string;
+    actions:        Action[];
+}
+
+export interface BlockDetail extends Block {
     fields:         Field[];
     rounds:         Round[];
     regatta:        Regatta;
-    actions:        Action[];
 }
 
 export interface Action {
@@ -30,7 +33,7 @@ export interface Field {
     id_old:         number;
     block_id_old:   number;
     event_id_old:   number;
-    starting_order: null;
+    starting_order: number | null;
     result_status:  number;
     round_id_old:   number;
     start_time:     null;
@@ -43,8 +46,4 @@ export interface Field {
     round:          Round;
     teams:          Team[];
     event:          Event;
-}
-
-export enum DisplayStatus {
-    Entered = "Entered",
 }

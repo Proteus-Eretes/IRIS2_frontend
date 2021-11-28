@@ -15,7 +15,6 @@
 import { defineStore } from 'pinia';
 
 import { Regatta } from '~~/types/regatta.model';
-
 import regattaService from '~~/services/regatta.service';
 
 interface RegattaState {

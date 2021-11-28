@@ -2,13 +2,22 @@ const colors = require('tailwindcss/colors');
 
 module.exports = {
 	mode: 'jit',
-	purge: [
-		'./components/**/*.{vue,js}',
-		'./layouts/**/*.vue',
-		'./pages/**/*.vue',
-		'./plugins/**/*.{js,ts}',
-		'./nuxt.config.{js,ts}',
-	],
+	purge: {
+		content: [
+			'./components/**/*.{vue,js}',
+			'./layouts/**/*.vue',
+			'./pages/**/*.vue',
+			'./plugins/**/*.{js,ts}',
+			'./nuxt.config.{js,ts}',
+		],
+		options: {
+			safelist: [
+				'hidden',
+				'blocks__assign-event',
+				'blocks__assign-event-ghost',
+			],
+		},
+	},
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		colors: {
@@ -22,6 +31,14 @@ module.exports = {
 			black: colors.black,
 			white: colors.white,
 			gray: colors.trueGray,
+		},
+		extend: {
+			minWidth: {
+				'1/4': '25%',
+			},
+			maxHeight: {
+				'1/2-screen': '50vh',
+			},
 		},
 	},
 	variants: {
