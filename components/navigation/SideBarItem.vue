@@ -1,5 +1,8 @@
 <template>
-	<NuxtLink :to="item.to" v-slot="{ isExactActive }">
+	<NuxtLink
+		:to="{ path: item.to, query: { regatta: regattas.selectedId } }"
+		v-slot="{ isExactActive }"
+	>
 		<div
 			:class="[
 				isParentActive(item.to) ? 'bg-primary-800 text-white' : '',
@@ -20,7 +23,13 @@
 
 			<ul v-if="item.items && isParentActive(item.to)">
 				<li v-for="subItem in item.items" :key="subItem.name">
-					<NuxtLink :to="subItem.to" v-slot="{ isExactActive }">
+					<NuxtLink
+						:to="{
+							path: subItem.to,
+							query: { regatta: regattas.selectedId },
+						}"
+						v-slot="{ isExactActive }"
+					>
 						<div
 							:class="[
 								isExactActive
@@ -39,6 +48,9 @@
 </template>
 
 <script lang="ts" setup>
+import { useRegattas } from '~/stores/regattas';
+const regattas = useRegattas();
+
 const router = useRouter();
 
 const isParentActive = (base: string): boolean => {

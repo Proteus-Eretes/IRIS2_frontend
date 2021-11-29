@@ -1,7 +1,9 @@
 <template>
 	<nav class="w-64 h-full flex flex-col">
 		<div class="flex items-end justify-end bg-secondary-500">
-			<NuxtLink to="/">
+			<NuxtLink
+				:to="{ path: '/', query: { regatta: regattas.selectedId } }"
+			>
 				<iris-logo class="text-white w-64 h-24" />
 			</NuxtLink>
 		</div>
@@ -28,7 +30,10 @@
 					During the competition
 				</p>
 				<ul class="px-2 pt-2 pb-3 space-y-1">
-					<li v-for="item in main.competitionNavigation" :key="item.name">
+					<li
+						v-for="item in main.competitionNavigation"
+						:key="item.name"
+					>
 						<side-bar-item :item="item" />
 					</li>
 				</ul>

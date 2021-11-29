@@ -1,5 +1,19 @@
 <template>
-	<div></div>
+	<div>
+		<SlidingContainer>
+			<SlidingPanel>
+				<template #header>Blocks</template>
+
+				<div v-for="block in blocks.getAllBlocks" :key="block.id">
+					{{ block.block }}
+				</div>
+			</SlidingPanel>
+
+			<div>
+				Hey
+			</div>
+		</SlidingContainer>
+	</div>
 </template>
 
 <script lang="ts" setup>

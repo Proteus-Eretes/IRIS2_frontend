@@ -5,6 +5,7 @@
 				uppercase
 				font-medium
                 text-sm
+				truncate
 				rounded-t-md
 				text-white
 				bg-secondary-400

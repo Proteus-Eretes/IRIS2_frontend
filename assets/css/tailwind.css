@@ -4,7 +4,10 @@
 
 @layer components {
 	.sliding-container {
-		
+		@apply flex flex-wrap p-3 gap-3
+	}
+	.sliding-container .sliding-panel {
+		@apply flex-grow max-w-3xl only-of-type:max-w-7xl
 	}
 	.sliding-panel {
 		@apply flex flex-col bg-gray-100 rounded-md shadow-sm;

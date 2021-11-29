@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
-import { Setting } from '~~/types/index.model';
+import { RouteItem } from '~~/types/index.model';
 
 interface RootState {
-	mainNavigation: Setting[];
-	competitionNavigation: Setting[];
-	adminNavigation: Setting[];
+	mainNavigation: RouteItem[];
+	competitionNavigation: RouteItem[];
+	adminNavigation: RouteItem[];
 }
 
 const state = (): RootState => ({

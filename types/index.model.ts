@@ -1,6 +1,6 @@
-export interface Setting {
+export interface RouteItem {
 	name: string;
 	to: string;
 	icon: string;
-	items: Setting[];
+	items: RouteItem[];
 }
