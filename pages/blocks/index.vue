@@ -1,77 +1,86 @@
 <template>
-	<div class="sliding-container">
-		<sliding-panel
-			:index="0"
-			:activePanel="activePanel"
-			@focus="activePanel = 0"
-		>
-			<template #header>Blocks</template>
+	<div>
+		<div class="sliding-container">
+			<sliding-panel
+				:index="0"
+				:activePanel="activePanel"
+				@focus="activePanel = 0"
+			>
+				<template #header>Blocks</template>
 
-			<div v-for="block in blocks.getAllBlocks" :key="block.id">
-				<router-link
-					:to="{ query: { block: block.id } }"
-					@click="selectBlock(block)"
-				>
-					{{ block.block }}
-				</router-link>
-			</div>
-		</sliding-panel>
+				<div>
+					<div v-for="block in blocks.getAllBlocks" :key="block.id">
+						<button type="button" @click="selectBlock(block)">
+							{{ block.block }}
+						</button>
+					</div>
 
-		<sliding-panel
-			:index="1"
-			:activePanel="activePanel"
-			@close="activePanel = 0"
-			@focus="activePanel = 1"
-		>
-			<template #header>
-				Block
-				{{
-					blocks.getSelectedBlock != null
-						? blocks.getSelectedBlock.block
-						: ''
-				}}
-			</template>
+					<button type="button" @click="showAddBlock = true">
+						Add Block
+					</button>
+				</div>
+			</sliding-panel>
 
-			<template #header-buttons>
-				<span
-					class="
-						rounded-full
-						bg-white
-						text-secondary-500
-						font-medium
-						text-sm
-						px-2
-					"
-				>
+			<sliding-panel
+				:index="1"
+				:activePanel="activePanel"
+				@close="activePanel = 0"
+				@focus="activePanel = 1"
+			>
+				<template #header>
+					Block
 					{{
 						blocks.getSelectedBlock != null
-							? blocks.getSelectedBlock.status
+							? blocks.getSelectedBlock.block
 							: ''
 					}}
-				</span>
-			</template>
+				</template>
 
-			<div>
-				<p>
-					{{
-						blocks.getSelectedBlock != null
-							? blocks.getSelectedBlock.id
-							: ''
-					}}
-				</p>
-			</div>
-		</sliding-panel>
+				<template #header-buttons>
+					<span
+						class="
+							rounded-full
+							bg-white
+							text-secondary-500
+							font-medium
+							text-sm
+							px-2
+						"
+					>
+						{{
+							blocks.getSelectedBlock != null
+								? blocks.getSelectedBlock.status
+								: ''
+						}}
+					</span>
+				</template>
 
-		<sliding-panel
-			:index="2"
-			:activePanel="activePanel"
-			@close="activePanel = 1"
-			@focus="activePanel = 2"
-		>
-			<template #header>Test</template>
+				<div v-if="blocks.getSelectedBlockDetail && blocks.getSelectedBlockDetail.fields">
+					<div v-for="field in blocks.getSelectedBlockDetail.fields" :key="field.id">
+						<!-- <button type="button" @click="selectBlock(block)"> -->
+							{{ field.round.name }}
+						<!-- </button> -->
+					</div>
+				</div>
+			</sliding-panel>
+
+			<sliding-panel
+				:index="2"
+				:activePanel="activePanel"
+				@close="activePanel = 1"
+				@focus="activePanel = 2"
+			>
+				<template #header>Test</template>
+
+				Hey
+			</sliding-panel>
+		</div>
+
+		<slide-over v-model:open="showAddBlock">
+			<template #header>Title</template>
 
 			Hey
-		</sliding-panel>
+		</slide-over>
 	</div>
 </template>
 
@@ -81,9 +90,11 @@ import { Block } from '~~/types/block.model';
 
 const blocks = useBlocks();
 blocks.loadBlocks();
+blocks.loadBlockDetails();
 
 // The panel that is last opened
 const activePanel = ref(0);
+const showAddBlock = ref(false);
 
 const router = useRouter();
 const { block, field, crew, rower } = router.currentRoute.value.query;
@@ -92,9 +103,9 @@ if (block && typeof block == 'string') {
 	activePanel.value = 1;
 }
 
+// Remove block
 const selectBlock = (block: Block) => {
-	router.push({
-		path: router.currentRoute.value.path,
+	router.replace({
 		query: { block: block.id, ...router.currentRoute.value.query },
 	});
 

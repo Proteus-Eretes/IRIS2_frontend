@@ -2,11 +2,12 @@
 	<div class="blocks__assign-event group">
 		<DotsVerticalIcon
 			class="icon-white group-hover:icon-primary"
+			aria-hidden="true"
 		/>
 
 		<slot />
 
-		<UserGroupIcon class="icon-primary" />
+		<UserGroupIcon class="icon-primary" aria-hidden="true" />
 
 		<slot name="number-crews" />
 	</div>

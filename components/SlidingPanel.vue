@@ -8,13 +8,15 @@
 		]"
 		:style="`--tw-translate-x: -${translate}%;`"
 	>
-		<a
+		<button type="button"
 			:class="[
 				isMuted ? '' : 'hidden',
 				'block absolute inset-0 rounded-md bg-black opacity-0 hover:opacity-30 transition-opacity',
 			]"
 			@click="$emit('focus')"
-		/>
+		>
+			<span v-if="!isMuted" class="sr-only">Focus panel</span>
+		</button>
 
 		<div class="panel-header">
 			<h2>
@@ -23,9 +25,10 @@
 
 			<slot name="header-buttons" />
 
-			<a v-if="allowClose" @click="$emit('close')">
+			<button type="button" v-if="allowClose" @click="$emit('close')">
+				<span class="sr-only">Close panel</span>
 				<XIcon class="icon-white" />
-			</a>
+			</button>
 		</div>
 
 		<div class="p-2 flex-grow overflow-scroll">

@@ -17,7 +17,11 @@
 					'flex space-x-3 hover:text-white px-3 py-2 rounded-md text-base font-medium',
 				]"
 			>
-				<component :is="item.icon" class="w-6 h-6" />
+				<component
+					:is="getIcon(item.icon)"
+					class="w-6 h-6 text-primary-100"
+					aria-hidden="true"
+				/>
 				<span>{{ item.name }}</span>
 			</div>
 
@@ -58,6 +62,7 @@ import {
 	ShareIcon,
 	MicrophoneIcon,
 	CollectionIcon,
+	XIcon,
 } from '@heroicons/vue/outline';
 import { RouteItem } from '~~/types/index.model';
 
@@ -74,4 +79,30 @@ const isParentActive = (base: string): boolean => {
 const props = defineProps<{
 	item: RouteItem;
 }>();
+
+// FIXME: Dit hoort gewoon als string te werken
+const getIcon = (icon: string) => {
+	switch (icon) {
+		case 'TemplateIcon':
+			return TemplateIcon;
+		case 'ViewGridIcon':
+			return ViewGridIcon;
+		case 'UserGroupIcon':
+			return UserGroupIcon;
+		case 'CalendarIcon':
+			return CalendarIcon;
+		case 'CurrencyEuroIcon':
+			return CurrencyEuroIcon;
+		case 'ClipboardListIcon':
+			return ClipboardListIcon;
+		case 'ShareIcon':
+			return ShareIcon;
+		case 'MicrophoneIcon':
+			return MicrophoneIcon;
+		case 'CollectionIcon':
+			return CollectionIcon;
+		default:
+			return XIcon;
+	}
+};
 </script>

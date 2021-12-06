@@ -1,11 +1,11 @@
 <template>
 	<div class="min-h-screen flex flex-row">
-		<aside class="z-50">
+		<aside class="z-40">
 			<side-bar />
 		</aside>
 
 		<div class="flex-grow min-h-screen flex flex-col">
-			<aside class="z-50">
+			<aside class="z-40">
 				<navigation-bar />
 			</aside>
 

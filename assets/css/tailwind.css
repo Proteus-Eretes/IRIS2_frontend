@@ -10,16 +10,28 @@
 
 @layer components {
 	.container {
-		@apply flex flex-row min-h-full px-5 py-3;
+		@apply flex flex-row
+			min-h-full
+			px-5
+			py-3;
 	}
 	.sliding-container {
-		@apply flex px-5 py-3 gap-3 transform overflow-hidden;
+		@apply flex
+			px-5
+			py-3
+			gap-3
+			transform
+			overflow-hidden;
 	}
 	.sliding-container .sliding-column {
 		@apply transform transition-transform;
 	}
 	.panel {
-		@apply min-w-single-column flex flex-col bg-gray-100 rounded-md shadow-sm;
+		@apply min-w-single-column
+			flex flex-col
+			bg-gray-100
+			rounded-md
+			shadow-sm;
 	}
 	.panel-header {
 		@apply flex flex-row
@@ -39,14 +51,42 @@
 			text-white;
 	}
 
+	.button {
+		@apply inline-flex
+			justify-center
+			py-2
+			px-4
+			shadow-sm
+			text-sm
+			font-medium
+			rounded-md
+			focus:outline-none
+			focus:ring-2
+			focus:ring-offset-2;
+	}
+	.button.button-primary {
+		@apply border border-transparent
+			text-white
+			bg-secondary-500
+			hover:bg-secondary-600
+			focus:ring-secondary-400;
+	}
+	.button.button-secondary {
+		@apply border border-gray-200
+			text-primary-700
+			bg-transparent
+			hover:bg-gray-100
+			focus:ring-secondary-400;
+	}
+
 	.icon-white {
-		@apply w-4 h-4 text-white;
+		@apply w-5 h-5 text-white;
 	}
 	.icon-primary {
-		@apply w-4 h-4 text-primary-400;
+		@apply w-5 h-5 text-primary-400;
 	}
 	.icon-gray {
-		@apply w-4 h-4 text-gray-400;
+		@apply w-5 h-5 text-gray-400;
 	}
 
 	.blocks__assign-event {

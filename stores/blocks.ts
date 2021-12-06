@@ -59,6 +59,9 @@ const getters = {
 	getSelectedBlock(state: BlockState) {
 		return (state.selectedId && state.entities[state.selectedId]) || null;
 	},
+	getSelectedBlockDetail(state: BlockState) {
+		return (state.selectedId && state.detailEntities[state.selectedId]) || null;
+	},
 };
 
 const actions = {
