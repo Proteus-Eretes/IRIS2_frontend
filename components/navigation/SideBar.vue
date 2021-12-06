@@ -22,7 +22,7 @@
 					class="
 						pt-3
 						px-5
-						text-primary-300 text-sm
+						text-primary-500 text-sm
 						font-medium
 						uppercase
 					"
@@ -44,7 +44,7 @@
 					class="
 						pt-3
 						px-5
-						text-primary-300 text-sm
+						text-primary-500 text-sm
 						font-medium
 						uppercase
 					"

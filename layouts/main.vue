@@ -1,11 +1,13 @@
 <template>
 	<div class="min-h-screen flex flex-row">
-		<aside>
+		<aside class="z-50">
 			<side-bar />
 		</aside>
 
 		<div class="flex-grow min-h-screen flex flex-col">
-			<navigation-bar />
+			<aside class="z-50">
+				<navigation-bar />
+			</aside>
 
 			<main class="bg-gray-200 flex-grow">
 				<slot />
@@ -30,10 +32,12 @@ if (regatta && typeof regatta == 'string') {
 	router.push('/regattas');
 }
 
+// FIXME #2 Nuxt middleware
 router.beforeEach((to, from, next) => {
 	const { regatta } = to.query;
-	
-	if ((regatta && typeof regatta == 'string') || to.path == '/regattas') next();
+
+	if ((regatta && typeof regatta == 'string') || to.path == '/regattas')
+		next();
 	else next('/regattas');
 });
 </script>

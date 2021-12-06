@@ -48,20 +48,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useRegattas } from '~/stores/regattas';
-const regattas = useRegattas();
-
-const router = useRouter();
-
-const isParentActive = (base: string): boolean => {
-	if (base === '/') return router.currentRoute.value.fullPath == '/';
-	return router.currentRoute.value.fullPath.includes(base);
-};
-</script>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-
 import {
 	TemplateIcon,
 	ViewGridIcon,
@@ -73,19 +59,19 @@ import {
 	MicrophoneIcon,
 	CollectionIcon,
 } from '@heroicons/vue/outline';
+import { RouteItem } from '~~/types/index.model';
 
-export default defineComponent({
-	components: {
-		TemplateIcon,
-		ViewGridIcon,
-		UserGroupIcon,
-		CalendarIcon,
-		CurrencyEuroIcon,
-		ClipboardListIcon,
-		ShareIcon,
-		MicrophoneIcon,
-		CollectionIcon,
-	},
-	props: ['item'],
-});
+import { useRegattas } from '~/stores/regattas';
+const regattas = useRegattas();
+
+const router = useRouter();
+
+const isParentActive = (base: string): boolean => {
+	if (base === '/') return router.currentRoute.value.fullPath == '/';
+	return router.currentRoute.value.fullPath.includes(base);
+};
+
+const props = defineProps<{
+	item: RouteItem;
+}>();
 </script>

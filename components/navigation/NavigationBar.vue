@@ -3,90 +3,89 @@
 		<div class="px-2 sm:px-6 lg:px-8">
 			<div class="relative flex items-center justify-between h-24">
 				<div class="flex-1">
-					<template v-if="regattas.getSelectedRegetta != null">
-						<h1
-							class="
-								text-lg
-								font-semibold
-								leading-7
-								text-primary-900
-								sm:text-3xl sm:truncate
-							"
-						>
-							{{ regattas.getSelectedRegetta.name }}
-						</h1>
+					<h1
+						class="
+							text-lg
+							font-semibold
+							leading-7
+							text-primary-900
+							sm:text-3xl sm:truncate
+						"
+					>
+					<!-- FIXME Node hydration -->
+						{{
+							regattas.getSelectedRegetta
+								? regattas.getSelectedRegetta.name
+								: 'Regattas'
+						}}
+					</h1>
+					<div
+						class="
+							flex flex-col
+							sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6
+						"
+					>
 						<div
-							class="
-								flex flex-col
-								sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6
-							"
+							class="mt-1 flex items-center text-sm text-gray-500"
 						>
-							<div
+							<CalendarIcon
 								class="
-									mt-1
-									flex
-									items-center
-									text-sm text-gray-500
+									icon-gray
+									flex-shrink-0
+									mr-1.5
 								"
-							>
-								<CalendarIcon
-									class="
-										flex-shrink-0
-										mr-1.5
-										h-5
-										w-5
-										text-gray-400
-									"
-									aria-hidden="true"
-								/>
+								aria-hidden="true"
+							/>
+							<span>
 								{{
-									formatDate(
-										regattas.getSelectedRegetta.start_date
-									)
+									regattas.getSelectedRegetta
+										? formatDate(
+												regattas.getSelectedRegetta
+													.start_date
+										  )
+										: ''
 								}}
-							</div>
-							<div
-								class="
-									mt-1
-									flex
-									items-center
-									text-sm text-gray-500
-								"
-							>
-								<LocationMarkerIcon
-									class="
-										flex-shrink-0
-										mr-1.5
-										h-5
-										w-5
-										text-gray-400
-									"
-									aria-hidden="true"
-								/>
-								{{ regattas.getSelectedRegetta.venue_id }}
-							</div>
-							<div
-								class="
-									mt-1
-									flex
-									items-center
-									text-sm text-gray-500
-								"
-							>
-								<BookmarkIcon
-									class="
-										flex-shrink-0
-										mr-1.5
-										h-5
-										w-5
-										text-gray-400
-									"
-									aria-hidden="true"
-								/>
-								{{ regattas.getSelectedRegetta.race_type }}
-							</div>
+							</span>
 						</div>
-					</template>
+						<div
+							class="mt-1 flex items-center text-sm text-gray-500"
+						>
+							<LocationMarkerIcon
+								class="
+									icon-gray
+									flex-shrink-0
+									mr-1.5
+								"
+								aria-hidden="true"
+							/>
+							<span>
+								{{
+									regattas.getSelectedRegetta
+										? regattas.getSelectedRegetta.venue_id
+										: ''
+								}}
+							</span>
+						</div>
+						<div
+							class="mt-1 flex items-center text-sm text-gray-500"
+						>
+							<BookmarkIcon
+								class="
+									icon-gray
+									flex-shrink-0
+									mr-1.5
+								"
+								aria-hidden="true"
+							/>
+							<span>
+								{{
+									regattas.getSelectedRegetta
+										? regattas.getSelectedRegetta.race_type
+										: ''
+								}}
+							</span>
+						</div>
+					</div>
 				</div>
 
 				<div

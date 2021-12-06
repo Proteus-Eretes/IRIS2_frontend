@@ -35,6 +35,8 @@ module.exports = {
 		extend: {
 			minWidth: {
 				'1/4': '25%',
+				'single-column': '100%',
+				'multiple-column': 'calc(50% - 2rem)'
 			},
 			maxHeight: {
 				'1/2-screen': '50vh',

@@ -1,0 +1,13 @@
+<template>
+	<div class="panel">
+		<div class="panel-header">
+			<h2>
+				<slot name="header" />
+			</h2>
+		</div>
+
+		<div class="p-2 flex-grow overflow-scroll">
+			<slot />
+		</div>
+	</div>
+</template>

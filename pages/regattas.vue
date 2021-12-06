@@ -5,7 +5,7 @@
 				v-for="regatta in regattas.getRegettas"
 				:key="regatta.id"
 				:to="{ path: '/', query: { regatta: regatta.id } }"
-				class="block p-3 bg-white rounded-md shadow-sm cursor-pointer"
+				class="block p-3 bg-white rounded-md shadow-sm"
 				@click="regattas.selectRegatta(regatta.id)"
 			>
 				{{ regatta.name }}

@@ -1,9 +1,9 @@
 <template>
-	<div class="flex flex-row min-h-full p-3">
-		<SlidingPanel class="min-w-1/4 max-h-screen">
+	<div class="container">
+		<panel class="min-w-1/4 max-h-screen" :showPanel="true">
 			<template #header>Available events</template>
 
-			<Draggable
+			<draggable
 				:model-value="list1"
 				@update:model-value="updateEventList($event)"
 				:group="{
@@ -18,14 +18,14 @@
 				ghost-class="hidden"
 			>
 				<template #item="{ element }">
-					<AssignItem>
+					<assign-item>
 						<p class="flex-grow text-sm">
 							{{ element.name }} {{ element.id }}
 						</p>
-					</AssignItem>
+					</assign-item>
 				</template>
-			</Draggable>
-		</SlidingPanel>
+			</draggable>
+		</panel>
 
 		<div
 			class="
@@ -36,7 +36,7 @@
 				w-full
 			"
 		>
-			<SlidingPanel
+			<panel
 				v-for="block in blocks.getBlockDetails"
 				:key="block.id"
 				class="max-h-1/2-screen"
@@ -44,10 +44,14 @@
 				<template #header>Block {{ block.block }}</template>
 
 				<div v-for="round in block.rounds" :key="round.id">
-					<fieldset class="border-2 border-primary-500 rounded-md p-1.5">
-						<legend class="text-primary-600 px-1">{{ round.name }}</legend>
+					<fieldset
+						class="border-2 border-primary-500 rounded-md p-1.5"
+					>
+						<legend class="text-primary-600 px-1">
+							{{ round.name }}
+						</legend>
 
-						<Draggable
+						<draggable
 							:model-value="round.fields"
 							@update:model-value="updateList($event, 2)"
 							:group="{
@@ -61,7 +65,7 @@
 							ghost-class="blocks__assign-event-ghost"
 						>
 							<template #item="{ element }">
-								<AssignItem
+								<assign-item
 									v-if="
 										events.entities &&
 										events.entities[element.id]
@@ -77,24 +81,21 @@
 												.length
 										}}
 									</template>
-								</AssignItem>
+								</assign-item>
 							</template>
-						</Draggable>
+						</draggable>
 					</fieldset>
 				</div>
-			</SlidingPanel>
+			</panel>
 		</div>
 	</div>
 </template>
 
 <script lang="ts" setup>
-import { UserGroupIcon } from '@heroicons/vue/outline';
-
-import SlidingPanel from '~~/components/SlidingPanel.vue';
 import AssignItem from '~~/components/blocks/AssignItem.vue';
 
 // Draggable component: https://github.com/SortableJS/vue.draggable.next
-import Draggable from 'vuedraggable';
+import draggable from 'vuedraggable';
 
 import { useBlocks } from '~~/stores/blocks';
 const blocks = useBlocks();
