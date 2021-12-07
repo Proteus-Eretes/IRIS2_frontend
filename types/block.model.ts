@@ -1,17 +1,14 @@
-import { Event } from './event.model';
+import { Field } from './event.model';
 import { Regatta } from './regatta.model';
-import { Round, RoundDetail } from './round.model';
-import { Team } from './team.model';
+import { RoundDetail } from './round.model';
 
 export interface Block {
-	id_old: number;
-	regatta_id_old: number;
-	block: number;
-	start_date: Date;
-	start_time: Date;
-	status: number;
 	id: string;
 	regatta_id: string;
+	block: number;
+	start_date: Date;
+	start_time: Date; // Waarom een start time EN een start date als in de start time beide zitten?
+	status: number; // Wat betekenen deze statussen?
 	actions: Action[];
 }
 
@@ -27,23 +24,4 @@ export interface Action {
 	icon: string;
 	setting: string;
 	class: string;
-}
-
-export interface Field {
-	id_old: number;
-	block_id_old: number;
-	event_id_old: number;
-	starting_order: number | null;
-	result_status: number;
-	round_id_old: number;
-	start_time: null;
-	regatta_id_old: number;
-	block_id: string;
-	event_id: string;
-	id: string;
-	regatta_id: string;
-	round_id: string;
-	round?: Round;
-	teams?: Team[];
-	event?: Event;
 }

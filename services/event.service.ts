@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import { eventsMock } from '@/util/mock';
-import { Event } from '~~/types/event.model';
+import { eventsMock, fieldsMock } from '@/util/mock';
+import { Event, Field } from '~~/types/event.model';
 
 const BASE_URL = '';
 
@@ -12,8 +12,14 @@ export default {
 		const url = BASE_URL + '/get-events';
 		return await axios.get<Event[]>(url);
 	},
+	async loadFields() {
+		if (this.useMock()) return { data: fieldsMock };
 
-    // FIXME
+		const url = BASE_URL + '/get-fields';
+		return await axios.get<Field[]>(url);
+	},
+
+	// FIXME
 	useMock() {
 		return true;
 	},

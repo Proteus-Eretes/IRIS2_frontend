@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { RouteItem } from '~~/types/index.model';
+import { RouteItem } from '~~/types/route-item.model';
 
 interface RootState {
 	mainNavigation: RouteItem[];

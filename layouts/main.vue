@@ -17,17 +17,21 @@
 </template>
 
 <script lang="ts" setup>
+import { useUrlSearchParams } from '@vueuse/core';
+
+import { useRegattas } from '@/stores/regattas';
+
 import SideBar from '~~/components/navigation/SideBar.vue';
 import Navigationbar from '~~/components/navigation/NavigationBar.vue';
 
-import { useRegattas } from '@/stores/regattas';
 const regattas = useRegattas();
 regattas.loadRegattas();
 
 const router = useRouter();
-const { regatta } = router.currentRoute.value.query;
+
+const { regatta } = useUrlSearchParams('history');
 if (regatta && typeof regatta == 'string') {
-	regattas.selectRegatta(regatta);
+	regattas.selectedId = regatta;
 } else {
 	router.push('/regattas');
 }

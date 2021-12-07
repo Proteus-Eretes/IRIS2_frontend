@@ -1,30 +1,28 @@
 export interface Rower {
-	id_old: number;
-	club_id_old: number;
+	id: string;
+	regatta_id: string; // Waarom is een roeier gelinkt aan een regatta? Een roeier kan vaker voorkomen, toch? Hetzelfde voor een club?
+	club_id: string;
 	knrb: string;
+	knrb_num: null; // Wat is dit?
+	license: number;
+	fullName: string;
 	initals: string;
 	firstname: string;
 	middlename: string;
 	lastname: string;
 	year_of_birth: null;
 	gender: string;
-	license: number;
-	knrb_num: null;
-	regatta_id_old: number;
-	club_id: string;
-	regatta_id: string;
-	id: string;
 	_joinData: JoinData;
-	fullName: string;
 }
 
+// Wat is Join Data?
 export interface JoinData {
+	id: string;
 	id_old: number;
+	crew_id: string;
 	crew_id_old: number;
+	rower_id: string;
 	rower_id_old: number;
 	role: number;
 	position: number;
-	id: string;
-	crew_id: string;
-	rower_id: string;
 }

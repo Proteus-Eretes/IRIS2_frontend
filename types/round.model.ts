@@ -1,27 +1,16 @@
-import { Block, Field } from './block.model';
+import { Block } from './block.model';
+import { Field } from './event.model';
+import { Location } from './result.model';
 
 export interface Round {
-	id_old: number;
-	name: string;
-	multiplier: number;
-	regatta_id_old: number;
-	regatta_id: string;
 	id: string;
+	regatta_id: string;
+	name: string;
+	multiplier: number; // Wat is een multiplier?
 }
 
 export interface RoundDetail extends Round {
 	fields: Field[];
 	locations: Location[];
 	blocks: Block[];
-}
-
-export interface Location {
-	id_old: number;
-	name: string;
-	regatta_id_old: number;
-	distance: number;
-	type: string;
-	id: string;
-	regatta_id: string;
-	waypoint: boolean;
 }

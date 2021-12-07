@@ -1,23 +1,21 @@
 export interface Club {
-	id_old: number;
+	id: string;
+	regatta_id: string;
+	knrb_num: number;
 	code: string;
 	name: string;
 	federation: string;
-	address: string;
-	city: string;
 	blade: string;
-	trousers: string;
 	shirt: string;
-	contact_mobile: string;
-	emergency_mobile: string;
-	contact_phone: string;
-	emergency_phone: string;
+	trousers: string;
 	contact_name: string;
-	emergency_name: string;
+	contact_mobile: string;
+	contact_phone: string;
 	contact_fax: string;
 	contact_email: string;
-	regatta_id_old: number;
-	knrb_num: number;
-	id: string;
-	regatta_id: string;
+	emergency_name: string;
+	emergency_mobile: string;
+	emergency_phone: string;
+	address: string;
+	city: string;
 }

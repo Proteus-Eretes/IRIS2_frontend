@@ -64,7 +64,7 @@ import {
 	CollectionIcon,
 	XIcon,
 } from '@heroicons/vue/outline';
-import { RouteItem } from '~~/types/index.model';
+import { RouteItem } from '~~/types/route-item.model';
 
 import { useRegattas } from '~/stores/regattas';
 const regattas = useRegattas();
@@ -80,7 +80,7 @@ const props = defineProps<{
 	item: RouteItem;
 }>();
 
-// FIXME: Dit hoort gewoon als string te werken
+// FIXME Dit hoort gewoon als string te werken
 const getIcon = (icon: string) => {
 	switch (icon) {
 		case 'TemplateIcon':

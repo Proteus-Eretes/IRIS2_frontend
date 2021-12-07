@@ -12,10 +12,10 @@
 							sm:text-3xl sm:truncate
 						"
 					>
-					<!-- FIXME Node hydration -->
+						<!-- FIXME Node hydration -->
 						{{
-							regattas.getSelectedRegetta
-								? regattas.getSelectedRegetta.name
+							regattas.selectedRegatta
+								? regattas.selectedRegatta.name
 								: 'Regattas'
 						}}
 					</h1>
@@ -29,18 +29,14 @@
 							class="mt-1 flex items-center text-sm text-gray-500"
 						>
 							<CalendarIcon
-								class="
-									icon-gray
-									flex-shrink-0
-									mr-1.5
-								"
+								class="icon-gray flex-shrink-0 mr-1.5"
 								aria-hidden="true"
 							/>
 							<span>
 								{{
-									regattas.getSelectedRegetta
+									regattas.selectedRegatta
 										? formatDate(
-												regattas.getSelectedRegetta
+												regattas.selectedRegatta
 													.start_date
 										  )
 										: ''
@@ -51,17 +47,13 @@
 							class="mt-1 flex items-center text-sm text-gray-500"
 						>
 							<LocationMarkerIcon
-								class="
-									icon-gray
-									flex-shrink-0
-									mr-1.5
-								"
+								class="icon-gray flex-shrink-0 mr-1.5"
 								aria-hidden="true"
 							/>
 							<span>
 								{{
-									regattas.getSelectedRegetta
-										? regattas.getSelectedRegetta.venue_id
+									regattas.selectedRegatta
+										? regattas.selectedRegatta.venue_id
 										: ''
 								}}
 							</span>
@@ -70,17 +62,13 @@
 							class="mt-1 flex items-center text-sm text-gray-500"
 						>
 							<BookmarkIcon
-								class="
-									icon-gray
-									flex-shrink-0
-									mr-1.5
-								"
+								class="icon-gray flex-shrink-0 mr-1.5"
 								aria-hidden="true"
 							/>
 							<span>
 								{{
-									regattas.getSelectedRegetta
-										? regattas.getSelectedRegetta.race_type
+									regattas.selectedRegatta
+										? regattas.selectedRegatta.race_type
 										: ''
 								}}
 							</span>
@@ -193,12 +181,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useRegattas } from '~~/stores/regattas';
+import * as dayjs from 'dayjs';
 
-const regattas = useRegattas();
-</script>
-
-<script lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline';
 import {
@@ -208,26 +192,11 @@ import {
 	BookmarkIcon,
 } from '@heroicons/vue/solid';
 
-import * as dayjs from 'dayjs';
+import { useRegattas } from '~~/stores/regattas';
 
-export default defineComponent({
-	components: {
-		Menu,
-		MenuButton,
-		MenuItem,
-		MenuItems,
-		BellIcon,
-		MenuIcon,
-		XIcon,
-		UserIcon,
-		CalendarIcon,
-		LocationMarkerIcon,
-		BookmarkIcon,
-	},
-	methods: {
-		formatDate(date: Date) {
-			return dayjs(date).format('DD-MM-YYYY');
-		},
-	},
-});
+const regattas = useRegattas();
+
+const formatDate = (date: Date) => {
+	return dayjs(date).format('DD-MM-YYYY');
+};
 </script>

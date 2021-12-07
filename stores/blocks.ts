@@ -50,16 +50,16 @@ const state = (): BlockState => ({
 });
 
 const getters = {
-	getAllBlocks(state: BlockState) {
+	allBlocks(state: BlockState) {
 		return state.ids.map((id: string) => state.entities[id]);
 	},
-	getBlockDetails(state: BlockState) {
+	allBlockDetails(state: BlockState) {
 		return state.detailIds.map((id: string) => state.detailEntities[id]);
 	},
-	getSelectedBlock(state: BlockState) {
+	selectedBlock(state: BlockState) {
 		return (state.selectedId && state.entities[state.selectedId]) || null;
 	},
-	getSelectedBlockDetail(state: BlockState) {
+	selectedBlockDetail(state: BlockState) {
 		return (state.selectedId && state.detailEntities[state.selectedId]) || null;
 	},
 };
@@ -96,9 +96,6 @@ const actions = {
 
 		this.detailIds = blockIds;
 		this.detailEntities = blockEntities;
-	},
-	selectBlock(id: string) {
-		this.selectedId = id;
 	},
 	add(block: Block) {},
 	delete(block: Block) {},

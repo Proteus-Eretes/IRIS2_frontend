@@ -8,9 +8,9 @@
 			>
 				<template #header>Blocks</template>
 
-				<div>
-					<div v-for="block in blocks.getAllBlocks" :key="block.id">
-						<button type="button" @click="selectBlock(block)">
+				<div v-if="blocks.allBlocks">
+					<div v-for="block in blocks.allBlocks" :key="block.id">
+						<button type="button" @click="selectBlock(block.id)">
 							{{ block.block }}
 						</button>
 					</div>
@@ -19,19 +19,20 @@
 						Add Block
 					</button>
 				</div>
+				<div v-else>Nothing</div>
 			</sliding-panel>
 
 			<sliding-panel
 				:index="1"
 				:activePanel="activePanel"
-				@close="activePanel = 0"
+				@close="deselectBlock()"
 				@focus="activePanel = 1"
 			>
 				<template #header>
 					Block
 					{{
-						blocks.getSelectedBlock != null
-							? blocks.getSelectedBlock.block
+						blocks.selectedBlock != null
+							? blocks.selectedBlock.block
 							: ''
 					}}
 				</template>
@@ -48,31 +49,66 @@
 						"
 					>
 						{{
-							blocks.getSelectedBlock != null
-								? blocks.getSelectedBlock.status
+							blocks.selectedBlock != null
+								? blocks.selectedBlock.status
 								: ''
 						}}
 					</span>
 				</template>
 
-				<div v-if="blocks.getSelectedBlockDetail && blocks.getSelectedBlockDetail.fields">
-					<div v-for="field in blocks.getSelectedBlockDetail.fields" :key="field.id">
-						<!-- <button type="button" @click="selectBlock(block)"> -->
-							{{ field.round.name }}
-						<!-- </button> -->
-					</div>
+				<div v-if="blocks.selectedBlockDetail">
+					<h3>Rounds</h3>
+					<template v-if="blocks.selectedBlockDetail.rounds">
+						<div
+							v-for="round in blocks.selectedBlockDetail.rounds"
+							:key="round.id"
+						>
+							{{ round.name }}
+						</div>
+					</template>
+
+					<h3>Fields</h3>
+					<template v-if="blocks.selectedBlockDetail.fields">
+						<div
+							v-for="field in blocks.selectedBlockDetail.fields"
+							:key="field.id"
+						>
+							<button type="button" @click="selectField(field.id)">
+								{{ field.round.name }}
+							</button>
+						</div>
+					</template>
 				</div>
+				<div v-else>Nothing</div>
 			</sliding-panel>
 
 			<sliding-panel
 				:index="2"
 				:activePanel="activePanel"
-				@close="activePanel = 1"
+				@close="deselectField()"
 				@focus="activePanel = 2"
 			>
-				<template #header>Test</template>
+				<template #header>
+					{{
+						events.selectedField && events.selectedEvent
+							? events.selectedEvent.code
+							: ''
+					}}
+				</template>
 
-				Hey
+				<div v-if="events.selectedEvent">
+					<template v-if="events.selectedEvent.crews">
+						<div
+							v-for="crew in events.selectedEvent.crews"
+							:key="crew.id"
+						>
+							<!-- <button type="button" @click="selectField(field)"> -->
+							{{ crew.name }}
+							<!-- </button> -->
+						</div>
+					</template>
+				</div>
+				<div v-else>Nothing</div>
 			</sliding-panel>
 		</div>
 
@@ -85,33 +121,72 @@
 </template>
 
 <script lang="ts" setup>
+import { useUrlSearchParams } from '@vueuse/core';
+
 import { useBlocks } from '~~/stores/blocks';
+import { useEvents } from '~~/stores/events';
+
 import { Block } from '~~/types/block.model';
+import { Field } from '~~/types/event.model';
 
 const blocks = useBlocks();
 blocks.loadBlocks();
 blocks.loadBlockDetails();
 
+const events = useEvents();
+events.loadEvents();
+events.loadFields();
+
 // The panel that is last opened
 const activePanel = ref(0);
 const showAddBlock = ref(false);
 
+/*
+ * useUrlSearchParams to add and delete search params in url:
+ * /path?these=are&search=params
+ */
+const params = useUrlSearchParams('history');
+
+const selectBlock = (id: string) => {
+	activePanel.value = 1;
+
+	blocks.selectedId = id;
+
+	params.block = id;
+};
+const selectField = (id: string) => {
+	activePanel.value = 2;
+
+	events.selectedFieldId = id;
+	events.selectedEventId = events.selectedField
+		? events.selectedField.event_id
+		: null;
+
+	params.field = id;
+};
+
+const deselectBlock = () => {
+	activePanel.value = 0;
+
+	blocks.selectedId = null;
+
+	delete params.block;
+};
+const deselectField = () => {
+	activePanel.value = 1;
+
+	events.selectedFieldId = null;
+	events.selectedEventId = null;
+
+	delete params.field;
+};
+
+// TODO waarom werken urlsearchparams niet?
+// If the queries are set in the router, select the items
 const router = useRouter();
 const { block, field, crew, rower } = router.currentRoute.value.query;
-if (block && typeof block == 'string') {
-	blocks.selectBlock(block);
-	activePanel.value = 1;
-}
-
-// Remove block
-const selectBlock = (block: Block) => {
-	router.replace({
-		query: { block: block.id, ...router.currentRoute.value.query },
-	});
-
-	activePanel.value = 1;
-	blocks.selectBlock(block.id);
-};
+if (block && typeof block == 'string') selectBlock(block);
+if (field && typeof field == 'string') selectField(field);
 </script>
 
 <script lang="ts">

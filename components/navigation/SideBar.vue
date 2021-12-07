@@ -9,7 +9,7 @@
 		</div>
 
 		<div class="flex-grow bg-primary-700">
-			<section v-if="regattas.getSelectedRegetta != null">
+			<section v-if="regattas.selectedRegatta != null">
 				<ul class="px-2 pt-3 pb-3 space-y-1">
 					<li v-for="item in main.mainNavigation" :key="item.name">
 						<side-bar-item :item="item" />
@@ -17,7 +17,7 @@
 				</ul>
 			</section>
 
-			<section v-if="regattas.getSelectedRegetta != null">
+			<section v-if="regattas.selectedRegatta != null">
 				<p
 					class="
 						pt-3

@@ -1,18 +1,16 @@
 export interface Regatta {
-	id_old: number;
+	id: string;
+	venue_id: string;
 	name: string;
 	file: string;
 	start_date: Date;
 	end_date: Date;
 	race_type: string;
+	breaking_news: string; // Is dit een notificatie?
+	correction_factor_settings: number;
+	correction_factor_type: null;
 	//FIXME waarom is dit een JSON object als string?
 	lottery_settings: LotterySettings;
-	breaking_news: string;
-	correction_factor_settings: number;
-	venue_id_old: number;
-	id: string;
-	venue_id: string;
-	correction_factor_type: null;
 }
 
 export interface LotterySettings {

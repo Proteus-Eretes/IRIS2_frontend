@@ -30,10 +30,10 @@ const state = (): RegattaState => ({
 });
 
 const getters = {
-	getRegettas(state: RegattaState) {
+	allRegattas(state: RegattaState) {
 		return state.ids.map((id: string) => state.entities[id]);
 	},
-	getSelectedRegetta(state: RegattaState) {
+	selectedRegatta(state: RegattaState) {
 		return (state.selectedId && state.entities[state.selectedId]) || null;
 	},
 };
@@ -54,9 +54,6 @@ const actions = {
 
 		this.ids = regattaIds;
 		this.entities = regattaEntities;
-	},
-	selectRegatta(id: string) {
-		this.selectedId = id;
 	},
 	add(regatta: Regatta) {},
 	delete(regatta: Regatta) {},

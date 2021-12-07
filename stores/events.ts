@@ -14,27 +14,42 @@
 
 import { defineStore } from 'pinia';
 
-import { Event } from '~~/types/event.model';
+import { Event, Field } from '~~/types/event.model';
 import eventService from '~~/services/event.service';
 
 interface EventState {
 	ids: string[];
 	entities: { [id: string]: Event };
-	selectedId: string | null;
+	fieldIds: string[];
+	fieldEntities: { [id: string]: Field };
+	selectedEventId: string | null;
+	selectedFieldId: string | null;
 }
 
 const state = (): EventState => ({
 	ids: [],
 	entities: {},
-	selectedId: null,
+	fieldIds: [],
+	fieldEntities: {},
+	selectedEventId: null,
+	selectedFieldId: null,
 });
 
 const getters = {
-	getAllEvents(state: EventState) {
+	allEvents(state: EventState) {
 		return state.ids.map((id: string) => state.entities[id]);
 	},
-	getSelectedEvent(state: EventState) {
-		return (state.selectedId && state.entities[state.selectedId]) || null;
+	selectedEvent(state: EventState) {
+		return (
+			(state.selectedEventId && state.entities[state.selectedEventId]) ||
+			null
+		);
+	},
+	selectedField(state: EventState) {
+		return (
+			(state.selectedFieldId && state.fieldEntities[state.selectedFieldId]) ||
+			null
+		);
 	},
 };
 
@@ -55,8 +70,21 @@ const actions = {
 		this.ids = eventIds;
 		this.entities = eventEntities;
 	},
-	selectEvent(id: string) {
-		this.selectedId = id;
+	async loadFields() {
+		const { data } = await eventService.loadFields();
+
+		const loadedFields = data;
+
+		const fieldIds = loadedFields.map((field) => field.id);
+		const fieldEntities = loadedFields.reduce(
+			(entities: { [id: string]: Field }, field: Field) => {
+				return { ...entities, [field.id]: field };
+			},
+			{}
+		);
+
+		this.fieldIds = fieldIds;
+		this.fieldEntities = fieldEntities;
 	},
 	add(event: Event) {},
 	delete(event: Event) {},

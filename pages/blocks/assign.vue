@@ -37,7 +37,7 @@
 			"
 		>
 			<panel
-				v-for="block in blocks.getBlockDetails"
+				v-for="block in blocks.allBlockDetails"
 				:key="block.id"
 				class="max-h-1/2-screen"
 			>
