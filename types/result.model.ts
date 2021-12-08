@@ -4,10 +4,10 @@ export interface Result {
 	team_id: string;
 	location_id: string;
 	deviation: number; // Is dit seconden?
-	pulses: null; // Is dit niet times?
+	pulses: null; // Is dit niet hetzelfde als 'times'?
 	status: number;
-	location: Location; // Waarom wordt de locatie gegeven terwijl er ook een location_id is? Dit is vaker. Ik wil eigenlijk alleen ids.
-	time: string; // Wat is dit? Waarom worden hier ineens UNIX gegeven?
+	location: Location;
+	time: string; // Waarom worden hier ineens UNIX gegeven?
 	times: Time[];
 }
 
@@ -31,7 +31,7 @@ export interface Time {
 
 export interface Location {
 	id: string;
-	regatta_id: string; // Kan een locatie niet vaker voorkomen?
+	regatta_id: string;
 	name: string;
 	distance: number;
 	type: string;

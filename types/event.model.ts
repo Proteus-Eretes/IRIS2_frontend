@@ -6,23 +6,23 @@ export interface Event {
 	id: string;
 	regatta_id: string;
 	cost_id: string;
-	parent: null; // Wat is de parent?
-	sub_crews?: Crew[]; // Wat is het verschil tussen sub_crews en crews?
-	crews?: Crew[];
-	fields?: Field[];
+	parent: null; // Wat is de 'parent'?
 	event: number;
+	number: number; // Is dit hetzelfde als 'event'?
 	day: Date; // Wordt een event op alleen een dag gedaan? Is dat anders dan de regatta?
-	number: number; // Is dit hetzelfde als event?
 	code: string; 
-	name: string; // Is dit hetzelfde als name?
+	name: string; // Is dit hetzelfde als 'name'?
 	remarks: string;
 	status: DisplayStatus; // Wat zijn de verschillende statussen?
 	category: string;
 	block_knrb: null; // Wat is dit?
-	boat_type: string;
+	boat_type: string; // Is dit een enum?
 	weighed: boolean;
 	sex: string;
 	correction_factor_boat: number;
+	sub_crews?: Crew[]; // Wat is het verschil tussen 'sub_crews' en 'crews'?
+	crews?: Crew[];
+	fields?: Field[];
 }
 
 export interface Field {
@@ -32,7 +32,7 @@ export interface Field {
 	regatta_id: string;
 	round_id: string;
 	starting_order: number | null;
-	result_status: number; // Wat zijn de statussen?
+	result_status: number; // Ook hier wat is de enum met statussen?
 	start_time: null; // Kan dit niet ook op verschillende dagen zijn?
 	round?: Round;
 	teams?: Team[];

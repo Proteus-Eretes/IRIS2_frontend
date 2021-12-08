@@ -90,6 +90,7 @@
 					<button
 						type="button"
 						class="
+							relative
 							bg-white
 							p-1
 							rounded-full
@@ -104,6 +105,21 @@
 					>
 						<span class="sr-only">View notifications</span>
 						<BellIcon class="h-6 w-6" aria-hidden="true" />
+						<div
+							v-if="
+								regattas.selectedRegatta &&
+								regattas.selectedRegatta.breaking_news
+							"
+							class="
+								w-2.5
+								h-2.5
+								absolute
+								top-1
+								right-1
+								rounded-full
+								bg-secondary-500
+							"
+						/>
 					</button>
 
 					<!-- Profile dropdown -->

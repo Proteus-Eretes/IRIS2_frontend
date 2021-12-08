@@ -6,10 +6,10 @@ export interface Regatta {
 	start_date: Date;
 	end_date: Date;
 	race_type: string;
-	breaking_news: string; // Is dit een notificatie?
-	correction_factor_settings: number;
-	correction_factor_type: null;
-	//FIXME waarom is dit een JSON object als string?
+	breaking_news: string;
+	correction_factor_settings: number; // Is dit een object?
+	correction_factor_type: null; // Wat is dit?
+	// Waarom is dit een JSON object als string?
 	lottery_settings: LotterySettings;
 }
 

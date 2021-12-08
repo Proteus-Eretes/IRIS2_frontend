@@ -6,42 +6,42 @@ import { Rower } from './rower.model';
 
 export interface Crew {
 	id: string;
-	event_id: string;
 	club_id: string;
 	regatta_id: string;
-	sub_event?: null;
+	event_id: string;
 	sub_event_id: null; // Wat is een sub_event?
 	subEventCode: string;
 	knrb_num: number;
 	knrb_sequence: number; // Wat is de sequence?
 	status: number;
 	result_status: null;
-	clubName: string; // Waarom wordt hier ook nog de club naam apart gegeven?
-	displayName: string; // Wat is het verschil tussen displayName en name?
+	clubName: string;
+	displayName: string; // Wat is het verschil tussen 'displayName' en 'name'?
 	name: string;
-	shortname: string;
+	shortname: string; // Wat is het verschil tussen 'shortname' en 'alternative'?
 	alternative: string;
 	sequence: number;
 	combination: null;
 	boat: string; // Wat is boat en boattype?
 	boattype: string;
-	remarks: null;
+	remarks: null; // Wat is het verschil tussen 'remarks' en 'public_remarks'?
+	public_remarks: null;
 	remarks_for_umpire: null;
 	penalty_reason: null;
 	correction_factor: number;
 	category: string;
-	calculated_category: string;
+	calculated_category: string; // Wat is het verschil tussen 'category' en 'calculated_category'?
 	local: number; // Wat is dit?
-	public_remarks: null;
 	payments?: any[];
 	crews_data?: any[]; // Wat is dit?
 	fines?: any[];
-	coxes?: any[]; // Kunnen dit niet gewoon Rowers zijn met aparte rol?
+	coxes?: any[]; // Kan dit niet samen met 'rowers' omdat het enige verschil de rol is?
 	coaches?: any[];
 	displayStatus: DisplayStatus;
 	rowers?: Rower[];
 	club?: Club;
 	event?: Event;
+	sub_event?: null; // Wat is het verschil tussen 'sub_evetn' en 'event'?
 }
 
 export interface Team {

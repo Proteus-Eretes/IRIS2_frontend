@@ -3,13 +3,12 @@ import { Regatta } from './regatta.model';
 import { RoundDetail } from './round.model';
 
 export interface Block {
-	id: string;
+	id: string; // Zijn alle '_oud' ids nog nodig?
 	regatta_id: string;
 	block: number;
-	start_date: Date;
-	start_time: Date; // Waarom een start time EN een start date als in de start time beide zitten?
-	status: number; // Wat betekenen deze statussen?
-	actions: Action[];
+	start_time: Date;
+	status: number; // Wat zijn de waarden van deze statussen?
+	actions: Action[]; // Kan dit in de frontend?
 }
 
 export interface BlockDetail extends Block {
