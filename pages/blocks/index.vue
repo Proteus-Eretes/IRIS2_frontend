@@ -103,7 +103,7 @@
 							:key="crew.id"
 						>
 							<!-- <button type="button" @click="selectField(field)"> -->
-							{{ crew.name }}
+							{{ crew.displayName }}
 							<!-- </button> -->
 						</div>
 					</template>

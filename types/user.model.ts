@@ -9,7 +9,7 @@ export interface User {
 }
 
 export enum Role {
-	Admin = 'admin',
-	RegattaOwner = 'regatta_owner',
-	RegattaUser = 'regatta_user',
+	ADMIN = 3,
+	REGATTA_OWNER = 2,
+	REGATTA_USER = 1,
 }

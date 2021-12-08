@@ -3,7 +3,7 @@ export interface Club {
 	regatta_id: string;
 	knrb_num: number;
 	code: string;
-	name: string; // Is dit hetzelfde als 'code'?
+	name: string;
 	federation: string;
 	blade: string;
 	shirt: string;

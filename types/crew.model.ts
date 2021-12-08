@@ -1,5 +1,4 @@
 import { Club } from './club.model';
-import { DisplayStatus } from './display-status.model';
 import { Event } from './event.model';
 import { Result } from './result.model';
 import { Rower } from './rower.model';
@@ -9,35 +8,34 @@ export interface Crew {
 	club_id: string;
 	regatta_id: string;
 	event_id: string;
-	sub_event_id: null; // Wat is een sub_event?
+	sub_event_id: string | null; // Als er te weinig ploegen zijn voor een eigen veld
 	subEventCode: string;
 	knrb_num: number;
-	knrb_sequence: number; // Wat is de sequence?
-	status: number;
-	result_status: null;
+	knrb_sequence: number; // Aangewezen door KNRB
+	sequence: number; // Van wedstrijdleiding
+	status: CrewStatus;
+	result_status: TeamResultStatus;
 	clubName: string;
-	displayName: string; // Wat is het verschil tussen 'displayName' en 'name'?
+	displayName: string; // Preferred display name
 	name: string;
-	shortname: string; // Wat is het verschil tussen 'shortname' en 'alternative'?
-	alternative: string;
-	sequence: number;
+	shortname: string; // Assigned by KNRB
+	alternative: string; // Created by Crew
 	combination: null;
-	boat: string; // Wat is boat en boattype?
+	boat: string; // Boat number
 	boattype: string;
-	remarks: null; // Wat is het verschil tussen 'remarks' en 'public_remarks'?
-	public_remarks: null;
-	remarks_for_umpire: null;
-	penalty_reason: null;
+	remarks: string | null; // Voor wedstrijdleiding
+	public_remarks: string | null; // Voor op hoesnelwasik.nl
+	remarks_for_umpire: string | null;
+	penalty_reason: string | null;
 	correction_factor: number;
-	category: string;
-	calculated_category: string; // Wat is het verschil tussen 'category' en 'calculated_category'?
-	local: number; // Wat is dit?
+	category: string; // Preferred category (this is used)
+	calculated_category: string; // Assigned category
+	local: boolean; // Of het is gewijzigd lokaal
 	payments?: any[];
-	crews_data?: any[]; // Wat is dit?
 	fines?: any[];
 	coxes?: any[]; // Kan dit niet samen met 'rowers' omdat het enige verschil de rol is?
 	coaches?: any[];
-	displayStatus: DisplayStatus;
+	displayStatus: CrewStatus;
 	rowers?: Rower[];
 	club?: Club;
 	event?: Event;
@@ -53,12 +51,27 @@ export interface Team {
 	crew: Crew;
 	toss_reason: string | null;
 	shirt_number: number | null;
-	penalty_time: number; // Is dit in seconden?
+	penalty_time: number; // In seconden
 	penalty_reason: string;
 	deleted: boolean;
-	user_set_deleted: boolean; // Wat is het verschil met deleted?
+	user_set_deleted: boolean;
 	equal_time_correction: string;
-	results: Result[]; // Hoe ziet een result er uit?
-	result_status: number;
+	results: Result[];
+	result_status: TeamResultStatus;
 	finishTime: number;
+}
+
+export enum CrewStatus {
+	ENTERED = 1,
+	WITHDRAWN_AFTER_LOTTERY_WITHOUT_FINE = 2,
+	WITHDRAWN_BEFORE_LOTTERY = 8,
+	WITHDRAWN_AFTER_LOTTERY_WITH_FINE = 16,
+}
+
+export enum TeamResultStatus {
+	EXCLUDED = 1,
+    DISQUALIFIED = 2,
+    OUTSIDE_COMPETITION = 4,
+    DNS = 8,
+    DNF = 16,
 }

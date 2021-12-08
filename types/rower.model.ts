@@ -3,7 +3,7 @@ export interface Rower {
 	regatta_id: string;
 	club_id: string;
 	knrb: string;
-	knrb_num: null; // Is dit hetzelfde als 'knrb'?
+	knrb_num: null; // Old system
 	license: number;
 	fullName: string;
 	initals: string;
@@ -11,7 +11,7 @@ export interface Rower {
 	middlename: string;
 	lastname: string;
 	year_of_birth: null;
-	gender: string;
+	gender: Gender | null;
 	_joinData: JoinData; // Wat is JoinData?
 }
 
@@ -20,6 +20,18 @@ export interface JoinData {
 	id: string;
 	crew_id: string;
 	rower_id: string;
-	role: number;
+	role: RowerRole;
 	position: number;
+}
+
+export enum Gender {
+	MAN = 'M',
+	WOMEN = 'W',
+	MIX = 'X',
+}
+
+export enum RowerRole {
+	ROWER = 1,
+    COX = 2,
+    COACH = 3,
 }

@@ -1,19 +1,20 @@
+import { Location } from "./location.model";
+
 export interface Result {
 	id: string;
 	round_id: string;
 	team_id: string;
 	location_id: string;
-	deviation: number; // Is dit seconden?
+	deviation: number; // Milliseconds
 	pulses: null; // Is dit niet hetzelfde als 'times'?
-	status: number;
+	status: ResultStatus;
 	location: Location;
-	time: string; // Waarom worden hier ineens UNIX gegeven?
+	time: string; // Starttijd
 	times: Time[];
 }
 
 export interface Time {
 	id: string;
-    // Waarom worden hier ook nog eens de ids gegeven?
 	result_id: string;
 	location_id: string;
 	round_id: string;
@@ -25,15 +26,20 @@ export interface Time {
 	deviation: number;
 	assigned: boolean;
 	deleted: boolean;
-	status: string;
-	stopwatch: string; // Wat is dit?
+	status: TimeStatus;
+	stopwatch: string; // If it has been filled in manually
 }
 
-export interface Location {
-	id: string;
-	regatta_id: string;
-	name: string;
-	distance: number;
-	type: string;
-	waypoint: boolean;
+export enum ResultStatus {
+	GOOD = 0,
+	OKAY = 1,
+	UNCLEAR = 2,
+	WRONG = 3,
+	EQUAL_TIMES = 4,
+}
+
+export enum TimeStatus {
+	ASSIGNED = 'assigned',
+	DELETED = 'deleted',
+	UNASSIGNED = 'unassigned',
 }

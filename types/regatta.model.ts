@@ -5,11 +5,10 @@ export interface Regatta {
 	file: string;
 	start_date: Date;
 	end_date: Date;
-	race_type: string;
+	race_type: RegattaType;
 	breaking_news: string;
 	correction_factor_settings: number; // Is dit een object?
 	correction_factor_type: null; // Wat is dit?
-	// Waarom is dit een JSON object als string?
 	lottery_settings: LotterySettings;
 }
 
@@ -23,4 +22,9 @@ export interface LotterySettings {
 	matchingRowersFor2: number;
 	matchingRowersFor1: number;
 	previousYearClubsExcludeCombiationCrews: number;
+}
+
+export enum RegattaType {
+	CHASE = 'chase',
+	ALL_ROUND = 'all-around',
 }

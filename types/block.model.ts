@@ -3,12 +3,11 @@ import { Regatta } from './regatta.model';
 import { RoundDetail } from './round.model';
 
 export interface Block {
-	id: string; // Zijn alle '_oud' ids nog nodig?
+	id: string;
 	regatta_id: string;
 	block: number;
 	start_time: Date;
-	status: number; // Wat zijn de waarden van deze statussen?
-	actions: Action[]; // Kan dit in de frontend?
+	status: BlockStatus;
 }
 
 export interface BlockDetail extends Block {
@@ -17,10 +16,20 @@ export interface BlockDetail extends Block {
 	regatta: Regatta;
 }
 
-export interface Action {
+export interface BlockAction {
 	link: string;
 	id: string;
 	icon: string;
 	setting: string;
 	class: string;
+}
+
+// TODO In apart bestand?
+export enum BlockStatus {
+	CREATED = 1,
+	ROUNDS_ASSIGNED = 2,
+	EVENTS_ASSIGNED = 4,
+	START_ORDER = 8,
+	TOSSED = 16,
+	SHIRT_NUMBERS_ASSIGNED = 32,
 }
