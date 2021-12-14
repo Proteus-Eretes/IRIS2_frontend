@@ -42,6 +42,9 @@ export const useEvents = defineStore('events', {
 		allEvents(state: EventState) {
 			return state.ids.map((id: string) => state.entities[id]);
 		},
+		allFields(state: EventState) {
+			return state.fieldIds.map((id: string) => state.fieldEntities[id]);
+		},
 		allFieldsOfSelectedBlock(state: EventState) {
 			const allFields = state.fieldIds.map(
 				(id: string) => state.fieldEntities[id]
@@ -51,6 +54,15 @@ export const useEvents = defineStore('events', {
 			return allFields.filter(
 				(field: Field) => field.block_id == selectedBlockId
 			);
+		},
+		allFieldsByRoundId(state: EventState) {
+			const allFields = state.fieldIds.map(
+				(id: string) => state.fieldEntities[id]
+			);
+
+			return (id: string) => {
+				return allFields.filter((field: Field) => field.round_id == id);
+			};
 		},
 		selectedEvent(state: EventState) {
 			return (
@@ -140,7 +152,31 @@ export const useEvents = defineStore('events', {
 			this.fieldEntities = { ...this.fieldEntities, ...fieldEntities };
 		},
 		add(event: Event) {},
+		addField(
+			blockId: string,
+			eventId: string,
+			regattaId: string,
+			roundId: string
+		) {
+			// FIXME
+			const randomId = String(Math.floor(Math.random() * 10000));
+			const field: Field = {
+				id: randomId,
+				block_id: blockId,
+				event_id: eventId,
+				regatta_id: regattaId,
+				round_id: roundId,
+				teams: [], // FIXME
+			};
+
+			this.fieldIds = [...this.fieldIds, randomId];
+			this.fieldEntities = { ...this.fieldEntities, [randomId]: field };
+		},
 		delete(event: Event) {},
+		deleteField(id: string) {
+			this.fieldIds.splice(this.fieldIds.indexOf(id));
+			delete this.fieldEntities[id];
+		},
 		edit(event: Event) {},
 		lotterySettings() {},
 	},

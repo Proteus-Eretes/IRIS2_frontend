@@ -35,7 +35,11 @@
 						leave-to="translate-x-full"
 					>
 						<div class="relative w-screen max-w-md">
-							<div
+							<form
+								@submit.prevent="
+									$emit('save');
+									$emit('update:open', false);
+								"
 								class="
 									h-full
 									flex flex-col
@@ -44,18 +48,31 @@
 									overflow-y-scroll
 								"
 							>
-								<div class="py-6 px-4 sm:px-6">
+								<div class="py-6 px-4 sm:px-6 h-24
+										border-b border-gray-200">
 									<DialogTitle
 										class="
-											text-lg
-											font-medium
-											text-gray-900
 											flex flex-row
 											items-center
 											justify-between
 										"
 									>
-										<slot name="header" />
+										<div>
+											<h5
+												class="
+													text-lg
+													font-semibold
+													leading-7
+													text-gray-900
+												"
+											>
+												<slot name="header" />
+											</h5>
+
+											<h6 class="text-sm text-gray-500">
+											<slot name="subheader" />
+											</h6>
+										</div>
 
 										<button
 											type="button"
@@ -103,7 +120,7 @@
 									"
 								>
 									<button
-										type="button"
+										type="reset"
 										class="button button-secondary"
 										@click="$emit('update:open', false)"
 									>
@@ -117,7 +134,7 @@
 										Save
 									</button>
 								</div>
-							</div>
+							</form>
 						</div>
 					</TransitionChild>
 				</div>
@@ -145,6 +162,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emits = defineEmits<{
+	(e: 'save'): void;
 	(e: 'update:open', open: boolean): void;
 	(e: 'close'): void;
 }>();

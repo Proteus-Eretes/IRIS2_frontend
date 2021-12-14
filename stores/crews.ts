@@ -52,6 +52,13 @@ export const useCrews = defineStore('crews', {
 		allCrews(state: CrewState) {
 			return state.ids.map((id: string) => state.entities[id]);
 		},
+		allCrewsByEventId(state: CrewState) {
+			const allCrews = state.ids.map((id: string) => state.entities[id]);
+
+			return (id: string) => {
+				return allCrews.filter((crew: Crew) => crew.event_id == id);
+			};
+		},
 		allTeams(state: CrewState) {
 			return state.teamIds.map((id: string) => state.teamEntities[id]);
 		},

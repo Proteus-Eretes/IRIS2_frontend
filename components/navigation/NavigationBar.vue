@@ -68,7 +68,10 @@
 							<span>
 								{{
 									regattas.selectedRegatta
-										? getRegattaTypeLabel(regattas.selectedRegatta.race_type)
+										? getRegattaTypeLabel(
+												regattas.selectedRegatta
+													.race_type
+										  )
 										: ''
 								}}
 							</span>

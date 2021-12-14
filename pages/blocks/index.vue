@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="w-full h-full">
 		<div class="sliding-container">
 			<SlidingPanel
 				:index="0"
@@ -127,11 +127,11 @@
 			</SlidingPanel>
 		</div>
 
-		<slide-over v-model:open="showAddBlock">
+		<SlideOver v-model:open="showAddBlock">
 			<template #header>Title</template>
 
 			Hey
-		</slide-over>
+		</SlideOver>
 	</div>
 </template>
 

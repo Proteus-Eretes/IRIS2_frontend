@@ -1321,7 +1321,7 @@ export const fieldsMock: Field[] = [
 		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		round_id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545',
 		teams: [],
-	},
+	}
 ];
 
 export const fieldDetailsMock: FieldDetail[] = [
@@ -1444,7 +1444,7 @@ export const roundsMock: Round[] = [
 	{
 		id: '11ec-4c5c-7c72dd38-b16a-fa83f5d3a545',
 		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
-		block_id: '11ec-4c5c-7591a1ca-a089-fa53f5d3a545',
+		block_id: '11ec-4fe5-a92bc36c-bd79-fa53f5d3a545',
 		name: '600',
 		multiplier: 1,
 	},
@@ -1453,13 +1453,13 @@ export const roundsMock: Round[] = [
 		multiplier: 1,
 		regatta_id: '11ec-4c5c-32393cee-84b6-fa53t5d3a545',
 		block_id: '11ec-4fe5-a92bc36c-bd79-fa53f5d3a545',
-		id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545',
+		id: '11ec-4c5c-7c72dd38-b16a-fa53f5d4a545',
 	},
 	{
 		name: '500',
 		multiplier: 1,
 		regatta_id: '11ec-4c5c-32593cee-84b6-fa53f5d3a545',
-		block_id: '11ec-4fe5-b2954964-9edf-fa53f5d3a545',
+		block_id: '11ec-4fe5-a92bc36c-bd79-fa53f5d3a545',
 		id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545',
 	},
 ];

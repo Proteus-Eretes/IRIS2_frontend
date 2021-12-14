@@ -30,6 +30,13 @@ export const useRounds = defineStore('rounds', {
 				(round: Round) => round.block_id == selectedBlockId
 			);
 		},
+		allRoundsByBlockId(state: RoundState) {
+			const allRounds = state.ids.map((id: string) => state.entities[id]);
+
+			return (id: string) => {
+				return allRounds.filter((round: Round) => round.block_id == id);
+			};
+		},
 		selectedRound(state: RoundState) {
 			return (
 				(state.selectedId && state.entities[state.selectedId]) || null
@@ -74,6 +81,14 @@ export const useRounds = defineStore('rounds', {
 
 			this.ids = roundIds;
 			this.entities = roundEntities;
+		},
+		assignRounds(list: string[]) {
+			const blockId = useBlocks().selectedId;
+
+			// FIXME Ik weet niet precies of het dit moet doen, maar ja
+			list.forEach((id: string) => {
+				this.entities[id].block_id = blockId;
+			});
 		},
 		add(round: Round) {},
 		delete(round: Round) {},
