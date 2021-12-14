@@ -13,9 +13,11 @@
 // splitEvents
 
 import { defineStore } from 'pinia';
+import { useBlocks } from './blocks';
 
 import { Event, Field } from '~~/types/event.model';
 import eventService from '~~/services/event.service';
+import { useRegattas } from './regattas';
 
 interface EventState {
 	ids: string[];
@@ -26,74 +28,120 @@ interface EventState {
 	selectedFieldId: string | null;
 }
 
-const state = (): EventState => ({
-	ids: [],
-	entities: {},
-	fieldIds: [],
-	fieldEntities: {},
-	selectedEventId: null,
-	selectedFieldId: null,
-});
-
-const getters = {
-	allEvents(state: EventState) {
-		return state.ids.map((id: string) => state.entities[id]);
-	},
-	selectedEvent(state: EventState) {
-		return (
-			(state.selectedEventId && state.entities[state.selectedEventId]) ||
-			null
-		);
-	},
-	selectedField(state: EventState) {
-		return (
-			(state.selectedFieldId && state.fieldEntities[state.selectedFieldId]) ||
-			null
-		);
-	},
-};
-
-const actions = {
-	async loadEvents() {
-		const { data } = await eventService.loadEvents();
-
-		const loadedEvents = data;
-
-		const eventIds = loadedEvents.map((event) => event.id);
-		const eventEntities = loadedEvents.reduce(
-			(entities: { [id: string]: Event }, event: Event) => {
-				return { ...entities, [event.id]: event };
-			},
-			{}
-		);
-
-		this.ids = eventIds;
-		this.entities = eventEntities;
-	},
-	async loadFields() {
-		const { data } = await eventService.loadFields();
-
-		const loadedFields = data;
-
-		const fieldIds = loadedFields.map((field) => field.id);
-		const fieldEntities = loadedFields.reduce(
-			(entities: { [id: string]: Field }, field: Field) => {
-				return { ...entities, [field.id]: field };
-			},
-			{}
-		);
-
-		this.fieldIds = fieldIds;
-		this.fieldEntities = fieldEntities;
-	},
-	add(event: Event) {},
-	delete(event: Event) {},
-	edit(event: Event) {},
-	lotterySettings() {},
-};
-
 export const useEvents = defineStore('events', {
-	state,
-	getters,
-	actions,
+	state: (): EventState => ({
+		ids: [],
+		entities: {},
+		fieldIds: [],
+		fieldEntities: {},
+		selectedEventId: null,
+		selectedFieldId: null,
+	}),
+
+	getters: {
+		allEvents(state: EventState) {
+			return state.ids.map((id: string) => state.entities[id]);
+		},
+		allFieldsOfSelectedBlock(state: EventState) {
+			const allFields = state.fieldIds.map(
+				(id: string) => state.fieldEntities[id]
+			);
+			const selectedBlockId = useBlocks().selectedId;
+
+			return allFields.filter(
+				(field: Field) => field.block_id == selectedBlockId
+			);
+		},
+		selectedEvent(state: EventState) {
+			return (
+				(state.selectedEventId &&
+					state.entities[state.selectedEventId]) ||
+				null
+			);
+		},
+		selectedField(state: EventState) {
+			return (
+				(state.selectedFieldId &&
+					state.fieldEntities[state.selectedFieldId]) ||
+				null
+			);
+		},
+		getEventById(state: EventState) {
+			return (id: string) => {
+				return (id && state.entities[id]) || null;
+			};
+		},
+	},
+
+	actions: {
+		async loadEvents() {
+			const regattaId = useRegattas().selectedId;
+			// FIXME ERROR
+			if (regattaId == null) return;
+
+			const loadedEvents = await eventService.loadEvents(regattaId);
+
+			const eventIds = loadedEvents.map((event) => event.id);
+			const eventEntities = loadedEvents.reduce(
+				(entities: { [id: string]: Event }, event: Event) => {
+					return { ...entities, [event.id]: event };
+				},
+				{}
+			);
+
+			this.ids = eventIds;
+			this.entities = eventEntities;
+		},
+		async loadSelectedEvent() {
+			const selectedId = this.selectedEventId;
+			// FIXME ERROR
+			if (selectedId == null) return;
+
+			const event = await eventService.loadEventDetail(selectedId);
+
+			this.detailIds = [...this.detailIds, event.id];
+			this.detailEntities = {
+				...this.detailEntities,
+				[event.id]: event,
+			};
+		},
+		async loadFields() {
+			const loadedFields = await eventService.loadFields();
+
+			const fieldIds = loadedFields.map((field) => field.id);
+			const fieldEntities = loadedFields.reduce(
+				(entities: { [id: string]: Field }, field: Field) => {
+					return { ...entities, [field.id]: field };
+				},
+				{}
+			);
+
+			this.fieldIds = fieldIds;
+			this.fieldEntities = fieldEntities;
+		},
+		async loadFieldsByBlock() {
+			const blockId = useBlocks().selectedId;
+			// FIXME ERROR
+			if (blockId == null) return;
+
+			const loadedFields = await eventService.loadFieldsByBlock(blockId);
+
+			const fieldIds = loadedFields
+				.map((field) => field.id)
+				.filter((id: string) => this.fieldIds.indexOf(id) == -1);
+			const fieldEntities = loadedFields.reduce(
+				(entities: { [id: string]: Field }, field: Field) => {
+					return { ...entities, [field.id]: field };
+				},
+				{}
+			);
+
+			this.fieldIds = [...this.fieldIds, ...fieldIds];
+			this.fieldEntities = { ...this.fieldEntities, ...fieldEntities };
+		},
+		add(event: Event) {},
+		delete(event: Event) {},
+		edit(event: Event) {},
+		lotterySettings() {},
+	},
 });

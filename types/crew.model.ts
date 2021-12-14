@@ -1,27 +1,27 @@
-import { Club } from './club.model';
-import { Event } from './event.model';
-import { Result } from './result.model';
-import { Rower } from './rower.model';
-
 export interface Crew {
 	id: string;
 	club_id: string;
 	regatta_id: string;
 	event_id: string;
 	sub_event_id: string | null; // Als er te weinig ploegen zijn voor een eigen veld
-	subEventCode: string;
+	displayName: string; // Preferred display name
+	displayStatus: CrewStatus;
+	coxes: string[] | null;
+	coaches: string[] | null;
+	rowers: string[] | null;
+}
+
+export interface CrewDetail extends Crew {
+	name: string;
 	knrb_num: number;
 	knrb_sequence: number; // Aangewezen door KNRB
 	sequence: number; // Van wedstrijdleiding
 	status: CrewStatus;
 	result_status: TeamResultStatus;
-	clubName: string;
-	displayName: string; // Preferred display name
-	name: string;
 	shortname: string; // Assigned by KNRB
 	alternative: string; // Created by Crew
 	combination: null;
-	boat: string; // Boat number
+	boat: string; // Boat id
 	boattype: string;
 	remarks: string | null; // Voor wedstrijdleiding
 	public_remarks: string | null; // Voor op hoesnelwasik.nl
@@ -33,13 +33,6 @@ export interface Crew {
 	local: boolean; // Of het is gewijzigd lokaal
 	payments?: any[];
 	fines?: any[];
-	coxes?: any[]; // Kan dit niet samen met 'rowers' omdat het enige verschil de rol is?
-	coaches?: any[];
-	displayStatus: CrewStatus;
-	rowers?: Rower[];
-	club?: Club;
-	event?: Event;
-	sub_event?: null; // Wat is het verschil tussen 'sub_evetn' en 'event'?
 }
 
 export interface Team {
@@ -47,8 +40,11 @@ export interface Team {
 	crew_id: string;
 	regatta_id: string;
 	field_id: string;
+	result_status: TeamResultStatus;
+}
+
+export interface TeamDetail extends Team {
 	starting_order: number | null;
-	crew: Crew;
 	toss_reason: string | null;
 	shirt_number: number | null;
 	penalty_time: number; // In seconden
@@ -56,8 +52,7 @@ export interface Team {
 	deleted: boolean;
 	user_set_deleted: boolean;
 	equal_time_correction: string;
-	results: Result[];
-	result_status: TeamResultStatus;
+	results: string[];
 	finishTime: number;
 }
 
@@ -69,6 +64,7 @@ export enum CrewStatus {
 }
 
 export enum TeamResultStatus {
+	NORMAL = 0,
 	EXCLUDED = 1,
     DISQUALIFIED = 2,
     OUTSIDE_COMPETITION = 4,

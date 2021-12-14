@@ -1,16 +1,15 @@
-import axios from 'axios';
+import { Round } from '~~/types/round.model';
 
-import { roundsMock } from '@/util/mock';
-import { Round, RoundDetail } from '~~/types/round.model';
-
-const BASE_URL = '';
+const BASE_URL = '/api/rounds';
 
 export default {
 	async loadRounds() {
-		if (this.useMock()) return { data: roundsMock };
-
 		const url = BASE_URL + '/get-rounds';
-		return await axios.get<RoundDetail[]>(url);
+		return await $fetch<Round[]>(url);
+	},
+	async loadRoundsByBlock(id: string) {
+		const url = BASE_URL + '/get-rounds-by-block?blockId=' + id;
+		return await $fetch<Round[]>(url);
 	},
 
 	// FIXME

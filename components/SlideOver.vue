@@ -27,10 +27,10 @@
 				<div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
 					<TransitionChild
 						as="template"
-						enter="transform transition ease-in-out duration-300 sm:duration-500"
+						enter="transition ease-in-out duration-300 sm:duration-500"
 						enter-from="translate-x-full"
 						enter-to="translate-x-0"
-						leave="transform transition ease-in-out duration-300 sm:duration-500"
+						leave="transition ease-in-out duration-300 sm:duration-500"
 						leave-from="translate-x-0"
 						leave-to="translate-x-full"
 					>
@@ -84,7 +84,7 @@
 								<div
 									class="
 										relative
-										flex-grow
+										grow
 										overflow-y-scroll
 										px-4
 										sm:px-6
@@ -127,7 +127,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
 import {
 	Dialog,
 	DialogOverlay,

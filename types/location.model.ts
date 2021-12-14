@@ -1,6 +1,7 @@
 export interface Location {
 	id: string;
 	regatta_id: string;
+	round_id: string;
 	name: string;
 	distance: number;
 	type: LocationType;

@@ -23,7 +23,7 @@ export default defineNuxtConfig({
 			},
 		},
 	},
-	buildModules: ['@pinia/nuxt', '@vueuse/core/nuxt'],
+	buildModules: ['@pinia/nuxt', '@vueuse/nuxt'],
 
 	publicRuntimeConfig: {
 		BASE_URL: process.env.BASE_URL

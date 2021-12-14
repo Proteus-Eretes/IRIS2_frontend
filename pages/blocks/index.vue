@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="sliding-container">
-			<sliding-panel
+			<SlidingPanel
 				:index="0"
 				:activePanel="activePanel"
 				@focus="activePanel = 0"
@@ -20,9 +20,9 @@
 					</button>
 				</div>
 				<div v-else>Nothing</div>
-			</sliding-panel>
+			</SlidingPanel>
 
-			<sliding-panel
+			<SlidingPanel
 				:index="1"
 				:activePanel="activePanel"
 				@close="deselectBlock()"
@@ -50,17 +50,19 @@
 					>
 						{{
 							blocks.selectedBlock != null
-								? blocks.selectedBlock.status
+								? getBlockStatusLabel(
+										blocks.selectedBlock.status
+								  )
 								: ''
 						}}
 					</span>
 				</template>
 
-				<div v-if="blocks.selectedBlockDetail">
+				<div v-if="blocks.selectedId">
 					<h3>Rounds</h3>
-					<template v-if="blocks.selectedBlockDetail.rounds">
+					<template v-if="rounds.allRoundsOfSelectedBlock">
 						<div
-							v-for="round in blocks.selectedBlockDetail.rounds"
+							v-for="round in rounds.allRoundsOfSelectedBlock"
 							:key="round.id"
 						>
 							{{ round.name }}
@@ -68,21 +70,29 @@
 					</template>
 
 					<h3>Fields</h3>
-					<template v-if="blocks.selectedBlockDetail.fields">
+					<template v-if="events.allFieldsOfSelectedBlock">
 						<div
-							v-for="field in blocks.selectedBlockDetail.fields"
+							v-for="field in events.allFieldsOfSelectedBlock"
 							:key="field.id"
 						>
-							<button type="button" @click="selectField(field.id)">
-								{{ field.round.name }}
+							<button
+								type="button"
+								@click="selectField(field.id)"
+							>
+								{{
+									events.getEventById(field.event_id)
+										? events.getEventById(field.event_id)
+												.name
+										: 'Event'
+								}}
 							</button>
 						</div>
 					</template>
 				</div>
 				<div v-else>Nothing</div>
-			</sliding-panel>
+			</SlidingPanel>
 
-			<sliding-panel
+			<SlidingPanel
 				:index="2"
 				:activePanel="activePanel"
 				@close="deselectField()"
@@ -96,20 +106,25 @@
 					}}
 				</template>
 
-				<div v-if="events.selectedEvent">
-					<template v-if="events.selectedEvent.crews">
+				<div v-if="events.selectedFieldId">
+					<template v-if="crews.allTeamsOfSelectedField">
 						<div
-							v-for="crew in events.selectedEvent.crews"
-							:key="crew.id"
+							v-for="team in crews.allTeamsOfSelectedField"
+							:key="team.id"
 						>
 							<!-- <button type="button" @click="selectField(field)"> -->
-							{{ crew.displayName }}
+							{{
+								crews.getCrewById(team.crew_id)
+									? crews.getCrewById(team.crew_id)
+											.displayName
+									: 'Crew'
+							}}
 							<!-- </button> -->
 						</div>
 					</template>
 				</div>
 				<div v-else>Nothing</div>
-			</sliding-panel>
+			</SlidingPanel>
 		</div>
 
 		<slide-over v-model:open="showAddBlock">
@@ -121,21 +136,20 @@
 </template>
 
 <script lang="ts" setup>
-import { useUrlSearchParams } from '@vueuse/core';
-
 import { useBlocks } from '~~/stores/blocks';
 import { useEvents } from '~~/stores/events';
+import { useRounds } from '~~/stores/rounds';
+import { useCrews } from '~~/stores/crews';
 
-import { Block } from '~~/types/block.model';
-import { Field } from '~~/types/event.model';
+import { getBlockStatusLabel } from '~~/types/block.model';
 
 const blocks = useBlocks();
 blocks.loadBlocks();
-blocks.loadBlockDetails();
 
+// FIXME niet meteen alles laden
 const events = useEvents();
-events.loadEvents();
-events.loadFields();
+const rounds = useRounds();
+const crews = useCrews();
 
 // The panel that is last opened
 const activePanel = ref(0);
@@ -149,20 +163,28 @@ const params = useUrlSearchParams('history');
 
 const selectBlock = (id: string) => {
 	activePanel.value = 1;
+	params.block = id;
 
 	blocks.selectedId = id;
 
-	params.block = id;
+	events.loadFieldsByBlock();
+	rounds.loadRoundsByBlock();
+
+	events.loadEvents();
 };
 const selectField = (id: string) => {
 	activePanel.value = 2;
+	params.field = id;
 
 	events.selectedFieldId = id;
 	events.selectedEventId = events.selectedField
 		? events.selectedField.event_id
 		: null;
 
-	params.field = id;
+	crews.loadTeamsByField();
+
+	crews.loadCrews();
+	// events.loadSelectedEvent();
 };
 
 const deselectBlock = () => {

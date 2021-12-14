@@ -1,15 +1,15 @@
 <template>
 	<div class="min-h-screen flex flex-row">
 		<aside class="z-40">
-			<side-bar />
+			<NavigationSideBar />
 		</aside>
 
-		<div class="flex-grow min-h-screen flex flex-col">
+		<div class="grow min-h-screen flex flex-col">
 			<aside class="z-40">
-				<navigation-bar />
+				<NavigationBar />
 			</aside>
 
-			<main class="bg-gray-200 flex-grow">
+			<main class="bg-gray-200 grow">
 				<slot />
 			</main>
 		</div>
@@ -17,12 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useUrlSearchParams } from '@vueuse/core';
-
 import { useRegattas } from '@/stores/regattas';
-
-import SideBar from '~~/components/navigation/SideBar.vue';
-import Navigationbar from '~~/components/navigation/NavigationBar.vue';
 
 const regattas = useRegattas();
 regattas.loadRegattas();

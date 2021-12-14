@@ -1,9 +1,9 @@
 <template>
 	<div class="container">
-		<panel class="min-w-1/4 max-h-screen" :showPanel="true">
+		<Panel class="min-w-1/4 max-h-screen" :showPanel="true">
 			<template #header>Available events</template>
 
-			<draggable
+			<Draggable
 				:model-value="list1"
 				@update:model-value="updateEventList($event)"
 				:group="{
@@ -18,14 +18,14 @@
 				ghost-class="hidden"
 			>
 				<template #item="{ element }">
-					<assign-item>
-						<p class="flex-grow text-sm">
+					<BlocksAssignItem>
+						<p class="grow text-sm">
 							{{ element.name }} {{ element.id }}
 						</p>
-					</assign-item>
+					</BlocksAssignItem>
 				</template>
-			</draggable>
-		</panel>
+			</Draggable>
+		</Panel>
 
 		<div
 			class="
@@ -36,8 +36,8 @@
 				w-full
 			"
 		>
-			<panel
-				v-for="block in blocks.allBlockDetails"
+			<Panel
+				v-for="block in blocks.allBlocks"
 				:key="block.id"
 				class="max-h-1/2-screen"
 			>
@@ -51,7 +51,7 @@
 							{{ round.name }}
 						</legend>
 
-						<draggable
+						<Draggable
 							:model-value="round.fields"
 							@update:model-value="updateList($event, 2)"
 							:group="{
@@ -65,13 +65,13 @@
 							ghost-class="blocks__assign-event-ghost"
 						>
 							<template #item="{ element }">
-								<assign-item
+								<BlocksAssignItem
 									v-if="
 										events.entities &&
 										events.entities[element.id]
 									"
 								>
-									<p class="flex-grow text-sm">
+									<p class="grow text-sm">
 										{{ events.entities[element.id].name }}
 									</p>
 
@@ -81,25 +81,24 @@
 												.length
 										}}
 									</template>
-								</assign-item>
+								</BlocksAssignItem>
 							</template>
-						</draggable>
+						</Draggable>
 					</fieldset>
 				</div>
-			</panel>
+			</Panel>
 		</div>
 	</div>
 </template>
 
 <script lang="ts" setup>
-import AssignItem from '~~/components/blocks/AssignItem.vue';
 
 // Draggable component: https://github.com/SortableJS/vue.draggable.next
-import draggable from 'vuedraggable';
+import Draggable from 'vuedraggable';
 
 import { useBlocks } from '~~/stores/blocks';
 const blocks = useBlocks();
-blocks.loadBlockDetails();
+blocks.loadBlocks();
 
 import { useEvents } from '~/stores/events';
 const events = useEvents();

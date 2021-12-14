@@ -1,9 +1,12 @@
 export interface Club {
 	id: string;
 	regatta_id: string;
-	knrb_num: number;
 	code: string;
 	name: string;
+}
+
+export interface ClubDetail extends Club {
+	knrb_num: number;
 	federation: string;
 	blade: string;
 	shirt: string;
@@ -19,6 +22,6 @@ export interface Contact {
 	name: string;
 	mobile: string;
 	phone: string;
-	fax: string | null;
-	email: string | null;
+	fax?: string | null;
+	email?: string | null;
 }

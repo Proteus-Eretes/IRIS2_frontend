@@ -3,15 +3,18 @@ export interface Rower {
 	regatta_id: string;
 	club_id: string;
 	knrb: string;
-	knrb_num: null; // Old system
-	license: number;
+	knrb_num: null; // Oude systeem, veranderen door wedstrijdleiding
 	fullName: string;
+	gender: Gender | null;
+}
+
+export interface RowerDetail extends Rower {
+	license: number;
 	initals: string;
 	firstname: string;
 	middlename: string;
 	lastname: string;
-	year_of_birth: null;
-	gender: Gender | null;
+	year_of_birth: number | null;
 	_joinData: JoinData; // Wat is JoinData?
 }
 

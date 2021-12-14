@@ -1,36 +1,26 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-	mode: 'jit',
-	purge: {
-		content: [
-			'./components/**/*.{vue,js}',
-			'./layouts/**/*.vue',
-			'./pages/**/*.vue',
-			'./plugins/**/*.{js,ts}',
-			'./nuxt.config.{js,ts}',
-		],
-		options: {
-			safelist: [
-				'hidden',
-				'blocks__assign-event',
-				'blocks__assign-event-ghost',
-			],
-		},
-	},
-	darkMode: false, // or 'media' or 'class'
+	content: [
+		'./components/**/*.{vue,js}',
+		'./layouts/**/*.vue',
+		'./pages/**/*.vue',
+		'./plugins/**/*.{js,ts}',
+		'./nuxt.config.{js,ts}',
+	],
+	safelist: ['hidden', 'blocks__assign-event', 'blocks__assign-event-ghost'],
 	theme: {
 		colors: {
 			transparent: 'transparent',
 			current: 'currentColor',
-			primary: colors.blueGray,
+			primary: colors.slate,
 			secondary: colors.cyan,
 			success: colors.emerald,
 			danger: colors.rose,
 			warning: colors.yellow,
 			black: colors.black,
 			white: colors.white,
-			gray: colors.trueGray,
+			gray: colors.neutral,
 		},
 		extend: {
 			minWidth: {
@@ -42,9 +32,6 @@ module.exports = {
 				'1/2-screen': '50vh',
 			},
 		},
-	},
-	variants: {
-		extend: {},
 	},
 	plugins: [
 		require('@tailwindcss/typography'),

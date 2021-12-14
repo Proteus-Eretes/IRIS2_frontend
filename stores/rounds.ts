@@ -1,55 +1,83 @@
 import { defineStore } from 'pinia';
+import { useBlocks } from './blocks';
 
-import { Round, RoundDetail } from '~~/types/round.model';
+import { Round } from '~~/types/round.model';
+
 import roundService from '~~/services/round.service';
-import { Field } from '~~/types/event.model';
 
 interface RoundState {
 	ids: string[];
-	entities: { [id: string]: RoundDetail };
+	entities: { [id: string]: Round };
 	selectedId: string | null;
 }
 
-const state = (): RoundState => ({
-	ids: [],
-	entities: {},
-	selectedId: null,
-});
-
-const getters = {
-	allRounds(state: RoundState) {
-		return state.ids.map((id: string) => state.entities[id]);
-	},
-	selectedRound(state: RoundState) {
-		return (state.selectedId && state.entities[state.selectedId]) || null;
-	},
-};
-
-const actions = {
-	async loadRounds() {
-		const { data } = await roundService.loadRounds();
-
-		const loadedRounds = data;
-
-		const roundIds = loadedRounds.map((round) => round.id);
-		const roundEntities = loadedRounds.reduce(
-			(entities: { [id: string]: RoundDetail }, round: RoundDetail) => {
-				return { ...entities, [round.id]: round };
-			},
-			{}
-		);
-
-		this.ids = roundIds;
-		this.entities = roundEntities;
-	},
-	add(round: Round) {},
-	delete(round: Round) {},
-	edit(round: Round) {},
-	lotterySettings() {},
-};
-
 export const useRounds = defineStore('rounds', {
-	state,
-	getters,
-	actions,
+	state: (): RoundState => ({
+		ids: [],
+		entities: {},
+		selectedId: null,
+	}),
+
+	getters: {
+		allRounds(state: RoundState) {
+			return state.ids.map((id: string) => state.entities[id]);
+		},
+		allRoundsOfSelectedBlock(state: RoundState) {
+			const allRounds = state.ids.map((id: string) => state.entities[id]);
+			const selectedBlockId = useBlocks().selectedId;
+
+			return allRounds.filter(
+				(round: Round) => round.block_id == selectedBlockId
+			);
+		},
+		selectedRound(state: RoundState) {
+			return (
+				(state.selectedId && state.entities[state.selectedId]) || null
+			);
+		},
+		getRoundById(state: RoundState) {
+			return (id: string) => {
+				return (id && state.entities[id]) || undefined;
+			};
+		},
+	},
+
+	actions: {
+		async loadRounds() {
+			const loadedRounds = await roundService.loadRounds();
+
+			const roundIds = loadedRounds.map((round) => round.id);
+			const roundEntities = loadedRounds.reduce(
+				(entities: { [id: string]: Round }, round: Round) => {
+					return { ...entities, [round.id]: round };
+				},
+				{}
+			);
+
+			this.ids = roundIds;
+			this.entities = roundEntities;
+		},
+		async loadRoundsByBlock() {
+			const blockId = useBlocks().selectedId;
+			// FIXME ERROR
+			if (blockId == null) return;
+
+			const loadedRounds = await roundService.loadRoundsByBlock(blockId);
+
+			const roundIds = loadedRounds.map((round) => round.id);
+			const roundEntities = loadedRounds.reduce(
+				(entities: { [id: string]: Round }, round: Round) => {
+					return { ...entities, [round.id]: round };
+				},
+				{}
+			);
+
+			this.ids = roundIds;
+			this.entities = roundEntities;
+		},
+		add(round: Round) {},
+		delete(round: Round) {},
+		edit(round: Round) {},
+		lotterySettings() {},
+	},
 });

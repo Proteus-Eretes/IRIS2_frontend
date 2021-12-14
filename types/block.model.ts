@@ -1,7 +1,3 @@
-import { Field } from './event.model';
-import { Regatta } from './regatta.model';
-import { RoundDetail } from './round.model';
-
 export interface Block {
 	id: string;
 	regatta_id: string;
@@ -10,18 +6,34 @@ export interface Block {
 	status: BlockStatus;
 }
 
-export interface BlockDetail extends Block {
-	fields: Field[];
-	rounds: RoundDetail[];
-	regatta: Regatta;
-}
-
 export interface BlockAction {
 	link: string;
 	id: string;
 	icon: string;
 	setting: string;
 	class: string;
+
+	// {
+	// 	link: '/blocks/assign',
+	// 	id: 'edit-block',
+	// 	icon: 'edit',
+	// 	setting: 'Assign events and Rounds',
+	// 	class: '',
+	// },
+	// {
+	// 	link: '/blocks/draw-lots',
+	// 	id: 'edit-block',
+	// 	icon: 'edit',
+	// 	setting: 'Draw lots',
+	// 	class: '',
+	// },
+	// {
+	// 	link: '/shirt-number/assign-shirts-overview',
+	// 	id: 'edit-block',
+	// 	icon: 'edit',
+	// 	setting: 'Assign shirt numbers',
+	// 	class: '',
+	// },
 }
 
 // TODO In apart bestand?
@@ -32,4 +44,21 @@ export enum BlockStatus {
 	START_ORDER = 8,
 	TOSSED = 16,
 	SHIRT_NUMBERS_ASSIGNED = 32,
+}
+
+export function getBlockStatusLabel(status: BlockStatus) {
+	switch (status) {
+		case BlockStatus.CREATED:
+			return 'Created';
+		case BlockStatus.ROUNDS_ASSIGNED:
+			return 'Rounds assigned';
+		case BlockStatus.EVENTS_ASSIGNED:
+			return 'Events assigned';
+		case BlockStatus.START_ORDER:
+			return 'Start order';
+		case BlockStatus.TOSSED:
+			return 'Tossed';
+		case BlockStatus.SHIRT_NUMBERS_ASSIGNED:
+			return 'Shirt numbers assigned';
+	}
 }

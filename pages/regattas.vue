@@ -6,7 +6,7 @@
 				:key="regatta.id"
 				:to="{ path: '/', query: { regatta: regatta.id } }"
 				class="block p-3 bg-white rounded-md shadow-sm"
-				@click="regattas.selectedId = regatta.id"
+				@click="selectRegatta(regatta.id)"
 			>
 				{{ regatta.name }}
 			</router-link>
@@ -26,10 +26,15 @@ if (regatta && typeof regatta == 'string') {
 
 	delete params.regatta;
 }
+
+const selectRegatta = (id: string) => {
+	regattas.selectedId = id;
+}
 </script>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useBlocks } from '~~/stores/blocks';
 
 export default defineComponent({
 	layout: 'main',

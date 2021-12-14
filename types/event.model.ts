@@ -1,27 +1,27 @@
-import { Crew, Team } from './crew.model';
-import { Round } from './round.model';
-
 export interface Event {
 	id: string;
 	regatta_id: string;
-	cost_id: string;
-	parent_id: null; // Parent of sub_events
+	parent_id: string | null; // Parent of sub_events
 	event: number; // Assigned by KNRB
 	number: number; // Assigned by regatta lead
 	day: Date;
 	code: string;
 	name: string; // Is dit hetzelfde als 'code'?
-	remarks: string;
-	status: EventStatus;
 	category: string;
-	block_knrb: number | null; // Only sometimes used
 	boat_type: string;
+	sub_crews: string[] | null; // Wat is het verschil tussen 'sub_crews' en 'crews'?
+	crews: string[] | null;
+}
+
+export interface EventDetail extends Event {
+	block_knrb: number | null; // Assigned by KNRB, only sometimes used
+	status: EventStatus;
+	cost_id: string;
+	remarks: string;
 	weighed: boolean;
 	sex: string;
 	correction_factor_boat: number;
-	sub_crews?: Crew[]; // Wat is het verschil tussen 'sub_crews' en 'crews'?
-	crews?: Crew[];
-	fields?: Field[];
+	fields: string[] | null;
 }
 
 export interface Field {
@@ -30,12 +30,13 @@ export interface Field {
 	event_id: string;
 	regatta_id: string;
 	round_id: string;
+	teams: string[];
+}
+
+export interface FieldDetail extends Field {
 	starting_order: number | null;
 	result_status: FieldResultStatus;
 	start_time: Date;
-	round?: Round;
-	teams?: Team[];
-	event?: Event;
 }
 
 export enum EventStatus {

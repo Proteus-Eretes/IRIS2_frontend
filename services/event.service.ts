@@ -1,22 +1,23 @@
-import axios from 'axios';
+import { Event, EventDetail, Field } from '~~/types/event.model';
 
-import { eventsMock, fieldsMock } from '@/util/mock';
-import { Event, Field } from '~~/types/event.model';
-
-const BASE_URL = '';
+const BASE_URL = '/api/events';
 
 export default {
-	async loadEvents() {
-		if (this.useMock()) return { data: eventsMock };
-
-		const url = BASE_URL + '/get-events';
-		return await axios.get<Event[]>(url);
+	async loadEvents(id: string) {
+		const url = BASE_URL + '/get-events?regattaId=' + id;
+		return await $fetch<Event[]>(url);
+	},
+	async loadEventDetail(id: string) {
+		const url = BASE_URL + '/get-event-detail?eventId=' + id;
+		return await $fetch<EventDetail>(url);
 	},
 	async loadFields() {
-		if (this.useMock()) return { data: fieldsMock };
-
 		const url = BASE_URL + '/get-fields';
-		return await axios.get<Field[]>(url);
+		return await $fetch<Field[]>(url);
+	},
+	async loadFieldsByBlock(id: string) {
+		const url = BASE_URL + '/get-fields-by-block?blockId=' + id;
+		return await $fetch<Field[]>(url);
 	},
 
 	// FIXME

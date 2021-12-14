@@ -29,7 +29,7 @@
 							class="mt-1 flex items-center text-sm text-gray-500"
 						>
 							<CalendarIcon
-								class="icon-gray flex-shrink-0 mr-1.5"
+								class="icon-gray shrink-0 mr-1.5"
 								aria-hidden="true"
 							/>
 							<span>
@@ -47,7 +47,7 @@
 							class="mt-1 flex items-center text-sm text-gray-500"
 						>
 							<LocationMarkerIcon
-								class="icon-gray flex-shrink-0 mr-1.5"
+								class="icon-gray shrink-0 mr-1.5"
 								aria-hidden="true"
 							/>
 							<span>
@@ -62,13 +62,13 @@
 							class="mt-1 flex items-center text-sm text-gray-500"
 						>
 							<BookmarkIcon
-								class="icon-gray flex-shrink-0 mr-1.5"
+								class="icon-gray shrink-0 mr-1.5"
 								aria-hidden="true"
 							/>
 							<span>
 								{{
 									regattas.selectedRegatta
-										? regattas.selectedRegatta.race_type
+										? getRegattaTypeLabel(regattas.selectedRegatta.race_type)
 										: ''
 								}}
 							</span>
@@ -155,11 +155,11 @@
 						</div>
 						<transition
 							enter-active-class="transition ease-out duration-100"
-							enter-from-class="transform opacity-0 scale-95"
-							enter-to-class="transform opacity-100 scale-100"
+							enter-from-class="opacity-0 scale-95"
+							enter-to-class="opacity-100 scale-100"
 							leave-active-class="transition ease-in duration-75"
-							leave-from-class="transform opacity-100 scale-100"
-							leave-to-class="transform opacity-0 scale-95"
+							leave-from-class="opacity-100 scale-100"
+							leave-to-class="opacity-0 scale-95"
 						>
 							<MenuItems
 								class="
@@ -207,6 +207,8 @@ import {
 	LocationMarkerIcon,
 	BookmarkIcon,
 } from '@heroicons/vue/solid';
+
+import { getRegattaTypeLabel } from '~~/types/regatta.model';
 
 import { useRegattas } from '~~/stores/regattas';
 

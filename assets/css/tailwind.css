@@ -20,11 +20,10 @@
 			px-5
 			py-3
 			gap-3
-			transform
 			overflow-hidden;
 	}
 	.sliding-container .sliding-column {
-		@apply transform transition-transform;
+		@apply translate-x-0 transition-transform;
 	}
 	.panel {
 		@apply min-w-single-column
@@ -43,7 +42,7 @@
 			bg-secondary-400;
 	}
 	.panel-header > h2 {
-		@apply flex-grow
+		@apply grow
 			uppercase
 			font-medium
 			text-sm

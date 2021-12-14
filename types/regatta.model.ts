@@ -2,13 +2,16 @@ export interface Regatta {
 	id: string;
 	venue_id: string;
 	name: string;
-	file: string;
 	start_date: Date;
 	end_date: Date;
 	race_type: RegattaType;
 	breaking_news: string;
-	correction_factor_settings: number; // Is dit een object?
-	correction_factor_type: null; // Wat is dit?
+}
+
+export interface RegattaDetail extends Regatta {
+	file: string;
+	correction_factor_settings: boolean; // Of het waait of niet
+	correction_factor_type: string | null; // id
 	lottery_settings: LotterySettings;
 }
 
@@ -27,4 +30,13 @@ export interface LotterySettings {
 export enum RegattaType {
 	CHASE = 'chase',
 	ALL_ROUND = 'all-around',
+}
+
+export function getRegattaTypeLabel(type: RegattaType) {
+	switch (type) {
+		case RegattaType.CHASE:
+			return 'Chase';
+		case RegattaType.ALL_ROUND:
+			return 'All Round';
+	}
 }
