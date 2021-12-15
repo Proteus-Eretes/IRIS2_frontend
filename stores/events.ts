@@ -152,7 +152,7 @@ export const useEvents = defineStore('events', {
 			this.fieldEntities = { ...this.fieldEntities, ...fieldEntities };
 		},
 		add(event: Event) {},
-		addField(
+		async addField(
 			blockId: string,
 			eventId: string,
 			regattaId: string,
@@ -160,7 +160,7 @@ export const useEvents = defineStore('events', {
 		) {
 			// FIXME
 			const randomId = String(Math.floor(Math.random() * 10000));
-			const field: Field = {
+			const newField: Field = {
 				id: randomId,
 				block_id: blockId,
 				event_id: eventId,
@@ -169,8 +169,13 @@ export const useEvents = defineStore('events', {
 				teams: [], // FIXME
 			};
 
-			this.fieldIds = [...this.fieldIds, randomId];
-			this.fieldEntities = { ...this.fieldEntities, [randomId]: field };
+			const field = await eventService.addField(newField);
+
+			this.fieldIds = [...this.fieldIds, field.id];
+			this.fieldEntities = {
+				...this.fieldEntities,
+				[field.id]: field,
+			};
 		},
 		delete(event: Event) {},
 		deleteField(id: string) {

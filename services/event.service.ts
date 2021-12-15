@@ -20,6 +20,11 @@ export default {
 		return await $fetch<Field[]>(url);
 	},
 
+	async addField(field: Field) {
+		const url = BASE_URL + '/add-field';
+		return await $fetch<Field>(url, { method: 'POST', body: field });
+	},
+
 	// FIXME
 	useMock() {
 		return true;
