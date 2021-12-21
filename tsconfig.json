@@ -1,8 +1,8 @@
 {
 	// https://v3.nuxtjs.org/concepts/typescript
 	"extends": "./.nuxt/tsconfig.json",
-	"types": ["@pinia/nuxt"],
-	// "compilerOptions": {
-	// 	"strict": true
-	// }
+	"compilerOptions": {
+		"types": ["@pinia/nuxt"],
+		// 	"strict": true
+	},
 }

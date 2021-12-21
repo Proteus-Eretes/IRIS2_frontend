@@ -158,7 +158,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-	open: true,
+	open: false,
 });
 
 const emits = defineEmits<{
