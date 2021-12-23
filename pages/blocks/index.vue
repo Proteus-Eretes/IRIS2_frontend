@@ -127,11 +127,12 @@
 			</SlidingPanel>
 		</div>
 
-		<SlideOver v-model:open="showAddBlock">
-			<template #header>Title</template>
+		<EditorSlideOver v-model:open="showAddBlock">
+			<template #header>Create a new block</template>
+			<template #subheader>Create a new block for this regatta</template>
 
 			Hey
-		</SlideOver>
+		</EditorSlideOver>
 	</div>
 </template>
 

@@ -122,7 +122,7 @@
 			</div>
 		</div>
 
-		<SlideOver v-model:open="showAssignRound" @save="submitAssignRounds">
+		<EditorSlideOver v-model:open="showAssignRound" @save="submitAssignRounds">
 			<template #header>Assign Rounds</template>
 			<template #subheader>Assign the rounds for this block</template>
 
@@ -159,7 +159,7 @@
 					</div>
 				</div>
 			</div>
-		</SlideOver>
+		</EditorSlideOver>
 	</div>
 </template>
 

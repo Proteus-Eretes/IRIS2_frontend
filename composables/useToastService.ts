@@ -14,10 +14,10 @@ export const useToastService = () => {
 		classTitle: 'text-gray-900',
 		classMessage: 'text-gray-500',
 		classPrimary:
-			'text-secondary-600 hover:text-secondary-500 focus:shadow-outline-blue active:text-secondary-700 active:bg-gray-50',
+			'text-secondary-500 hover:text-secondary-400 focus:shadow-outline-blue',
 		classSecondary:
 			'text-gray-700 hover:text-gray-500 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50',
-		classSingle: 'text-secondary-600 hover:text-secondary-500',
+		classSingle: 'text-secondary-500 hover:text-secondary-400',
 		classClose: 'text-gray-400',
 		classTimeout: 'bg-gray-200',
 	};
