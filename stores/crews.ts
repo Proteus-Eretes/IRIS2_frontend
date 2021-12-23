@@ -23,11 +23,14 @@
 // validateCrewsCategory
 
 import { defineStore } from 'pinia';
+import { useEvents } from './events';
+import { useRegattas } from './regattas';
 
 import { Crew, Team } from '~~/types/crew.model';
 import crewService from '~~/services/crew.service';
-import { useEvents } from './events';
-import { useRegattas } from './regattas';
+
+import { useToastService } from '~~/composables/useToastService';
+const toastService = useToastService();
 
 interface CrewState {
 	ids: string[];
@@ -96,8 +99,10 @@ export const useCrews = defineStore('crews', {
 	actions: {
 		async loadCrews() {
 			const regattaId = useRegattas().selectedId;
-			// FIXME ERROR
-			if (regattaId == null) return;
+			if (regattaId == null) {
+				toastService.showError('No regatta selected');
+				return;
+			}
 
 			const loadedCrews = await crewService.loadCrews(regattaId);
 
@@ -128,8 +133,10 @@ export const useCrews = defineStore('crews', {
 		},
 		async loadTeamsByField() {
 			const fieldId = useEvents().selectedFieldId;
-			// FIXME ERROR
-			if (fieldId == null) return;
+			if (fieldId == null) {
+				toastService.showError('No field selected');
+				return;
+			}
 
 			const loadedTeams = await crewService.loadTeamsByField(fieldId);
 

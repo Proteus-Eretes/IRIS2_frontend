@@ -1,26 +1,31 @@
 <template>
 	<div class="min-h-screen flex flex-row">
-		<aside class="z-40">
+		<aside class="z-30">
 			<NavigationSideBar />
 		</aside>
 
 		<div class="grow min-h-screen flex flex-col">
-			<aside class="z-40">
+			<aside class="z-30">
 				<NavigationBar />
 			</aside>
 
 			<main class="bg-gray-200 grow">
 				<slot />
 			</main>
+
+			<Toast v-model:open="main.showToast" :toast="main.toast" />
 		</div>
 	</div>
 </template>
 
 <script lang="ts" setup>
 import { useRegattas } from '@/stores/regattas';
+import { useMain } from '~~/stores';
 
 const regattas = useRegattas();
 regattas.loadRegattas();
+
+const main = useMain();
 
 const router = useRouter();
 

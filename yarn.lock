@@ -5830,6 +5830,11 @@ tslib@^2.3.1:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
 
+tv-icon@^1.0.24:
+  version "1.0.24"
+  resolved "https://registry.yarnpkg.com/tv-icon/-/tv-icon-1.0.24.tgz#c952c8ac9277f1ace7bc128229d3b81a27306787"
+  integrity sha512-2tAaWWmGrjjwEPJjMBVAZBXvWuA2jpoYmCu5ipbaLVE0v9ve3gnT0EBjb8LtJn7f4BjySkcFlOqWPg0hzVN46Q==
+
 type-fest@^0.8.0:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"

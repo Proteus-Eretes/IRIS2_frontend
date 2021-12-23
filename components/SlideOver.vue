@@ -2,7 +2,7 @@
 	<TransitionRoot as="template" :show="open">
 		<Dialog
 			as="div"
-			class="fixed inset-0 overflow-hidden z-50"
+			class="fixed inset-0 overflow-hidden z-40"
 			@close="$emit('update:open', false)"
 		>
 			<div class="absolute inset-0 overflow-hidden">
@@ -162,8 +162,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emits = defineEmits<{
-	(e: 'save'): void;
 	(e: 'update:open', open: boolean): void;
-	(e: 'close'): void;
+	(e: 'save'): void;
 }>();
 </script>

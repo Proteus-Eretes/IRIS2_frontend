@@ -2,8 +2,10 @@ import { defineStore } from 'pinia';
 import { useBlocks } from './blocks';
 
 import { Round } from '~~/types/round.model';
-
 import roundService from '~~/services/round.service';
+
+import { useToastService } from '~~/composables/useToastService';
+const toastService = useToastService();
 
 interface RoundState {
 	ids: string[];
@@ -66,8 +68,10 @@ export const useRounds = defineStore('rounds', {
 		},
 		async loadRoundsByBlock() {
 			const blockId = useBlocks().selectedId;
-			// FIXME ERROR
-			if (blockId == null) return;
+			if (blockId == null) {
+				toastService.showError('No block selected');
+				return;
+			}
 
 			const loadedRounds = await roundService.loadRoundsByBlock(blockId);
 

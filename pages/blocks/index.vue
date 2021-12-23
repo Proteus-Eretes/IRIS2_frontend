@@ -146,7 +146,6 @@ import { getBlockStatusLabel } from '~~/types/block.model';
 const blocks = useBlocks();
 blocks.loadBlocks();
 
-// FIXME niet meteen alles laden
 const events = useEvents();
 const rounds = useRounds();
 const crews = useCrews();

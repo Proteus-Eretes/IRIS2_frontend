@@ -169,6 +169,9 @@ import { useEvents } from '~/stores/events';
 import { useRounds } from '~~/stores/rounds';
 import { useCrews } from '~~/stores/crews';
 
+import { useToastService } from '~~/composables/useToastService';
+const toastService = useToastService();
+
 import { Event, Field } from '~~/types/event.model';
 
 // Draggable component: https://github.com/SortableJS/vue.draggable.next
@@ -197,13 +200,14 @@ const changeList = (evt, blockId: string, roundId: string) => {
 	}
 };
 const addField = (event: Event, blockId: string, roundId: string) => {
-	// FIXME Error
 	if (
 		events
 			.allFieldsByRoundId(roundId)
 			.findIndex((field: Field) => field.event_id == event.id) != -1
-	)
+	) {
+		toastService.showError('Something went wrong');
 		return;
+	}
 	events.addField(blockId, event.id, event.regatta_id, roundId);
 };
 const removeField = (field: Field) => {

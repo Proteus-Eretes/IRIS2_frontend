@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia';
 import { RouteItem } from '~~/types/route-item.model';
+import { Toast } from '~~/types/toast';
 
 interface RootState {
 	mainNavigation: RouteItem[];
 	competitionNavigation: RouteItem[];
 	adminNavigation: RouteItem[];
+	showToast: boolean;
+	toast: Toast;
 }
 
 const state = (): RootState => ({
@@ -50,6 +53,10 @@ const state = (): RootState => ({
 			items: [],
 		},
 	],
+	showToast: false,
+	toast: {
+		message: '',
+	},
 });
 
 const getters = {};

@@ -14,10 +14,13 @@
 
 import { defineStore } from 'pinia';
 import { useBlocks } from './blocks';
+import { useRegattas } from './regattas';
 
 import { Event, Field } from '~~/types/event.model';
 import eventService from '~~/services/event.service';
-import { useRegattas } from './regattas';
+
+import { useToastService } from '~~/composables/useToastService';
+const toastService = useToastService();
 
 interface EventState {
 	ids: string[];
@@ -88,8 +91,10 @@ export const useEvents = defineStore('events', {
 	actions: {
 		async loadEvents() {
 			const regattaId = useRegattas().selectedId;
-			// FIXME ERROR
-			if (regattaId == null) return;
+			if (regattaId == null) {
+				toastService.showError('No regatta selected');
+				return;
+			}
 
 			const loadedEvents = await eventService.loadEvents(regattaId);
 
@@ -105,11 +110,13 @@ export const useEvents = defineStore('events', {
 			this.entities = eventEntities;
 		},
 		async loadSelectedEvent() {
-			const selectedId = this.selectedEventId;
-			// FIXME ERROR
-			if (selectedId == null) return;
+			const eventId = this.selectedEventId;
+			if (eventId == null) {
+				toastService.showError('No event selected');
+				return;
+			}
 
-			const event = await eventService.loadEventDetail(selectedId);
+			const event = await eventService.loadEventDetail(eventId);
 
 			this.detailIds = [...this.detailIds, event.id];
 			this.detailEntities = {
@@ -133,8 +140,10 @@ export const useEvents = defineStore('events', {
 		},
 		async loadFieldsByBlock() {
 			const blockId = useBlocks().selectedId;
-			// FIXME ERROR
-			if (blockId == null) return;
+			if (blockId == null) {
+				toastService.showError('No block selected');
+				return;
+			}
 
 			const loadedFields = await eventService.loadFieldsByBlock(blockId);
 

@@ -33,6 +33,7 @@ import { defineStore } from 'pinia';
 import { Block } from '~~/types/block.model';
 import blockService from '~~/services/block.service';
 import { useRegattas } from './regattas';
+import { useToastService } from '~~/composables/useToastService';
 
 interface BlockState {
 	ids: string[];
@@ -61,8 +62,11 @@ export const useBlocks = defineStore('blocks', {
 	actions: {
 		async loadBlocks() {
 			const regattaId = useRegattas().selectedId;
-			// FIXME ERROR
-			if (regattaId == null) return;
+			if (regattaId == null) {
+				const toastService = useToastService();
+				toastService.showError('No regatta selected');
+				return;
+			}
 
 			const loadedBlocks = await blockService.loadBlocks(regattaId);
 

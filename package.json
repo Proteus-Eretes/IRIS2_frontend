@@ -26,6 +26,7 @@
 		"@pinia/nuxt": "^0.1.6",
 		"dayjs": "^1.10.7",
 		"pinia": "^2.0.4",
+		"tv-icon": "^1.0.24",
 		"vuedraggable": "^4.1.0"
 	}
 }
