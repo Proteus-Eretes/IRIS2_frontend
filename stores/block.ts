@@ -30,7 +30,7 @@ import { useBlockService } from '~~/composables/useBlockService';
 const blockService = useBlockService();
 
 import { useToastService } from '~~/composables/useToastService';
-const toastService = useToastService();
+const { showError } = useToastService();
 
 interface BlockState {
 	ids: string[];
@@ -60,7 +60,7 @@ export const useBlockStore = defineStore('blocks', {
 		async loadBlocks() {
 			const regattaId = useRegattaStore().selectedId;
 			if (regattaId == null) {
-				toastService.showError('No regatta selected');
+				showError('No regatta selected');
 				return;
 			}
 

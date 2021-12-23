@@ -170,7 +170,7 @@ import { useRoundStore } from '~~/stores/round';
 import { useCrewStore } from '~~/stores/crew';
 
 import { useToastService } from '~~/composables/useToastService';
-const toastService = useToastService();
+const { showError } = useToastService();
 
 import { Event, Field } from '~~/types/event.model';
 
@@ -205,7 +205,7 @@ const addField = (event: Event, blockId: string, roundId: string) => {
 			.allFieldsByRoundId(roundId)
 			.findIndex((field: Field) => field.event_id == event.id) != -1
 	) {
-		toastService.showError('Something went wrong');
+		showError('Something went wrong');
 		return;
 	}
 	events.addField(blockId, event.id, event.regatta_id, roundId);

@@ -6,7 +6,7 @@ import { useRoundService } from '~~/composables/useRoundService';
 const roundService = useRoundService();
 
 import { useToastService } from '~~/composables/useToastService';
-const toastService = useToastService();
+const { showError } = useToastService();
 
 interface RoundState {
 	ids: string[];
@@ -70,7 +70,7 @@ export const useRoundStore = defineStore('rounds', {
 		async loadRoundsByBlock() {
 			const blockId = useBlockStore().selectedId;
 			if (blockId == null) {
-				toastService.showError('No block selected');
+				showError('No block selected');
 				return;
 			}
 

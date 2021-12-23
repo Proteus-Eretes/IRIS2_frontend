@@ -25,7 +25,7 @@ import { useCrewService } from '~~/composables/useCrewService';
 const crewService = useCrewService();
 
 import { useToastService } from '~~/composables/useToastService';
-const toastService = useToastService();
+const { showError } = useToastService();
 
 interface CrewState {
 	ids: string[];
@@ -95,7 +95,7 @@ export const useCrewStore = defineStore('crews', {
 		async loadCrews() {
 			const regattaId = useRegattaStore().selectedId;
 			if (regattaId == null) {
-				toastService.showError('No regatta selected');
+				showError('No regatta selected');
 				return;
 			}
 
@@ -129,7 +129,7 @@ export const useCrewStore = defineStore('crews', {
 		async loadTeamsByField() {
 			const fieldId = useEventStore().selectedFieldId;
 			if (fieldId == null) {
-				toastService.showError('No field selected');
+				showError('No field selected');
 				return;
 			}
 

@@ -1,6 +1,6 @@
 <template>
 	<TransitionRoot as="template" :show="open">
-		<div class="fixed inset-y-0 right-0 overflow-hidden z-50">
+		<div class="fixed top-0 right-0 overflow-hidden z-50">
 			<TransitionChild
 				as="template"
 				enter="transform ease-out duration-300 transition"
@@ -10,7 +10,12 @@
 				leave-from="opacity-100 sm:translate-x-0 translate-y-0"
 				leave-to="opacity-0 sm:translate-x-1 translate-y-1 sm:translate-y-0"
 			>
-				<div class="p-3 max-w-md w-screen">
+				<div
+					:class="[
+						'p-3 w-screen',
+						!toast.primary ? 'max-w-sm' : 'max-w-md',
+					]"
+				>
 					<div
 						v-if="open && !toast.primary"
 						:class="toast.classToast"
@@ -33,7 +38,10 @@
 									{{ toast.title }}
 								</p>
 								<p
-									:class="[toast.classMessage, { 'mt-1': toast.title }]"
+									:class="[
+										toast.classMessage,
+										toast.title ? 'mt-1' : '',
+									]"
 									class="text-sm leading-5"
 									v-html="toast.message"
 								></p>
@@ -77,7 +85,7 @@
 									<p
 										:class="[
 											toast.classMessage,
-											{ 'mt-1': toast.title },
+											toast.title ? 'mt-1' : '',
 										]"
 										class="text-sm leading-5"
 										v-html="toast.message"

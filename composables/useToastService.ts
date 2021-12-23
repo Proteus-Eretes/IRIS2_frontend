@@ -32,7 +32,7 @@ export const useToastService = () => {
 	};
 
 	return {
-		show: (toast: Toast) => {
+		showToast: (toast: Toast) => {
 			main.showToast = true;
 			main.toast = {
 				title: toast.title ? toast.title : defaults.title,

@@ -17,7 +17,7 @@ import { useEventService } from '~~/composables/useEventService';
 const eventService = useEventService();
 
 import { useToastService } from '~~/composables/useToastService';
-const toastService = useToastService();
+const { showError } = useToastService();
 
 interface EventState {
 	ids: string[];
@@ -89,7 +89,7 @@ export const useEventStore = defineStore('events', {
 		async loadEvents() {
 			const regattaId = useRegattaStore().selectedId;
 			if (regattaId == null) {
-				toastService.showError('No regatta selected');
+				showError('No regatta selected');
 				return;
 			}
 
@@ -109,7 +109,7 @@ export const useEventStore = defineStore('events', {
 		async loadSelectedEvent() {
 			const eventId = this.selectedEventId;
 			if (eventId == null) {
-				toastService.showError('No event selected');
+				showError('No event selected');
 				return;
 			}
 
@@ -138,7 +138,7 @@ export const useEventStore = defineStore('events', {
 		async loadFieldsByBlock() {
 			const blockId = useBlockStore().selectedId;
 			if (blockId == null) {
-				toastService.showError('No block selected');
+				showError('No block selected');
 				return;
 			}
 

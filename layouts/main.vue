@@ -13,7 +13,7 @@
 				<slot />
 			</main>
 
-			<Toast v-model:open="main.showToast" :toast="main.toast" />
+			<Toast v-model:open="showToast" :toast="toast" />
 		</div>
 	</div>
 </template>
@@ -25,7 +25,7 @@ import { useMainStore } from '~~/stores';
 const regattas = useRegattaStore();
 regattas.loadRegattas();
 
-const main = useMainStore();
+const { showToast, toast } = useMainStore();
 
 const router = useRouter();
 
