@@ -66,8 +66,8 @@ import {
 } from '@heroicons/vue/outline';
 import { RouteItem } from '~~/types/route-item.model';
 
-import { useRegattas } from '~/stores/regattas';
-const regattas = useRegattas();
+import { useRegattaStore } from '~~/stores/regatta';
+const regattas = useRegattaStore();
 
 const router = useRouter();
 

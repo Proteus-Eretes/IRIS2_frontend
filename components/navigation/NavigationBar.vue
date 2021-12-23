@@ -213,9 +213,9 @@ import {
 
 import { getRegattaTypeLabel } from '~~/types/regatta.model';
 
-import { useRegattas } from '~~/stores/regattas';
+import { useRegattaStore } from '~~/stores/regatta';
 
-const regattas = useRegattas();
+const regattas = useRegattaStore();
 
 const formatDate = (date: Date) => {
 	return dayjs(date).format('DD-MM-YYYY');

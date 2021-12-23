@@ -6,12 +6,6 @@
 
 // edit
 
-// getCrewInformation
-
-// getCrews
-
-// index
-
 // removeData
 
 // removeRower
@@ -23,11 +17,12 @@
 // validateCrewsCategory
 
 import { defineStore } from 'pinia';
-import { useEvents } from './events';
-import { useRegattas } from './regattas';
+import { useEventStore } from './event';
+import { useRegattaStore } from './regatta';
 
 import { Crew, Team } from '~~/types/crew.model';
-import crewService from '~~/services/crew.service';
+import { useCrewService } from '~~/composables/useCrewService';
+const crewService = useCrewService();
 
 import { useToastService } from '~~/composables/useToastService';
 const toastService = useToastService();
@@ -41,7 +36,7 @@ interface CrewState {
 	selectedTeamId: string | null;
 }
 
-export const useCrews = defineStore('crews', {
+export const useCrewStore = defineStore('crews', {
 	state: (): CrewState => ({
 		ids: [],
 		entities: {},
@@ -69,7 +64,7 @@ export const useCrews = defineStore('crews', {
 			const allTeams = state.teamIds.map(
 				(id: string) => state.teamEntities[id]
 			);
-			const selectedFieldId = useEvents().selectedFieldId;
+			const selectedFieldId = useEventStore().selectedFieldId;
 
 			return allTeams.filter(
 				(team: Team) => team.field_id == selectedFieldId
@@ -98,7 +93,7 @@ export const useCrews = defineStore('crews', {
 
 	actions: {
 		async loadCrews() {
-			const regattaId = useRegattas().selectedId;
+			const regattaId = useRegattaStore().selectedId;
 			if (regattaId == null) {
 				toastService.showError('No regatta selected');
 				return;
@@ -132,7 +127,7 @@ export const useCrews = defineStore('crews', {
 			this.teamEntities = teamEntities;
 		},
 		async loadTeamsByField() {
-			const fieldId = useEvents().selectedFieldId;
+			const fieldId = useEventStore().selectedFieldId;
 			if (fieldId == null) {
 				toastService.showError('No field selected');
 				return;

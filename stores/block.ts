@@ -16,24 +16,21 @@
 
 // edit
 
-// getBlockInformation
-
-// getBlocks
-
 // getDrawBlock
-
-// index
 
 // showDrawnLots
 
 // startingOrderUpdate
 
 import { defineStore } from 'pinia';
+import { useRegattaStore } from './regatta';
 
 import { Block } from '~~/types/block.model';
-import blockService from '~~/services/block.service';
-import { useRegattas } from './regattas';
+import { useBlockService } from '~~/composables/useBlockService';
+const blockService = useBlockService();
+
 import { useToastService } from '~~/composables/useToastService';
+const toastService = useToastService();
 
 interface BlockState {
 	ids: string[];
@@ -41,7 +38,7 @@ interface BlockState {
 	selectedId: string | null;
 }
 
-export const useBlocks = defineStore('blocks', {
+export const useBlockStore = defineStore('blocks', {
 	state: (): BlockState => ({
 		ids: [],
 		entities: {},
@@ -61,9 +58,8 @@ export const useBlocks = defineStore('blocks', {
 
 	actions: {
 		async loadBlocks() {
-			const regattaId = useRegattas().selectedId;
+			const regattaId = useRegattaStore().selectedId;
 			if (regattaId == null) {
-				const toastService = useToastService();
 				toastService.showError('No regatta selected');
 				return;
 			}

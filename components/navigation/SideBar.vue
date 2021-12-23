@@ -62,9 +62,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useRegattas } from '~/stores/regattas';
-const regattas = useRegattas();
+import { useRegattaStore } from '~~/stores/regatta';
+const regattas = useRegattaStore();
 
-import { useMain } from '~/stores/index';
-const main = useMain();
+import { useMainStore } from '~/stores/index';
+const main = useMainStore();
 </script>

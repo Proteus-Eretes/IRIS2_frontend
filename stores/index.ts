@@ -63,7 +63,7 @@ const getters = {};
 
 const actions = {};
 
-export const useMain = defineStore('main', {
+export const useMainStore = defineStore('main', {
 	state,
 	getters,
 	actions,

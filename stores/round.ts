@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
-import { useBlocks } from './blocks';
+import { useBlockStore } from './block';
 
 import { Round } from '~~/types/round.model';
-import roundService from '~~/services/round.service';
+import { useRoundService } from '~~/composables/useRoundService';
+const roundService = useRoundService();
 
 import { useToastService } from '~~/composables/useToastService';
 const toastService = useToastService();
@@ -13,7 +14,7 @@ interface RoundState {
 	selectedId: string | null;
 }
 
-export const useRounds = defineStore('rounds', {
+export const useRoundStore = defineStore('rounds', {
 	state: (): RoundState => ({
 		ids: [],
 		entities: {},
@@ -26,7 +27,7 @@ export const useRounds = defineStore('rounds', {
 		},
 		allRoundsOfSelectedBlock(state: RoundState) {
 			const allRounds = state.ids.map((id: string) => state.entities[id]);
-			const selectedBlockId = useBlocks().selectedId;
+			const selectedBlockId = useBlockStore().selectedId;
 
 			return allRounds.filter(
 				(round: Round) => round.block_id == selectedBlockId
@@ -67,7 +68,7 @@ export const useRounds = defineStore('rounds', {
 			this.entities = roundEntities;
 		},
 		async loadRoundsByBlock() {
-			const blockId = useBlocks().selectedId;
+			const blockId = useBlockStore().selectedId;
 			if (blockId == null) {
 				toastService.showError('No block selected');
 				return;
@@ -87,7 +88,7 @@ export const useRounds = defineStore('rounds', {
 			this.entities = roundEntities;
 		},
 		assignRounds(list: string[]) {
-			const blockId = useBlocks().selectedId;
+			const blockId = useBlockStore().selectedId;
 
 			// FIXME Ik weet niet precies of het dit moet doen, maar ja
 			list.forEach((id: string) => {

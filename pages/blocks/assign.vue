@@ -164,10 +164,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useBlocks } from '~~/stores/blocks';
-import { useEvents } from '~/stores/events';
-import { useRounds } from '~~/stores/rounds';
-import { useCrews } from '~~/stores/crews';
+import { useBlockStore } from '~~/stores/block';
+import { useEventStore } from '~~/stores/event';
+import { useRoundStore } from '~~/stores/round';
+import { useCrewStore } from '~~/stores/crew';
 
 import { useToastService } from '~~/composables/useToastService';
 const toastService = useToastService();
@@ -177,17 +177,17 @@ import { Event, Field } from '~~/types/event.model';
 // Draggable component: https://github.com/SortableJS/vue.draggable.next
 import Draggable from 'vuedraggable';
 
-const blocks = useBlocks();
+const blocks = useBlockStore();
 blocks.loadBlocks();
 
-const events = useEvents();
+const events = useEventStore();
 events.loadEvents();
 events.loadFields();
 
-const rounds = useRounds();
+const rounds = useRoundStore();
 rounds.loadRounds();
 
-const crews = useCrews();
+const crews = useCrewStore();
 crews.loadCrews();
 
 const changeList = (evt, blockId: string, roundId: string) => {

@@ -1,7 +1,7 @@
-import { useMain } from '~~/stores';
+import { useMainStore } from '~~/stores';
 import { Toast, ToastType } from '~~/types/toast';
 
-const main = useMain();
+const main = useMainStore();
 
 export const useToastService = () => {
 	const defaults = {
@@ -23,6 +23,7 @@ export const useToastService = () => {
 	};
 	const defaultsError = {
 		title: 'Error',
+		type: ToastType.NORMAL,
 		classToast: 'bg-danger-600',
 		classTitle: 'text-danger-100',
 		classMessage: 'text-danger-200',
@@ -75,7 +76,7 @@ export const useToastService = () => {
 			main.toast = {
 				title: defaultsError.title,
 				message: message ? message : defaults.message,
-				type: ToastType.NORMAL,
+				type: defaultsError.type,
 				progress: defaults.progress,
 				timeout: defaults.timeout,
 				classToast: defaultsError.classToast,

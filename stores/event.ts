@@ -4,20 +4,17 @@
 
 // edit
 
-// getEventInformation
-
-// index
-
 // merge
 
 // splitEvents
 
 import { defineStore } from 'pinia';
-import { useBlocks } from './blocks';
-import { useRegattas } from './regattas';
+import { useBlockStore } from './block';
+import { useRegattaStore } from './regatta';
 
 import { Event, Field } from '~~/types/event.model';
-import eventService from '~~/services/event.service';
+import { useEventService } from '~~/composables/useEventService';
+const eventService = useEventService();
 
 import { useToastService } from '~~/composables/useToastService';
 const toastService = useToastService();
@@ -31,7 +28,7 @@ interface EventState {
 	selectedFieldId: string | null;
 }
 
-export const useEvents = defineStore('events', {
+export const useEventStore = defineStore('events', {
 	state: (): EventState => ({
 		ids: [],
 		entities: {},
@@ -52,7 +49,7 @@ export const useEvents = defineStore('events', {
 			const allFields = state.fieldIds.map(
 				(id: string) => state.fieldEntities[id]
 			);
-			const selectedBlockId = useBlocks().selectedId;
+			const selectedBlockId = useBlockStore().selectedId;
 
 			return allFields.filter(
 				(field: Field) => field.block_id == selectedBlockId
@@ -90,7 +87,7 @@ export const useEvents = defineStore('events', {
 
 	actions: {
 		async loadEvents() {
-			const regattaId = useRegattas().selectedId;
+			const regattaId = useRegattaStore().selectedId;
 			if (regattaId == null) {
 				toastService.showError('No regatta selected');
 				return;
@@ -139,7 +136,7 @@ export const useEvents = defineStore('events', {
 			this.fieldEntities = fieldEntities;
 		},
 		async loadFieldsByBlock() {
-			const blockId = useBlocks().selectedId;
+			const blockId = useBlockStore().selectedId;
 			if (blockId == null) {
 				toastService.showError('No block selected');
 				return;

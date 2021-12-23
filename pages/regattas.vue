@@ -15,9 +15,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useRegattas } from '~~/stores/regattas';
+import { useRegattaStore } from '~~/stores/regatta';
 
-const regattas = useRegattas();
+const regattas = useRegattaStore();
 
 const params = useUrlSearchParams('history');
 const { regatta } = params;
@@ -34,7 +34,7 @@ const selectRegatta = (id: string) => {
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useBlocks } from '~~/stores/blocks';
+import { useBlockStore } from '~~/stores/block';
 
 export default defineComponent({
 	layout: 'main',

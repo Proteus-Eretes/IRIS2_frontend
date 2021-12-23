@@ -136,19 +136,19 @@
 </template>
 
 <script lang="ts" setup>
-import { useBlocks } from '~~/stores/blocks';
-import { useEvents } from '~~/stores/events';
-import { useRounds } from '~~/stores/rounds';
-import { useCrews } from '~~/stores/crews';
+import { useBlockStore } from '~~/stores/block';
+import { useEventStore } from '~~/stores/event';
+import { useRoundStore } from '~~/stores/round';
+import { useCrewStore } from '~~/stores/crew';
 
 import { getBlockStatusLabel } from '~~/types/block.model';
 
-const blocks = useBlocks();
+const blocks = useBlockStore();
 blocks.loadBlocks();
 
-const events = useEvents();
-const rounds = useRounds();
-const crews = useCrews();
+const events = useEventStore();
+const rounds = useRoundStore();
+const crews = useCrewStore();
 
 // The panel that is last opened
 const activePanel = ref(0);

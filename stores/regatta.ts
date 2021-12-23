@@ -6,16 +6,13 @@
 
 // edit
 
-// index
-
 // lotterySettings
-
-// view
 
 import { defineStore } from 'pinia';
 
 import { Regatta } from '~~/types/regatta.model';
-import regattaService from '~~/services/regatta.service';
+import { useRegattaService } from '~~/composables/useRegattaService';
+const regattaService = useRegattaService();
 
 interface RegattaState {
 	ids: string[];
@@ -23,7 +20,7 @@ interface RegattaState {
 	selectedId: string | null;
 }
 
-export const useRegattas = defineStore('regattas', {
+export const useRegattaStore = defineStore('regattas', {
 	state: (): RegattaState => ({
 		ids: [],
 		entities: {},

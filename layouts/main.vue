@@ -19,13 +19,13 @@
 </template>
 
 <script lang="ts" setup>
-import { useRegattas } from '@/stores/regattas';
-import { useMain } from '~~/stores';
+import { useRegattaStore } from '~~/stores/regatta';
+import { useMainStore } from '~~/stores';
 
-const regattas = useRegattas();
+const regattas = useRegattaStore();
 regattas.loadRegattas();
 
-const main = useMain();
+const main = useMainStore();
 
 const router = useRouter();
 
