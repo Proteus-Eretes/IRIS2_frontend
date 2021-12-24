@@ -12,34 +12,38 @@
 			>
 				<div
 					:class="[
-						'p-3 w-screen',
 						!toast.primary ? 'max-w-sm' : 'max-w-md',
+						'p-3 w-screen',
 					]"
 				>
 					<div
 						v-if="open && !toast.primary"
-						:class="toast.classToast"
-						class="
-							shadow-lg
-							rounded-lg
-							relative
-							overflow-hidden
-							p-3
-						"
+						:class="[
+							toast.type == ToastType.DENIED
+								? 'bg-danger-600'
+								: 'bg-white',
+							'shadow-lg rounded-lg relative overflow-hidden p-3',
+						]"
 					>
 						<div class="flex items-start">
 							<ToastIcon :type="toast.type" />
 							<div class="ml-3 grow pt-0.5">
 								<p
 									v-if="toast.title"
-									:class="toast.classTitle"
-									class="text-sm leading-5 font-medium"
+									:class="[
+										toast.type == ToastType.DENIED
+											? 'text-danger-100'
+											: 'text-gray-900',
+										'text-sm leading-5 font-medium',
+									]"
 								>
 									{{ toast.title }}
 								</p>
 								<p
 									:class="[
-										toast.classMessage,
+										toast.type == ToastType.DENIED
+											? 'text-danger-200'
+											: 'text-gray-500',
 										toast.title ? 'mt-1' : '',
 									]"
 									class="text-sm leading-5"
@@ -59,8 +63,12 @@
 									@click="destroy"
 								>
 									<XIcon
-										class="h-4 w-4"
-										:class="toast.classClose"
+										:class="[
+											toast.type == ToastType.DENIED
+												? 'text-danger-300'
+												: 'text-gray-400',
+											'h-4 w-4',
+										]"
 									/>
 								</button>
 							</div>
@@ -68,8 +76,12 @@
 					</div>
 					<div
 						v-if="open && toast.primary && toast.secondary"
-						:class="toast.classToast"
-						class="shadow-lg rounded-lg"
+						:class="[
+							toast.type == ToastType.DENIED
+								? 'bg-danger-600'
+								: 'bg-white',
+							'shadow-lg rounded-lg',
+						]"
 					>
 						<div class="flex rounded-lg shadow-xs">
 							<div class="grow flex items-center p-3">
@@ -77,14 +89,20 @@
 								<div class="w-full">
 									<p
 										v-if="toast.title"
-										:class="toast.classTitle"
-										class="text-sm leading-5 font-medium"
+										:class="[
+											toast.type == ToastType.DENIED
+												? 'text-danger-100'
+												: 'text-gray-900',
+											'text-sm leading-5 font-medium',
+										]"
 									>
 										{{ toast.title }}
 									</p>
 									<p
 										:class="[
-											toast.classMessage,
+											toast.type == ToastType.DENIED
+												? 'text-danger-200'
+												: 'text-gray-500',
 											toast.title ? 'mt-1' : '',
 										]"
 										class="text-sm leading-5"
@@ -119,7 +137,11 @@
 												duration-150
 												focus:outline-none
 											"
-											:class="toast.classPrimary"
+											:class="[
+												toast.type == ToastType.DENIED
+													? 'text-danger-100'
+													: 'text-secondary-500 hover:text-secondary-400 focus:shadow-outline-blue',
+											]"
 											@click="primaryAction"
 										>
 											{{ toast.primary.label }}
@@ -144,7 +166,11 @@
 												duration-150
 												focus:outline-none
 											"
-											:class="toast.classSecondary"
+											:class="
+												toast.type == ToastType.DENIED
+													? ''
+													: 'text-gray-700 hover:text-gray-500 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50'
+											"
 											@click="secondaryAction"
 										>
 											{{ toast.secondary.label }}
@@ -156,8 +182,12 @@
 					</div>
 					<div
 						v-if="open && toast.primary && !toast.secondary"
-						:class="toast.classToast"
-						class="shadow-lg rounded-lg"
+						:class="[
+							toast.type == ToastType.DENIED
+								? 'bg-danger-600'
+								: 'bg-white',
+							'shadow-lg rounded-lg',
+						]"
 					>
 						<div class="rounded-lg shadow-xs overflow-hidden p-4">
 							<div class="flex items-center">
@@ -179,7 +209,11 @@
 											duration-150
 											focus:outline-none
 										"
-										:class="toast.classSingle"
+										:class="
+											toast.type == ToastType.DENIED
+												? ''
+												: 'text-secondary-500 hover:text-secondary-400'
+										"
 										@click="primaryAction"
 									>
 										{{ toast.primary.label }}
@@ -198,10 +232,14 @@
 										"
 										@click="destroy"
 									>
-										<XIcon
-											class="h-4 w-4"
-											:class="toast.classClose"
-										/>
+									<XIcon
+										:class="[
+											toast.type == ToastType.DENIED
+												? 'text-danger-300'
+												: 'text-gray-400',
+											'h-4 w-4',
+										]"
+									/>
 									</button>
 								</div>
 							</div>
@@ -211,8 +249,6 @@
 			</TransitionChild>
 		</div>
 	</TransitionRoot>
-	<!-- <Dialog as="template" @close="$emit('update:open', false)"> -->
-	<!-- </Dialog> -->
 </template>
 
 <script lang="ts" setup>

@@ -48,13 +48,25 @@
 			v-if="type === ToastType.DANGER"
 			class="border-2 border-danger-200 rounded-full p-0.5"
 		>
-			<ExclamationIcon class="w-4 h-4 text-danger-400" />
+			<!-- <ExclamationIcon class="w-4 h-4 text-danger-400" /> -->
+			<div
+				class="
+					w-4
+					h-4
+					text-danger-400 text-center text-sm
+					font-semibold
+					items-center
+					leading-4
+				"
+			>
+				!
+			</div>
 		</div>
 		<div
 			v-if="type === ToastType.DENIED"
 			class="border-2 border-danger-200 rounded-full p-0.5"
 		>
-			<XIcon class="w-4 h-4 text-danger-400" />
+			<XIcon class="w-4 h-4 text-danger-100" />
 		</div>
 		<!-- <div v-if="icon">
 			<component

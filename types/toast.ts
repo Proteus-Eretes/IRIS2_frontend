@@ -9,14 +9,6 @@ export interface Toast {
 	timeout?: number;
 	primary?: ToastButton;
 	secondary?: ToastButton;
-	classToast?: string;
-	classTitle?: string;
-	classMessage?: string;
-	classPrimary?: string;
-	classSecondary?: string;
-	classSingle?: string;
-	classClose?: string;
-	classTimeout?: string;
 }
 
 export interface ToastButton {
