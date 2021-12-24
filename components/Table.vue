@@ -150,7 +150,7 @@ const emits = defineEmits<{
 	(e: 'action', { action: BlockAction, item: any }): void;
 }>();
 
-// TODO Dit in de store?
+// TODO: Dit in de store?
 const actions: BlockAction[] = [
 	{
 		link: '/blocks/assign',
@@ -179,7 +179,7 @@ const getSlotName = (header: any) => {
 	return name.replaceAll(regex, '-');
 };
 
-// FIXME Dit hoort gewoon als string te werken
+// FIXME: Dit hoort gewoon als string te werken
 const getIcon = (icon: string) => {
 	switch (icon) {
 		case 'DotsHorizontalIcon':

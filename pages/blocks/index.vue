@@ -235,7 +235,7 @@ const deselectField = () => {
 	delete params.field;
 };
 
-// TODO waarom werken urlsearchparams niet?
+// TODO: waarom werken urlsearchparams niet?
 // If the queries are set in the router, select the items
 const router = useRouter();
 const { block, field, crew, rower } = router.currentRoute.value.query;

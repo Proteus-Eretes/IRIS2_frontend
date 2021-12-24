@@ -163,7 +163,7 @@ export const useEventStore = defineStore('events', {
 			regattaId: string,
 			roundId: string
 		) {
-			// FIXME
+			// FIXME:
 			const randomId = String(Math.floor(Math.random() * 10000));
 			const newField: Field = {
 				id: randomId,
@@ -171,7 +171,7 @@ export const useEventStore = defineStore('events', {
 				event_id: eventId,
 				regatta_id: regattaId,
 				round_id: roundId,
-				teams: [], // FIXME
+				teams: [], // FIXME:
 			};
 
 			const field = await eventService.addField(newField);

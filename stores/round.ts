@@ -90,7 +90,7 @@ export const useRoundStore = defineStore('rounds', {
 		assignRounds(list: string[]) {
 			const blockId = useBlockStore().selectedId;
 
-			// FIXME Ik weet niet precies of het dit moet doen, maar ja
+			// FIXME: Ik weet niet precies of het dit moet doen, maar ja
 			list.forEach((id: string) => {
 				this.entities[id].block_id = blockId;
 			});

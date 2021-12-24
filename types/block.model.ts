@@ -13,7 +13,7 @@ export interface BlockAction {
 	setting: string;
 }
 
-// TODO In apart bestand?
+// TODO: In apart bestand?
 export enum BlockStatus {
 	CREATED = 1,
 	ROUNDS_ASSIGNED = 2,

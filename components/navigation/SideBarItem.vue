@@ -80,7 +80,7 @@ const props = defineProps<{
 	item: RouteItem;
 }>();
 
-// FIXME Dit hoort gewoon als string te werken
+// FIXME: Dit hoort gewoon als string te werken
 const getIcon = (icon: string) => {
 	switch (icon) {
 		case 'TemplateIcon':

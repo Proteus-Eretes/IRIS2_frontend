@@ -12,7 +12,7 @@
 							sm:text-3xl sm:truncate
 						"
 					>
-						<!-- FIXME Node hydration -->
+						<!-- FIXME: Node hydration -->
 						{{
 							regattas.selectedRegatta
 								? regattas.selectedRegatta.name

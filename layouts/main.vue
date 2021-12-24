@@ -36,7 +36,7 @@ if (regatta && typeof regatta == 'string') {
 	router.push('/regattas');
 }
 
-// FIXME #2 Nuxt middleware
+// FIXME: #2 Nuxt middleware
 router.beforeEach((to, from, next) => {
 	const { regatta } = to.query;
 
