@@ -95,7 +95,6 @@ export const useCrewStore = defineStore('crews', {
 		async loadCrews() {
 			const regattaId = useRegattaStore().selectedId;
 			if (regattaId == null) {
-				showError('No regatta selected');
 				return;
 			}
 

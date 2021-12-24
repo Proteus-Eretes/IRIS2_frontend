@@ -6,6 +6,10 @@
 	a {
 		@apply cursor-pointer;
 	}
+
+	tbody > tr:nth-child(odd) {
+		@apply bg-gray-50;
+	}
 }
 
 @layer components {
@@ -19,8 +23,7 @@
 		@apply flex
 			px-5
 			py-3
-			gap-3
-			overflow-hidden;
+			gap-3;
 	}
 	.sliding-container .sliding-column {
 		@apply translate-x-0 transition-transform;
@@ -39,23 +42,28 @@
 			px-3
 			py-2
 			gap-1
-			bg-secondary-400;
+			bg-secondary-400
+			shadow-sm;
 	}
-	.panel-header > h2 {
+	.panel-header > h2,
+	th {
 		@apply grow
 			uppercase
 			font-medium
+			text-left
 			text-sm
 			truncate
+			tracking-wider
 			text-white;
 	}
 
 	.button {
 		@apply inline-flex
 			justify-center
+			w-full
+			max-w-md
 			py-2
 			px-4
-			shadow-sm
 			text-sm
 			font-medium
 			rounded-md
@@ -71,31 +79,33 @@
 			focus:ring-secondary-400;
 	}
 	.button.button-secondary {
-		@apply border border-gray-100
+		@apply border border-gray-200
 			text-primary-700
 			bg-white
 			hover:bg-gray-100
 			focus:ring-secondary-400;
 	}
 
-	.icon-white {
-		@apply w-5 h-5 text-white;
+	.icon {
+		@apply inline-block w-5 h-5;
 	}
-	.icon-primary {
-		@apply w-5 h-5 text-primary-400;
+	.icon-button {
+		@apply flex
+			py-2
+			px-3
+			text-sm;
 	}
-	.icon-gray {
-		@apply w-5 h-5 text-gray-400;
+	.icon-button > .icon {
+		@apply mr-2;
 	}
 
 	.blocks__assign-event {
 		@apply text-primary-900
 			cursor-move
-			border border-gray-100
+			border border-gray-200
 			bg-white
 			hover:bg-secondary-50
-			rounded-sm
-			shadow-sm
+			rounded-md
 			pl-2
 			pr-3
 			py-2

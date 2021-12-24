@@ -89,7 +89,6 @@ export const useEventStore = defineStore('events', {
 		async loadEvents() {
 			const regattaId = useRegattaStore().selectedId;
 			if (regattaId == null) {
-				showError('No regatta selected');
 				return;
 			}
 

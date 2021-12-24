@@ -25,32 +25,29 @@
 							sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6
 						"
 					>
-						<div
-							class="mt-1 flex items-center text-sm text-gray-500"
-						>
+						<div class="mt-1 flex items-center text-sm">
 							<CalendarIcon
-								class="icon-gray shrink-0 mr-1.5"
+								class="icon text-gray-400 shrink-0 mr-1.5"
 								aria-hidden="true"
 							/>
-							<span>
+							<span class="text-gray-500">
 								{{
 									regattas.selectedRegatta
 										? formatDate(
 												regattas.selectedRegatta
-													.start_date
+													.start_date,
+												true
 										  )
 										: ''
 								}}
 							</span>
 						</div>
-						<div
-							class="mt-1 flex items-center text-sm text-gray-500"
-						>
+						<div class="mt-1 flex items-center text-sm">
 							<LocationMarkerIcon
-								class="icon-gray shrink-0 mr-1.5"
+								class="icon text-gray-400 shrink-0 mr-1.5"
 								aria-hidden="true"
 							/>
-							<span>
+							<span class="text-gray-500">
 								{{
 									regattas.selectedRegatta
 										? regattas.selectedRegatta.venue_id
@@ -58,14 +55,12 @@
 								}}
 							</span>
 						</div>
-						<div
-							class="mt-1 flex items-center text-sm text-gray-500"
-						>
+						<div class="mt-1 flex items-center text-sm">
 							<BookmarkIcon
-								class="icon-gray shrink-0 mr-1.5"
+								class="icon text-gray-400 shrink-0 mr-1.5"
 								aria-hidden="true"
 							/>
-							<span>
+							<span class="text-gray-500">
 								{{
 									regattas.selectedRegatta
 										? getRegattaTypeLabel(
@@ -156,7 +151,7 @@
 								</div>
 							</MenuButton>
 						</div>
-						<transition
+						<Transition
 							enter-active-class="transition ease-out duration-100"
 							enter-from-class="opacity-0 scale-95"
 							enter-to-class="opacity-100 scale-100"
@@ -191,7 +186,7 @@
 									</a>
 								</MenuItem>
 							</MenuItems>
-						</transition>
+						</Transition>
 					</Menu>
 				</div>
 			</div>
@@ -200,8 +195,6 @@
 </template>
 
 <script lang="ts" setup>
-import * as dayjs from 'dayjs';
-
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline';
 import {
@@ -214,10 +207,8 @@ import {
 import { getRegattaTypeLabel } from '~~/types/regatta.model';
 
 import { useRegattaStore } from '~~/stores/regatta';
-
 const regattas = useRegattaStore();
 
-const formatDate = (date: Date) => {
-	return dayjs(date).format('DD-MM-YYYY');
-};
+import { useDateFormatter } from '~~/composables/useDateFormatter';
+const { formatDate, formatTime } = useDateFormatter();
 </script>

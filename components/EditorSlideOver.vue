@@ -121,7 +121,7 @@
 								>
 									<button
 										type="reset"
-										class="button button-secondary"
+										class="button button-secondary w-auto"
 										@click="$emit('update:open', false)"
 									>
 										Cancel
@@ -129,7 +129,7 @@
 
 									<button
 										type="submit"
-										class="button button-primary"
+										class="button button-primary w-auto"
 									>
 										Save
 									</button>

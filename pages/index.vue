@@ -1,8 +1,18 @@
 <template>
-	<div></div>
+	<div>
+		<button type="button" @click="click()">Click</button>
+	</div>
 </template>
 
 <script lang="ts" setup>
+import { useToastService } from '~~/composables/useToastService';
+const { showError } = useToastService();
+
+const click = () => {
+	console.log('click');
+
+	showError('Click');
+};
 </script>
 
 <script lang="ts">

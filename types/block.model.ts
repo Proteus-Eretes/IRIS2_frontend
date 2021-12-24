@@ -11,29 +11,6 @@ export interface BlockAction {
 	id: string;
 	icon: string;
 	setting: string;
-	class: string;
-
-	// {
-	// 	link: '/blocks/assign',
-	// 	id: 'edit-block',
-	// 	icon: 'edit',
-	// 	setting: 'Assign events and Rounds',
-	// 	class: '',
-	// },
-	// {
-	// 	link: '/blocks/draw-lots',
-	// 	id: 'edit-block',
-	// 	icon: 'edit',
-	// 	setting: 'Draw lots',
-	// 	class: '',
-	// },
-	// {
-	// 	link: '/shirt-number/assign-shirts-overview',
-	// 	id: 'edit-block',
-	// 	icon: 'edit',
-	// 	setting: 'Assign shirt numbers',
-	// 	class: '',
-	// },
 }
 
 // TODO In apart bestand?

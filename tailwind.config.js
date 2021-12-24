@@ -20,7 +20,7 @@ module.exports = {
 			warning: colors.yellow,
 			black: colors.black,
 			white: colors.white,
-			gray: colors.neutral,
+			gray: colors.gray,
 		},
 		extend: {
 			minWidth: {

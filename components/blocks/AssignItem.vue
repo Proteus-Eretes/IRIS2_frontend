@@ -1,13 +1,13 @@
 <template>
 	<div class="blocks__assign-event group">
 		<DotsVerticalIcon
-			class="icon-white group-hover:icon-primary"
+			class="icon text-white group-hover:text-primary-300"
 			aria-hidden="true"
 		/>
 
 		<slot />
 
-		<UserGroupIcon class="icon-primary" aria-hidden="true" />
+		<UserGroupIcon class="icon text-primary-300" aria-hidden="true" />
 
 		<slot name="number-crews" />
 	</div>

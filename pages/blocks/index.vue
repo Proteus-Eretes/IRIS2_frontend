@@ -9,15 +9,60 @@
 				<template #header>Blocks</template>
 
 				<div v-if="blocks.allBlocks">
-					<div v-for="block in blocks.allBlocks" :key="block.id">
-						<button type="button" @click="selectBlock(block.id)">
-							{{ block.block }}
+					<Table
+						:headers="[
+							'Block',
+							'Start date',
+							'Start time',
+							'Status',
+						]"
+						:items="blocks.allBlocks"
+						@item-click="selectBlock($event.id)"
+					>
+						<template #block="{ item }">
+							<span class="text-sm font-semibold">
+								Block {{ item.block }}
+							</span>
+						</template>
+
+						<template #start-date="{ item }">
+							<span class="text-sm">
+								{{ formatDate(item.start_time) }}
+							</span>
+						</template>
+
+						<template #start-time="{ item }">
+							<span class="text-sm">
+								{{ formatTime(item.start_time) }}
+							</span>
+						</template>
+
+						<template #status="{ item }">
+							<span
+								class="
+									rounded-full
+									bg-primary-400
+									text-white
+									font-medium
+									text-xs
+									px-2
+									py-0.5
+								"
+							>
+								{{ getBlockStatusLabel(item.status) }}
+							</span>
+						</template>
+					</Table>
+
+					<div class="w-full p-2 flex justify-center">
+						<button
+							type="button"
+							class="button button-secondary"
+							@click="showAddBlock = true"
+						>
+							Add Block
 						</button>
 					</div>
-
-					<button type="button" @click="showAddBlock = true">
-						Add Block
-					</button>
 				</div>
 				<div v-else>Nothing</div>
 			</SlidingPanel>
@@ -138,11 +183,14 @@
 
 <script lang="ts" setup>
 import { useBlockStore } from '~~/stores/block';
+import { useCrewStore } from '~~/stores/crew';
 import { useEventStore } from '~~/stores/event';
 import { useRoundStore } from '~~/stores/round';
-import { useCrewStore } from '~~/stores/crew';
 
 import { getBlockStatusLabel } from '~~/types/block.model';
+import { useDateFormatter } from '~~/composables/useDateFormatter';
+
+const { formatDate, formatTime } = useDateFormatter();
 
 const blocks = useBlockStore();
 blocks.loadBlocks();

@@ -27,11 +27,11 @@
 
 			<button type="button" v-if="allowClose" @click="$emit('close')">
 				<span class="sr-only">Close panel</span>
-				<XIcon class="icon-white" />
+				<XIcon class="icon text-white" />
 			</button>
 		</div>
 
-		<div class="p-2 grow overflow-scroll">
+		<div class="grow">
 			<slot />
 		</div>
 	</div>
