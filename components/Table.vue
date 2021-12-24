@@ -51,7 +51,7 @@
 								<span class="sr-only"> Open action menu </span>
 
 								<DotsHorizontalIcon
-									class="icon text-gray-400"
+									class="icon inline-block text-gray-400"
 								/>
 							</MenuButton>
 							<Transition

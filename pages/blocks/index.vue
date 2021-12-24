@@ -38,17 +38,7 @@
 						</template>
 
 						<template #status="{ item }">
-							<span
-								class="
-									rounded-full
-									bg-primary-400
-									text-white
-									font-medium
-									text-xs
-									px-2
-									py-0.5
-								"
-							>
+							<span class="pill text-white bg-primary-400">
 								{{ getBlockStatusLabel(item.status) }}
 							</span>
 						</template>
@@ -57,9 +47,10 @@
 					<div class="w-full p-2 flex justify-center">
 						<button
 							type="button"
-							class="button button-secondary"
+							class="button icon-button button-secondary"
 							@click="showAddBlock = true"
 						>
+							<PlusIcon class="icon text-gray-400" />
 							Add Block
 						</button>
 					</div>
@@ -83,16 +74,7 @@
 				</template>
 
 				<template #header-buttons>
-					<span
-						class="
-							rounded-full
-							bg-white
-							text-secondary-500
-							font-medium
-							text-sm
-							px-2
-						"
-					>
+					<span class="pill bg-white text-secondary-500">
 						{{
 							blocks.selectedBlock != null
 								? getBlockStatusLabel(
@@ -182,6 +164,8 @@
 </template>
 
 <script lang="ts" setup>
+import { PlusIcon } from '@heroicons/vue/outline';
+
 import { useBlockStore } from '~~/stores/block';
 import { useCrewStore } from '~~/stores/crew';
 import { useEventStore } from '~~/stores/event';

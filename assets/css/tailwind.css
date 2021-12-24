@@ -87,7 +87,7 @@
 	}
 
 	.icon {
-		@apply inline-block w-5 h-5;
+		@apply w-5 h-5;
 	}
 	.icon-button {
 		@apply flex
@@ -97,6 +97,14 @@
 	}
 	.icon-button > .icon {
 		@apply mr-2;
+	}
+
+	.pill {
+		@apply rounded-full
+			font-medium
+			text-xs
+			px-2
+			py-0.5;
 	}
 
 	.blocks__assign-event {
