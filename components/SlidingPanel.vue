@@ -33,7 +33,7 @@
 
 			<button type="button" v-if="allowClose" @click="$emit('close')">
 				<span class="sr-only">Close panel</span>
-				<XIcon class="icon text-white" />
+				<ph-x class="icon text-white" />
 			</button>
 		</div>
 
@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-import { XIcon } from '@heroicons/vue/outline';
+import { PhX } from 'phosphor-vue';
 
 interface Props {
 	index: number;

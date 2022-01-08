@@ -2,7 +2,11 @@
 
 We recommend to look at the [documentation](https://v3.nuxtjs.org).
 
-## Setup
+## Deployment
+
+Gebruik deze commands voor deployment
+
+### Setup
 
 Make sure to install the dependencies
 
@@ -10,7 +14,7 @@ Make sure to install the dependencies
 yarn install
 ```
 
-## Development
+### Development
 
 Start the development server on http://localhost:3000
 
@@ -18,7 +22,7 @@ Start the development server on http://localhost:3000
 yarn dev
 ```
 
-## Production
+### Production
 
 Build the application for production:
 
@@ -26,4 +30,12 @@ Build the application for production:
 yarn build
 ```
 
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment).
+## Packages
+
+### phosphor-vue
+
+Dit zijn de icoontjes. Kijk op [phosphoricons.com](https://phosphoricons.com/) voor informatie en meer icoontjes.
+
+### pinia
+
+Een alternatief voor Vuex, maar deze werkt beter met Nuxt en Vue 3.

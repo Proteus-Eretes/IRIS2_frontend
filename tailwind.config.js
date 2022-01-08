@@ -24,13 +24,17 @@ module.exports = {
 		},
 		extend: {
 			minWidth: {
+				5: '1.25rem',
 				'1/4': '25%',
 				'single-column': '100%',
 				'multiple-column': 'calc(50% - 1rem)',
 			},
 			width: {
 				'side-bar': '16rem',
-				'main-content': 'calc(100vw - 16rem)'
+				'main-content': 'calc(100vw - 16rem)',
+			},
+			minHeight: {
+				5: '1.25rem',
 			},
 			maxHeight: {
 				'1/2-screen': '50vh',

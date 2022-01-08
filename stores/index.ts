@@ -14,11 +14,11 @@ interface RootState {
 
 const state = (): RootState => ({
 	mainNavigation: [
-		{ name: 'Dashboard', to: '/', icon: 'TemplateIcon', items: [] },
+		{ name: 'Dashboard', to: '/', icon: 'ph-gauge', items: [] },
 		{
 			name: 'Blocks',
 			to: '/blocks',
-			icon: 'ViewGridIcon',
+			icon: 'ph-squares-four',
 			items: [
 				{
 					name: 'Assign Events & Rounds',
@@ -28,22 +28,22 @@ const state = (): RootState => ({
 				},
 			],
 		},
-		{ name: 'Crews', to: '/crews', icon: 'UserGroupIcon', items: [] },
-		{ name: 'Events', to: '/events', icon: 'CalendarIcon', items: [] },
-		{ name: 'Toss', to: '/toss', icon: 'CurrencyEuroIcon', items: [] },
+		{ name: 'Crews', to: '/crews', icon: 'ph-users-three', items: [] },
+		{ name: 'Events', to: '/events', icon: 'ph-calendar-blank', items: [] },
+		{ name: 'Toss', to: '/toss', icon: 'ph-coin-vertical', items: [] },
 		{
 			name: 'Shirt numbers',
 			to: '/shirt-numbers',
-			icon: 'ClipboardListIcon',
+			icon: 'ph-list-numbers',
 			items: [],
 		},
 	],
 	competitionNavigation: [
-		{ name: 'Export', to: '/export', icon: 'ShareIcon', items: [] },
+		{ name: 'Export', to: '/export', icon: 'ph-export', items: [] },
 		{
 			name: 'Live recording',
 			to: '/live-recording',
-			icon: 'MicrophoneIcon',
+			icon: 'ph-microphone',
 			items: [],
 		},
 	],
@@ -51,7 +51,7 @@ const state = (): RootState => ({
 		{
 			name: 'Regattas',
 			to: '/regattas',
-			icon: 'CollectionIcon',
+			icon: 'ph-clipboard-text',
 			items: [],
 		},
 	],
@@ -59,25 +59,25 @@ const state = (): RootState => ({
 		{
 			link: '/blocks/assign',
 			id: 'assign',
-			icon: 'PencilIcon',
+			icon: 'ph-calendar-plus',
 			setting: 'Assign events and Rounds',
 		},
 		{
 			link: '/blocks/draw-lots',
 			id: 'lots',
-			icon: 'CurrencyEuroIcon',
+			icon: 'ph-coin-vertical',
 			setting: 'Draw lots',
 		},
 		{
 			link: '/shirt-number/assign-shirts-overview',
 			id: 'shirts',
-			icon: 'ClipboardListIcon',
+			icon: 'ph-list-numbers',
 			setting: 'Assign shirt numbers',
 		},
 		{
 			link: '',
 			id: 'delete',
-			icon: 'TrashIcon',
+			icon: 'ph-trash',
 			setting: 'Delete'
 		}
 	],

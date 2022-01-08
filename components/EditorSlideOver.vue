@@ -16,12 +16,7 @@
 					leave-to="opacity-0"
 				>
 					<DialogOverlay
-						class="
-							absolute
-							inset-0
-							bg-gray-500 bg-opacity-75
-							transition-opacity
-						"
+						class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
 					/>
 				</TransitionChild>
 				<div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
@@ -40,57 +35,35 @@
 									$emit('save');
 									$emit('update:open', false);
 								"
-								class="
-									h-full
-									flex flex-col
-									bg-white
-									shadow-xl
-									overflow-y-scroll
-								"
+								class="h-full flex flex-col bg-white shadow-xl overflow-y-scroll"
 							>
-								<div class="py-6 px-4 sm:px-6 h-24
-										border-b border-gray-200">
+								<div
+									class="py-6 px-4 sm:px-6 h-24 border-b border-gray-200"
+								>
 									<DialogTitle
-										class="
-											flex flex-row
-											items-center
-											justify-between
-										"
+										class="flex flex-row items-center justify-between"
 									>
 										<div>
 											<h5
-												class="
-													text-lg
-													font-semibold
-													leading-7
-													text-gray-900
-												"
+												class="text-lg font-semibold leading-7 text-gray-900"
 											>
 												<slot name="header" />
 											</h5>
 
 											<h6 class="text-sm text-gray-500">
-											<slot name="subheader" />
+												<slot name="subheader" />
 											</h6>
 										</div>
 
 										<button
 											type="button"
-											class="
-												rounded-md
-												text-gray-400
-												hover:text-danger-600
-												focus:outline-none
-												focus:ring-2
-												focus:ring-gray-200
-												focus:hover:ring-danger-200
-											"
+											class="rounded-md text-gray-400 hover:text-danger-600 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:hover:ring-danger-200"
 											@click="$emit('update:open', false)"
 										>
 											<span class="sr-only">
 												Close panel
 											</span>
-											<XIcon
+											<ph-x
 												class="h-6 w-6"
 												aria-hidden="true"
 											/>
@@ -99,25 +72,13 @@
 								</div>
 
 								<div
-									class="
-										relative
-										grow
-										overflow-y-scroll
-										px-4
-										sm:px-6
-									"
+									class="relative grow overflow-y-scroll px-4 sm:px-6"
 								>
 									<slot />
 								</div>
 
 								<div
-									class="
-										px-6
-										py-4
-										border-t border-gray-200
-										text-right
-										space-x-2
-									"
+									class="px-6 py-4 border-t border-gray-200 text-right space-x-2"
 								>
 									<button
 										type="reset"
@@ -151,7 +112,7 @@ import {
 	TransitionChild,
 	TransitionRoot,
 } from '@headlessui/vue';
-import { XIcon } from '@heroicons/vue/outline';
+import { PhX } from 'phosphor-vue';
 
 interface Props {
 	open: boolean;

@@ -47,7 +47,7 @@
 							>
 								<span class="sr-only">Open action menu</span>
 
-								<DotsHorizontalIcon
+								<ph-dots-three
 									class="icon inline-block text-gray-400"
 								/>
 							</MenuButton>
@@ -86,11 +86,9 @@
 										>
 											<component
 												:is="
-													getIcon(
-														main.getTableActionById(
-															action
-														).icon
-													)
+													main.getTableActionById(
+														action
+													).icon
 												"
 												:class="[
 													action == 'delete'
@@ -117,13 +115,6 @@
 
 <script lang="ts" setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import {
-	DotsHorizontalIcon,
-	PencilIcon,
-	CurrencyEuroIcon,
-	ClipboardListIcon,
-	TrashIcon,
-} from '@heroicons/vue/outline';
 import { TableAction } from '~~/types/table-action.model';
 
 import { useMainStore } from '~~/stores';
@@ -150,21 +141,5 @@ const getSlotName = (header: any) => {
 	const name = header.toLowerCase();
 	const regex = /\s/gi;
 	return name.replaceAll(regex, '-');
-};
-
-// FIXME: Dit hoort gewoon als string te werken
-const getIcon = (icon: string) => {
-	switch (icon) {
-		case 'DotsHorizontalIcon':
-			return DotsHorizontalIcon;
-		case 'PencilIcon':
-			return PencilIcon;
-		case 'CurrencyEuroIcon':
-			return CurrencyEuroIcon;
-		case 'ClipboardListIcon':
-			return ClipboardListIcon;
-		case 'TrashIcon':
-			return TrashIcon;
-	}
 };
 </script>

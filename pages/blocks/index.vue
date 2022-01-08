@@ -54,7 +54,7 @@
 							class="button icon-button button-secondary"
 							@click="showAddBlock = true"
 						>
-							<PlusIcon class="icon text-gray-400" />Add Block
+							<ph-plus class="icon text-gray-400" />Add Block
 						</button>
 					</div>
 				</div>
@@ -337,8 +337,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PlusIcon } from '@heroicons/vue/outline';
-
 import { useBlockStore } from '~~/stores/block';
 import { useCrewStore } from '~~/stores/crew';
 import { useEventStore } from '~~/stores/event';

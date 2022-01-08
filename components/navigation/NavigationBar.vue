@@ -4,13 +4,7 @@
 			<div class="relative flex items-center justify-between h-24">
 				<div class="flex-1">
 					<h1
-						class="
-							text-lg
-							font-semibold
-							leading-7
-							text-primary-900
-							sm:text-3xl sm:truncate
-						"
+						class="text-lg font-semibold leading-7 text-primary-900 sm:text-3xl sm:truncate"
 					>
 						<!-- FIXME: Node hydration -->
 						{{
@@ -20,13 +14,11 @@
 						}}
 					</h1>
 					<div
-						class="
-							flex flex-col
-							sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6
-						"
+						class="flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6"
 					>
 						<div class="mt-1 flex items-center text-sm">
-							<CalendarIcon
+							<ph-calendar-blank
+								weight="fill"
 								class="icon text-gray-400 shrink-0 mr-1.5"
 								aria-hidden="true"
 							/>
@@ -43,7 +35,8 @@
 							</span>
 						</div>
 						<div class="mt-1 flex items-center text-sm">
-							<LocationMarkerIcon
+							<ph-map-pin
+								weight="fill"
 								class="icon text-gray-400 shrink-0 mr-1.5"
 								aria-hidden="true"
 							/>
@@ -56,7 +49,8 @@
 							</span>
 						</div>
 						<div class="mt-1 flex items-center text-sm">
-							<BookmarkIcon
+							<ph-bookmark-simple
+								weight="fill"
 								class="icon text-gray-400 shrink-0 mr-1.5"
 								aria-hidden="true"
 							/>
@@ -75,48 +69,24 @@
 				</div>
 
 				<div
-					class="
-						absolute
-						inset-y-0
-						right-0
-						flex
-						items-center
-						pr-2
-						sm:static sm:inset-auto sm:ml-6 sm:pr-0
-					"
+					class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
 				>
 					<button
 						type="button"
-						class="
-							relative
-							bg-white
-							p-1
-							rounded-full
-							text-gray-600
-							hover:text-gray-500
-							focus:outline-none
-							focus:ring-2
-							focus:ring-offset-2
-							focus:ring-offset-white
-							focus:ring-secondary-500
-						"
+						class="relative bg-white p-1 rounded-full text-gray-600 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-secondary-500"
 					>
 						<span class="sr-only">View notifications</span>
-						<BellIcon class="h-6 w-6" aria-hidden="true" />
+						<ph-bell
+							weight="bold"
+							class="icon"
+							aria-hidden="true"
+						/>
 						<div
 							v-if="
 								regattas.selectedRegatta &&
 								regattas.selectedRegatta.breaking_news
 							"
-							class="
-								w-2.5
-								h-2.5
-								absolute
-								top-1
-								right-1
-								rounded-full
-								bg-secondary-500
-							"
+							class="w-2.5 h-2.5 absolute top-1 right-1 rounded-full bg-secondary-500"
 						/>
 					</button>
 
@@ -124,30 +94,26 @@
 					<Menu as="div" class="ml-3 relative">
 						<div>
 							<MenuButton
-								class="
-									flex
-									text-sm
-									rounded-full
-									focus:outline-none
-									focus:ring-2
-									focus:ring-offset-2
-									focus:ring-offset-white
-									focus:ring-secondary-500
-								"
+								class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-secondary-500"
 							>
 								<span class="sr-only">Open user menu</span>
 								<div
-									class="
-										h-8
-										w-8
-										rounded-full
-										bg-gray-100
-										overflow-hidden
-									"
+									class="flex justify-center h-8 w-8 rounded-full bg-gray-100 overflow-hidden text-center"
 								>
-									<UserIcon
+									<!-- UserIcon -->
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20"
+										fill="currentColor"
+										aria-hidden="true"
 										class="text-gray-400 translate-y-1"
-									/>
+									>
+										<path
+											fill-rule="evenodd"
+											d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+											clip-rule="evenodd"
+										></path>
+									</svg>
 								</div>
 							</MenuButton>
 						</div>
@@ -160,19 +126,7 @@
 							leave-to-class="opacity-0 scale-95"
 						>
 							<MenuItems
-								class="
-									origin-top-right
-									absolute
-									right-0
-									mt-2
-									w-48
-									rounded-md
-									shadow-lg
-									py-1
-									bg-white
-									ring-1 ring-black ring-opacity-5
-									focus:outline-none
-								"
+								class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
 							>
 								<MenuItem v-slot="{ active }">
 									<a
@@ -196,13 +150,12 @@
 
 <script lang="ts" setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline';
 import {
-	UserIcon,
-	CalendarIcon,
-	LocationMarkerIcon,
-	BookmarkIcon,
-} from '@heroicons/vue/solid';
+	PhCalendarBlank,
+	PhMapPin,
+	PhBookmarkSimple,
+	PhBell,
+} from 'phosphor-vue';
 
 import { getRegattaTypeLabel } from '~~/types/regatta.model';
 
@@ -210,5 +163,5 @@ import { useRegattaStore } from '~~/stores/regatta';
 const regattas = useRegattaStore();
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
-const { formatDate, formatTime } = useDateFormatter();
+const { formatDate } = useDateFormatter();
 </script>

@@ -62,7 +62,7 @@
 									"
 									@click="destroy"
 								>
-									<XIcon
+									<ph-x
 										:class="[
 											toast.type == ToastType.DENIED
 												? 'text-danger-300'
@@ -232,7 +232,7 @@
 										"
 										@click="destroy"
 									>
-									<XIcon
+									<ph-x
 										:class="[
 											toast.type == ToastType.DENIED
 												? 'text-danger-300'
@@ -259,12 +259,7 @@ import {
 	TransitionChild,
 	TransitionRoot,
 } from '@headlessui/vue';
-import {
-	CheckIcon,
-	LightBulbIcon,
-	ExclamationIcon,
-	XIcon,
-} from '@heroicons/vue/outline';
+import { PhX } from 'phosphor-vue';
 import { Toast, ToastType } from '~~/types/toast.model';
 
 interface Props {

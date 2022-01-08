@@ -18,7 +18,7 @@
 				]"
 			>
 				<component
-					:is="getIcon(item.icon)"
+					:is="item.icon"
 					class="w-6 h-6 text-primary-100"
 					aria-hidden="true"
 				/>
@@ -52,18 +52,6 @@
 </template>
 
 <script lang="ts" setup>
-import {
-	TemplateIcon,
-	ViewGridIcon,
-	UserGroupIcon,
-	CalendarIcon,
-	CurrencyEuroIcon,
-	ClipboardListIcon,
-	ShareIcon,
-	MicrophoneIcon,
-	CollectionIcon,
-	XIcon,
-} from '@heroicons/vue/outline';
 import { RouteItem } from '~~/types/route-item.model';
 
 import { useRegattaStore } from '~~/stores/regatta';
@@ -79,30 +67,4 @@ const isParentActive = (base: string): boolean => {
 const props = defineProps<{
 	item: RouteItem;
 }>();
-
-// FIXME: Dit hoort gewoon als string te werken
-const getIcon = (icon: string) => {
-	switch (icon) {
-		case 'TemplateIcon':
-			return TemplateIcon;
-		case 'ViewGridIcon':
-			return ViewGridIcon;
-		case 'UserGroupIcon':
-			return UserGroupIcon;
-		case 'CalendarIcon':
-			return CalendarIcon;
-		case 'CurrencyEuroIcon':
-			return CurrencyEuroIcon;
-		case 'ClipboardListIcon':
-			return ClipboardListIcon;
-		case 'ShareIcon':
-			return ShareIcon;
-		case 'MicrophoneIcon':
-			return MicrophoneIcon;
-		case 'CollectionIcon':
-			return CollectionIcon;
-		default:
-			return XIcon;
-	}
-};
 </script>

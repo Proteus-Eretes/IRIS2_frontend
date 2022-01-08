@@ -267,11 +267,6 @@
   resolved "https://registry.yarnpkg.com/@headlessui/vue/-/vue-1.4.2.tgz#1098f52cb6c583772708a980b3487222ac0ae65e"
   integrity sha512-+uOaPwHncxHZ6JBwYycu3YxDDrY0v1tcxCtK04H1WGBLBm07dqVi38Q2RB7eY867FUhD0sL6q+Fj69rVn8P0OQ==
 
-"@heroicons/vue@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@heroicons/vue/-/vue-1.0.5.tgz#ccef02a9a75e47129a0b8faf5d1d93bd90723264"
-  integrity sha512-idWtp20Fjr7mqnD7EdGDUDi83oWHnx3SwyuQY6GZyF33OApzpBOLxz7xa4t6rPOddGz9tI5RGnndLk+ake7ijQ==
-
 "@mapbox/node-pre-gyp@^1.0.5":
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.7.tgz#a26919cac6595662703330d1820a0ca206f45521"
@@ -4605,6 +4600,11 @@ pathe@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/pathe/-/pathe-0.2.0.tgz#30fd7bbe0a0d91f0e60bae621f5d19e9e225c339"
   integrity sha512-sTitTPYnn23esFR3RlqYBWn4c45WGeLcsKzQiUpXJAyfcWkolvlYpV8FLo7JishK946oQwMFUCHXQ9AjGPKExw==
+
+phosphor-vue@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/phosphor-vue/-/phosphor-vue-4.4.0.tgz#d6353c231fde67eb577313107d54a36f3264b7b3"
+  integrity sha512-+7NBvWHgMaCN8AxLYdk5OJOmkTnPXOv5ZbYjHNnFQUrJ7Jg7VWiiFSgLRsnuAQIMNkYmTyWoUU7kspSm3nowVQ==
 
 picocolors@^0.2.1:
   version "0.2.1"
