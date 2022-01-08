@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia';
 import { RouteItem } from '~~/types/route-item.model';
-import { Toast } from '~~/types/toast';
+import { TableAction } from '~~/types/table-action.model';
+import { Toast } from '~~/types/toast.model';
 
 interface RootState {
 	mainNavigation: RouteItem[];
 	competitionNavigation: RouteItem[];
 	adminNavigation: RouteItem[];
+	tableActions: TableAction[];
 	showToast: boolean;
 	toast: Toast;
 }
@@ -53,13 +55,47 @@ const state = (): RootState => ({
 			items: [],
 		},
 	],
+	tableActions: [
+		{
+			link: '/blocks/assign',
+			id: 'assign',
+			icon: 'PencilIcon',
+			setting: 'Assign events and Rounds',
+		},
+		{
+			link: '/blocks/draw-lots',
+			id: 'lots',
+			icon: 'CurrencyEuroIcon',
+			setting: 'Draw lots',
+		},
+		{
+			link: '/shirt-number/assign-shirts-overview',
+			id: 'shirts',
+			icon: 'ClipboardListIcon',
+			setting: 'Assign shirt numbers',
+		},
+		{
+			link: '',
+			id: 'delete',
+			icon: 'TrashIcon',
+			setting: 'Delete'
+		}
+	],
 	showToast: false,
 	toast: {
 		message: '',
 	},
 });
 
-const getters = {};
+const getters = {
+	getTableActionById(state: RootState) {
+		return (id: string) => {
+			return state.tableActions.find(
+				(action: TableAction) => action.id == id
+			);
+		};
+	},
+};
 
 const actions = {};
 

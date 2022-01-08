@@ -4,8 +4,10 @@ export interface Crew {
 	regatta_id: string;
 	event_id: string;
 	sub_event_id: string | null; // Als er te weinig ploegen zijn voor een eigen veld
+	clubName: string;
 	displayName: string; // Preferred display name
 	displayStatus: CrewStatus;
+	knrb_num: number;
 	coxes: string[] | null;
 	coaches: string[] | null;
 	rowers: string[] | null;
@@ -13,7 +15,6 @@ export interface Crew {
 
 export interface CrewDetail extends Crew {
 	name: string;
-	knrb_num: number;
 	knrb_sequence: number; // Aangewezen door KNRB
 	sequence: number; // Van wedstrijdleiding
 	status: CrewStatus;

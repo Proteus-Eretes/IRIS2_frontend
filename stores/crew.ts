@@ -80,7 +80,7 @@ export const useCrewStore = defineStore('crews', {
 		selectedTeam(state: CrewState) {
 			return (
 				(state.selectedTeamId &&
-					state.entities[state.selectedTeamId]) ||
+					state.teamEntities[state.selectedTeamId]) ||
 				null
 			);
 		},
@@ -110,6 +110,28 @@ export const useCrewStore = defineStore('crews', {
 
 			this.ids = crewIds;
 			this.entities = crewEntities;
+		},
+		async loadCrewsByEvent() {
+			const eventId = useEventStore().selectedEventId;
+			if (eventId == null) {
+				showError('No field selected');
+				return;
+			}
+
+			const loadedCrews = await crewService.loadCrewsByEvent(eventId);
+
+			const crewIds = loadedCrews
+				.map((crew) => crew.id)
+				.filter((id: string) => this.crewIds.indexOf(id) == -1);
+			const crewEntities = loadedCrews.reduce(
+				(entities: { [id: string]: Crew }, crew: Crew) => {
+					return { ...entities, [crew.id]: crew };
+				},
+				{}
+			);
+
+			this.crewIds = [...this.crewIds, ...crewIds];
+			this.crewEntities = { ...this.crewEntities, ...crewEntities };
 		},
 		async loadTeams() {
 			const loadedTeams = await crewService.loadTeams();

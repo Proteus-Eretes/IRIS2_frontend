@@ -9,6 +9,7 @@
 				<template #header>Blocks</template>
 
 				<div v-if="blocks.allBlocks">
+					<!-- FIXME: do the action -->
 					<Table
 						:headers="[
 							'Block',
@@ -16,8 +17,11 @@
 							'Start time',
 							'Status',
 						]"
+						:actions="['assign', 'lots', 'shirts', 'delete']"
 						:items="blocks.allBlocks"
 						@item-click="selectBlock($event.id)"
+						@action=""
+						has-headers
 					>
 						<template #block="{ item }">
 							<span class="text-sm font-semibold">
@@ -50,14 +54,14 @@
 							class="button icon-button button-secondary"
 							@click="showAddBlock = true"
 						>
-							<PlusIcon class="icon text-gray-400" />
-							Add Block
+							<PlusIcon class="icon text-gray-400" />Add Block
 						</button>
 					</div>
 				</div>
 				<div v-else>Nothing</div>
 			</SlidingPanel>
 
+			<!-- Block panel -->
 			<SlidingPanel
 				:index="1"
 				:activePanel="activePanel"
@@ -73,52 +77,61 @@
 					}}
 				</template>
 
-				<template #header-buttons>
-					<span class="pill bg-white text-secondary-500">
-						{{
-							blocks.selectedBlock != null
-								? getBlockStatusLabel(
-										blocks.selectedBlock.status
-								  )
-								: ''
-						}}
-					</span>
+				<template #header-status>
+					{{
+						blocks.selectedBlock != null
+							? getBlockStatusLabel(blocks.selectedBlock.status)
+							: ''
+					}}
 				</template>
 
-				<div v-if="blocks.selectedId">
-					<h3>Rounds</h3>
-					<template v-if="rounds.allRoundsOfSelectedBlock">
-						<div
-							v-for="round in rounds.allRoundsOfSelectedBlock"
-							:key="round.id"
+				<div v-if="blocks.selectedBlock">
+					<h3 class="px-3 mt-2 py-1 text-xs font-medium uppercase">
+						Rounds
+					</h3>
+					<div v-if="rounds.allRoundsOfSelectedBlock">
+						<Table
+							:headers="['Name']"
+							:items="rounds.allRoundsOfSelectedBlock"
+							class="pb-2 px-2"
 						>
-							{{ round.name }}
-						</div>
-					</template>
+							<template #name="{ item }">
+								<span class="text-sm font-semibold">
+									{{ item.name }}
+								</span>
+							</template>
+						</Table>
+					</div>
 
-					<h3>Fields</h3>
-					<template v-if="events.allFieldsOfSelectedBlock">
-						<div
-							v-for="field in events.allFieldsOfSelectedBlock"
-							:key="field.id"
+					<h3 class="px-3 mt-2 py-1 text-xs font-medium uppercase">
+						Fields
+					</h3>
+					<div v-if="events.allFieldsOfSelectedBlock">
+						<Table
+							:headers="['Name', 'Field', 'Crews']"
+							:items="events.allFieldsOfSelectedBlock"
+							@item-click="selectField($event.id)"
+							class="pb-2 px-2"
 						>
-							<button
-								type="button"
-								@click="selectField(field.id)"
-							>
-								{{
-									events.getEventById(field.event_id)
-										? events.getEventById(field.event_id)
-												.name
-										: 'Event'
-								}}
-							</button>
-						</div>
-					</template>
+							<template #name="{ item }">
+								<span class="text-sm font-semibold">
+									{{
+										events.getEventById(item.event_id)
+											? events.getEventById(item.event_id)
+													.name
+											: 'Event'
+									}}
+								</span>
+							</template>
+						</Table>
+					</div>
 				</div>
-				<div v-else>Nothing</div>
+				<div v-else class="p-3 text-sm font-semibold text-danger-500">
+					Nothing
+				</div>
 			</SlidingPanel>
 
+			<!-- Field panel -->
 			<SlidingPanel
 				:index="2"
 				:activePanel="activePanel"
@@ -126,38 +139,198 @@
 				@focus="activePanel = 2"
 			>
 				<template #header>
+					Field
+					{{ events.selectedEvent ? events.selectedEvent.code : '' }}
+				</template>
+
+				<div v-if="events.selectedEvent && events.selectedField">
+					<h3 class="px-3 mt-2 py-1 text-xs font-medium uppercase">
+						Teams
+					</h3>
+					<template v-if="crews.allTeamsOfSelectedField">
+						<Table
+							:headers="['Name', 'Club name', 'Rowers count']"
+							:items="crews.allTeamsOfSelectedField"
+							@item-click="selectTeam($event.id)"
+							class="pb-2 px-2"
+						>
+							<template #name="{ item }">
+								<span class="text-sm font-semibold">
+									{{
+										crews.getCrewById(item.crew_id)
+											? crews.getCrewById(item.crew_id)
+													.displayName
+											: 'Team'
+									}}
+								</span>
+							</template>
+
+							<template #club-name="{ item }">
+								<span class="text-sm">
+									{{
+										crews.getCrewById(item.crew_id)
+											? crews.getCrewById(item.crew_id)
+													.clubName
+											: 'Club'
+									}}
+								</span>
+							</template>
+
+							<template #rowers-count="{ item }">
+								<span class="text-sm">
+									{{
+										crews.getCrewById(item.crew_id)
+											? crews.getCrewById(item.crew_id)
+													.rowers.length
+											: 0
+									}}
+								</span>
+							</template>
+						</Table>
+					</template>
+				</div>
+				<div v-else class="p-3 text-sm font-semibold text-danger-500">
+					Nothing
+				</div>
+			</SlidingPanel>
+
+			<!-- Team panel -->
+			<SlidingPanel
+				:index="3"
+				:activePanel="activePanel"
+				@close="deselectTeam()"
+				@focus="activePanel = 3"
+			>
+				<template #header>
 					{{
-						events.selectedField && events.selectedEvent
-							? events.selectedEvent.code
+						crews.selectedCrew ? crews.selectedCrew.displayName : ''
+					}}
+				</template>
+
+				<template #header-status>
+					{{
+						crews.selectedCrew != null
+							? crews.selectedCrew.rowers.length
 							: ''
 					}}
 				</template>
 
-				<div v-if="events.selectedFieldId">
-					<template v-if="crews.allTeamsOfSelectedField">
-						<div
-							v-for="team in crews.allTeamsOfSelectedField"
-							:key="team.id"
-						>
-							<!-- <button type="button" @click="selectField(field)"> -->
-							{{
-								crews.getCrewById(team.crew_id)
-									? crews.getCrewById(team.crew_id)
-											.displayName
-									: 'Crew'
-							}}
-							<!-- </button> -->
+				<div v-if="crews.selectedCrew" class="p-2">
+					<div
+						class="grid grid-cols-3 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
+					>
+						<div>
+							<h6 class="font-semibold">Crew name</h6>
+							<span>{{ crews.selectedCrew.displayName }}</span>
 						</div>
+						<div>
+							<h6 class="font-semibold">KNRB number</h6>
+							<span>{{ crews.selectedCrew.knrb_num }}</span>
+						</div>
+						<div>
+							<h6 class="font-semibold">Club</h6>
+							<span>{{
+								clubs.selectedClubDetail
+									? clubs.selectedClubDetail.name
+									: ''
+							}}</span>
+						</div>
+						<div>
+							<h6 class="font-semibold">Event code</h6>
+							<span>{{ events.selectedEvent.code }}</span>
+						</div>
+						<div>
+							<h6 class="font-semibold">Event</h6>
+							<span>{{ events.selectedEvent.event }}</span>
+						</div>
+					</div>
+
+					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
+						Rowers
+					</h3>
+					<template v-if="rowers.allRowersOfSelectedCrew">
+						<Table
+							:headers="['Position', 'Name', 'Gender']"
+							:actions="['delete']"
+							:items="rowers.allRowersOfSelectedCrew"
+							@item-click="selectRower($event.id)"
+							class="pb-2"
+						>
+							<template #position="{ item }">
+								<span class="text-sm font-semibold">
+									{{ item.position }}
+								</span>
+							</template>
+
+							<template #name="{ item }">
+								<span class="text-sm font-semibold">
+									{{ item.fullName }}
+								</span>
+							</template>
+
+							<template #gender="{ item }">
+								<span class="text-sm">
+									{{ getGenderLabel(item.gender) }}
+								</span>
+							</template>
+						</Table>
 					</template>
 				</div>
-				<div v-else>Nothing</div>
+				<div v-else class="p-3 text-sm font-semibold text-danger-500">
+					Nothing
+				</div>
+			</SlidingPanel>
+
+			<!-- Rower Panel -->
+			<SlidingPanel
+				:index="4"
+				:activePanel="activePanel"
+				@close="deselectRower()"
+				@focus="activePanel = 4"
+			>
+				<template #header>
+					{{
+						rowers.selectedRower
+							? rowers.selectedRower.fullName
+							: ''
+					}}
+				</template>
+
+				<div v-if="rowers.selectedRower" class="p-2">
+					<div
+						class="grid grid-cols-3 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
+					>
+						<div>
+							<h6 class="font-semibold">Full name</h6>
+							<span>{{ rowers.selectedRower.fullName }}</span>
+						</div>
+						<div>
+							<h6 class="font-semibold">Gender</h6>
+							<span>
+								{{
+									getGenderLabel(rowers.selectedRower.gender)
+								}}
+							</span>
+						</div>
+						<div>
+							<h6 class="font-semibold">Role</h6>
+							<span>
+								{{
+									getRowerRoleLabel(rowers.selectedRower.role)
+								}}
+							</span>
+						</div>
+					</div>
+				</div>
+				<div v-else class="p-3 text-sm font-semibold text-danger-500">
+					Nothing
+				</div>
 			</SlidingPanel>
 		</div>
 
 		<EditorSlideOver v-model:open="showAddBlock">
 			<template #header>Create a new block</template>
 			<template #subheader>Create a new block for this regatta</template>
-
 			Hey
 		</EditorSlideOver>
 	</div>
@@ -170,8 +343,11 @@ import { useBlockStore } from '~~/stores/block';
 import { useCrewStore } from '~~/stores/crew';
 import { useEventStore } from '~~/stores/event';
 import { useRoundStore } from '~~/stores/round';
+import { useRowerStore } from '~~/stores/rower';
+import { useClubStore } from '~~/stores/club';
 
 import { getBlockStatusLabel } from '~~/types/block.model';
+import { getGenderLabel, getRowerRoleLabel } from '~~/types/rower.model';
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 
 const { formatDate, formatTime } = useDateFormatter();
@@ -182,6 +358,8 @@ blocks.loadBlocks();
 const events = useEventStore();
 const rounds = useRoundStore();
 const crews = useCrewStore();
+const rowers = useRowerStore();
+const clubs = useClubStore();
 
 // The panel that is last opened
 const activePanel = ref(0);
@@ -193,18 +371,18 @@ const showAddBlock = ref(false);
  */
 const params = useUrlSearchParams('history');
 
-const selectBlock = (id: string) => {
+const selectBlock = async (id: string) => {
 	activePanel.value = 1;
 	params.block = id;
 
 	blocks.selectedId = id;
 
-	events.loadFieldsByBlock();
-	rounds.loadRoundsByBlock();
+	await events.loadFieldsByBlock();
+	await rounds.loadRoundsByBlock();
 
-	events.loadEvents();
+	await events.loadEvents();
 };
-const selectField = (id: string) => {
+const selectField = async (id: string) => {
 	activePanel.value = 2;
 	params.field = id;
 
@@ -213,10 +391,30 @@ const selectField = (id: string) => {
 		? events.selectedField.event_id
 		: null;
 
-	crews.loadTeamsByField();
+	await crews.loadTeamsByField();
 
-	crews.loadCrews();
+	await crews.loadCrews();
 	// events.loadSelectedEvent();
+};
+const selectTeam = async (id: string) => {
+	activePanel.value = 3;
+	params.team = id;
+
+	crews.selectedTeamId = id;
+	crews.selectedCrewId = crews.selectedTeam
+		? crews.selectedTeam.crew_id
+		: null;
+
+	await rowers.loadRowersByCrew();
+
+	clubs.selectedId = crews.selectedCrew.club_id;
+	await clubs.loadSelectedClub();
+};
+const selectRower = (id: string) => {
+	activePanel.value = 4;
+	params.rower = id;
+
+	rowers.selectedId = id;
 };
 
 const deselectBlock = () => {
@@ -234,13 +432,33 @@ const deselectField = () => {
 
 	delete params.field;
 };
+const deselectTeam = () => {
+	activePanel.value = 2;
+
+	crews.selectedTeamId = null;
+	crews.selectedCrewId = null;
+
+	delete params.team;
+};
+const deselectRower = () => {
+	activePanel.value = 3;
+
+	rowers.selectedId = null;
+
+	delete params.rower;
+};
 
 // TODO: waarom werken urlsearchparams niet?
 // If the queries are set in the router, select the items
-const router = useRouter();
-const { block, field, crew, rower } = router.currentRoute.value.query;
-if (block && typeof block == 'string') selectBlock(block);
-if (field && typeof field == 'string') selectField(field);
+onMounted(async () => {
+	const router = useRouter();
+	const { block, field, team, rower } = router.currentRoute.value.query;
+
+	if (block && typeof block == 'string') await selectBlock(block);
+	if (field && typeof field == 'string') await selectField(field);
+	if (team && typeof team == 'string') await selectTeam(team);
+	if (rower && typeof rower == 'string') selectRower(rower);
+});
 </script>
 
 <script lang="ts">

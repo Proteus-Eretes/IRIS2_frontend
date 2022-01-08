@@ -8,6 +8,10 @@ export const useCrewService = () => {
 			const url = BASE_URL + '/get-crews?regattaId=' + id;
 			return await $fetch<Crew[]>(url);
 		},
+		async loadCrewsByEvent(id:string) {
+			const url = BASE_URL + '/get-crews-by-event?eventId=' + id;
+			return await $fetch<Crew[]>(url);
+		},
 		async loadTeams() {
 			const url = BASE_URL + '/get-teams';
 			return await $fetch<Team[]>(url);

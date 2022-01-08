@@ -8,7 +8,8 @@
 		]"
 		:style="`--tw-translate-x: -${translate}%;`"
 	>
-		<button type="button"
+		<button
+			type="button"
 			:class="[
 				isMuted ? '' : 'hidden',
 				'block absolute inset-0 rounded-md bg-black opacity-0 hover:opacity-30 transition-opacity',
@@ -23,7 +24,12 @@
 				<slot name="header" />
 			</h2>
 
-			<slot name="header-buttons" />
+			<span
+				v-if="$slots['header-status']"
+				class="pill bg-white text-secondary-500"
+			>
+				<slot name="header-status" />
+			</span>
 
 			<button type="button" v-if="allowClose" @click="$emit('close')">
 				<span class="sr-only">Close panel</span>

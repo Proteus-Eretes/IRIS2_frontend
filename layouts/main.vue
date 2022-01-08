@@ -1,10 +1,10 @@
 <template>
-	<div class="min-h-screen flex flex-row">
+	<div class="min-h-screen w-screen flex flex-row">
 		<aside class="z-30">
 			<NavigationSideBar />
 		</aside>
 
-		<div class="grow min-h-screen flex flex-col">
+		<div class="grow min-h-screen w-main-content flex flex-col">
 			<aside class="z-30">
 				<NavigationBar />
 			</aside>

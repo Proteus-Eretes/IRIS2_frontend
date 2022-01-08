@@ -265,7 +265,7 @@ import {
 	ExclamationIcon,
 	XIcon,
 } from '@heroicons/vue/outline';
-import { Toast, ToastType } from '~~/types/toast';
+import { Toast, ToastType } from '~~/types/toast.model';
 
 interface Props {
 	open: boolean;

@@ -7,7 +7,7 @@
 		@apply cursor-pointer;
 	}
 
-	tbody > tr:nth-child(odd) {
+	.table tbody > tr:nth-child(odd) {
 		@apply bg-gray-50;
 	}
 }
@@ -46,7 +46,7 @@
 			shadow-sm;
 	}
 	.panel-header > h2,
-	th {
+	.table th {
 		@apply grow
 			uppercase
 			font-medium

@@ -1,5 +1,5 @@
 <template>
-	<nav class="w-64 h-full flex flex-col">
+	<nav class="w-side-bar h-full flex flex-col">
 		<div class="flex items-end justify-end bg-secondary-500">
 			<NuxtLink
 				:to="{ path: '/', query: { regatta: regattas.selectedId } }"

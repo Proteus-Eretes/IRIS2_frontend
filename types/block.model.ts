@@ -6,13 +6,6 @@ export interface Block {
 	status: BlockStatus;
 }
 
-export interface BlockAction {
-	link: string;
-	id: string;
-	icon: string;
-	setting: string;
-}
-
 // TODO: In apart bestand?
 export enum BlockStatus {
 	CREATED = 1,
@@ -37,5 +30,7 @@ export function getBlockStatusLabel(status: BlockStatus) {
 			return 'Tossed';
 		case BlockStatus.SHIRT_NUMBERS_ASSIGNED:
 			return 'Shirt numbers assigned';
+		default:
+			return '';
 	}
 }

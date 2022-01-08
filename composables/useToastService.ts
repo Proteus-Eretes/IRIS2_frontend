@@ -1,5 +1,5 @@
 import { useMainStore } from '~~/stores';
-import { Toast, ToastType } from '~~/types/toast';
+import { Toast, ToastType } from '~~/types/toast.model';
 
 const main = useMainStore();
 

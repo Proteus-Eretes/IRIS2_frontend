@@ -86,7 +86,7 @@ import {
 	ExclamationIcon,
 	XIcon,
 } from '@heroicons/vue/outline';
-import { ToastType } from '~~/types/toast';
+import { ToastType } from '~~/types/toast.model';
 
 interface Props {
 	type: ToastType;
