@@ -58,6 +58,15 @@ export interface TeamDetail extends Team {
 	finishTime: number;
 }
 
+export interface Fine {
+	id: string;
+	crew_id: string;
+	regatta_id: string;
+	amount: number;
+	description: string;
+	date: Date;
+}
+
 export enum CrewStatus {
 	ENTERED = 1,
 	WITHDRAWN_AFTER_LOTTERY_WITHOUT_FINE = 2,

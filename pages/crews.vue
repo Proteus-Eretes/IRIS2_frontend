@@ -45,7 +45,8 @@
 							<span class="text-sm">
 								{{
 									events.getEventById(item.event_id)
-										? events.getEventById(item.event_id).name
+										? events.getEventById(item.event_id)
+												.name
 										: 'Nothing'
 								}}
 							</span>
@@ -162,7 +163,7 @@
 							class="pb-2"
 						>
 							<template #position="{ item }">
-								<span class="text-sm font-semibold">
+								<span class="badge text-white bg-primary-800">
 									{{ item.position }}
 								</span>
 							</template>
@@ -196,7 +197,7 @@
 							class="pb-2"
 						>
 							<template #position="{ item }">
-								<span class="text-sm font-semibold">
+								<span class="badge text-white bg-primary-800">
 									{{ item.position }}
 								</span>
 							</template>
@@ -230,7 +231,7 @@
 							class="pb-2"
 						>
 							<template #position="{ item }">
-								<span class="text-sm font-semibold">
+								<span class="badge text-white bg-primary-800">
 									{{ item.position }}
 								</span>
 							</template>
@@ -255,29 +256,21 @@
 					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
 						Fines
 					</h3>
-					<div v-if="rowers.allFinesOfSelectedCrew.length > 0">
+					<div v-if="crews.allFinesOfSelectedCrew.length > 0">
 						<Table
-							:headers="['Position', 'Name', 'Gender']"
-							:actions="['delete']"
-							:items="rowers.allFinesOfSelectedCrew"
-							@item-click="selectRower($event.id)"
+							:headers="['Amount', 'Date']"
+							:items="crews.allFinesOfSelectedCrew"
 							class="pb-2"
 						>
-							<template #position="{ item }">
+							<template #amount="{ item }">
 								<span class="text-sm font-semibold">
-									{{ item.position }}
+									€ {{ item.amount }}
 								</span>
 							</template>
 
-							<template #name="{ item }">
+							<template #date="{ item }">
 								<span class="text-sm">
-									{{ item.fullName }}
-								</span>
-							</template>
-
-							<template #gender="{ item }">
-								<span class="pill text-white bg-primary-400">
-									{{ item.gender }}
+									{{ formatDate(item.date, true) }}
 								</span>
 							</template>
 						</Table>
@@ -351,11 +344,14 @@ import { PhPlus } from 'phosphor-vue';
 
 import { useCrewStore } from '~~/stores/crew';
 import { useRowerStore } from '~~/stores/rower';
+import { useEventStore } from '~~/stores/event';
+import { useClubStore } from '~~/stores/club';
 
 import { getCrewStatusLabel } from '~~/types/crew.model';
 import { getGenderLabel, getRowerRoleLabel } from '~~/types/rower.model';
-import { useEventStore } from '~~/stores/event';
-import { useClubStore } from '~~/stores/club';
+import { useDateFormatter } from '~~/composables/useDateFormatter';
+
+const { formatDate } = useDateFormatter();
 
 const crews = useCrewStore();
 crews.loadCrews();
@@ -385,6 +381,7 @@ const selectCrew = async (id: string) => {
 	crews.selectedCrewId = id;
 
 	await rowers.loadRowersByCrew();
+	await crews.loadFinesByCrew();
 
 	clubs.selectedId = crews.selectedCrew.club_id;
 	await clubs.loadSelectedClub();

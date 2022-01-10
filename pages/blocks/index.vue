@@ -96,7 +96,7 @@
 							class="pb-2 px-2"
 						>
 							<template #name="{ item }">
-								<span class="text-sm font-semibold">
+								<span class="badge text-white bg-primary-800">
 									{{ item.name }}
 								</span>
 							</template>
@@ -108,13 +108,13 @@
 					</h3>
 					<div v-if="events.allFieldsOfSelectedBlock">
 						<Table
-							:headers="['Name', 'Field', 'Crews']"
+							:headers="['Name', 'Code', 'Crews']"
 							:items="events.allFieldsOfSelectedBlock"
 							@item-click="selectField($event.id)"
 							class="pb-2 px-2"
 						>
 							<template #name="{ item }">
-								<span class="text-sm font-semibold">
+								<span class="badge text-white bg-primary-800">
 									{{
 										events.getEventById(item.event_id)
 											? events.getEventById(item.event_id)
@@ -122,6 +122,36 @@
 											: 'Event'
 									}}
 								</span>
+							</template>
+
+							<template #code="{ item }">
+								<span class="text-sm font-semibold">
+									{{
+										events.getEventById(item.event_id)
+											? events.getEventById(item.event_id)
+													.code
+											: 'Code'
+									}}
+								</span>
+							</template>
+
+							<template #crews="{ item }">
+								<div class="flex items-center gap-2">
+									<ph-users-three
+										class="icon text-primary-400"
+										aria-hidden="true"
+									/>
+
+									<span class="text-xs font-medium">
+										{{
+											events.getEventById(item.event_id)
+												? events.getEventById(
+														item.event_id
+												  ).crews.length
+												: 0
+										}}
+									</span>
+								</div>
 							</template>
 						</Table>
 					</div>
@@ -273,7 +303,7 @@
 							class="pb-2"
 						>
 							<template #position="{ item }">
-								<span class="text-sm font-semibold">
+								<span class="badge text-white bg-primary-800">
 									{{ item.position }}
 								</span>
 							</template>
@@ -307,7 +337,7 @@
 							class="pb-2"
 						>
 							<template #position="{ item }">
-								<span class="text-sm font-semibold">
+								<span class="badge text-white bg-primary-800">
 									{{ item.position }}
 								</span>
 							</template>
@@ -341,7 +371,7 @@
 							class="pb-2"
 						>
 							<template #position="{ item }">
-								<span class="text-sm font-semibold">
+								<span class="badge text-white bg-primary-800">
 									{{ item.position }}
 								</span>
 							</template>
@@ -366,29 +396,21 @@
 					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
 						Fines
 					</h3>
-					<div v-if="rowers.allFinesOfSelectedCrew.length > 0">
+					<div v-if="crews.allFinesOfSelectedCrew.length > 0">
 						<Table
-							:headers="['Position', 'Name', 'Gender']"
-							:actions="['delete']"
-							:items="rowers.allFinesOfSelectedCrew"
-							@item-click="selectRower($event.id)"
+							:headers="['Amount', 'Date']"
+							:items="crews.allFinesOfSelectedCrew"
 							class="pb-2"
 						>
-							<template #position="{ item }">
+							<template #amount="{ item }">
 								<span class="text-sm font-semibold">
-									{{ item.position }}
+									€ {{ item.amount }}
 								</span>
 							</template>
 
-							<template #name="{ item }">
+							<template #date="{ item }">
 								<span class="text-sm">
-									{{ item.fullName }}
-								</span>
-							</template>
-
-							<template #gender="{ item }">
-								<span class="pill text-white bg-primary-400">
-									{{ item.gender }}
+									{{ formatDate(item.date, true) }}
 								</span>
 							</template>
 						</Table>

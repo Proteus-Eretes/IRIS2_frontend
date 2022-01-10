@@ -64,14 +64,6 @@ export const useRowerStore = defineStore('rowers', {
 					rower.role == RowerRole.COX
 			);
 		},
-		allFinesOfSelectedCrew(state: RowerState) {
-			const allRowers = state.ids.map((id: string) => state.entities[id]);
-			const selectedCrewId = useCrewStore().selectedCrewId;
-
-			return allRowers.filter(
-				(rower: Rower) => rower.crew_id == selectedCrewId
-			);
-		},
 		selectedRower(state: RowerState) {
 			return (
 				(state.selectedId && state.entities[state.selectedId]) || null

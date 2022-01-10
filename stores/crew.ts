@@ -20,7 +20,7 @@ import { defineStore } from 'pinia';
 import { useEventStore } from './event';
 import { useRegattaStore } from './regatta';
 
-import { Crew, Team } from '~~/types/crew.model';
+import { Crew, Fine, Team } from '~~/types/crew.model';
 import { useCrewService } from '~~/composables/useCrewService';
 const crewService = useCrewService();
 
@@ -32,6 +32,8 @@ interface CrewState {
 	entities: { [id: string]: Crew };
 	teamIds: string[];
 	teamEntities: { [id: string]: Team };
+	fineIds: string[];
+	fineEntities: { [id: string]: Fine };
 	selectedCrewId: string | null;
 	selectedTeamId: string | null;
 }
@@ -42,6 +44,8 @@ export const useCrewStore = defineStore('crews', {
 		entities: {},
 		teamIds: [],
 		teamEntities: {},
+		fineIds: [],
+		fineEntities: {},
 		selectedCrewId: null,
 		selectedTeamId: null,
 	}),
@@ -68,6 +72,16 @@ export const useCrewStore = defineStore('crews', {
 
 			return allTeams.filter(
 				(team: Team) => team.field_id == selectedFieldId
+			);
+		},
+		allFinesOfSelectedCrew(state: CrewState) {
+			const allFines = state.fineIds.map(
+				(id: string) => state.fineEntities[id]
+			);
+			const selectedCrewId = state.selectedCrewId;
+
+			return allFines.filter(
+				(fine: Fine) => fine.crew_id == selectedCrewId
 			);
 		},
 		selectedCrew(state: CrewState) {
@@ -168,6 +182,28 @@ export const useCrewStore = defineStore('crews', {
 
 			this.teamIds = [...this.teamIds, ...teamIds];
 			this.teamEntities = { ...this.teamEntities, ...teamEntities };
+		},
+		async loadFinesByCrew() {
+			const crewId = this.selectedCrewId;
+			if (crewId == null) {
+				showError('No crew selected');
+				return;
+			}
+
+			const loadedFines = await crewService.loadFinesByCrew(crewId);
+
+			const fineIds = loadedFines
+				.map((fine) => fine.id)
+				.filter((id: string) => this.fineIds.indexOf(id) == -1);
+			const fineEntities = loadedFines.reduce(
+				(entities: { [id: string]: Fine }, fine: Fine) => {
+					return { ...entities, [fine.id]: fine };
+				},
+				{}
+			);
+
+			this.fineIds = [...this.fineIds, ...fineIds];
+			this.fineEntities = { ...this.fineEntities, ...fineEntities };
 		},
 		add(crew: Crew) {},
 		delete(crew: Crew) {},

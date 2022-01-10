@@ -4,6 +4,7 @@ import {
 	Crew,
 	CrewDetail,
 	CrewStatus,
+	Fine,
 	Team,
 	TeamDetail,
 	TeamResultStatus,
@@ -1397,7 +1398,7 @@ export const fieldsMock: Field[] = [
 		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		round_id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545',
 		teams: [],
-	}
+	},
 ];
 
 export const fieldDetailsMock: FieldDetail[] = [
@@ -1603,5 +1604,16 @@ export const rowerDetailsMock: RowerDetail[] = [
 		middlename: 'string',
 		lastname: 'St 2',
 		year_of_birth: 2017,
+	},
+];
+
+export const finesMock: Fine[] = [
+	{
+		amount: 67,
+		description: '',
+		date: new Date('2022-01-11T00:00:00+00:00'),
+		crew_id: '11ec-4c5c-3fd16890-92dc-fa53f5d3a545',
+		id: '11ec-726a-9d96cb26-86d4-fa53f5d3a545',
+		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
 	},
 ];
