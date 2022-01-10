@@ -14,3 +14,7 @@
 		</span>
 	</div>
 </template>
+
+<script lang="ts" setup>
+import { PhDotsThreeVertical } from 'phosphor-vue';
+</script>

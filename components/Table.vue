@@ -115,6 +115,7 @@
 
 <script lang="ts" setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
+import { PhDotsThree } from 'phosphor-vue';
 import { TableAction } from '~~/types/table-action.model';
 
 import { useMainStore } from '~~/stores';

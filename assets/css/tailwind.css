@@ -45,13 +45,21 @@
 			bg-secondary-400
 			shadow-sm;
 	}
-	.panel-header > h2,
-	.table th {
+	.panel-header > h2 {
 		@apply grow
 			uppercase
 			font-medium
 			text-left
 			text-sm
+			truncate
+			tracking-wider
+			text-white;
+	}
+	.table th {
+		@apply grow
+			uppercase
+			font-medium
+			text-left
 			truncate
 			tracking-wider
 			text-white;

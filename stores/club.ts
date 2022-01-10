@@ -34,6 +34,11 @@ export const useClubStore = defineStore('clubs', {
 				(state.selectedId && state.entities[state.selectedId]) || null
 			);
 		},
+		getClubById(state: ClubState) {
+			return (id: string) => {
+				return (id && state.entities[id]) || null;
+			};
+		},
 		selectedClubDetail(state: ClubState) {
 			return (
 				(state.selectedId && state.detailEntities[state.selectedId]) ||

@@ -9,7 +9,7 @@
 import { defineStore } from 'pinia';
 import { useRegattaStore } from './regatta';
 
-import { Rower } from '~~/types/rower.model';
+import { Rower, RowerRole } from '~~/types/rower.model';
 import { useRowerService } from '~~/composables/useRowerService';
 const rowerService = useRowerService();
 
@@ -35,6 +35,36 @@ export const useRowerStore = defineStore('rowers', {
 			return state.ids.map((id: string) => state.entities[id]);
 		},
 		allRowersOfSelectedCrew(state: RowerState) {
+			const allRowers = state.ids.map((id: string) => state.entities[id]);
+			const selectedCrewId = useCrewStore().selectedCrewId;
+
+			return allRowers.filter(
+				(rower: Rower) =>
+					rower.crew_id == selectedCrewId &&
+					rower.role == RowerRole.ROWER
+			);
+		},
+		allCoachesOfSelectedCrew(state: RowerState) {
+			const allRowers = state.ids.map((id: string) => state.entities[id]);
+			const selectedCrewId = useCrewStore().selectedCrewId;
+
+			return allRowers.filter(
+				(rower: Rower) =>
+					rower.crew_id == selectedCrewId &&
+					rower.role == RowerRole.COACH
+			);
+		},
+		allCoxesOfSelectedCrew(state: RowerState) {
+			const allRowers = state.ids.map((id: string) => state.entities[id]);
+			const selectedCrewId = useCrewStore().selectedCrewId;
+
+			return allRowers.filter(
+				(rower: Rower) =>
+					rower.crew_id == selectedCrewId &&
+					rower.role == RowerRole.COX
+			);
+		},
+		allFinesOfSelectedCrew(state: RowerState) {
 			const allRowers = state.ids.map((id: string) => state.entities[id]);
 			const selectedCrewId = useCrewStore().selectedCrewId;
 

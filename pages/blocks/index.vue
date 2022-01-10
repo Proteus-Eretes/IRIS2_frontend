@@ -245,18 +245,26 @@
 						</div>
 						<div>
 							<h6 class="font-semibold">Event code</h6>
-							<span>{{ events.selectedEvent.code }}</span>
+							<span>{{
+								events.selectedEvent
+									? events.selectedEvent.code
+									: 'Nothing'
+							}}</span>
 						</div>
 						<div>
 							<h6 class="font-semibold">Event</h6>
-							<span>{{ events.selectedEvent.event }}</span>
+							<span>{{
+								events.selectedEvent
+									? events.selectedEvent.event
+									: 'Nothing'
+							}}</span>
 						</div>
 					</div>
 
 					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
 						Rowers
 					</h3>
-					<template v-if="rowers.allRowersOfSelectedCrew">
+					<div v-if="rowers.allRowersOfSelectedCrew.length > 0">
 						<Table
 							:headers="['Position', 'Name', 'Gender']"
 							:actions="['delete']"
@@ -271,18 +279,123 @@
 							</template>
 
 							<template #name="{ item }">
-								<span class="text-sm font-semibold">
+								<span class="text-sm">
 									{{ item.fullName }}
 								</span>
 							</template>
 
 							<template #gender="{ item }">
-								<span class="text-sm">
-									{{ getGenderLabel(item.gender) }}
+								<span class="pill text-white bg-primary-400">
+									{{ item.gender }}
 								</span>
 							</template>
 						</Table>
-					</template>
+					</div>
+					<div v-else class="px-1 text-sm font-base text-gray-500">
+						No rowers found
+					</div>
+
+					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
+						Coaches
+					</h3>
+					<div v-if="rowers.allCoachesOfSelectedCrew.length > 0">
+						<Table
+							:headers="['Position', 'Name', 'Gender']"
+							:actions="['delete']"
+							:items="rowers.allCoachesOfSelectedCrew"
+							@item-click="selectRower($event.id)"
+							class="pb-2"
+						>
+							<template #position="{ item }">
+								<span class="text-sm font-semibold">
+									{{ item.position }}
+								</span>
+							</template>
+
+							<template #name="{ item }">
+								<span class="text-sm">
+									{{ item.fullName }}
+								</span>
+							</template>
+
+							<template #gender="{ item }">
+								<span class="pill text-white bg-primary-400">
+									{{ item.gender }}
+								</span>
+							</template>
+						</Table>
+					</div>
+					<div v-else class="px-1 text-sm font-base text-gray-500">
+						No coaches found
+					</div>
+
+					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
+						Coxes
+					</h3>
+					<div v-if="rowers.allCoxesOfSelectedCrew.length > 0">
+						<Table
+							:headers="['Position', 'Name', 'Gender']"
+							:actions="['delete']"
+							:items="rowers.allCoxesOfSelectedCrew"
+							@item-click="selectRower($event.id)"
+							class="pb-2"
+						>
+							<template #position="{ item }">
+								<span class="text-sm font-semibold">
+									{{ item.position }}
+								</span>
+							</template>
+
+							<template #name="{ item }">
+								<span class="text-sm">
+									{{ item.fullName }}
+								</span>
+							</template>
+
+							<template #gender="{ item }">
+								<span class="pill text-white bg-primary-400">
+									{{ item.gender }}
+								</span>
+							</template>
+						</Table>
+					</div>
+					<div v-else class="px-1 text-sm font-base text-gray-500">
+						No coxes found
+					</div>
+
+					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
+						Fines
+					</h3>
+					<div v-if="rowers.allFinesOfSelectedCrew.length > 0">
+						<Table
+							:headers="['Position', 'Name', 'Gender']"
+							:actions="['delete']"
+							:items="rowers.allFinesOfSelectedCrew"
+							@item-click="selectRower($event.id)"
+							class="pb-2"
+						>
+							<template #position="{ item }">
+								<span class="text-sm font-semibold">
+									{{ item.position }}
+								</span>
+							</template>
+
+							<template #name="{ item }">
+								<span class="text-sm">
+									{{ item.fullName }}
+								</span>
+							</template>
+
+							<template #gender="{ item }">
+								<span class="pill text-white bg-primary-400">
+									{{ item.gender }}
+								</span>
+							</template>
+						</Table>
+					</div>
+					<div v-else class="px-1 text-sm font-base text-gray-500">
+						No fines found
+					</div>
 				</div>
 				<div v-else class="p-3 text-sm font-semibold text-danger-500">
 					Nothing

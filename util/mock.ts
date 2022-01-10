@@ -56,69 +56,80 @@ export const blocksMock: Block[] = [
 export const clubsMock: Club[] = [
 	{
 		id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
-		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
+		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		code: 'ALK',
 		name: 'Alkmaarsche',
+		shirt: '',
 	},
 	{
 		id: '11ec-4c5c-3ee8e14c-b526-fa53f5d3a545',
-		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
+		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		code: 'RYM',
 		name: 'Rijnmond',
+		shirt: '',
 	},
 	{
 		id: '11ec-4c5c-3ee51ad0-8251-fa53f5d3a545',
-		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
+		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		code: 'NAU',
 		name: 'Nautilus',
+		shirt: '',
 	},
 	{
 		id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
-		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
+		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		code: 'ALK',
 		name: 'Alkmaarsche',
+		shirt: '',
 	},
 	{
 		id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
-		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
+		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		code: 'ALK',
 		name: 'Alkmaarsche',
+		shirt: '',
 	},
 	{
 		id: '11ec-4c5c-3ee9c27e-8ce7-fa53f5d3a545',
-		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
+		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		code: 'LEY',
 		name: 'Leythe',
+		shirt: '',
 	},
 	{
 		id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
-		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
+		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		code: 'ALK',
 		name: 'Alkmaarsche',
+		shirt: '',
 	},
 	{
 		id: '11ec-4c5c-3ee7fbd8-bff9-fa53f5d3a545',
-		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
+		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		code: 'GOU',
 		name: 'Gouda',
+		shirt: '',
 	},
 	{
 		id: '11ec-4c5c-3ee51ad0-8251-fa53f5d3a545',
-		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
+		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		code: 'NAU',
 		name: 'Nautilus',
+		shirt: '',
 	},
 	{
 		id: '11ec-4c5c-3ee60cb0-9976-fa53f5d3a545',
-		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
+		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		code: 'ALP',
 		name: 'Alphen',
+		shirt: '',
 	},
 	{
 		id: '11ec-4c5c-3ee7fbd8-bff9-fa53f5d3a545',
-		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
+		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		code: 'GOU',
 		name: 'Gouda',
+		shirt: '',
 	},
 ];
 
@@ -403,6 +414,8 @@ export const clubDetailsMock: ClubDetail[] = [
 export const crewsMock: Crew[] = [
 	{
 		knrb_num: 307349,
+		status: 1,
+		category: '',
 		id: '11ec-4c5c-3fc524f4-82a0-fa53f5d3a545',
 		club_id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
 		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
@@ -417,6 +430,8 @@ export const crewsMock: Crew[] = [
 	},
 	{
 		knrb_num: 306926,
+		status: 1,
+		category: '',
 		id: '11ec-4c5c-3fe5828a-a2b3-fa53f5d3a545',
 		club_id: '11ec-4c5c-3ee8e14c-b526-fa53f5d3a545',
 		event_id: '11ec-4c5c-3f01ddfa-b7cf-fa53f5d3a545',
@@ -431,6 +446,8 @@ export const crewsMock: Crew[] = [
 	},
 	{
 		knrb_num: 306988,
+		status: 1,
+		category: '',
 		club_id: '11ec-4c5c-3ee51ad0-8251-fa53f5d3a545',
 		id: '11ec-4c5c-3fdf94a6-a102-fa53f5d3a545',
 		event_id: '11ec-4c5c-3f01ddfa-b7cf-fa53f5d3a545',
@@ -445,6 +462,8 @@ export const crewsMock: Crew[] = [
 	},
 	{
 		knrb_num: 307354,
+		status: 1,
+		category: '',
 		id: '11ec-4c5c-3fc7c164-80d5-fa53f5d3a545',
 		club_id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
 		event_id: '11ec-4c5c-3f01ddfa-b7cf-fa53f5d3a545',
@@ -459,6 +478,8 @@ export const crewsMock: Crew[] = [
 	},
 	{
 		knrb_num: 307569,
+		status: 1,
+		category: '',
 		id: '11ec-4c5c-3fdc7f00-8293-fa53f5d3a545',
 		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		club_id: '11ec-4c5c-3ee9c27e-8ce7-fa53f5d3a545',
@@ -473,6 +494,8 @@ export const crewsMock: Crew[] = [
 	},
 	{
 		knrb_num: 307352,
+		status: 1,
+		category: '',
 		id: '11ec-4c5c-3fca771a-99fb-fa53f5d3a545',
 		club_id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
 		event_id: '11ec-4c5c-3f01ddfa-b7cf-fa53f5d3a545',
@@ -487,6 +510,8 @@ export const crewsMock: Crew[] = [
 	},
 	{
 		knrb_num: 307393,
+		status: 1,
+		category: '',
 		club_id: '11ec-4c5c-3ee7fbd8-bff9-fa53f5d3a545',
 		id: '11ec-4c5c-3fd98df4-bce8-fa53f5d3a545',
 		event_id: '11ec-4c5c-3f01ddfa-b7cf-fa53f5d3a545',
@@ -501,6 +526,8 @@ export const crewsMock: Crew[] = [
 	},
 	{
 		knrb_num: 307911,
+		status: 1,
+		category: '',
 		club_id: '11ec-4c5c-3ee51ad0-8251-fa53f5d3a545',
 		id: '11ec-4c5c-3fe2883c-be9f-fa53f5d3a545',
 		event_id: '11ec-4c5c-3f01ddfa-b7cf-fa53f5d3a545',
@@ -515,6 +542,8 @@ export const crewsMock: Crew[] = [
 	},
 	{
 		knrb_num: 307938,
+		status: 1,
+		category: '',
 		club_id: '11ec-4c5c-3ee60cb0-9976-fa53f5d3a545',
 		id: '11ec-4c5c-3fd16890-92dc-fa53f5d3a545',
 		event_id: '11ec-4c5c-3f01ddfa-b7cf-fa53f5d3a545',
@@ -529,6 +558,8 @@ export const crewsMock: Crew[] = [
 	},
 	{
 		knrb_num: 306981,
+		status: 1,
+		category: '',
 		club_id: '11ec-4c5c-3ee7fbd8-bff9-fa53f5d3a545',
 		id: '11ec-4c5c-3fd6600c-a433-fa53f5d3a545',
 		event_id: '11ec-4c5c-3f01ddfa-b7cf-fa53f5d3a545',
@@ -543,6 +574,8 @@ export const crewsMock: Crew[] = [
 	},
 	{
 		knrb_num: 307680,
+		status: 1,
+		category: '',
 		club_id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
 		id: '11ec-4c5c-3fcd60d8-be4a-fa53f5d3a545',
 		event_id: '11ec-4c5c-3f01ddfa-b7cf-fa53f5d3a545',
@@ -557,6 +590,8 @@ export const crewsMock: Crew[] = [
 	},
 	{
 		knrb_num: 307703,
+		status: 1,
+		category: '',
 		id: '11ec-4c5c-3fa5f67e-b5f6-fa53f5d3a545',
 		club_id: '11ec-4c5c-3ee41176-9040-fa53f5d3a545',
 		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
@@ -571,6 +606,8 @@ export const crewsMock: Crew[] = [
 	},
 	{
 		knrb_num: 307330,
+		status: 1,
+		category: '',
 		id: '11ec-4c5c-3faae22e-8fd9-fa53f5d3a545',
 		club_id: '11ec-4c5c-3ee51ad0-8251-fa53f5d3a545',
 		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
