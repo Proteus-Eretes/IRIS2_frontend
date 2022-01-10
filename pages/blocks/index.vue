@@ -177,14 +177,22 @@
 							</template>
 
 							<template #rowers-count="{ item }">
-								<span class="text-sm">
-									{{
-										crews.getCrewById(item.crew_id)
-											? crews.getCrewById(item.crew_id)
-													.rowers.length
-											: 0
-									}}
-								</span>
+								<div class="flex items-center gap-2">
+									<ph-users-three
+										class="icon text-primary-400"
+										aria-hidden="true"
+									/>
+
+									<span class="text-xs font-medium">
+										{{
+											crews.getCrewById(item.crew_id)
+												? crews.getCrewById(
+														item.crew_id
+												  ).rowers.length
+												: 0
+										}}
+									</span>
+								</div>
 							</template>
 						</Table>
 					</template>
@@ -337,6 +345,8 @@
 </template>
 
 <script lang="ts" setup>
+import { PhPlus } from 'phosphor-vue';
+
 import { useBlockStore } from '~~/stores/block';
 import { useCrewStore } from '~~/stores/crew';
 import { useEventStore } from '~~/stores/event';
