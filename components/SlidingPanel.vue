@@ -1,7 +1,7 @@
 <template>
 	<div
 		:class="[
-			showPanel ? 'sliding-column' : 'opacity-0',
+			showPanel ? 'sliding-column' : 'hidden',
 			activePanel > 0 ? 'min-w-multiple-column' : '',
 			isMuted ? 'opacity-50' : '',
 			'panel',

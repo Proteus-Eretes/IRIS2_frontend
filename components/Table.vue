@@ -22,94 +22,105 @@
 				</tr>
 			</thead>
 			<tbody class="bg-white divide-y divide-gray-200">
-				<tr
-					v-for="(item, index) in items"
-					:key="item.id"
-					class="hover:bg-gray-100 cursor-pointer"
-				>
-					<td
-						v-for="header in headers"
-						:key="header"
-						class="px-3 py-2 whitespace-nowrap"
-						@click="$emit('item-click', item)"
+				<template v-for="(item, index) in items" :key="item.id">
+					<tr
+						v-if="isInRange(index)"
+						class="hover:bg-gray-100 cursor-pointer"
 					>
-						<slot
-							:name="getSlotName(header)"
-							:item="item"
-							:index="index"
-						/>
-					</td>
+						<td
+							v-for="header in headers"
+							:key="header"
+							class="px-3 py-2 whitespace-nowrap"
+							@click="$emit('item-click', item)"
+						>
+							<slot
+								:name="getSlotName(header)"
+								:item="item"
+								:index="index"
+							/>
+						</td>
 
-					<td v-if="actions" class="px-3 py-2 text-center">
-						<Menu as="template">
-							<MenuButton
-								class="rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-secondary-500"
-							>
-								<span class="sr-only">Open action menu</span>
-
-								<ph-dots-three
-									class="icon inline-block text-gray-400"
-								/>
-							</MenuButton>
-							<Transition
-								enter-active-class="transition ease-out duration-100"
-								enter-from-class="opacity-0 scale-95"
-								enter-to-class="opacity-100 scale-100"
-								leave-active-class="transition ease-in duration-75"
-								leave-from-class="opacity-100 scale-100"
-								leave-to-class="opacity-0 scale-95"
-							>
-								<MenuItems
-									class="origin-top-right absolute right-0 w-48 rounded-md shadow-lg py-1 text-left bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+						<td v-if="actions" class="px-3 py-2 text-center">
+							<Menu as="template">
+								<MenuButton
+									class="rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-secondary-500"
 								>
-									<MenuItem
-										v-for="action in actions"
-										:key="action"
-										v-slot="{ active }"
+									<span class="sr-only"
+										>Open action menu</span
 									>
-										<a
-											:class="[
-												active ? 'bg-gray-100' : '',
-												action == 'delete'
-													? 'text-danger-700'
-													: 'text-gray-700',
-												'icon-button',
-											]"
-											@click="
-												$emit('action', {
-													action: main.getTableActionById(
-														action
-													),
-													item,
-												})
-											"
+
+									<ph-dots-three
+										class="icon inline-block text-gray-400"
+									/>
+								</MenuButton>
+								<Transition
+									enter-active-class="transition ease-out duration-100"
+									enter-from-class="opacity-0 scale-95"
+									enter-to-class="opacity-100 scale-100"
+									leave-active-class="transition ease-in duration-75"
+									leave-from-class="opacity-100 scale-100"
+									leave-to-class="opacity-0 scale-95"
+								>
+									<MenuItems
+										class="origin-top-right absolute right-0 w-48 rounded-md shadow-lg py-1 text-left bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+									>
+										<MenuItem
+											v-for="action in actions"
+											:key="action"
+											v-slot="{ active }"
 										>
-											<component
-												:is="
+											<a
+												:class="[
+													active ? 'bg-gray-100' : '',
+													action == 'delete'
+														? 'text-danger-700'
+														: 'text-gray-700',
+													'icon-button',
+												]"
+												@click="
+													$emit('action', {
+														action: main.getTableActionById(
+															action
+														),
+														item,
+													})
+												"
+											>
+												<component
+													:is="
+														main.getTableActionById(
+															action
+														).icon
+													"
+													:class="[
+														action == 'delete'
+															? 'text-danger-400'
+															: 'text-gray-400',
+														'icon',
+													]"
+												/>
+												{{
 													main.getTableActionById(
 														action
-													).icon
-												"
-												:class="[
-													action == 'delete'
-														? 'text-danger-400'
-														: 'text-gray-400',
-													'icon',
-												]"
-											/>
-											{{
-												main.getTableActionById(action)
-													.setting
-											}}
-										</a>
-									</MenuItem>
-								</MenuItems>
-							</Transition>
-						</Menu>
-					</td>
-				</tr>
+													).setting
+												}}
+											</a>
+										</MenuItem>
+									</MenuItems>
+								</Transition>
+							</Menu>
+						</td>
+					</tr>
+				</template>
 			</tbody>
 		</table>
+
+		<TablePagination
+			v-if="items.length > maxRows"
+			v-model:index="paginationIndex"
+			:amount="items.length"
+			:spacing="maxRows"
+		/>
 	</div>
 </template>
 
@@ -121,15 +132,19 @@ import { TableAction } from '~~/types/table-action.model';
 import { useMainStore } from '~~/stores';
 const main = useMainStore();
 
+const paginationIndex = ref(1);
+
 interface Props {
 	headers: string[]; // Worden ook als slot names gebruikt
 	actions?: string[];
 	items: any[];
 	hasHeaders?: boolean;
+	maxRows?: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
 	hasHeaders: false,
+	maxRows: 10,
 });
 
 const emits = defineEmits<{
@@ -138,9 +153,15 @@ const emits = defineEmits<{
 }>();
 
 // Make header name lowercase and replace whitespace with dash
-const getSlotName = (header: any) => {
+const getSlotName = (header: any): string => {
 	const name = header.toLowerCase();
 	const regex = /\s/gi;
 	return name.replaceAll(regex, '-');
+};
+const isInRange = (index: number): boolean => {
+	return (
+		index >= (paginationIndex.value - 1) * props.maxRows &&
+		index < (paginationIndex.value - 1) * props.maxRows + props.maxRows
+	);
 };
 </script>
