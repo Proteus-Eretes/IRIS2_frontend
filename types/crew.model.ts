@@ -43,12 +43,12 @@ export interface Team {
 	regatta_id: string;
 	field_id: string;
 	result_status: TeamResultStatus;
+	shirt_number: number | null;
 }
 
 export interface TeamDetail extends Team {
 	starting_order: number | null;
 	toss_reason: string | null;
-	shirt_number: number | null;
 	penalty_time: number; // In seconden
 	penalty_reason: string;
 	deleted: boolean;

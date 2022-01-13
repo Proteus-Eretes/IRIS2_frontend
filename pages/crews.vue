@@ -33,11 +33,7 @@
 
 						<template #club="{ item }">
 							<span class="text-sm">
-								{{
-									clubs.getClubById(item.club_id)
-										? clubs.getClubById(item.club_id).name
-										: 'Nothing'
-								}}
+								{{ item.clubName }}
 							</span>
 						</template>
 
@@ -59,7 +55,11 @@
 						</template>
 
 						<template #stroke="{ item }">
-							<span class="text-sm"> Stroke? </span>
+							<span class="text-sm">{{
+								rowers.getStrokeByCrew(item.id)
+									? rowers.getStrokeByCrew(item.id).fullName
+									: 'Nothing'
+							}}</span>
 						</template>
 
 						<template #status="{ item }">
@@ -71,9 +71,9 @@
 						<template #shirt-numbers="{ item }">
 							<span class="text-sm">
 								{{
-									clubs.getClubById(item.club_id)
-										? clubs.getClubById(item.club_id).shirt
-										: 'Nothing'
+									crews
+										.getShirtNumberByCrew(item.id)
+										.join(', ')
 								}}
 							</span>
 						</template>
@@ -83,7 +83,7 @@
 						<button
 							type="button"
 							class="button icon-button button-secondary"
-							@click="showAddBlock = true"
+							@click="showAddCrew = true"
 						>
 							<ph-plus class="icon text-gray-400" />Add Crew
 						</button>
@@ -331,9 +331,9 @@
 			</SlidingPanel>
 		</div>
 
-		<EditorSlideOver v-model:open="showAddBlock">
-			<template #header>Create a new block</template>
-			<template #subheader>Create a new block for this regatta</template>
+		<EditorSlideOver v-model:open="showAddCrew">
+			<template #header>Create a new crew</template>
+			<template #subheader>Create a new crew for this regatta</template>
 			Hey
 		</EditorSlideOver>
 	</div>
@@ -355,6 +355,7 @@ const { formatDate } = useDateFormatter();
 
 const crews = useCrewStore();
 crews.loadCrews();
+crews.loadTeams();
 
 const events = useEventStore();
 events.loadEvents();
@@ -363,10 +364,11 @@ const clubs = useClubStore();
 clubs.loadClubs();
 
 const rowers = useRowerStore();
+rowers.loadRowers();
 
 // The panel that is last opened
 const activePanel = ref(0);
-const showAddBlock = ref(false);
+const showAddCrew = ref(false);
 
 /*
  * useUrlSearchParams to add and delete search params in url:
@@ -380,7 +382,7 @@ const selectCrew = async (id: string) => {
 
 	crews.selectedCrewId = id;
 
-	await rowers.loadRowersByCrew();
+	// await rowers.loadRowersByCrew();
 	await crews.loadFinesByCrew();
 
 	clubs.selectedId = crews.selectedCrew.club_id;

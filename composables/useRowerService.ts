@@ -4,8 +4,8 @@ const BASE_URL = '/api/rowers';
 
 export const useRowerService = () => {
 	return {
-		async loadRowers() {
-			const url = BASE_URL + '/get-rowers';
+		async loadRowers(id: string) {
+			const url = BASE_URL + '/get-rowers?regattaId=' + id;
 			return await $fetch<Rower[]>(url);
 		},
 		async loadRowersByCrew(id: string) {

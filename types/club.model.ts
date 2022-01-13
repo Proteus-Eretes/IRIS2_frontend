@@ -3,12 +3,12 @@ export interface Club {
 	regatta_id: string;
 	code: string;
 	name: string;
-	shirt: string;
 }
 
 export interface ClubDetail extends Club {
 	knrb_num: number;
 	federation: string;
+	shirt: string;
 	blade: string;
 	trousers: string;
 	contact: Contact;

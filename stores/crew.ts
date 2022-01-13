@@ -51,7 +51,7 @@ export const useCrewStore = defineStore('crews', {
 	}),
 
 	getters: {
-		allCrews(state: CrewState) {
+		allCrews(state: CrewState): Crew[] {
 			return state.ids.map((id: string) => state.entities[id]);
 		},
 		allCrewsByEventId(state: CrewState) {
@@ -61,10 +61,10 @@ export const useCrewStore = defineStore('crews', {
 				return allCrews.filter((crew: Crew) => crew.event_id == id);
 			};
 		},
-		allTeams(state: CrewState) {
+		allTeams(state: CrewState): Team[] {
 			return state.teamIds.map((id: string) => state.teamEntities[id]);
 		},
-		allTeamsOfSelectedField(state: CrewState) {
+		allTeamsOfSelectedField(state: CrewState): Team[] {
 			const allTeams = state.teamIds.map(
 				(id: string) => state.teamEntities[id]
 			);
@@ -74,7 +74,7 @@ export const useCrewStore = defineStore('crews', {
 				(team: Team) => team.field_id == selectedFieldId
 			);
 		},
-		allFinesOfSelectedCrew(state: CrewState) {
+		allFinesOfSelectedCrew(state: CrewState): Fine[] {
 			const allFines = state.fineIds.map(
 				(id: string) => state.fineEntities[id]
 			);
@@ -84,14 +84,14 @@ export const useCrewStore = defineStore('crews', {
 				(fine: Fine) => fine.crew_id == selectedCrewId
 			);
 		},
-		selectedCrew(state: CrewState) {
+		selectedCrew(state: CrewState): Crew {
 			return (
 				(state.selectedCrewId &&
 					state.entities[state.selectedCrewId]) ||
 				null
 			);
 		},
-		selectedTeam(state: CrewState) {
+		selectedTeam(state: CrewState): Team {
 			return (
 				(state.selectedTeamId &&
 					state.teamEntities[state.selectedTeamId]) ||
@@ -101,6 +101,27 @@ export const useCrewStore = defineStore('crews', {
 		getCrewById(state: CrewState) {
 			return (id: string) => {
 				return (id && state.entities[id]) || null;
+			};
+		},
+		getShirtNumberByCrew(state: CrewState) {
+			const allTeams = state.teamIds.map(
+				(id: string) => state.teamEntities[id]
+			);
+
+			return (id: string) => {
+				const allTeamsFilter = allTeams.filter(
+					(team: Team) => team.crew_id == id
+				);
+				if (allTeamsFilter.length == 0) return [];
+
+				const shirtNumbers = allTeamsFilter.map(
+					(team: Team) => team.shirt_number
+				);
+				const firstNumber = shirtNumbers[0];
+
+				return shirtNumbers.some((num: number) => num != firstNumber)
+					? shirtNumbers
+					: [firstNumber];
 			};
 		},
 	},

@@ -69,11 +69,29 @@ export const useRowerStore = defineStore('rowers', {
 				(state.selectedId && state.entities[state.selectedId]) || null
 			);
 		},
+		getStrokeByCrew(state: RowerState) {
+			const allRowers = state.ids.map((id: string) => state.entities[id]);
+
+			return (id: string) => {
+				const allRowersByCrew = allRowers.filter(
+					(rower: Rower) => rower.crew_id == id
+				);
+
+				return allRowersByCrew.find(
+					(rower: Rower) => rower.position == 8
+				);
+			};
+		},
 	},
 
 	actions: {
 		async loadRowers() {
-			const loadedRowers = await rowerService.loadRowers();
+			const regattaId = useRegattaStore().selectedId;
+			if (regattaId == null) {
+				return;
+			}
+
+			const loadedRowers = await rowerService.loadRowers(regattaId);
 
 			const rowerIds = loadedRowers.map((rower) => rower.id);
 			const rowerEntities = loadedRowers.reduce(

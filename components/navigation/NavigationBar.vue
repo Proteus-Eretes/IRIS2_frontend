@@ -35,20 +35,6 @@
 							</span>
 						</div>
 						<div class="mt-1 flex items-center text-sm">
-							<ph-map-pin
-								weight="fill"
-								class="icon text-gray-400 shrink-0 mr-1.5"
-								aria-hidden="true"
-							/>
-							<span class="text-gray-500">
-								{{
-									regattas.selectedRegatta
-										? regattas.selectedRegatta.venue_id
-										: ''
-								}}
-							</span>
-						</div>
-						<div class="mt-1 flex items-center text-sm">
 							<ph-bookmark-simple
 								weight="fill"
 								class="icon text-gray-400 shrink-0 mr-1.5"
@@ -152,7 +138,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import {
 	PhCalendarBlank,
-	PhMapPin,
 	PhBookmarkSimple,
 	PhBell,
 } from 'phosphor-vue';
