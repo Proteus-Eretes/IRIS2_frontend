@@ -6,7 +6,7 @@
 			</h2>
 		</div>
 
-		<div class="p-2 grow overflow-scroll">
+		<div class="p-2 grow overflow-y-scroll">
 			<slot />
 		</div>
 	</div>

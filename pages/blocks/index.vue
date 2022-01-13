@@ -480,7 +480,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PhPlus } from 'phosphor-vue';
+import { PhPlus, PhUsersThree } from 'phosphor-vue';
 
 import { useBlockStore } from '~~/stores/block';
 import { useCrewStore } from '~~/stores/crew';

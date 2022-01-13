@@ -16,5 +16,5 @@
 </template>
 
 <script lang="ts" setup>
-import { PhDotsThreeVertical } from 'phosphor-vue';
+import { PhDotsThreeVertical, PhUsersThree } from 'phosphor-vue';
 </script>
