@@ -57,28 +57,29 @@ const state = (): RootState => ({
 	],
 	tableActions: [
 		{
-			link: '/blocks/assign',
 			id: 'assign',
 			icon: 'ph-calendar-plus',
 			setting: 'Assign events and Rounds',
 		},
 		{
-			link: '/blocks/draw-lots',
 			id: 'lots',
 			icon: 'ph-coin-vertical',
 			setting: 'Draw lots',
 		},
 		{
-			link: '/shirt-number/assign-shirts-overview',
 			id: 'shirts',
 			icon: 'ph-list-numbers',
 			setting: 'Assign shirt numbers',
 		},
 		{
-			link: '',
 			id: 'delete',
 			icon: 'ph-trash',
 			setting: 'Delete'
+		},
+		{
+			id: 'edit',
+			icon: 'ph-pencil',
+			setting: 'Edit'
 		}
 	],
 	showToast: false,

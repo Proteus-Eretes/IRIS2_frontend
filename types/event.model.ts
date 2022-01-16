@@ -6,7 +6,7 @@ export interface Event {
 	number: number; // Assigned by regatta lead
 	day: Date;
 	code: string;
-	name: string; // Is dit hetzelfde als 'code'?
+	name: string;
 	category: string;
 	boat_type: string;
 	sub_crews: string[] | null; // Wat is het verschil tussen 'sub_crews' en 'crews'?

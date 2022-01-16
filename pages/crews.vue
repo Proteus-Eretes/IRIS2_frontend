@@ -42,7 +42,7 @@
 								{{
 									events.getEventById(item.event_id)
 										? events.getEventById(item.event_id)
-												.name
+												.code
 										: 'Nothing'
 								}}
 							</span>

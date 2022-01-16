@@ -108,29 +108,29 @@
 					</h3>
 					<div v-if="events.allFieldsOfSelectedBlock">
 						<Table
-							:headers="['Name', 'Code', 'Crews']"
+							:headers="['Code', 'Name', 'Crews']"
 							:items="events.allFieldsOfSelectedBlock"
 							@item-click="selectField($event.id)"
 							class="pb-2 px-2"
 						>
-							<template #name="{ item }">
-								<span class="badge text-white bg-primary-800">
-									{{
-										events.getEventById(item.event_id)
-											? events.getEventById(item.event_id)
-													.name
-											: 'Event'
-									}}
-								</span>
-							</template>
-
 							<template #code="{ item }">
-								<span class="text-sm font-semibold">
+								<span class="badge text-white bg-primary-800">
 									{{
 										events.getEventById(item.event_id)
 											? events.getEventById(item.event_id)
 													.code
 											: 'Code'
+									}}
+								</span>
+							</template>
+
+							<template #name="{ item }">
+								<span class="text-sm font-semibold">
+									{{
+										events.getEventById(item.event_id)
+											? events.getEventById(item.event_id)
+													.name
+											: 'Event'
 									}}
 								</span>
 							</template>
@@ -142,6 +142,7 @@
 										aria-hidden="true"
 									/>
 
+									<!-- FIXME: Crews niet zo -->
 									<span class="text-xs font-medium">
 										{{
 											events.getEventById(item.event_id)
@@ -169,12 +170,24 @@
 				@focus="activePanel = 2"
 			>
 				<template #header>
-					Field
-					{{ events.selectedEvent ? events.selectedEvent.code : '' }}
+					{{ events.selectedEvent ? events.selectedEvent.name : '' }}
 				</template>
 
-				<div v-if="events.selectedEvent && events.selectedField">
-					<h3 class="px-3 mt-2 py-1 text-xs font-medium uppercase">
+				<div v-if="events.selectedEvent && events.selectedField" class="p-2">
+					<div
+						class="grid grid-cols-2 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
+					>
+						<div>
+							<h6 class="font-semibold">Event code</h6>
+							<span>{{ events.selectedEvent.code }}</span>
+						</div>
+						<div>
+							<h6 class="font-semibold">Event</h6>
+							<span>{{ events.selectedEvent.name }}</span>
+						</div>
+					</div>
+				
+					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
 						Teams
 					</h3>
 					<template v-if="crews.allTeamsOfSelectedField">
@@ -182,7 +195,7 @@
 							:headers="['Name', 'Club name', 'Rowers count']"
 							:items="crews.allTeamsOfSelectedField"
 							@item-click="selectTeam($event.id)"
-							class="pb-2 px-2"
+							class="pb-2"
 						>
 							<template #name="{ item }">
 								<span class="text-sm font-semibold">
@@ -213,6 +226,7 @@
 										aria-hidden="true"
 									/>
 
+									<!-- FIXME: Rowers niet zo -->
 									<span class="text-xs font-medium">
 										{{
 											crews.getCrewById(item.crew_id)
