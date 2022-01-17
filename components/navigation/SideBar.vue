@@ -119,8 +119,8 @@ const toggleSideBar = useToggle(sideBarCollapsed);
 
 onMounted(() => {
 	const breakpoints = useBreakpoints(breakpointsTailwind);
-	const smallerMd = breakpoints.isSmaller('md');
+	const smallerLg = breakpoints.isSmaller('lg');
 
-	if (smallerMd) sideBarCollapsed.value = true;
+	if (smallerLg) sideBarCollapsed.value = true;
 });
 </script>
