@@ -8,9 +8,10 @@
 			>
 				<template #header>Blocks</template>
 
-				<div v-if="blocks.allBlocks">
+				<template #default>
 					<!-- FIXME: do the action -->
 					<Table
+						title="Blocks"
 						:headers="[
 							'Block',
 							'Start date',
@@ -58,8 +59,7 @@
 							<ph-plus class="icon text-gray-400" />Add Block
 						</button>
 					</div>
-				</div>
-				<div v-else>Nothing</div>
+				</template>
 			</SlidingPanel>
 
 			<!-- Block panel -->
@@ -87,76 +87,67 @@
 				</template>
 
 				<div v-if="blocks.selectedBlock">
-					<h3 class="px-3 mt-2 py-1 text-xs font-medium uppercase">
-						Rounds
-					</h3>
-					<div v-if="rounds.allRoundsOfSelectedBlock">
-						<Table
-							:headers="['Name']"
-							:items="rounds.allRoundsOfSelectedBlock"
-							class="px-2"
-						>
-							<template #name="{ item }">
-								<span class="badge text-white bg-primary-800">
-									{{ item.name }}
-								</span>
-							</template>
-						</Table>
-					</div>
+					<Table
+						title="Rounds"
+						:headers="['Name']"
+						:items="rounds.allRoundsOfSelectedBlock"
+						class="px-2"
+					>
+						<template #name="{ item }">
+							<span class="badge text-white bg-primary-800">
+								{{ item.name }}
+							</span>
+						</template>
+					</Table>
 
-					<h3 class="px-3 mt-2 py-1 text-xs font-medium uppercase">
-						Fields
-					</h3>
-					<div v-if="events.allFieldsOfSelectedBlock">
-						<Table
-							:headers="['Code', 'Name', 'Teams']"
-							:items="events.allFieldsOfSelectedBlock"
-							:activeId="events.selectedFieldId"
-							@item-click="selectField($event.id)"
-							class="pb-2 px-2"
-						>
-							<template #code="{ item }">
-								<span class="badge text-white bg-primary-800">
+					<Table
+						title="Fields"
+						:headers="['Code', 'Name', 'Teams']"
+						:items="events.allFieldsOfSelectedBlock"
+						:activeId="events.selectedFieldId"
+						@item-click="selectField($event.id)"
+						class="pb-2 px-2"
+					>
+						<template #code="{ item }">
+							<span class="badge text-white bg-primary-800">
+								{{
+									events.getEventById(item.event_id)
+										? events.getEventById(item.event_id)
+												.code
+										: 'Code'
+								}}
+							</span>
+						</template>
+
+						<template #name="{ item }">
+							<span class="text-sm font-semibold">
+								{{
+									events.getEventById(item.event_id)
+										? events.getEventById(item.event_id)
+												.name
+										: 'Event'
+								}}
+							</span>
+						</template>
+
+						<template #teams="{ item }">
+							<div class="flex items-center gap-2">
+								<ph-users-three
+									class="icon text-primary-400"
+									aria-hidden="true"
+								/>
+
+								<span class="text-xs font-medium">
 									{{
-										events.getEventById(item.event_id)
-											? events.getEventById(item.event_id)
-													.code
-											: 'Code'
+										crews.allTeamsByFieldId(item.id)
+											? crews.allTeamsByFieldId(item.id)
+													.length
+											: 0
 									}}
 								</span>
-							</template>
-
-							<template #name="{ item }">
-								<span class="text-sm font-semibold">
-									{{
-										events.getEventById(item.event_id)
-											? events.getEventById(item.event_id)
-													.name
-											: 'Event'
-									}}
-								</span>
-							</template>
-
-							<template #teams="{ item }">
-								<div class="flex items-center gap-2">
-									<ph-users-three
-										class="icon text-primary-400"
-										aria-hidden="true"
-									/>
-
-									<span class="text-xs font-medium">
-										{{
-											crews.allTeamsByFieldId(item.id)
-												? crews.allTeamsByFieldId(
-														item.id
-												  ).length
-												: 0
-										}}
-									</span>
-								</div>
-							</template>
-						</Table>
-					</div>
+							</div>
+						</template>
+					</Table>
 				</div>
 				<div v-else class="p-3 text-sm font-semibold text-danger-500">
 					Nothing
@@ -199,59 +190,54 @@
 						</div>
 					</div>
 
-					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
-						Teams
-					</h3>
-					<template v-if="crews.allTeamsOfSelectedField">
-						<Table
-							:headers="['Name', 'Club name', 'Rowers count']"
-							:items="crews.allTeamsOfSelectedField"
-							:activeId="crews.selectedTeamId"
-							@item-click="selectTeam($event.id)"
-						>
-							<template #name="{ item }">
-								<span class="text-sm font-semibold">
+					<Table
+						title="Teams"
+						:headers="['Name', 'Club name', 'Rowers count']"
+						:items="crews.allTeamsOfSelectedField"
+						:activeId="crews.selectedTeamId"
+						@item-click="selectTeam($event.id)"
+					>
+						<template #name="{ item }">
+							<span class="text-sm font-semibold">
+								{{
+									crews.getCrewById(item.crew_id)
+										? crews.getCrewById(item.crew_id)
+												.displayName
+										: 'Team'
+								}}
+							</span>
+						</template>
+
+						<template #club-name="{ item }">
+							<span class="text-sm">
+								{{
+									crews.getCrewById(item.crew_id)
+										? crews.getCrewById(item.crew_id)
+												.clubName
+										: 'Club'
+								}}
+							</span>
+						</template>
+
+						<template #rowers-count="{ item }">
+							<div class="flex items-center gap-2">
+								<ph-users-three
+									class="icon text-primary-400"
+									aria-hidden="true"
+								/>
+
+								<!-- FIXME: Rowers niet zo -->
+								<span class="text-xs font-medium">
 									{{
 										crews.getCrewById(item.crew_id)
 											? crews.getCrewById(item.crew_id)
-													.displayName
-											: 'Team'
+													.rowers.length
+											: 0
 									}}
 								</span>
-							</template>
-
-							<template #club-name="{ item }">
-								<span class="text-sm">
-									{{
-										crews.getCrewById(item.crew_id)
-											? crews.getCrewById(item.crew_id)
-													.clubName
-											: 'Club'
-									}}
-								</span>
-							</template>
-
-							<template #rowers-count="{ item }">
-								<div class="flex items-center gap-2">
-									<ph-users-three
-										class="icon text-primary-400"
-										aria-hidden="true"
-									/>
-
-									<!-- FIXME: Rowers niet zo -->
-									<span class="text-xs font-medium">
-										{{
-											crews.getCrewById(item.crew_id)
-												? crews.getCrewById(
-														item.crew_id
-												  ).rowers.length
-												: 0
-										}}
-									</span>
-								</div>
-							</template>
-						</Table>
-					</template>
+							</div>
+						</template>
+					</Table>
 				</div>
 				<div v-else class="p-3 text-sm font-semibold text-danger-500">
 					Nothing
@@ -320,132 +306,105 @@
 						</div>
 					</div>
 
-					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
-						Rowers
-					</h3>
-					<div v-if="rowers.allRowersOfSelectedCrew.length > 0">
-						<Table
-							:headers="['Position', 'Name', 'Gender']"
-							:actions="['delete']"
-							:items="rowers.allRowersOfSelectedCrew"
-							:activeId="rowers.selectedId"
-							@item-click="selectRower($event.id)"
-						>
-							<template #position="{ item }">
-								<span class="badge text-white bg-primary-800">
-									{{ item.position }}
-								</span>
-							</template>
+					<Table
+						title="Rowers"
+						:headers="['Position', 'Name', 'Gender']"
+						:actions="['delete']"
+						:items="rowers.allRowersOfSelectedCrew"
+						:activeId="rowers.selectedId"
+						@item-click="selectRower($event.id)"
+					>
+						<template #position="{ item }">
+							<span class="badge text-white bg-primary-800">
+								{{ item.position }}
+							</span>
+						</template>
 
-							<template #name="{ item }">
-								<span class="text-sm">
-									{{ item.fullName }}
-								</span>
-							</template>
+						<template #name="{ item }">
+							<span class="text-sm">
+								{{ item.fullName }}
+							</span>
+						</template>
 
-							<template #gender="{ item }">
-								<span class="pill text-white bg-primary-400">
-									{{ item.gender }}
-								</span>
-							</template>
-						</Table>
-					</div>
-					<div v-else class="px-1 text-sm font-base text-gray-500">
-						No rowers found
-					</div>
+						<template #gender="{ item }">
+							<span class="pill text-white bg-primary-400">
+								{{ item.gender }}
+							</span>
+						</template>
+					</Table>
 
-					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
-						Coaches
-					</h3>
-					<div v-if="rowers.allCoachesOfSelectedCrew.length > 0">
-						<Table
-							:headers="['Position', 'Name', 'Gender']"
-							:actions="['delete']"
-							:items="rowers.allCoachesOfSelectedCrew"
-							:activeId="rowers.selectedId"
-							@item-click="selectRower($event.id)"
-						>
-							<template #position="{ item }">
-								<span class="badge text-white bg-primary-800">
-									{{ item.position }}
-								</span>
-							</template>
+					<Table
+						title="Coaches"
+						:headers="['Position', 'Name', 'Gender']"
+						:actions="['delete']"
+						:items="rowers.allCoachesOfSelectedCrew"
+						:activeId="rowers.selectedId"
+						@item-click="selectRower($event.id)"
+					>
+						<template #position="{ item }">
+							<span class="badge text-white bg-primary-800">
+								{{ item.position }}
+							</span>
+						</template>
 
-							<template #name="{ item }">
-								<span class="text-sm">
-									{{ item.fullName }}
-								</span>
-							</template>
+						<template #name="{ item }">
+							<span class="text-sm">
+								{{ item.fullName }}
+							</span>
+						</template>
 
-							<template #gender="{ item }">
-								<span class="pill text-white bg-primary-400">
-									{{ item.gender }}
-								</span>
-							</template>
-						</Table>
-					</div>
-					<div v-else class="px-1 text-sm font-base text-gray-500">
-						No coaches found
-					</div>
+						<template #gender="{ item }">
+							<span class="pill text-white bg-primary-400">
+								{{ item.gender }}
+							</span>
+						</template>
+					</Table>
 
-					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
-						Coxes
-					</h3>
-					<div v-if="rowers.allCoxesOfSelectedCrew.length > 0">
-						<Table
-							:headers="['Position', 'Name', 'Gender']"
-							:actions="['delete']"
-							:items="rowers.allCoxesOfSelectedCrew"
-							:activeId="rowers.selectedId"
-							@item-click="selectRower($event.id)"
-						>
-							<template #position="{ item }">
-								<span class="badge text-white bg-primary-800">
-									{{ item.position }}
-								</span>
-							</template>
+					<Table
+						title="Coxes"
+						:headers="['Position', 'Name', 'Gender']"
+						:actions="['delete']"
+						:items="rowers.allCoxesOfSelectedCrew"
+						:activeId="rowers.selectedId"
+						@item-click="selectRower($event.id)"
+					>
+						<template #position="{ item }">
+							<span class="badge text-white bg-primary-800">
+								{{ item.position }}
+							</span>
+						</template>
 
-							<template #name="{ item }">
-								<span class="text-sm">
-									{{ item.fullName }}
-								</span>
-							</template>
+						<template #name="{ item }">
+							<span class="text-sm">
+								{{ item.fullName }}
+							</span>
+						</template>
 
-							<template #gender="{ item }">
-								<span class="pill text-white bg-primary-400">
-									{{ item.gender }}
-								</span>
-							</template>
-						</Table>
-					</div>
-					<div v-else class="px-1 text-sm font-base text-gray-500">
-						No coxes found
-					</div>
+						<template #gender="{ item }">
+							<span class="pill text-white bg-primary-400">
+								{{ item.gender }}
+							</span>
+						</template>
+					</Table>
 
-					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
-						Fines
-					</h3>
-					<div v-if="crews.allFinesOfSelectedCrew.length > 0">
-						<Table
-							:headers="['Amount', 'Date']"
-							:items="crews.allFinesOfSelectedCrew"
-						>
-							<template #amount="{ item }">
-								<span class="text-sm font-semibold">
-									€ {{ item.amount }}
-								</span>
-							</template>
+					<Table
+						title="Fines"
+						error-message="This crew didn't receive any fines"
+						:headers="['Amount', 'Date']"
+						:items="crews.allFinesOfSelectedCrew"
+					>
+						<template #amount="{ item }">
+							<span class="text-sm font-semibold">
+								€ {{ item.amount }}
+							</span>
+						</template>
 
-							<template #date="{ item }">
-								<span class="text-sm">
-									{{ formatDate(item.date, true) }}
-								</span>
-							</template>
-						</Table>
-					</div>
-					<div v-else class="px-1 text-sm font-base text-gray-500">
-						No fines found
-					</div>
+						<template #date="{ item }">
+							<span class="text-sm">
+								{{ formatDate(item.date, true) }}
+							</span>
+						</template>
+					</Table>
 				</div>
 				<div v-else class="p-3 text-sm font-semibold text-danger-500">
 					Nothing
@@ -526,13 +485,13 @@ import { useDateFormatter } from '~~/composables/useDateFormatter';
 const { formatDate, formatTime } = useDateFormatter();
 
 const blocks = useBlockStore();
-blocks.loadBlocks();
-
 const events = useEventStore();
 const rounds = useRoundStore();
 const crews = useCrewStore();
 const rowers = useRowerStore();
 const clubs = useClubStore();
+
+await blocks.loadBlocks();
 
 // The panel that is last opened
 const activePanel = ref(0);

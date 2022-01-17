@@ -1,6 +1,15 @@
 <template>
-	<div>
-		<div class="overflow-x-scroll">
+	<div :aria-label="title + ' table'">
+		<div class="flex items-end">
+			<h3
+				v-if="!hasHeaders"
+				class="grow pl-1 py-1 mt-2 text-xs font-medium uppercase"
+			>
+				{{ title }}
+			</h3>
+		</div>
+
+		<div v-if="items.length > 0" class="overflow-x-scroll">
 			<table
 				:class="[
 					hasHeaders ? 'border-b' : 'border',
@@ -127,13 +136,36 @@
 				</tbody>
 			</table>
 		</div>
+		<div v-else class="px-1 text-sm font-base text-gray-500">
+			{{
+				errorMessage ? errorMessage : `No ${title.toLowerCase()} found`
+			}}
+		</div>
 
-		<TablePagination
-			v-if="items.length > maxRows"
-			v-model:index="paginationIndex"
-			:amount="items.length"
-			:spacing="maxRows"
-		/>
+		<div
+			v-if="items.length > 10"
+			:class="[
+				hasHeaders ? 'px-2' : '',
+				'py-2 flex items-center justify-between',
+			]"
+		>
+			<select
+				v-model="maxRows"
+				class="rounded-md text-sm py-0.5 pl-2 pr-5 bg-[right_0.125rem_center] border border-gray-200 text-primary-700 bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-400"
+			>
+				<option :value="10">10 rows</option>
+				<option :value="15">15 rows</option>
+				<option :value="20">20 rows</option>
+				<option :value="9999">No limit</option>
+			</select>
+
+			<TablePagination
+				v-if="items.length > maxRows"
+				v-model:index="paginationIndex"
+				:amount="items.length"
+				:spacing="maxRows"
+			/>
+		</div>
 	</div>
 </template>
 
@@ -148,6 +180,8 @@ const main = useMainStore();
 const paginationIndex = ref(1);
 
 interface Props {
+	title: string;
+	errorMessage?: string;
 	headers: string[]; // Worden ook als slot names gebruikt
 	actions?: string[];
 	items: any[];

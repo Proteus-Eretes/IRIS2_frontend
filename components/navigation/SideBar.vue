@@ -50,6 +50,18 @@
 </template>
 
 <script lang="ts" setup>
+import {
+	PhGauge,
+	PhSquaresFour,
+	PhUsersThree,
+	PhCalendarBlank,
+	PhCoinVertical,
+	PhListNumbers,
+	PhExport,
+	PhMicrophone,
+	PhClipboardText,
+} from 'phosphor-vue';
+
 import { useRegattaStore } from '~~/stores/regatta';
 const regattas = useRegattaStore();
 

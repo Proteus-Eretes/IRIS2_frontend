@@ -11,6 +11,7 @@
 				<div v-if="crews.allCrews">
 					<!-- FIXME: do the action -->
 					<Table
+						title="Crews"
 						:headers="[
 							'Name',
 							'Club',
@@ -155,132 +156,105 @@
 						</div>
 					</div>
 
-					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
-						Rowers
-					</h3>
-					<div v-if="rowers.allRowersOfSelectedCrew.length > 0">
-						<Table
-							:headers="['Position', 'Name', 'Gender']"
-							:actions="['delete']"
-							:items="rowers.allRowersOfSelectedCrew"
-							:activeId="rowers.selectedId"
-							@item-click="selectRower($event.id)"
-						>
-							<template #position="{ item }">
-								<span class="badge text-white bg-primary-800">
-									{{ item.position }}
-								</span>
-							</template>
+					<Table
+						title="Rowers"
+						:headers="['Position', 'Name', 'Gender']"
+						:actions="['delete']"
+						:items="rowers.allRowersOfSelectedCrew"
+						:activeId="rowers.selectedId"
+						@item-click="selectRower($event.id)"
+					>
+						<template #position="{ item }">
+							<span class="badge text-white bg-primary-800">
+								{{ item.position }}
+							</span>
+						</template>
 
-							<template #name="{ item }">
-								<span class="text-sm">
-									{{ item.fullName }}
-								</span>
-							</template>
+						<template #name="{ item }">
+							<span class="text-sm">
+								{{ item.fullName }}
+							</span>
+						</template>
 
-							<template #gender="{ item }">
-								<span class="pill text-white bg-primary-400">
-									{{ item.gender }}
-								</span>
-							</template>
-						</Table>
-					</div>
-					<div v-else class="px-1 text-sm font-base text-gray-500">
-						No rowers found
-					</div>
+						<template #gender="{ item }">
+							<span class="pill text-white bg-primary-400">
+								{{ item.gender }}
+							</span>
+						</template>
+					</Table>
 
-					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
-						Coaches
-					</h3>
-					<div v-if="rowers.allCoachesOfSelectedCrew.length > 0">
-						<Table
-							:headers="['Position', 'Name', 'Gender']"
-							:actions="['delete']"
-							:items="rowers.allCoachesOfSelectedCrew"
-							:activeId="rowers.selectedId"
-							@item-click="selectRower($event.id)"
-						>
-							<template #position="{ item }">
-								<span class="badge text-white bg-primary-800">
-									{{ item.position }}
-								</span>
-							</template>
+					<Table
+						title="Coaches"
+						:headers="['Position', 'Name', 'Gender']"
+						:actions="['delete']"
+						:items="rowers.allCoachesOfSelectedCrew"
+						:activeId="rowers.selectedId"
+						@item-click="selectRower($event.id)"
+					>
+						<template #position="{ item }">
+							<span class="badge text-white bg-primary-800">
+								{{ item.position }}
+							</span>
+						</template>
 
-							<template #name="{ item }">
-								<span class="text-sm">
-									{{ item.fullName }}
-								</span>
-							</template>
+						<template #name="{ item }">
+							<span class="text-sm">
+								{{ item.fullName }}
+							</span>
+						</template>
 
-							<template #gender="{ item }">
-								<span class="pill text-white bg-primary-400">
-									{{ item.gender }}
-								</span>
-							</template>
-						</Table>
-					</div>
-					<div v-else class="px-1 text-sm font-base text-gray-500">
-						No coaches found
-					</div>
+						<template #gender="{ item }">
+							<span class="pill text-white bg-primary-400">
+								{{ item.gender }}
+							</span>
+						</template>
+					</Table>
 
-					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
-						Coxes
-					</h3>
-					<div v-if="rowers.allCoxesOfSelectedCrew.length > 0">
-						<Table
-							:headers="['Position', 'Name', 'Gender']"
-							:actions="['delete']"
-							:items="rowers.allCoxesOfSelectedCrew"
-							:activeId="rowers.selectedId"
-							@item-click="selectRower($event.id)"
-						>
-							<template #position="{ item }">
-								<span class="badge text-white bg-primary-800">
-									{{ item.position }}
-								</span>
-							</template>
+					<Table
+						title="Coxes"
+						:headers="['Position', 'Name', 'Gender']"
+						:actions="['delete']"
+						:items="rowers.allCoxesOfSelectedCrew"
+						:activeId="rowers.selectedId"
+						@item-click="selectRower($event.id)"
+					>
+						<template #position="{ item }">
+							<span class="badge text-white bg-primary-800">
+								{{ item.position }}
+							</span>
+						</template>
 
-							<template #name="{ item }">
-								<span class="text-sm">
-									{{ item.fullName }}
-								</span>
-							</template>
+						<template #name="{ item }">
+							<span class="text-sm">
+								{{ item.fullName }}
+							</span>
+						</template>
 
-							<template #gender="{ item }">
-								<span class="pill text-white bg-primary-400">
-									{{ item.gender }}
-								</span>
-							</template>
-						</Table>
-					</div>
-					<div v-else class="px-1 text-sm font-base text-gray-500">
-						No coxes found
-					</div>
+						<template #gender="{ item }">
+							<span class="pill text-white bg-primary-400">
+								{{ item.gender }}
+							</span>
+						</template>
+					</Table>
 
-					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
-						Fines
-					</h3>
-					<div v-if="crews.allFinesOfSelectedCrew.length > 0">
-						<Table
-							:headers="['Amount', 'Date']"
-							:items="crews.allFinesOfSelectedCrew"
-						>
-							<template #amount="{ item }">
-								<span class="text-sm font-semibold">
-									€ {{ item.amount }}
-								</span>
-							</template>
+					<Table
+						title="Fines"
+						error-message="This crew didn't receive any fines"
+						:headers="['Amount', 'Date']"
+						:items="crews.allFinesOfSelectedCrew"
+					>
+						<template #amount="{ item }">
+							<span class="text-sm font-semibold">
+								€ {{ item.amount }}
+							</span>
+						</template>
 
-							<template #date="{ item }">
-								<span class="text-sm">
-									{{ formatDate(item.date, true) }}
-								</span>
-							</template>
-						</Table>
-					</div>
-					<div v-else class="px-1 text-sm font-base text-gray-500">
-						No fines found
-					</div>
+						<template #date="{ item }">
+							<span class="text-sm">
+								{{ formatDate(item.date, true) }}
+							</span>
+						</template>
+					</Table>
 				</div>
 				<div v-else class="p-3 text-sm font-semibold text-danger-500">
 					Nothing
