@@ -30,6 +30,7 @@ module.exports = {
 				'multiple-column': 'calc(50% - 1rem)',
 			},
 			width: {
+				'side-bar-collapse': '4rem',
 				'side-bar': '16rem',
 				'main-content': 'calc(100vw - 16rem)',
 			},

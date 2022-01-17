@@ -14,18 +14,18 @@
 					isExactActive
 						? 'text-white bg-secondary-500 hover:bg-secondary-400'
 						: 'text-primary-300 hover:bg-primary-600',
-					'flex space-x-3 hover:text-white px-3 py-2 rounded-md text-base font-medium',
+					'flex group space-x-3 hover:text-white px-3 py-2 rounded-md text-base font-medium',
 				]"
 			>
 				<component
 					:is="item.icon"
-					class="w-6 h-6 text-primary-100"
+					class="w-6 h-6 text-primary-100 group-hover:text-white"
 					aria-hidden="true"
 				/>
-				<span>{{ item.name }}</span>
+				<span v-if="showText">{{ item.name }}</span>
 			</div>
 
-			<ul v-if="item.items && isParentActive(item.to)">
+			<ul v-if="item.items && isParentActive(item.to) && showText">
 				<li v-for="subItem in item.items" :key="subItem.name">
 					<NuxtLink
 						:to="{
@@ -66,5 +66,6 @@ const isParentActive = (base: string): boolean => {
 
 const props = defineProps<{
 	item: RouteItem;
+	showText?: boolean;
 }>();
 </script>

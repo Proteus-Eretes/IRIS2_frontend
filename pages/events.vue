@@ -199,9 +199,9 @@
 				<!-- TODO: Is dit wat hier moet staan? -->
 				<template #header-status>
 					{{
-						crews.selectedTeam
-							? getTeamResultStatusLabel(
-									crews.selectedTeam.result_status
+						crews.selectedCrew
+							? getCrewStatusLabel(
+									crews.selectedCrew.status
 							  )
 							: ''
 					}}
@@ -414,7 +414,7 @@ import { useRowerStore } from '~~/stores/rower';
 import { useClubStore } from '~~/stores/club';
 
 import { getEventStatusLabel } from '~~/types/event.model';
-import { getTeamResultStatusLabel } from '~~/types/crew.model';
+import { getCrewStatusLabel } from '~~/types/crew.model';
 import { getGenderLabel, getRowerRoleLabel } from '~~/types/rower.model';
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 

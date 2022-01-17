@@ -110,9 +110,9 @@
 				<!-- TODO: Is dit wat hier moet staan? -->
 				<template #header-status>
 					{{
-						crews.selectedTeam
-							? getTeamResultStatusLabel(
-									crews.selectedTeam.result_status
+						crews.selectedCrew
+							? getCrewStatusLabel(
+									crews.selectedCrew.status
 							  )
 							: ''
 					}}
@@ -325,7 +325,6 @@ import { useEventStore } from '~~/stores/event';
 import { useClubStore } from '~~/stores/club';
 
 import { getCrewStatusLabel } from '~~/types/crew.model';
-import { getTeamResultStatusLabel } from '~~/types/crew.model';
 import { getGenderLabel, getRowerRoleLabel } from '~~/types/rower.model';
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 
@@ -357,9 +356,7 @@ const selectCrew = async (id: string) => {
 	activePanel.value = 1;
 	params.crew = id;
 
-	// crews.selectedCrewId = id;
-	await crews.selectCrew(id);
-	console.log('select', crews.selectedCrew);
+	crews.selectedCrewId = id;
 	clubs.selectedId = crews.selectedCrew.club_id;
 	events.selectedEventId = crews.selectedCrew.event_id;
 

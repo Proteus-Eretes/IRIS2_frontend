@@ -144,10 +144,6 @@ export const useCrewStore = defineStore('crews', {
 	},
 
 	actions: {
-		async selectCrew(id: string) {
-			this.selectedCrewId = id;
-			console.log('crew.ts', this.selectedCrew);
-		},
 		async loadCrews() {
 			const regattaId = useRegattaStore().selectedId;
 			if (regattaId == null) {

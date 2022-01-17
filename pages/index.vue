@@ -9,8 +9,6 @@ import { useToastService } from '~~/composables/useToastService';
 const { showError } = useToastService();
 
 const click = () => {
-	console.log('click');
-
 	showError('Click');
 };
 </script>
