@@ -6,10 +6,6 @@
 	a {
 		@apply cursor-pointer;
 	}
-
-	.table tbody > tr:nth-child(odd) {
-		@apply bg-gray-50;
-	}
 }
 
 @layer components {

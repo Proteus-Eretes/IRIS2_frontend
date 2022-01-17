@@ -21,6 +21,7 @@
 							'Shirt numbers',
 						]"
 						:items="crews.allCrews"
+						:activeId="crews.selectedCrewId"
 						@item-click="selectCrew($event.id)"
 						@action=""
 						has-headers
@@ -162,6 +163,7 @@
 							:headers="['Position', 'Name', 'Gender']"
 							:actions="['delete']"
 							:items="rowers.allRowersOfSelectedCrew"
+							:activeId="rowers.selectedId"
 							@item-click="selectRower($event.id)"
 						>
 							<template #position="{ item }">
@@ -195,6 +197,7 @@
 							:headers="['Position', 'Name', 'Gender']"
 							:actions="['delete']"
 							:items="rowers.allCoachesOfSelectedCrew"
+							:activeId="rowers.selectedId"
 							@item-click="selectRower($event.id)"
 						>
 							<template #position="{ item }">
@@ -228,6 +231,7 @@
 							:headers="['Position', 'Name', 'Gender']"
 							:actions="['delete']"
 							:items="rowers.allCoxesOfSelectedCrew"
+							:activeId="rowers.selectedId"
 							@item-click="selectRower($event.id)"
 						>
 							<template #position="{ item }">

@@ -22,6 +22,7 @@
 						]"
 						:actions="['edit', 'delete']"
 						:items="events.allEvents"
+						:activeId="events.selectedEventId"
 						@item-click="selectEvent($event.id)"
 						@action=""
 						has-headers
@@ -137,6 +138,7 @@
 						<Table
 							:headers="['Name', 'Club name', 'Rowers count']"
 							:items="crews.allCrewsOfSelectedEvent"
+							:activeId="crews.selectedCrewId"
 							@item-click="selectCrew($event.id)"
 						>
 							<template #name="{ item }">
@@ -257,6 +259,7 @@
 							:headers="['Position', 'Name', 'Gender']"
 							:actions="['delete']"
 							:items="rowers.allRowersOfSelectedCrew"
+							:activeId="rowers.selectedId"
 							@item-click="selectRower($event.id)"
 						>
 							<template #position="{ item }">
@@ -290,6 +293,7 @@
 							:headers="['Position', 'Name', 'Gender']"
 							:actions="['delete']"
 							:items="rowers.allCoachesOfSelectedCrew"
+							:activeId="rowers.selectedId"
 							@item-click="selectRower($event.id)"
 						>
 							<template #position="{ item }">
@@ -323,6 +327,7 @@
 							:headers="['Position', 'Name', 'Gender']"
 							:actions="['delete']"
 							:items="rowers.allCoxesOfSelectedCrew"
+							:activeId="rowers.selectedId"
 							@item-click="selectRower($event.id)"
 						>
 							<template #position="{ item }">

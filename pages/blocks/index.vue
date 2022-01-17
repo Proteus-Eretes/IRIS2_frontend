@@ -19,6 +19,7 @@
 						]"
 						:actions="['assign', 'lots', 'shirts', 'delete']"
 						:items="blocks.allBlocks"
+						:activeId="blocks.selectedId"
 						@item-click="selectBlock($event.id)"
 						@action=""
 						has-headers
@@ -110,6 +111,7 @@
 						<Table
 							:headers="['Code', 'Name', 'Teams']"
 							:items="events.allFieldsOfSelectedBlock"
+							:activeId="events.selectedFieldId"
 							@item-click="selectField($event.id)"
 							class="pb-2 px-2"
 						>
@@ -175,9 +177,7 @@
 				<template #header-status>
 					{{
 						events.selectedEvent
-							? getEventStatusLabel(
-									events.selectedEvent.status
-							  )
+							? getEventStatusLabel(events.selectedEvent.status)
 							: ''
 					}}
 				</template>
@@ -206,6 +206,7 @@
 						<Table
 							:headers="['Name', 'Club name', 'Rowers count']"
 							:items="crews.allTeamsOfSelectedField"
+							:activeId="crews.selectedTeamId"
 							@item-click="selectTeam($event.id)"
 						>
 							<template #name="{ item }">
@@ -327,6 +328,7 @@
 							:headers="['Position', 'Name', 'Gender']"
 							:actions="['delete']"
 							:items="rowers.allRowersOfSelectedCrew"
+							:activeId="rowers.selectedId"
 							@item-click="selectRower($event.id)"
 						>
 							<template #position="{ item }">
@@ -360,6 +362,7 @@
 							:headers="['Position', 'Name', 'Gender']"
 							:actions="['delete']"
 							:items="rowers.allCoachesOfSelectedCrew"
+							:activeId="rowers.selectedId"
 							@item-click="selectRower($event.id)"
 						>
 							<template #position="{ item }">
@@ -393,6 +396,7 @@
 							:headers="['Position', 'Name', 'Gender']"
 							:actions="['delete']"
 							:items="rowers.allCoxesOfSelectedCrew"
+							:activeId="rowers.selectedId"
 							@item-click="selectRower($event.id)"
 						>
 							<template #position="{ item }">

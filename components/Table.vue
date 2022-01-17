@@ -26,11 +26,16 @@
 						</th>
 					</tr>
 				</thead>
-				<tbody class="bg-white divide-y divide-gray-200">
+				<tbody class="divide-y divide-gray-200">
 					<template v-for="(item, index) in items" :key="item.id">
 						<tr
 							v-if="isInRange(index)"
-							class="hover:bg-gray-100 cursor-pointer"
+							:class="[
+								activeId == item.id
+									? 'bg-secondary-50'
+									: 'bg-white odd:bg-gray-50 hover:bg-gray-100',
+								'cursor-pointer',
+							]"
 						>
 							<td
 								v-for="header in headers"
@@ -146,11 +151,13 @@ interface Props {
 	headers: string[]; // Worden ook als slot names gebruikt
 	actions?: string[];
 	items: any[];
+	activeId?: string;
 	hasHeaders?: boolean;
 	maxRows?: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
+	activeId: '',
 	hasHeaders: false,
 	maxRows: 10,
 });
