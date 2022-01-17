@@ -58,7 +58,9 @@ export const useCrewStore = defineStore('crews', {
 			const allCrews = state.ids.map((id: string) => state.entities[id]);
 			const selectedEventId = useEventStore().selectedEventId;
 
-			return allCrews.filter((crew: Crew) => crew.event_id == selectedEventId);
+			return allCrews.filter(
+				(crew: Crew) => crew.event_id == selectedEventId
+			);
 		},
 		allCrewsByEventId(state: CrewState) {
 			const allCrews = state.ids.map((id: string) => state.entities[id]);
@@ -79,6 +81,15 @@ export const useCrewStore = defineStore('crews', {
 			return allTeams.filter(
 				(team: Team) => team.field_id == selectedFieldId
 			);
+		},
+		allTeamsByFieldId(state: CrewState) {
+			const allTeams = state.teamIds.map(
+				(id: string) => state.teamEntities[id]
+			);
+
+			return (id: string) => {
+				return allTeams.filter((team: Team) => team.field_id == id);
+			};
 		},
 		allFinesOfSelectedCrew(state: CrewState): Fine[] {
 			const allFines = state.fineIds.map(
@@ -133,6 +144,10 @@ export const useCrewStore = defineStore('crews', {
 	},
 
 	actions: {
+		async selectCrew(id: string) {
+			this.selectedCrewId = id;
+			console.log('crew.ts', this.selectedCrew);
+		},
 		async loadCrews() {
 			const regattaId = useRegattaStore().selectedId;
 			if (regattaId == null) {

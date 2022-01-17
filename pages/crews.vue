@@ -105,10 +105,13 @@
 					}}
 				</template>
 
+				<!-- TODO: Is dit wat hier moet staan? -->
 				<template #header-status>
 					{{
-						crews.selectedCrew != null
-							? crews.selectedCrew.rowers.length
+						crews.selectedTeam
+							? getTeamResultStatusLabel(
+									crews.selectedTeam.result_status
+							  )
 							: ''
 					}}
 				</template>
@@ -160,7 +163,6 @@
 							:actions="['delete']"
 							:items="rowers.allRowersOfSelectedCrew"
 							@item-click="selectRower($event.id)"
-							class="pb-2"
 						>
 							<template #position="{ item }">
 								<span class="badge text-white bg-primary-800">
@@ -194,7 +196,6 @@
 							:actions="['delete']"
 							:items="rowers.allCoachesOfSelectedCrew"
 							@item-click="selectRower($event.id)"
-							class="pb-2"
 						>
 							<template #position="{ item }">
 								<span class="badge text-white bg-primary-800">
@@ -228,7 +229,6 @@
 							:actions="['delete']"
 							:items="rowers.allCoxesOfSelectedCrew"
 							@item-click="selectRower($event.id)"
-							class="pb-2"
 						>
 							<template #position="{ item }">
 								<span class="badge text-white bg-primary-800">
@@ -260,7 +260,6 @@
 						<Table
 							:headers="['Amount', 'Date']"
 							:items="crews.allFinesOfSelectedCrew"
-							class="pb-2"
 						>
 							<template #amount="{ item }">
 								<span class="text-sm font-semibold">
@@ -348,23 +347,23 @@ import { useEventStore } from '~~/stores/event';
 import { useClubStore } from '~~/stores/club';
 
 import { getCrewStatusLabel } from '~~/types/crew.model';
+import { getTeamResultStatusLabel } from '~~/types/crew.model';
 import { getGenderLabel, getRowerRoleLabel } from '~~/types/rower.model';
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 
 const { formatDate } = useDateFormatter();
 
 const crews = useCrewStore();
-crews.loadCrews();
-crews.loadTeams();
-
 const events = useEventStore();
-events.loadEvents();
-
 const clubs = useClubStore();
-clubs.loadClubs();
-
 const rowers = useRowerStore();
-rowers.loadRowers();
+
+// TODO: leg uit waarom alles meteen laden
+await crews.loadCrews();
+await crews.loadTeams();
+await events.loadEvents();
+// await clubs.loadClubs();
+await rowers.loadRowers();
 
 // The panel that is last opened
 const activePanel = ref(0);
@@ -380,15 +379,16 @@ const selectCrew = async (id: string) => {
 	activePanel.value = 1;
 	params.crew = id;
 
-	crews.selectedCrewId = id;
+	// crews.selectedCrewId = id;
+	await crews.selectCrew(id);
+	console.log('select', crews.selectedCrew);
+	clubs.selectedId = crews.selectedCrew.club_id;
+	events.selectedEventId = crews.selectedCrew.event_id;
 
 	// await rowers.loadRowersByCrew();
 	await crews.loadFinesByCrew();
 
-	clubs.selectedId = crews.selectedCrew.club_id;
 	await clubs.loadSelectedClub();
-
-	events.selectedEventId = crews.selectedCrew.event_id;
 };
 const selectRower = (id: string) => {
 	activePanel.value = 2;

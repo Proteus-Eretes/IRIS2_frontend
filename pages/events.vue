@@ -57,7 +57,6 @@
 									aria-hidden="true"
 								/>
 
-								<!-- FIXME: Crews niet zo -->
 								<span class="text-xs font-medium">
 									{{
 										crews.allCrewsByEventId(item.id)
@@ -70,7 +69,10 @@
 						</template>
 
 						<template #category="{ item }">
-							<span class="pill text-white bg-primary-400">
+							<span
+								v-if="item.category"
+								class="pill text-white bg-primary-400"
+							>
 								{{ item.category }}
 							</span>
 						</template>
@@ -106,6 +108,14 @@
 					{{ events.selectedEvent ? events.selectedEvent.name : '' }}
 				</template>
 
+				<template #header-status>
+					{{
+						events.selectedEvent
+							? getEventStatusLabel(events.selectedEvent.status)
+							: ''
+					}}
+				</template>
+
 				<div v-if="events.selectedEvent" class="p-2">
 					<div
 						class="grid grid-cols-2 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
@@ -128,7 +138,6 @@
 							:headers="['Name', 'Club name', 'Rowers count']"
 							:items="crews.allCrewsOfSelectedEvent"
 							@item-click="selectCrew($event.id)"
-							class="pb-2"
 						>
 							<template #name="{ item }">
 								<span class="text-sm font-semibold">
@@ -191,10 +200,13 @@
 					}}
 				</template>
 
+				<!-- TODO: Is dit wat hier moet staan? -->
 				<template #header-status>
 					{{
-						crews.selectedCrew != null
-							? crews.selectedCrew.rowers.length
+						crews.selectedTeam
+							? getTeamResultStatusLabel(
+									crews.selectedTeam.result_status
+							  )
 							: ''
 					}}
 				</template>
@@ -246,7 +258,6 @@
 							:actions="['delete']"
 							:items="rowers.allRowersOfSelectedCrew"
 							@item-click="selectRower($event.id)"
-							class="pb-2"
 						>
 							<template #position="{ item }">
 								<span class="badge text-white bg-primary-800">
@@ -280,7 +291,6 @@
 							:actions="['delete']"
 							:items="rowers.allCoachesOfSelectedCrew"
 							@item-click="selectRower($event.id)"
-							class="pb-2"
 						>
 							<template #position="{ item }">
 								<span class="badge text-white bg-primary-800">
@@ -314,7 +324,6 @@
 							:actions="['delete']"
 							:items="rowers.allCoxesOfSelectedCrew"
 							@item-click="selectRower($event.id)"
-							class="pb-2"
 						>
 							<template #position="{ item }">
 								<span class="badge text-white bg-primary-800">
@@ -346,7 +355,6 @@
 						<Table
 							:headers="['Amount', 'Date']"
 							:items="crews.allFinesOfSelectedCrew"
-							class="pb-2"
 						>
 							<template #amount="{ item }">
 								<span class="text-sm font-semibold">
@@ -433,6 +441,8 @@ import { useEventStore } from '~~/stores/event';
 import { useRowerStore } from '~~/stores/rower';
 import { useClubStore } from '~~/stores/club';
 
+import { getEventStatusLabel } from '~~/types/event.model';
+import { getTeamResultStatusLabel } from '~~/types/crew.model';
 import { getGenderLabel, getRowerRoleLabel } from '~~/types/rower.model';
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 

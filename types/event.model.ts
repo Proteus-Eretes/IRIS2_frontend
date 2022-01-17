@@ -9,13 +9,13 @@ export interface Event {
 	name: string;
 	category: string;
 	boat_type: string;
-	sub_crews: string[] | null; // Wat is het verschil tussen 'sub_crews' en 'crews'?
 	crews: string[] | null;
+	sub_crews: string[] | null; // Wat is het verschil tussen 'sub_crews' en 'crews'?
+	status: EventStatus;
 }
 
 export interface EventDetail extends Event {
 	block_knrb: number | null; // Assigned by KNRB, only sometimes used
-	status: EventStatus;
 	cost_id: string;
 	remarks: string;
 	weighed: boolean;
@@ -43,6 +43,17 @@ export enum EventStatus {
 	ONGOING = 0,
 	CANCELLED = 1,
 	MERGED = 2,
+}
+
+export function getEventStatusLabel(status: EventStatus) {
+	switch (status) {
+		case EventStatus.ONGOING:
+			return 'Ongoing';
+		case EventStatus.CANCELLED:
+			return 'Cancelled';
+		case EventStatus.MERGED:
+			return 'Merged';
+	}
 }
 
 export enum FieldResultStatus {

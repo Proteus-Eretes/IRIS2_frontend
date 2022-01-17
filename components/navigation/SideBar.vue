@@ -19,13 +19,7 @@
 
 			<section v-if="regattas.selectedRegatta != null">
 				<p
-					class="
-						pt-3
-						px-5
-						text-primary-500 text-sm
-						font-medium
-						uppercase
-					"
+					class="pt-3 px-5 text-primary-500 text-sm font-medium uppercase"
 				>
 					During the competition
 				</p>
@@ -41,13 +35,7 @@
 
 			<section>
 				<p
-					class="
-						pt-3
-						px-5
-						text-primary-500 text-sm
-						font-medium
-						uppercase
-					"
+					class="pt-3 px-5 text-primary-500 text-sm font-medium uppercase"
 				>
 					IRIS admin
 				</p>

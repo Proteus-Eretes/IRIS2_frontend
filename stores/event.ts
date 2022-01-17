@@ -105,21 +105,21 @@ export const useEventStore = defineStore('events', {
 			this.ids = eventIds;
 			this.entities = eventEntities;
 		},
-		async loadSelectedEvent() {
-			const eventId = this.selectedEventId;
-			if (eventId == null) {
-				showError('No event selected');
-				return;
-			}
+		// async loadSelectedEvent() {
+		// 	const eventId = this.selectedEventId;
+		// 	if (eventId == null) {
+		// 		showError('No event selected');
+		// 		return;
+		// 	}
 
-			const event = await eventService.loadEventDetail(eventId);
+		// 	const event = await eventService.loadEventDetail(eventId);
 
-			this.detailIds = [...this.detailIds, event.id];
-			this.detailEntities = {
-				...this.detailEntities,
-				[event.id]: event,
-			};
-		},
+		// 	this.detailIds = [...this.detailIds, event.id];
+		// 	this.detailEntities = {
+		// 		...this.detailEntities,
+		// 		[event.id]: event,
+		// 	};
+		// },
 		async loadFields() {
 			const loadedFields = await eventService.loadFields();
 
@@ -163,7 +163,7 @@ export const useEventStore = defineStore('events', {
 			regattaId: string,
 			roundId: string
 		) {
-			// FIXME:
+			// FIXME: niet hier een randomId aanmaken
 			const randomId = String(Math.floor(Math.random() * 10000));
 			const newField: Field = {
 				id: randomId,
@@ -171,7 +171,8 @@ export const useEventStore = defineStore('events', {
 				event_id: eventId,
 				regatta_id: regattaId,
 				round_id: roundId,
-				teams: [], // FIXME:
+				// FIXME: hier teams weg en ook bij andere models de arrays weg
+				teams: [],
 			};
 
 			const field = await eventService.addField(newField);

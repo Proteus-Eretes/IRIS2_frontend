@@ -93,7 +93,7 @@
 						<Table
 							:headers="['Name']"
 							:items="rounds.allRoundsOfSelectedBlock"
-							class="pb-2 px-2"
+							class="px-2"
 						>
 							<template #name="{ item }">
 								<span class="badge text-white bg-primary-800">
@@ -108,7 +108,7 @@
 					</h3>
 					<div v-if="events.allFieldsOfSelectedBlock">
 						<Table
-							:headers="['Code', 'Name', 'Crews']"
+							:headers="['Code', 'Name', 'Teams']"
 							:items="events.allFieldsOfSelectedBlock"
 							@item-click="selectField($event.id)"
 							class="pb-2 px-2"
@@ -135,20 +135,19 @@
 								</span>
 							</template>
 
-							<template #crews="{ item }">
+							<template #teams="{ item }">
 								<div class="flex items-center gap-2">
 									<ph-users-three
 										class="icon text-primary-400"
 										aria-hidden="true"
 									/>
 
-									<!-- FIXME: Crews niet zo -->
 									<span class="text-xs font-medium">
 										{{
-											events.getEventById(item.event_id)
-												? events.getEventById(
-														item.event_id
-												  ).crews.length
+											crews.allTeamsByFieldId(item.id)
+												? crews.allTeamsByFieldId(
+														item.id
+												  ).length
 												: 0
 										}}
 									</span>
@@ -173,7 +172,20 @@
 					{{ events.selectedEvent ? events.selectedEvent.name : '' }}
 				</template>
 
-				<div v-if="events.selectedEvent && events.selectedField" class="p-2">
+				<template #header-status>
+					{{
+						events.selectedEvent
+							? getEventStatusLabel(
+									events.selectedEvent.status
+							  )
+							: ''
+					}}
+				</template>
+
+				<div
+					v-if="events.selectedEvent && events.selectedField"
+					class="p-2"
+				>
 					<div
 						class="grid grid-cols-2 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
 					>
@@ -186,7 +198,7 @@
 							<span>{{ events.selectedEvent.name }}</span>
 						</div>
 					</div>
-				
+
 					<h3 class="px-1 mt-2 py-1 text-xs font-medium uppercase">
 						Teams
 					</h3>
@@ -195,7 +207,6 @@
 							:headers="['Name', 'Club name', 'Rowers count']"
 							:items="crews.allTeamsOfSelectedField"
 							@item-click="selectTeam($event.id)"
-							class="pb-2"
 						>
 							<template #name="{ item }">
 								<span class="text-sm font-semibold">
@@ -259,10 +270,13 @@
 					}}
 				</template>
 
+				<!-- TODO: Is dit wat hier moet staan? -->
 				<template #header-status>
 					{{
-						crews.selectedCrew != null
-							? crews.selectedCrew.rowers.length
+						crews.selectedTeam
+							? getTeamResultStatusLabel(
+									crews.selectedTeam.result_status
+							  )
 							: ''
 					}}
 				</template>
@@ -314,7 +328,6 @@
 							:actions="['delete']"
 							:items="rowers.allRowersOfSelectedCrew"
 							@item-click="selectRower($event.id)"
-							class="pb-2"
 						>
 							<template #position="{ item }">
 								<span class="badge text-white bg-primary-800">
@@ -348,7 +361,6 @@
 							:actions="['delete']"
 							:items="rowers.allCoachesOfSelectedCrew"
 							@item-click="selectRower($event.id)"
-							class="pb-2"
 						>
 							<template #position="{ item }">
 								<span class="badge text-white bg-primary-800">
@@ -382,7 +394,6 @@
 							:actions="['delete']"
 							:items="rowers.allCoxesOfSelectedCrew"
 							@item-click="selectRower($event.id)"
-							class="pb-2"
 						>
 							<template #position="{ item }">
 								<span class="badge text-white bg-primary-800">
@@ -414,7 +425,6 @@
 						<Table
 							:headers="['Amount', 'Date']"
 							:items="crews.allFinesOfSelectedCrew"
-							class="pb-2"
 						>
 							<template #amount="{ item }">
 								<span class="text-sm font-semibold">
@@ -504,6 +514,8 @@ import { useRowerStore } from '~~/stores/rower';
 import { useClubStore } from '~~/stores/club';
 
 import { getBlockStatusLabel } from '~~/types/block.model';
+import { getEventStatusLabel } from '~~/types/event.model';
+import { getTeamResultStatusLabel } from '~~/types/crew.model';
 import { getGenderLabel, getRowerRoleLabel } from '~~/types/rower.model';
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 

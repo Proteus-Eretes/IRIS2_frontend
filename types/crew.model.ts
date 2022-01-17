@@ -95,3 +95,20 @@ export enum TeamResultStatus {
 	DNS = 8,
 	DNF = 16,
 }
+
+export function getTeamResultStatusLabel(status: TeamResultStatus) {
+	switch (status) {
+		case TeamResultStatus.NORMAL:
+			return 'Nothing';
+		case TeamResultStatus.EXCLUDED:
+			return 'Excluded';
+		case TeamResultStatus.DISQUALIFIED:
+			return 'Disqualified';
+		case TeamResultStatus.OUTSIDE_COMPETITION:
+			return 'Outside competition';
+		case TeamResultStatus.DNS:
+			return 'DNS';
+		case TeamResultStatus.DNF:
+			return 'DNF';
+	}
+}

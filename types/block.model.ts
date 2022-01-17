@@ -6,7 +6,6 @@ export interface Block {
 	status: BlockStatus;
 }
 
-// TODO: In apart bestand?
 export enum BlockStatus {
 	CREATED = 1,
 	ROUNDS_ASSIGNED = 2,
