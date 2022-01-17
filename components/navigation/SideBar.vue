@@ -84,7 +84,7 @@
 								class="w-6 h-6 text-primary-500 group-hover:text-white"
 								aria-hidden="true"
 							/>
-							<span v-if="!sideBarCollapsed">Collapse</span>
+							<span v-show="!sideBarCollapsed">Collapse</span>
 						</button>
 					</li>
 				</ul>
@@ -106,6 +106,7 @@ import {
 	PhClipboardText,
 	PhCaretDoubleLeft,
 } from 'phosphor-vue';
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 import { useRegattaStore } from '~~/stores/regatta';
 const regattas = useRegattaStore();
@@ -115,4 +116,11 @@ const main = useMainStore();
 
 const sideBarCollapsed = ref(false);
 const toggleSideBar = useToggle(sideBarCollapsed);
+
+onMounted(() => {
+	const breakpoints = useBreakpoints(breakpointsTailwind);
+	const smallerMd = breakpoints.isSmaller('md');
+
+	if (smallerMd) sideBarCollapsed.value = true;
+});
 </script>

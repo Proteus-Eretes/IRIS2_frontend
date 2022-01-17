@@ -119,10 +119,13 @@
 										href="#"
 										:class="[
 											active ? 'bg-gray-100' : '',
-											'block px-4 py-2 text-sm text-gray-700',
+											'icon-button text-danger-700',
 										]"
 									>
-										Sign out
+										<ph-sign-out
+											class="icon text-danger-400"
+										/>
+										<span>Sign out</span>
 									</a>
 								</MenuItem>
 							</MenuItems>
@@ -140,6 +143,7 @@ import {
 	PhCalendarBlank,
 	PhBookmarkSimple,
 	PhBell,
+	PhSignOut,
 } from 'phosphor-vue';
 
 import { getRegattaTypeLabel } from '~~/types/regatta.model';

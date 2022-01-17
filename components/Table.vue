@@ -120,11 +120,13 @@
 															'icon',
 														]"
 													/>
-													{{
-														main.getTableActionById(
-															action
-														).setting
-													}}
+													<span>
+														{{
+															main.getTableActionById(
+																action
+															).setting
+														}}
+													</span>
 												</a>
 											</MenuItem>
 										</MenuItems>

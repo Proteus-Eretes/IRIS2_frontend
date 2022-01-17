@@ -22,10 +22,10 @@
 					class="w-6 h-6 text-primary-100 group-hover:text-white"
 					aria-hidden="true"
 				/>
-				<span v-if="showText">{{ item.name }}</span>
+				<span v-show="showText">{{ item.name }}</span>
 			</div>
 
-			<ul v-if="item.items && isParentActive(item.to) && showText">
+			<ul v-show="item.items && isParentActive(item.to) && showText">
 				<li v-for="subItem in item.items" :key="subItem.name">
 					<NuxtLink
 						:to="{
