@@ -92,7 +92,7 @@
 										viewBox="0 0 20 20"
 										fill="currentColor"
 										aria-hidden="true"
-										class="text-gray-400 translate-y-1"
+										class="w-8 h-8 text-gray-400 translate-y-1"
 									>
 										<path
 											fill-rule="evenodd"
