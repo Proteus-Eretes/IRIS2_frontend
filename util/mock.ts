@@ -1243,8 +1243,8 @@ export const rowersMock: Rower[] = [
 
 export const rowerDetailsMock: RowerDetail[] = [
 	{
-		id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545',
-		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
+		id: '11ec-4c5c-7c72dd38-b17a-fa53f5d3a545',
+		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		club_id: '11ec-4c5c-3ee8e14c-b526-fa53f5d3a545',
 		knrb: '1',
 		knrb_num: null,
@@ -1261,14 +1261,14 @@ export const rowerDetailsMock: RowerDetail[] = [
 		year_of_birth: 1998,
 	},
 	{
-		id: '11ec-4c5c-7c72dd38-b17a-fa53f5d3a545',
+		id: '11ec-4c5c-7c72dt38-b16a-fa53f5d3a545',
 		club_id: '11ec-4c5c-3ee9c27e-8ce7-fa53f5d3a545',
-		regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
+		regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
 		knrb: '2',
 		knrb_num: null,
 		fullName: 'T.E. St 2',
-		gender: Gender.MIX,
-		crew_id: '11ec-4c5c-3fa5f67e-b5f6-fa53f5d3a545',
+		gender: Gender.MAN,
+		crew_id: '11ec-4c5c-3fdf94a6-a102-fa53f5d3a545',
 		role: RowerRole.ROWER,
 		position: 2,
 		license: 126,
