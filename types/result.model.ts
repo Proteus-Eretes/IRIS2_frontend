@@ -1,4 +1,4 @@
-import { Location } from "./location.model";
+import { Location } from './location.model';
 
 export interface Result {
 	id: string;
@@ -6,7 +6,6 @@ export interface Result {
 	team_id: string;
 	location_id: string;
 	deviation: number; // Milliseconds
-	pulses: null; // Is dit niet hetzelfde als 'times'?
 	status: ResultStatus;
 	location: Location;
 	time: string; // Starttijd

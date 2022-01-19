@@ -94,218 +94,20 @@
 				<div v-else>Nothing</div>
 			</SlidingPanel>
 
-			<!-- Crew panel -->
-			<SlidingPanel
+			<CrewsSlidingPanel
 				:index="1"
 				:activePanel="activePanel"
 				@close="deselectCrew()"
 				@focus="activePanel = 1"
-			>
-				<template #header>
-					{{
-						crews.selectedCrew ? crews.selectedCrew.displayName : ''
-					}}
-				</template>
+				@select-rower="selectRower($event)"
+			/>
 
-				<!-- TODO: Is dit wat hier moet staan? -->
-				<template #header-status>
-					{{
-						crews.selectedCrew
-							? getCrewStatusLabel(
-									crews.selectedCrew.status
-							  )
-							: ''
-					}}
-				</template>
-
-				<div v-if="crews.selectedCrew" class="p-2">
-					<div
-						class="grid grid-cols-3 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
-					>
-						<div>
-							<h6 class="font-semibold">Crew name</h6>
-							<span>{{ crews.selectedCrew.displayName }}</span>
-						</div>
-						<div>
-							<h6 class="font-semibold">KNRB number</h6>
-							<span>{{ crews.selectedCrew.knrb_num }}</span>
-						</div>
-						<div>
-							<h6 class="font-semibold">Club</h6>
-							<span>{{
-								clubs.selectedClubDetail
-									? clubs.selectedClubDetail.name
-									: ''
-							}}</span>
-						</div>
-						<div>
-							<h6 class="font-semibold">Event code</h6>
-							<span>{{
-								events.selectedEvent
-									? events.selectedEvent.code
-									: 'Nothing'
-							}}</span>
-						</div>
-						<div>
-							<h6 class="font-semibold">Event</h6>
-							<span>{{
-								events.selectedEvent
-									? events.selectedEvent.event
-									: 'Nothing'
-							}}</span>
-						</div>
-					</div>
-
-					<Table
-						title="Rowers"
-						:headers="['Position', 'Name', 'Gender']"
-						:actions="['delete']"
-						:items="rowers.allRowersOfSelectedCrew"
-						:activeId="rowers.selectedId"
-						@item-click="selectRower($event.id)"
-					>
-						<template #position="{ item }">
-							<span class="badge text-white bg-primary-800">
-								{{ item.position }}
-							</span>
-						</template>
-
-						<template #name="{ item }">
-							<span class="text-sm">
-								{{ item.fullName }}
-							</span>
-						</template>
-
-						<template #gender="{ item }">
-							<span class="pill text-white bg-primary-400">
-								{{ item.gender }}
-							</span>
-						</template>
-					</Table>
-
-					<Table
-						title="Coaches"
-						:headers="['Position', 'Name', 'Gender']"
-						:actions="['delete']"
-						:items="rowers.allCoachesOfSelectedCrew"
-						:activeId="rowers.selectedId"
-						@item-click="selectRower($event.id)"
-					>
-						<template #position="{ item }">
-							<span class="badge text-white bg-primary-800">
-								{{ item.position }}
-							</span>
-						</template>
-
-						<template #name="{ item }">
-							<span class="text-sm">
-								{{ item.fullName }}
-							</span>
-						</template>
-
-						<template #gender="{ item }">
-							<span class="pill text-white bg-primary-400">
-								{{ item.gender }}
-							</span>
-						</template>
-					</Table>
-
-					<Table
-						title="Coxes"
-						:headers="['Position', 'Name', 'Gender']"
-						:actions="['delete']"
-						:items="rowers.allCoxesOfSelectedCrew"
-						:activeId="rowers.selectedId"
-						@item-click="selectRower($event.id)"
-					>
-						<template #position="{ item }">
-							<span class="badge text-white bg-primary-800">
-								{{ item.position }}
-							</span>
-						</template>
-
-						<template #name="{ item }">
-							<span class="text-sm">
-								{{ item.fullName }}
-							</span>
-						</template>
-
-						<template #gender="{ item }">
-							<span class="pill text-white bg-primary-400">
-								{{ item.gender }}
-							</span>
-						</template>
-					</Table>
-
-					<Table
-						title="Fines"
-						error-message="This crew didn't receive any fines"
-						:headers="['Amount', 'Date']"
-						:items="crews.allFinesOfSelectedCrew"
-					>
-						<template #amount="{ item }">
-							<span class="text-sm font-semibold">
-								€ {{ item.amount }}
-							</span>
-						</template>
-
-						<template #date="{ item }">
-							<span class="text-sm">
-								{{ formatDate(item.date, true) }}
-							</span>
-						</template>
-					</Table>
-				</div>
-				<div v-else class="p-3 text-sm font-semibold text-danger-500">
-					Nothing
-				</div>
-			</SlidingPanel>
-
-			<!-- Rower Panel -->
-			<SlidingPanel
+			<RowersSlidingPanel
 				:index="2"
 				:activePanel="activePanel"
 				@close="deselectRower()"
 				@focus="activePanel = 2"
-			>
-				<template #header>
-					{{
-						rowers.selectedRower
-							? rowers.selectedRower.fullName
-							: ''
-					}}
-				</template>
-
-				<div v-if="rowers.selectedRower" class="p-2">
-					<div
-						class="grid grid-cols-3 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
-					>
-						<div>
-							<h6 class="font-semibold">Full name</h6>
-							<span>{{ rowers.selectedRower.fullName }}</span>
-						</div>
-						<div>
-							<h6 class="font-semibold">Gender</h6>
-							<span>
-								{{
-									getGenderLabel(rowers.selectedRower.gender)
-								}}
-							</span>
-						</div>
-						<div>
-							<h6 class="font-semibold">Role</h6>
-							<span>
-								{{
-									getRowerRoleLabel(rowers.selectedRower.role)
-								}}
-							</span>
-						</div>
-					</div>
-				</div>
-				<div v-else class="p-3 text-sm font-semibold text-danger-500">
-					Nothing
-				</div>
-			</SlidingPanel>
+			/>
 		</div>
 
 		<EditorSlideOver v-model:open="showAddCrew">
@@ -365,11 +167,13 @@ const selectCrew = async (id: string) => {
 
 	await clubs.loadSelectedClub();
 };
-const selectRower = (id: string) => {
+const selectRower = async (id: string) => {
 	activePanel.value = 2;
 	params.rower = id;
 
 	rowers.selectedId = id;
+
+	await rowers.loadSelectedRower();
 };
 
 const deselectCrew = () => {
@@ -394,7 +198,7 @@ onMounted(async () => {
 	const { crew, rower } = router.currentRoute.value.query;
 
 	if (crew && typeof crew == 'string') await selectCrew(crew);
-	if (rower && typeof rower == 'string') selectRower(rower);
+	if (rower && typeof rower == 'string') await selectRower(rower);
 });
 </script>
 

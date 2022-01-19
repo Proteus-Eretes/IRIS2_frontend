@@ -26,7 +26,7 @@ export enum Gender {
 	MIX = 'X',
 }
 
-export function getGenderLabel(gender: Gender) {
+export function getGenderLabel(gender: Gender | null) {
 	switch (gender) {
 		case Gender.MAN:
 			return 'Man';

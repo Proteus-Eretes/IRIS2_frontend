@@ -9,7 +9,7 @@
 import { defineStore } from 'pinia';
 import { useRegattaStore } from './regatta';
 
-import { Rower, RowerRole } from '~~/types/rower.model';
+import { Rower, RowerDetail, RowerRole } from '~~/types/rower.model';
 import { useRowerService } from '~~/composables/useRowerService';
 const rowerService = useRowerService();
 
@@ -20,6 +20,8 @@ const { showError } = useToastService();
 interface RowerState {
 	ids: string[];
 	entities: { [id: string]: Rower };
+	detailIds: string[];
+	detailEntities: { [id: string]: RowerDetail };
 	selectedId: string | null;
 }
 
@@ -27,6 +29,8 @@ export const useRowerStore = defineStore('rowers', {
 	state: (): RowerState => ({
 		ids: [],
 		entities: {},
+		detailIds: [],
+		detailEntities: {},
 		selectedId: null,
 	}),
 
@@ -67,6 +71,11 @@ export const useRowerStore = defineStore('rowers', {
 		selectedRower(state: RowerState) {
 			return (
 				(state.selectedId && state.entities[state.selectedId]) || null
+			);
+		},
+		selectedRowerDetail(state: RowerState) {
+			return (
+				(state.selectedId && state.detailEntities[state.selectedId]) || null
 			);
 		},
 		getStrokeByCrew(state: RowerState) {
@@ -124,6 +133,20 @@ export const useRowerStore = defineStore('rowers', {
 
 			this.ids = [...this.ids, ...rowerIds];
 			this.entities = { ...this.entities, ...rowerEntities };
+		},
+		async loadSelectedRower() {
+			const rowerId = this.selectedId;
+			if (rowerId == null) {
+				return;
+			}
+
+			const rower = await rowerService.loadRowerDetail(rowerId);
+
+			this.detailIds = [...this.detailIds, rower.id];
+			this.detailEntities = {
+				...this.detailEntities,
+				[rower.id]: rower,
+			};
 		},
 		add(rower: Rower) {},
 		delete(rower: Rower) {},
