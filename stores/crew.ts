@@ -19,8 +19,12 @@
 import { defineStore } from 'pinia';
 import { useEventStore } from './event';
 import { useRegattaStore } from './regatta';
+import { useRowerStore } from './rower';
 
 import { Crew, Fine, Team } from '~~/types/crew.model';
+import { Rower } from '~~/types/rower.model';
+import { Event } from '~~/types/event.model';
+
 import { useCrewService } from '~~/composables/useCrewService';
 const crewService = useCrewService();
 
@@ -36,6 +40,7 @@ interface CrewState {
 	fineEntities: { [id: string]: Fine };
 	selectedCrewId: string | null;
 	selectedTeamId: string | null;
+	query: string | null;
 }
 
 export const useCrewStore = defineStore('crews', {
@@ -48,6 +53,7 @@ export const useCrewStore = defineStore('crews', {
 		fineEntities: {},
 		selectedCrewId: null,
 		selectedTeamId: null,
+		query: null,
 	}),
 
 	getters: {
@@ -140,6 +146,48 @@ export const useCrewStore = defineStore('crews', {
 					? shirtNumbers
 					: [firstNumber];
 			};
+		},
+		queryResults(state: CrewState) {
+			const allCrews = state.ids.map((id: string) => state.entities[id]);
+			const query = state.query;
+
+			if (!query) {
+				return allCrews;
+			}
+
+			const queryText = query.toUpperCase().split(/,|\.|-/g);
+			if (queryText.length === 0) {
+				return allCrews;
+			}
+
+			return allCrews.filter((crew: Crew) => {
+				const event: Event = useEventStore().getEventById(crew.event_id);
+				const stroke: Rower = useRowerStore().getStrokeByCrew(crew.id);
+
+				const nameSearch = crew.displayName
+					.toUpperCase()
+					.replace(/\s/g, '');
+				// const eventSearch = event.code.toUpperCase();
+				const eventWhitespaceSearch = event ? event.code
+					.toUpperCase()
+					.replace(/\s/g, '') : '';
+				const strokeSearch = stroke ? stroke.fullName
+					.toUpperCase()
+					.replace(/(\.|\s)+/g, '') : '';
+
+				console.log(stroke ? strokeSearch : '');
+
+				return queryText.every((q: string) => {
+					const query = q.replace(/\s/g, '');
+
+					return (
+						nameSearch.indexOf(query) !== -1 ||
+						// eventSearch.indexOf(query) !== -1 ||
+						eventWhitespaceSearch.indexOf(query) !== -1 ||
+						strokeSearch.indexOf(query) !== -1
+					);
+				});
+			});
 		},
 	},
 

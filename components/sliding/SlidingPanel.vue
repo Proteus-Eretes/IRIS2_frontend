@@ -31,7 +31,18 @@
 				<slot name="header-status" />
 			</span>
 
-			<button type="button" v-if="allowClose" @click="$emit('close')">
+			<SlidingSearchField
+				v-if="hasSearch"
+				:query="search"
+				@update:query="$emit('update:search',$event)"
+				:options="searchOptions"
+			/>
+
+			<button
+				type="button"
+				v-show="allowClose"
+				@click="$emit('close')"
+			>
 				<span class="sr-only">Close panel</span>
 				<ph-x class="icon text-white" />
 			</button>
@@ -49,16 +60,21 @@ import { PhX } from 'phosphor-vue';
 interface Props {
 	index: number;
 	activePanel: number;
+	search?: string;
+	searchOptions?: string[];
+	hasSearch?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
 	index: 0,
 	activePanel: 0,
+	hasSearch: false
 });
 
 const emits = defineEmits<{
 	(e: 'focus'): void;
 	(e: 'close'): void;
+	(e: 'update:search', search: string): void;
 }>();
 
 /*

@@ -81,7 +81,7 @@ export const useRowerStore = defineStore('rowers', {
 		getStrokeByCrew(state: RowerState) {
 			const allRowers = state.ids.map((id: string) => state.entities[id]);
 
-			return (id: string) => {
+			return (id: string): Rower => {
 				const allRowersByCrew = allRowers.filter(
 					(rower: Rower) => rower.crew_id == id
 				);

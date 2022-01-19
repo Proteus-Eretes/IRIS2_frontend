@@ -64,6 +64,7 @@
 	.button {
 		@apply inline-flex
 			justify-center
+			items-center
 			w-full
 			max-w-md
 			py-2
@@ -95,6 +96,8 @@
 	}
 	.icon-button {
 		@apply flex
+			justify-center
+			items-center
 			py-2
 			px-3
 			text-sm;

@@ -85,6 +85,8 @@
 </template>
 
 <script lang="ts" setup>
+import { PhUsersThree } from 'phosphor-vue';
+
 import { useBlockStore } from '~~/stores/block';
 import { useCrewStore } from '~~/stores/crew';
 import { useEventStore } from '~~/stores/event';

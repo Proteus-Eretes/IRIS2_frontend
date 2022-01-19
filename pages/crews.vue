@@ -5,6 +5,9 @@
 				:index="0"
 				:activePanel="activePanel"
 				@focus="activePanel = 0"
+				v-model:search="crews.query"
+				:search-options="searchOptions"
+				has-search
 			>
 				<template #header>Crews</template>
 
@@ -21,7 +24,7 @@
 							'Status',
 							'Shirt numbers',
 						]"
-						:items="crews.allCrews"
+						:items="crews.queryResults"
 						:activeId="crews.selectedCrewId"
 						@item-click="selectCrew($event.id)"
 						@action=""
@@ -127,10 +130,8 @@ import { useEventStore } from '~~/stores/event';
 import { useClubStore } from '~~/stores/club';
 
 import { getCrewStatusLabel } from '~~/types/crew.model';
-import { getGenderLabel, getRowerRoleLabel } from '~~/types/rower.model';
-import { useDateFormatter } from '~~/composables/useDateFormatter';
-
-const { formatDate } = useDateFormatter();
+import { Crew } from '~~/types/crew.model';
+import { Event } from '~~/types/event.model';
 
 const crews = useCrewStore();
 const events = useEventStore();
@@ -153,6 +154,13 @@ const showAddCrew = ref(false);
  * /path?these=are&search=params
  */
 const params = useUrlSearchParams('history');
+
+const searchOptions = computed(() => {
+	const allCrews = crews.allCrews.map((crew: Crew) => crew.displayName);
+	const allEvents = events.allEvents.map((event: Event) => event.code);
+
+	return [...allCrews, ...allEvents];
+});
 
 const selectCrew = async (id: string) => {
 	activePanel.value = 1;
