@@ -1,14 +1,16 @@
 <template>
     <form @submit.prevent>
         <label for="search" class="sr-only">Search</label>
-        <div class="relative max-w-sm rounded-md">
+        <div
+            class="group relative max-w-sm rounded-md text-white hover:text-gray-500 focus:text-gray-500 transition-colors duration-200"
+        >
             <input
                 v-model="value"
                 type="search"
                 inputmode="search"
                 autocomplete="organization"
                 id="search"
-                class="py-1 pl-3 pr-7 text-xs focus:ring-primary-500 focus:border-primary-500 block border-gray-300 rounded-md"
+                class="py-1 pl-3 pr-7 text-xs focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 bg-secondary-500 hover:bg-white focus:bg-white border border-none hover:border-gray-300 rounded-md"
                 placeholder=""
                 aria-label="search"
                 list="search-list"
@@ -16,7 +18,7 @@
             <div
                 class="absolute inset-y-0 right-0 pr-2 flex items-center pointer-events-none"
             >
-                <span class="text-gray-500 text-sm">
+                <span class="text-sm">
                     <ph-magnifying-glass weight="bold" />
                 </span>
             </div>
