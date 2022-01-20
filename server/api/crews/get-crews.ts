@@ -5,6 +5,6 @@ import { crewsMock } from '~/util/mock';
 import { Crew } from '~~/types/crew.model';
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
-	const { regattaId } = useQuery(req);
-	return crewsMock.filter((crew: Crew) => crew.regatta_id == regattaId);
+    const { regattaId } = useQuery(req);
+    return crewsMock.filter((crew: Crew) => crew.regatta_id == regattaId);
 };

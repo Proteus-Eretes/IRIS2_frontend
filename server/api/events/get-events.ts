@@ -5,6 +5,6 @@ import { eventsMock } from '~/util/mock';
 import { Event } from '~~/types/event.model';
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
-	const { regattaId } = useQuery(req);
-	return eventsMock.filter((event: Event) => event.regatta_id == regattaId);
+    const { regattaId } = useQuery(req);
+    return eventsMock.filter((event: Event) => event.regatta_id == regattaId);
 };

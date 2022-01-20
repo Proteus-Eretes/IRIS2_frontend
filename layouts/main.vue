@@ -1,21 +1,21 @@
 <template>
-	<div class="min-h-screen w-screen flex flex-row">
-		<aside class="z-30">
-			<NavigationSideBar />
-		</aside>
+    <div class="min-h-screen w-screen flex flex-row">
+        <aside class="z-30">
+            <NavigationSideBar />
+        </aside>
 
-		<div class="grow min-h-screen w-main-content flex flex-col">
-			<aside class="z-30">
-				<NavigationBar />
-			</aside>
+        <div class="grow min-h-screen w-main-content flex flex-col">
+            <aside class="z-30">
+                <NavigationBar />
+            </aside>
 
-			<main class="bg-gray-200 grow">
-				<slot />
-			</main>
+            <main class="bg-gray-200 grow">
+                <slot />
+            </main>
 
-			<Toast v-model:open="main.showToast" :toast="main.toast" />
-		</div>
-	</div>
+            <Toast v-model:open="main.showToast" :toast="main.toast" />
+        </div>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -25,29 +25,29 @@ import { useMainStore } from '~~/stores';
 const regattas = useRegattaStore();
 regattas.loadRegattas();
 
-const main = useMainStore()
+const main = useMainStore();
 
 const router = useRouter();
 
 const { regatta } = useUrlSearchParams('history');
 if (regatta && typeof regatta == 'string') {
-	regattas.selectedId = regatta;
+    regattas.selectedId = regatta;
 } else {
-	router.push('/regattas');
+    router.push('/regattas');
 }
 
 // FIXME: #2 Nuxt middleware
 router.beforeEach((to, from, next) => {
-	const { regatta } = to.query;
+    const { regatta } = to.query;
 
-	if ((regatta && typeof regatta == 'string') || to.path == '/regattas')
-		next();
-	else next('/regattas');
+    if ((regatta && typeof regatta == 'string') || to.path == '/regattas')
+        next();
+    else next('/regattas');
 });
 </script>
 
 <script lang="ts">
 export default defineComponent({
-	middleware: 'regatta',
+    middleware: 'regatta'
 });
 </script>

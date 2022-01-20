@@ -1,9 +1,9 @@
 <template>
-	<div></div>
+    <div></div>
 </template>
 
 <script lang="ts">
 export default defineComponent({
-	layout: 'main',
+    layout: 'main'
 });
 </script>
