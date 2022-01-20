@@ -15,20 +15,14 @@
                     <!-- FIXME: do the action -->
                     <Table
                         title="Crews"
-                        :headers="[
-                            'Shirt numbers',
-                            'Name',
-                            'Club',
-                            'Event',
-                            'Category',
-                            'Stroke',
-                            'Status'
-                        ]"
-                        :items="crews.queryResults"
+                        :headers="tableHeaders"
+                        :items="sortedCrews"
                         :activeId="crews.selectedCrewId"
                         @item-click="selectCrew($event.id)"
                         @action=""
                         has-headers
+                        v-model:sort-id="sortId"
+                        v-model:sort-direction="sortDirection"
                     >
                         <template #shirt-numbers="{ item }">
                             <span class="badge text-white bg-primary-800">
@@ -130,6 +124,8 @@ import { useEventStore } from '~~/stores/event';
 import { useClubStore } from '~~/stores/club';
 
 import { getCrewStatusLabel } from '~~/types/crew.model';
+import { TableHeader } from '~~/types/table-header.model';
+import { TableSortDirection } from '~~/types/table-sort-direction.model';
 import { Crew } from '~~/types/crew.model';
 import { Event } from '~~/types/event.model';
 import { Rower } from '~~/types/rower.model';
@@ -149,6 +145,50 @@ await rowers.loadRowers();
 // The panel that is last opened
 const activePanel = ref(0);
 const showAddCrew = ref(false);
+
+const tableHeaders: TableHeader[] = [
+    { id: 'Shirt numbers', sortable: false },
+    { id: 'Name', sortable: true, sortId: 'displayName' },
+    { id: 'Club', sortable: true, sortId: 'clubName' },
+    { id: 'Event', sortable: false },
+    { id: 'Category', sortable: false },
+    { id: 'Stroke', sortable: false },
+    { id: 'Status', sortable: false }
+];
+
+const sortId = ref(tableHeaders[0].id);
+const sortDirection = ref(TableSortDirection.DOWN);
+
+const log = (thing: any) => {
+    console.log(thing);
+};
+
+const sortedCrews = computed(() => {
+    const elements = crews.queryResults;
+
+    if (!elements) {
+        return null;
+    }
+
+    if (!sortId.value) {
+        return elements;
+    }
+
+    return elements.sort((a: Crew, b: Crew) => {
+        var nameA = a[sortId.value].toUpperCase();
+        var nameB = b[sortId.value].toUpperCase();
+
+        if (nameA < nameB) {
+            return sortDirection.value == TableSortDirection.DOWN ? -1 : 1;
+        }
+        if (nameA > nameB) {
+            return sortDirection.value == TableSortDirection.DOWN ? 1 : -1;
+        }
+
+        // names must be equal
+        return 0;
+    });
+});
 
 /*
  * useUrlSearchParams to add and delete search params in url:

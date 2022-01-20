@@ -10,56 +10,90 @@
         </div>
 
         <div v-if="items.length > 0" class="overflow-x-scroll">
-            <table
+            <div
                 :class="[
                     hasHeaders ? 'border-b' : 'border',
                     'table min-w-full divide-y divide-gray-200 border-gray-200'
                 ]"
             >
-                <thead v-if="hasHeaders" class="bg-secondary-300">
-                    <tr>
-                        <th
+                <div
+                    v-if="hasHeaders"
+                    class="table-header-group bg-secondary-300"
+                >
+                    <div class="table-row">
+                        <div
                             v-for="header in headers"
-                            :key="header"
+                            :key="header.id"
                             scope="col"
-                            class="px-3 py-2 text-xs"
+                            class="table-cell px-3 py-2 text-xs"
                         >
-                            {{ header }}
-                        </th>
-                        <th
+                            <div class="flex items-center gap-1">
+                                <span>{{ header.id }}</span>
+
+                                <a
+                                    v-if="header.sortable"
+                                    @click="toggleSortDirection(header.sortId)"
+                                    :class="[
+                                        sortId == header.sortId
+                                            ? ''
+                                            : 'text-opacity-70',
+                                        'text-white'
+                                    ]"
+                                >
+                                    <ph-caret-up
+                                        v-if="
+                                            sortId == header.sortId &&
+                                            sortDirection ==
+                                                TableSortDirection.UP
+                                        "
+                                        weight="bold"
+                                        class="w-4 h-4"
+                                    />
+                                    <ph-caret-down
+                                        v-else
+                                        weight="bold"
+                                        class="w-4 h-4"
+                                    />
+                                </a>
+                            </div>
+                        </div>
+                        <div
                             v-if="actions"
                             scope="col"
-                            class="relative px-3 py-2"
+                            class="table-cell relative px-3 py-2"
                         >
                             <span class="sr-only">Actions</span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
+                        </div>
+                    </div>
+                </div>
+                <div class="table-row-group divide-y divide-gray-200">
                     <template v-for="(item, index) in items" :key="item.id">
-                        <tr
+                        <div
                             v-if="isInRange(index)"
                             :class="[
                                 activeId == item.id
                                     ? 'bg-secondary-50'
                                     : 'bg-white odd:bg-gray-50 hover:bg-gray-100',
-                                'cursor-pointer'
+                                'table-row cursor-pointer'
                             ]"
                         >
-                            <td
+                            <div
                                 v-for="header in headers"
-                                :key="header"
-                                class="px-3 py-2 whitespace-nowrap"
+                                :key="header.id"
+                                class="table-cell px-3 py-2 whitespace-nowrap"
                                 @click="$emit('item-click', item)"
                             >
                                 <slot
-                                    :name="getSlotName(header)"
+                                    :name="getSlotName(header.id)"
                                     :item="item"
                                     :index="index"
                                 />
-                            </td>
+                            </div>
 
-                            <td v-if="actions" class="px-3 py-2 text-center">
+                            <div
+                                v-if="actions"
+                                class="table-cell px-3 py-2 text-center"
+                            >
                                 <Menu as="template">
                                     <MenuButton
                                         class="rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-secondary-500"
@@ -100,9 +134,7 @@
                                                     ]"
                                                     @click="
                                                         $emit('action', {
-                                                            action: main.getTableActionById(
-                                                                action
-                                                            ),
+                                                            action,
                                                             item
                                                         })
                                                     "
@@ -132,11 +164,11 @@
                                         </MenuItems>
                                     </Transition>
                                 </Menu>
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
                     </template>
-                </tbody>
-            </table>
+                </div>
+            </div>
         </div>
         <template v-else>
             <div class="px-1 text-sm font-base text-gray-500">
@@ -177,23 +209,25 @@
 
 <script lang="ts" setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import { PhDotsThree } from 'phosphor-vue';
-import { TableAction } from '~~/types/table-action.model';
+import { PhDotsThree, PhCaretDown, PhCaretUp } from 'phosphor-vue';
+
+import { TableHeader } from '~~/types/table-header.model';
+import { TableSortDirection } from '~~/types/table-sort-direction.model';
 
 import { useMainStore } from '~~/stores';
 const main = useMainStore();
 
-const paginationIndex = ref(1);
-
 interface Props {
     title: string;
     errorMessage?: string;
-    headers: string[]; // Worden ook als slot names gebruikt
+    headers: TableHeader[]; // Worden ook als slot names gebruikt
     actions?: string[];
     items: any[];
     activeId?: string;
     hasHeaders?: boolean;
     maxRows?: number;
+    sortId?: string;
+    sortDirection?: TableSortDirection;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -204,19 +238,32 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emits = defineEmits<{
     (e: 'item-click', item: any): void;
-    (e: 'action', item: { action: TableAction; item: any }): void;
+    (e: 'action', action: { action: string; item: any }): void;
+    (e: 'update:sortId', sortId: string): void;
+    (e: 'update:sortDirection', sortDirection: TableSortDirection): void;
 }>();
 
+const paginationIndex = ref(1);
+
 // Make header name lowercase and replace whitespace with dash
-const getSlotName = (header: any): string => {
-    const name = header.toLowerCase();
+const getSlotName = (header: string): string => {
     const regex = /\s/gi;
-    return name.replaceAll(regex, '-');
+    const name = header.replaceAll(regex, '-');
+    return name.toLowerCase();
 };
 const isInRange = (index: number): boolean => {
     return (
         index >= (paginationIndex.value - 1) * props.maxRows &&
         index < (paginationIndex.value - 1) * props.maxRows + props.maxRows
     );
+};
+const toggleSortDirection = (id: string) => {
+    if (props.sortDirection == TableSortDirection.DOWN && props.sortId == id) {
+        emits('update:sortId', id);
+        emits('update:sortDirection', TableSortDirection.UP);
+    } else {
+        emits('update:sortId', id);
+        emits('update:sortDirection', TableSortDirection.DOWN);
+    }
 };
 </script>

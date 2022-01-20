@@ -3,36 +3,36 @@
 @tailwind utilities;
 
 @layer base {
-	a {
-		@apply cursor-pointer;
-	}
+    a {
+        @apply cursor-pointer;
+    }
 }
 
 @layer components {
-	.container {
-		@apply flex flex-row
+    .container {
+        @apply flex flex-row
 			min-h-full
 			px-5
 			py-3;
-	}
-	.sliding-container {
-		@apply flex
+    }
+    .sliding-container {
+        @apply flex
 			px-5
 			py-3
 			gap-3;
-	}
-	.sliding-container .sliding-column {
-		@apply translate-x-0 transition-transform;
-	}
-	.panel {
-		@apply min-w-single-column
+    }
+    .sliding-container .sliding-column {
+        @apply translate-x-0 transition-transform;
+    }
+    .panel {
+        @apply min-w-single-column
 			flex flex-col
 			bg-gray-100
 			rounded-md
 			shadow-sm;
-	}
-	.panel-header {
-		@apply flex flex-row
+    }
+    .panel-header {
+        @apply flex flex-row
 			items-center
 			rounded-t-md
 			px-3
@@ -40,29 +40,27 @@
 			gap-1
 			bg-secondary-400
 			shadow-sm;
-	}
-	.panel-header > h2 {
-		@apply grow
+    }
+    .panel-header > h2 {
+        @apply grow
 			uppercase
-			font-medium
+			font-semibold
 			text-left
 			text-sm
 			truncate
 			tracking-wider
 			text-white;
-	}
-	.table th {
-		@apply grow
-			uppercase
-			font-medium
-			text-left
+    }
+    .table-header-group .table-cell {
+        @apply uppercase
+			font-semibold
 			truncate
 			tracking-wider
 			text-white;
-	}
+    }
 
-	.button {
-		@apply inline-flex
+    .button {
+        @apply inline-flex
 			justify-center
 			items-center
 			w-full
@@ -75,54 +73,54 @@
 			focus:outline-none
 			focus:ring-2
 			focus:ring-offset-2;
-	}
-	.button.button-primary {
-		@apply border border-transparent
+    }
+    .button.button-primary {
+        @apply border border-transparent
 			text-white
 			bg-secondary-500
 			hover:bg-secondary-600
 			focus:ring-secondary-400;
-	}
-	.button.button-secondary {
-		@apply border border-gray-200
+    }
+    .button.button-secondary {
+        @apply border border-gray-200
 			text-primary-700
 			bg-white
 			hover:bg-gray-100
 			focus:ring-secondary-400;
-	}
+    }
 
-	.icon {
-		@apply min-w-5 min-h-5;
-	}
-	.icon-button {
-		@apply flex
+    .icon {
+        @apply min-w-5 min-h-5;
+    }
+    .icon-button {
+        @apply flex
 			justify-center
 			items-center
 			py-2
 			px-3
 			text-sm;
-	}
-	.icon-button > .icon {
-		@apply mr-2;
-	}
+    }
+    .icon-button > .icon {
+        @apply mr-2;
+    }
 
-	.pill {
-		@apply rounded-full
+    .pill {
+        @apply rounded-full
 			font-medium
 			text-xs
 			px-2
 			py-0.5;
-	}
-	.badge {
-		@apply rounded-md
+    }
+    .badge {
+        @apply rounded-md
 			font-medium
 			text-xs
 			px-2
 			py-0.5;
-	}
+    }
 
-	.blocks__assign-event {
-		@apply text-primary-900
+    .blocks__assign-event {
+        @apply text-primary-900
 			cursor-move
 			border border-gray-200
 			bg-white
@@ -134,13 +132,13 @@
 			flex
 			items-center
 			gap-2;
-	}
-	.blocks__assign-event-ghost {
-		@apply text-opacity-0
+    }
+    .blocks__assign-event-ghost {
+        @apply text-opacity-0
 			border-2
 			border-dashed
 			bg-transparent
 			border-primary-200
 			shadow-none;
-	}
+    }
 }
