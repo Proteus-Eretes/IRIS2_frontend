@@ -1,80 +1,76 @@
 <template>
-	<div
-		:class="[
-			showPanel ? 'sliding-column' : 'hidden',
-			activePanel > 0 ? 'min-w-multiple-column' : '',
-			isMuted ? 'opacity-50' : '',
-			'panel',
-		]"
-		:style="`--tw-translate-x: -${translate}%;`"
-	>
-		<button
-			type="button"
-			:class="[
-				isMuted ? '' : 'hidden',
-				'block absolute inset-0 rounded-md bg-black opacity-0 hover:opacity-30 transition-opacity',
-			]"
-			@click="$emit('focus')"
-		>
-			<span v-if="!isMuted" class="sr-only">Focus panel</span>
-		</button>
+    <div
+        :class="[
+            showPanel ? 'sliding-column' : 'hidden',
+            activePanel > 0 ? 'min-w-multiple-column' : '',
+            isMuted ? 'opacity-50' : '',
+            'panel'
+        ]"
+        :style="`--tw-translate-x: -${translate}%;`"
+    >
+        <button
+            type="button"
+            :class="[
+                isMuted ? '' : 'hidden',
+                'block absolute inset-0 rounded-md bg-black opacity-0 hover:opacity-30 transition-opacity'
+            ]"
+            @click="$emit('focus')"
+        >
+            <span v-if="!isMuted" class="sr-only">Focus panel</span>
+        </button>
 
-		<div class="panel-header">
-			<h2>
-				<slot name="header" />
-			</h2>
+        <div class="panel-header">
+            <h2>
+                <slot name="header" />
+            </h2>
 
-			<span
-				v-if="$slots['header-status']"
-				class="pill bg-white text-secondary-500"
-			>
-				<slot name="header-status" />
-			</span>
+            <span
+                v-if="$slots['header-status']"
+                class="pill bg-white text-secondary-500"
+            >
+                <slot name="header-status" />
+            </span>
 
-			<SlidingSearchField
-				v-if="hasSearch"
-				:query="search"
-				@update:query="$emit('update:search',$event)"
-				:options="searchOptions"
-			/>
+            <SlidingSearchField
+                v-if="hasSearch"
+                :query="search"
+                @update:query="$emit('update:search', $event)"
+                :options="searchOptions"
+            />
 
-			<button
-				type="button"
-				v-show="allowClose"
-				@click="$emit('close')"
-			>
-				<span class="sr-only">Close panel</span>
-				<ph-x class="icon text-white" />
-			</button>
-		</div>
+            <button type="button" v-show="allowClose" @click="$emit('close')">
+                <span class="sr-only">Close panel</span>
+                <ph-x class="icon text-white" />
+            </button>
+        </div>
 
-		<div class="grow">
-			<slot />
-		</div>
-	</div>
+        <div class="grow">
+            <slot />
+        </div>
+    </div>
 </template>
 
 <script lang="ts" setup>
 import { PhX } from 'phosphor-vue';
 
 interface Props {
-	index: number;
-	activePanel: number;
-	search?: string | null;
-	searchOptions?: string[];
-	hasSearch?: boolean;
+    index: number;
+    activePanel: number;
+    search?: string | null;
+    searchOptions?: string[];
+    hasSearch?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-	index: 0,
-	activePanel: 0,
-	hasSearch: false
+    index: 0,
+    activePanel: 0,
+    hasSearch: false
 });
 
 const emits = defineEmits<{
-	(e: 'focus'): void;
-	(e: 'close'): void;
-	(e: 'update:search', search: string): void;
+    (e: 'focus'): void;
+    (e: 'close'): void;
+    (e: 'update:search', search: string): void;
 }>();
 
 /*
@@ -82,7 +78,7 @@ const emits = defineEmits<{
  * the active panel plus one
  */
 const amountOpenPanels = computed(() => {
-	return props.activePanel + 1;
+    return props.activePanel + 1;
 });
 
 /*
@@ -90,7 +86,7 @@ const amountOpenPanels = computed(() => {
  * of open panels minus 2 (the 2 that will be visible)
  */
 const translate = computed(() => {
-	return Math.max(amountOpenPanels.value - 2, 0) * 100;
+    return Math.max(amountOpenPanels.value - 2, 0) * 100;
 });
 
 /*
@@ -98,20 +94,20 @@ const translate = computed(() => {
  * the active panel is greater or equal to the index of the panel
  */
 const showPanel = computed(() => {
-	return props.activePanel >= props.index;
+    return props.activePanel >= props.index;
 });
 
 /*
  * Mute the panel if it is off screen
  */
 const isMuted = computed(() => {
-	return amountOpenPanels.value > props.index + 2;
+    return amountOpenPanels.value > props.index + 2;
 });
 
 /*
  * Don't allow the first panel to be closed
  */
 const allowClose = computed(() => {
-	return props.index != 0;
+    return props.index != 0;
 });
 </script>
