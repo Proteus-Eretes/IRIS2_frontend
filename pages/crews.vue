@@ -175,13 +175,17 @@ const sortedCrews = computed(() => {
     }
 
     return elements.sort((a: Crew, b: Crew) => {
-        var nameA = a[sortId.value].toUpperCase();
-        var nameB = b[sortId.value].toUpperCase();
+        const key = sortId.value;
 
-        if (nameA < nameB) {
+        if (!valueA || !valueB) return 0;
+
+        var valueA = a[key].toUpperCase();
+        var valueB = b[key].toUpperCase();
+
+        if (valueA < valueB) {
             return sortDirection.value == TableSortDirection.DOWN ? -1 : 1;
         }
-        if (nameA > nameB) {
+        if (valueA > valueB) {
             return sortDirection.value == TableSortDirection.DOWN ? 1 : -1;
         }
 

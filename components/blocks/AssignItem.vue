@@ -1,18 +1,18 @@
 <template>
-	<div class="blocks__assign-event group">
-		<ph-dots-three-vertical
-			class="icon text-white group-hover:text-primary-400"
-			aria-hidden="true"
-		/>
+    <div class="blocks__assign-event group">
+        <ph-dots-three-vertical
+            class="icon text-white group-hover:text-primary-400"
+            aria-hidden="true"
+        />
 
-		<slot />
+        <slot />
 
-		<ph-users-three class="icon text-primary-400" aria-hidden="true" />
+        <ph-users-three class="icon text-primary-400" aria-hidden="true" />
 
-		<span class="text-xs font-medium">
-			<slot name="number-crews" />
-		</span>
-	</div>
+        <span class="text-xs font-medium">
+            <slot name="number-crews" />
+        </span>
+    </div>
 </template>
 
 <script lang="ts" setup>
