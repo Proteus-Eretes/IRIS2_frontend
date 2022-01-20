@@ -33,7 +33,6 @@ const selectRegatta = (id: string) => {
 </script>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { useBlockStore } from '~~/stores/block';
 
 export default defineComponent({

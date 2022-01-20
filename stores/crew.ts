@@ -175,8 +175,6 @@ export const useCrewStore = defineStore('crews', {
 					.toUpperCase()
 					.replace(/(\.|\s)+/g, '') : '';
 
-				console.log(stroke ? strokeSearch : '');
-
 				return queryText.every((q: string) => {
 					const query = q.replace(/\s/g, '');
 

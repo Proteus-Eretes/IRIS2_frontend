@@ -132,6 +132,7 @@ import { useClubStore } from '~~/stores/club';
 import { getCrewStatusLabel } from '~~/types/crew.model';
 import { Crew } from '~~/types/crew.model';
 import { Event } from '~~/types/event.model';
+import { Rower } from '~~/types/rower.model';
 
 const crews = useCrewStore();
 const events = useEventStore();
@@ -158,8 +159,11 @@ const params = useUrlSearchParams('history');
 const searchOptions = computed(() => {
 	const allCrews = crews.allCrews.map((crew: Crew) => crew.displayName);
 	const allEvents = events.allEvents.map((event: Event) => event.code);
+	const allStrokes = rowers.allRowers
+		.filter((rower: Rower) => rower.position == 8)
+		.map((rower: Rower) => rower.fullName);
 
-	return [...allCrews, ...allEvents];
+	return [...allCrews, ...allEvents, ...allStrokes];
 });
 
 const selectCrew = async (id: string) => {
@@ -211,8 +215,6 @@ onMounted(async () => {
 </script>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-
 export default defineComponent({
 	layout: 'main',
 });

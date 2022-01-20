@@ -60,7 +60,7 @@ import { PhX } from 'phosphor-vue';
 interface Props {
 	index: number;
 	activePanel: number;
-	search?: string;
+	search?: string | null;
 	searchOptions?: string[];
 	hasSearch?: boolean;
 }

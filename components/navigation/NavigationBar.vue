@@ -22,17 +22,17 @@
 								class="icon text-gray-400 shrink-0 mr-1.5"
 								aria-hidden="true"
 							/>
-							<span class="text-gray-500">
-								{{
-									regattas.selectedRegatta
-										? formatDate(
-												regattas.selectedRegatta
-													.start_date,
-												true
-										  )
-										: ''
-								}}
-							</span>
+							<template v-if="regattas.selectedRegatta">
+								<UseTimeAgo
+									v-slot="{ timeAgo }"
+									:time="regattas.selectedRegatta.start_date"
+								>
+									<!-- TODO: v-tooltip (floating-vue) toevoegen met 'formatDate()' -->
+									<span class="text-gray-500">
+										{{ timeAgo }}
+									</span>
+								</UseTimeAgo>
+							</template>
 						</div>
 						<div class="mt-1 flex items-center text-sm">
 							<ph-bookmark-simple
@@ -138,6 +138,9 @@
 </template>
 
 <script lang="ts" setup>
+import { useTimeAgo } from '@vueuse/core';
+import { UseTimeAgo } from '@vueuse/components';
+
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import {
 	PhCalendarBlank,
@@ -153,4 +156,6 @@ const regattas = useRegattaStore();
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 const { formatDate } = useDateFormatter();
+
+// const timeAgo = useTimeAgo(new Date(2021, 0, 1));
 </script>

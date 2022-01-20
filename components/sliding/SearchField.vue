@@ -34,7 +34,7 @@
 import { PhMagnifyingGlass } from 'phosphor-vue';
 
 interface Props {
-	query: string;
+	query: string | null;
 	options: string[];
 }
 
