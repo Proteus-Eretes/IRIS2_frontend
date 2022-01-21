@@ -330,11 +330,13 @@ const sortedCrews = computed(() => {
 
     return elements.sort((a: Crew, b: Crew) => {
         const key = sortId.value;
+        var valueA = a[key];
+        var valueB = b[key];
 
         if (!valueA || !valueB) return 0;
 
-        var valueA = a[key].toUpperCase();
-        var valueB = b[key].toUpperCase();
+        var valueA = valueA.toUpperCase();
+        var valueB = valueB.toUpperCase();
 
         if (valueA < valueB) {
             return sortDirection.value == TableSortDirection.DOWN ? -1 : 1;
