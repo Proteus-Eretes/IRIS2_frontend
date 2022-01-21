@@ -14,6 +14,7 @@
                         }}
                     </h1>
                     <div
+                        v-if="regattas.selectedRegatta"
                         class="flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6"
                     >
                         <div class="mt-1 flex items-center text-sm">
@@ -22,17 +23,15 @@
                                 class="icon text-gray-400 shrink-0 mr-1.5"
                                 aria-hidden="true"
                             />
-                            <template v-if="regattas.selectedRegatta">
-                                <UseTimeAgo
-                                    v-slot="{ timeAgo }"
-                                    :time="regattas.selectedRegatta.start_date"
-                                >
-                                    <!-- TODO: v-tooltip (floating-vue) toevoegen met 'formatDate()' -->
-                                    <span class="text-gray-500">
-                                        {{ timeAgo }}
-                                    </span>
-                                </UseTimeAgo>
-                            </template>
+                            <UseTimeAgo
+                                v-slot="{ timeAgo }"
+                                :time="regattas.selectedRegatta.start_date"
+                            >
+                                <!-- TODO: v-tooltip (floating-vue) toevoegen met 'formatDate()' -->
+                                <span class="text-gray-500">
+                                    {{ timeAgo }}
+                                </span>
+                            </UseTimeAgo>
                         </div>
                         <div class="mt-1 flex items-center text-sm">
                             <ph-bookmark-simple
@@ -42,11 +41,9 @@
                             />
                             <span class="text-gray-500">
                                 {{
-                                    regattas.selectedRegatta
-                                        ? getRegattaTypeLabel(
-                                              regattas.selectedRegatta.race_type
-                                          )
-                                        : ''
+                                    getRegattaTypeLabel(
+                                        regattas.selectedRegatta.race_type
+                                    )
                                 }}
                             </span>
                         </div>
