@@ -82,12 +82,10 @@
                         <button
                             type="button"
                             class="button icon-button button-secondary"
-                            @click="
-                                showAddCrew = true;
-                                clubs.loadClubs();
-                            "
+                            @click="openAddCrew"
                         >
-                            <ph-plus class="icon text-gray-400" />Add Crew
+                            <ph-plus class="icon text-gray-400" />
+                            <span>Add Crew</span>
                         </button>
                     </div>
                 </div>
@@ -110,153 +108,10 @@
             />
         </div>
 
-        <EditorSlideOver
+        <CrewsAddSlideOver
             v-model:open="showAddCrew"
-            @save="crews.add(addCrewData)"
-        >
-            <template #header>Create a new crew</template>
-            <template #subheader>
-                Create a new crew for this regatta. Add rowers later.
-            </template>
-
-            <!-- Event -->
-            <div>
-                <label
-                    for="event"
-                    class="block text-sm font-medium text-gray-700"
-                >
-                    Event
-                </label>
-                <select
-                    id="event"
-                    v-model="addCrewData.event_id"
-                    autocomplete="organization"
-                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-secondary-500 focus:border-secondary-500 sm:text-sm"
-                >
-                    <option
-                        v-for="event in events.allEvents"
-                        :key="event.id"
-                        :value="event.id"
-                    >
-                        {{ event.name }}
-                    </option>
-                </select>
-            </div>
-
-            <!-- Club -->
-            <div>
-                <label
-                    for="club"
-                    class="block text-sm font-medium text-gray-700"
-                >
-                    Club
-                </label>
-                <select
-                    id="club"
-                    v-model="addCrewData.club_id"
-                    autocomplete="organization"
-                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-secondary-500 focus:border-secondary-500 sm:text-sm"
-                >
-                    <option
-                        v-for="club in clubs.allClubs"
-                        :key="club.id"
-                        :value="club.id"
-                    >
-                        {{ club.name }}
-                    </option>
-                </select>
-            </div>
-
-            <!-- Name -->
-            <div>
-                <label
-                    for="name"
-                    class="block text-sm font-medium text-gray-700"
-                >
-                    Name
-                </label>
-                <input
-                    id="name"
-                    type="text"
-                    v-model="addCrewData.displayName"
-                    autocomplete="name"
-                    class="mt-1 focus:ring-secondary-500 focus:border-secondary-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                />
-            </div>
-
-            <!-- Shortname -->
-            <div>
-                <label
-                    for="shortname"
-                    class="block text-sm font-medium text-gray-700"
-                >
-                    Shortname
-                </label>
-                <input
-                    id="shortname"
-                    type="text"
-                    v-model="addCrewData.shortname"
-                    autocomplete="nickname"
-                    class="mt-1 focus:ring-secondary-500 focus:border-secondary-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                />
-            </div>
-
-            <!-- Alternative -->
-            <div>
-                <label
-                    for="alternative"
-                    class="block text-sm font-medium text-gray-700"
-                >
-                    Alternative
-                </label>
-                <input
-                    id="alternative"
-                    type="text"
-                    v-model="addCrewData.alternative"
-                    autocomplete="nickname"
-                    class="mt-1 focus:ring-secondary-500 focus:border-secondary-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                />
-            </div>
-
-            <!-- Combination -->
-            <div class="flex items-start">
-                <div class="flex items-center h-5">
-                    <input
-                        id="combination"
-                        type="checkbox"
-                        v-model="addCrewData.combination"
-                        class="focus:ring-secondary-500 h-4 w-4 text-secondary-600 border-gray-300 rounded"
-                    />
-                </div>
-                <div class="ml-3 text-sm">
-                    <label for="combination" class="font-medium text-gray-700">
-                        Combination
-                    </label>
-                    <!-- TODO: get a description -->
-                    <p class="text-gray-500">This is a description.</p>
-                </div>
-            </div>
-
-            <!-- Remarks -->
-            <div>
-                <label
-                    for="remarks"
-                    class="block text-sm font-medium text-gray-700"
-                >
-                    Remarks
-                </label>
-                <div class="mt-1">
-                    <textarea
-                        id="remarks"
-                        v-model="addCrewData.remarks"
-                        rows="3"
-                        class="shadow-sm focus:ring-secondary-500 focus:border-secondary-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                    />
-                </div>
-                <!-- TODO: get a description -->
-                <p class="mt-2 text-sm text-gray-500">This is a description.</p>
-            </div>
-        </EditorSlideOver>
+            :regatta="regattas.selectedId"
+        />
     </div>
 </template>
 
@@ -269,7 +124,7 @@ import { useRowerStore } from '~~/stores/rower';
 import { useEventStore } from '~~/stores/event';
 import { useClubStore } from '~~/stores/club';
 
-import { getCrewStatusLabel, NewCrew } from '~~/types/crew.model';
+import { getCrewStatusLabel } from '~~/types/crew.model';
 import { TableHeader } from '~~/types/table-header.model';
 import { TableSortDirection } from '~~/types/table-sort-direction.model';
 import { Crew } from '~~/types/crew.model';
@@ -293,16 +148,10 @@ await rowers.loadRowers();
 const activePanel = ref(0);
 const showAddCrew = ref(false);
 
-const addCrewData: NewCrew = reactive({
-    event_id: '',
-    club_id: '',
-    regatta_id: regattas.selectedId,
-    displayName: '',
-    shortname: '',
-    alternative: '',
-    combination: false,
-    remarks: ''
-});
+const openAddCrew = () => {
+    showAddCrew.value = true;
+    clubs.loadClubs();
+};
 
 const tableHeaders: TableHeader[] = [
     { id: 'Shirt numbers', sortable: false },

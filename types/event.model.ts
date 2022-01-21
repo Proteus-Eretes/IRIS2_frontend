@@ -30,6 +30,7 @@ export interface Field {
     event_id: string;
     regatta_id: string;
     round_id: string;
+    // FIXME: hier teams weg en ook bij andere models de arrays weg
     teams: string[];
 }
 
@@ -37,6 +38,13 @@ export interface FieldDetail extends Field {
     starting_order: number | null;
     result_status: FieldResultStatus;
     start_time: Date;
+}
+
+export interface NewField {
+    block_id: string;
+    event_id: string;
+    regatta_id: string;
+    round_id: string;
 }
 
 export enum EventStatus {

@@ -8,7 +8,6 @@ module.exports = {
         './plugins/**/*.{js,ts}',
         './nuxt.config.{js,ts}'
     ],
-    safelist: ['hidden', 'blocks__assign-event', 'blocks__assign-event-ghost'],
     theme: {
         colors: {
             transparent: 'transparent',

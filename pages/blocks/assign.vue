@@ -68,7 +68,7 @@
                                     "
                                     item-key="id"
                                     class="flex flex-col h-full gap-1"
-                                    ghost-class="blocks__assign-event-ghost"
+                                    ghost-class="assign-event-ghost"
                                 >
                                     <template #item="{ element }">
                                         <BlocksAssignItem
@@ -220,3 +220,14 @@ export default defineComponent({
     layout: 'main'
 });
 </script>
+
+<style scoped>
+.assign-event-ghost {
+    @apply text-opacity-0
+        border-2
+        border-dashed
+        bg-transparent
+        border-primary-200
+        shadow-none;
+}
+</style>

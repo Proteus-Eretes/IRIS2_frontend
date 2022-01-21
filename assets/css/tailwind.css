@@ -59,6 +59,47 @@
 			text-white;
     }
 
+    .form-label {
+        @apply block
+			text-sm
+			font-medium
+			text-gray-700;
+    }
+    .form-select {
+        @apply mt-1
+			block
+			w-full
+			py-2
+			px-3
+			border
+			border-gray-300
+			bg-white
+			rounded-md
+			shadow-sm
+			focus:outline-none
+			focus:ring-secondary-500
+			focus:border-secondary-500
+			sm:text-sm;
+    }
+    .form-text {
+        @apply mt-1
+			focus:ring-secondary-500
+			focus:border-secondary-500
+			block
+			w-full
+			shadow-sm
+			sm:text-sm
+			border-gray-300
+			rounded-md;
+    }
+    .form-checkbox {
+        @apply h-4 w-4
+		text-secondary-600
+		border-gray-300
+		rounded
+		focus:ring-secondary-500;
+    }
+
     .button {
         @apply inline-flex
 			justify-center
@@ -94,7 +135,6 @@
     }
     .icon-button {
         @apply flex
-			justify-center
 			items-center
 			py-2
 			px-3
@@ -117,28 +157,5 @@
 			text-xs
 			px-2
 			py-0.5;
-    }
-
-    .blocks__assign-event {
-        @apply text-primary-900
-			cursor-move
-			border border-gray-200
-			bg-white
-			hover:bg-secondary-50
-			rounded-md
-			pl-2
-			pr-3
-			py-2
-			flex
-			items-center
-			gap-2;
-    }
-    .blocks__assign-event-ghost {
-        @apply text-opacity-0
-			border-2
-			border-dashed
-			bg-transparent
-			border-primary-200
-			shadow-none;
     }
 }

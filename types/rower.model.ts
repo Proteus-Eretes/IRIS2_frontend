@@ -12,12 +12,28 @@ export interface Rower {
 }
 
 export interface RowerDetail extends Rower {
-    license: number;
+    license: boolean;
     initals: string;
     firstname: string;
     middlename: string;
     lastname: string;
     year_of_birth: number | null;
+}
+
+export interface NewRower {
+    crew_id: string;
+    regatta_id: string;
+    club_id: string;
+    knrb: string;
+    initals: string;
+    firstname: string;
+    middlename: string;
+    lastname: string;
+    year_of_birth: number;
+    gender: Gender;
+    license: boolean;
+    position: number;
+    role: RowerRole;
 }
 
 export enum Gender {
@@ -40,12 +56,12 @@ export function getGenderLabel(gender: Gender | null) {
 }
 
 export enum RowerRole {
-    ROWER = 1,
-    COX = 2,
-    COACH = 3
+    ROWER = '1',
+    COX = '2',
+    COACH = '3'
 }
 
-export function getRowerRoleLabel(role: RowerRole) {
+export function getRowerRoleLabel(role: RowerRole | null) {
     switch (role) {
         case RowerRole.ROWER:
             return 'Rower';

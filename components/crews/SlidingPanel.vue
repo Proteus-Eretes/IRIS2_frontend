@@ -85,6 +85,17 @@
                 </template>
             </Table>
 
+            <div class="w-full p-2 flex justify-center">
+                <button
+                    type="button"
+                    class="button icon-button button-secondary"
+                    @click="openAddRower(RowerRole.ROWER)"
+                >
+                    <ph-plus class="icon text-gray-400" />
+                    <span>Add Rower</span>
+                </button>
+            </div>
+
             <Table
                 title="Coaches"
                 :headers="tableHeaders"
@@ -111,6 +122,17 @@
                     </span>
                 </template>
             </Table>
+
+            <div class="w-full p-2 flex justify-center">
+                <button
+                    type="button"
+                    class="button icon-button button-secondary"
+                    @click="openAddRower(RowerRole.COACH)"
+                >
+                    <ph-plus class="icon text-gray-400" />
+                    <span>Add Coach</span>
+                </button>
+            </div>
 
             <Table
                 title="Coxes"
@@ -139,6 +161,17 @@
                 </template>
             </Table>
 
+            <div class="w-full p-2 flex justify-center">
+                <button
+                    type="button"
+                    class="button icon-button button-secondary"
+                    @click="openAddRower(RowerRole.COX)"
+                >
+                    <ph-plus class="icon text-gray-400" />
+                    <span>Add Cox</span>
+                </button>
+            </div>
+
             <Table
                 title="Fines"
                 error-message="This crew didn't receive any fines"
@@ -157,14 +190,36 @@
                     </span>
                 </template>
             </Table>
+
+            <div class="w-full p-2 flex justify-center">
+                <button
+                    type="button"
+                    class="button icon-button button-secondary"
+                    @click=""
+                >
+                    <ph-plus class="icon text-gray-400" />
+                    <span>Add Fine</span>
+                </button>
+            </div>
         </div>
         <div v-else class="p-3 text-sm font-semibold text-danger-500">
             Nothing
         </div>
     </SlidingPanel>
+
+    <RowersAddSlideOver
+        v-model:open="showAddRower"
+        :role="addRowerRole"
+        :crew="crews.selectedCrewId"
+        :regatta="regattas.selectedId"
+        :club="crews.selectedCrew ? crews.selectedCrew.club_id : null"
+    />
 </template>
 
 <script lang="ts" setup>
+import { PhPlus } from 'phosphor-vue';
+
+import { useRegattaStore } from '~~/stores/regatta';
 import { useEventStore } from '~~/stores/event';
 import { useCrewStore } from '~~/stores/crew';
 import { useClubStore } from '~~/stores/club';
@@ -174,16 +229,28 @@ import {
     getCrewStatusLabel,
     getTeamResultStatusLabel
 } from '~~/types/crew.model';
+import { RowerRole } from '~~/types/rower.model';
 import { TableHeader } from '~~/types/table-header.model';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 
 const { formatDate } = useDateFormatter();
 
+const regattas = useRegattaStore();
 const events = useEventStore();
 const crews = useCrewStore();
 const clubs = useClubStore();
 const rowers = useRowerStore();
+
+const showAddRower = ref(false);
+const addRowerRole = ref(null);
+
+const openAddRower = (role: RowerRole) => {
+    showAddRower.value = true;
+    clubs.loadClubs();
+
+    addRowerRole.value = role;
+};
 
 interface Props {
     index: number;

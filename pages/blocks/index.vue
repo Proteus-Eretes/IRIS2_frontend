@@ -51,7 +51,8 @@
                             class="button icon-button button-secondary"
                             @click="showAddBlock = true"
                         >
-                            <ph-plus class="icon text-gray-400" />Add Block
+                            <ph-plus class="icon text-gray-400" />
+                            <span>Add Block</span>
                         </button>
                     </div>
                 </template>

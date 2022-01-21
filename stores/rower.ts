@@ -9,7 +9,7 @@
 import { defineStore } from 'pinia';
 import { useRegattaStore } from './regatta';
 
-import { Rower, RowerDetail, RowerRole } from '~~/types/rower.model';
+import { NewRower, Rower, RowerDetail, RowerRole } from '~~/types/rower.model';
 import { useRowerService } from '~~/composables/useRowerService';
 const rowerService = useRowerService();
 
@@ -149,7 +149,15 @@ export const useRowerStore = defineStore('rowers', {
                 [rower.id]: rower
             };
         },
-        add(rower: Rower) {},
+        async add(newRower: NewRower) {
+            const rower = await rowerService.addRower(newRower);
+
+            this.ids = [...this.ids, rower.id];
+            this.entities = {
+                ...this.entities,
+                [rower.id]: rower
+            };
+        },
         delete(rower: Rower) {},
         edit(rower: Rower) {},
         lotterySettings() {}

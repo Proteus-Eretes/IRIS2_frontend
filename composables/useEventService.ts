@@ -1,4 +1,4 @@
-import { Event, EventDetail, Field } from '~~/types/event.model';
+import { Event, EventDetail, Field, NewField } from '~~/types/event.model';
 
 const BASE_URL = '/api/events';
 
@@ -21,7 +21,7 @@ export const useEventService = () => {
             return await $fetch<Field[]>(url);
         },
 
-        async addField(field: Field) {
+        async addField(field: NewField) {
             const url = BASE_URL + '/add-field';
             return await $fetch<Field>(url, { method: 'POST', body: field });
         }

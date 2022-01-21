@@ -24,6 +24,7 @@ export const useCrewService = () => {
             const url = BASE_URL + '/get-fines-by-crew?crewId=' + id;
             return await $fetch<Fine[]>(url);
         },
+
         async addCrew(crew: NewCrew) {
             const url = BASE_URL + '/add-crew';
             return await $fetch<Crew>(url, {

@@ -74,7 +74,9 @@
                                 <div
                                     class="relative grow overflow-y-scroll px-4 py-5 space-y-6 sm:px-6"
                                 >
-                                    <slot />
+                                    <div class="grid grid-cols-6 gap-6">
+                                        <slot />
+                                    </div>
                                 </div>
 
                                 <div

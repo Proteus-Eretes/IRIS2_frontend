@@ -12,7 +12,7 @@ import { defineStore } from 'pinia';
 import { useBlockStore } from './block';
 import { useRegattaStore } from './regatta';
 
-import { Event, Field } from '~~/types/event.model';
+import { Event, Field, NewField } from '~~/types/event.model';
 import { useEventService } from '~~/composables/useEventService';
 const eventService = useEventService();
 
@@ -157,24 +157,7 @@ export const useEventStore = defineStore('events', {
             this.fieldEntities = { ...this.fieldEntities, ...fieldEntities };
         },
         add(event: Event) {},
-        async addField(
-            blockId: string,
-            eventId: string,
-            regattaId: string,
-            roundId: string
-        ) {
-            // FIXME: niet hier een randomId aanmaken
-            const randomId = String(Math.floor(Math.random() * 10000));
-            const newField: Field = {
-                id: randomId,
-                block_id: blockId,
-                event_id: eventId,
-                regatta_id: regattaId,
-                round_id: roundId,
-                // FIXME: hier teams weg en ook bij andere models de arrays weg
-                teams: []
-            };
-
+        async addField(newField: NewField) {
             const field = await eventService.addField(newField);
 
             this.fieldIds = [...this.fieldIds, field.id];

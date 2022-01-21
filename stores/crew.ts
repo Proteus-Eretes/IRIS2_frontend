@@ -291,7 +291,7 @@ export const useCrewStore = defineStore('crews', {
             this.fineIds = [...this.fineIds, ...fineIds];
             this.fineEntities = { ...this.fineEntities, ...fineEntities };
         },
-        async add(newCrew: NewCrew) {
+        async addCrew(newCrew: NewCrew) {
             const crew = await crewService.addCrew(newCrew);
 
             this.ids = [...this.ids, crew.id];

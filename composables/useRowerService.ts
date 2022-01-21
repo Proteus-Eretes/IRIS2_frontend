@@ -1,4 +1,4 @@
-import { Rower, RowerDetail } from '~~/types/rower.model';
+import { NewRower, Rower, RowerDetail } from '~~/types/rower.model';
 
 const BASE_URL = '/api/rowers';
 
@@ -15,6 +15,14 @@ export const useRowerService = () => {
         async loadRowerDetail(id: string) {
             const url = BASE_URL + '/get-rower-detail?rowerId=' + id;
             return await $fetch<RowerDetail>(url);
+        },
+
+        async addRower(rower: NewRower) {
+            const url = BASE_URL + '/add-rower';
+            return await $fetch<Rower>(url, {
+                method: 'POST',
+                body: rower
+            });
         }
     };
 };

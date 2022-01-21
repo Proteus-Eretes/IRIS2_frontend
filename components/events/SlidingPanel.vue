@@ -79,24 +79,52 @@
                     </div>
                 </template>
             </Table>
+
+            <div class="w-full p-2 flex justify-center">
+                <button
+                    type="button"
+                    class="button icon-button button-secondary"
+                    @click="openAddCrew()"
+                >
+                    <ph-plus class="icon text-gray-400" />
+                    <span>Add Crew</span>
+                </button>
+            </div>
         </div>
         <div v-else class="p-3 text-sm font-semibold text-danger-500">
             Nothing
         </div>
     </SlidingPanel>
+
+    <CrewsAddSlideOver
+        v-model:open="showAddCrew"
+        :event="events.selectedEventId"
+        :regatta="regattas.selectedId"
+    />
 </template>
 
 <script lang="ts" setup>
-import { PhUsersThree } from 'phosphor-vue';
+import { PhUsersThree, PhPlus } from 'phosphor-vue';
 
-import { useCrewStore } from '~~/stores/crew';
+import { useRegattaStore } from '~~/stores/regatta';
 import { useEventStore } from '~~/stores/event';
+import { useCrewStore } from '~~/stores/crew';
+import { useClubStore } from '~~/stores/club';
 
 import { getEventStatusLabel } from '~~/types/event.model';
 import { TableHeader } from '~~/types/table-header.model';
 
+const regattas = useRegattaStore();
 const events = useEventStore();
 const crews = useCrewStore();
+const clubs = useClubStore();
+
+const showAddCrew = ref(false);
+
+const openAddCrew = () => {
+    showAddCrew.value = true;
+    clubs.loadClubs();
+};
 
 interface Props {
     index: number;

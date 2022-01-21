@@ -84,7 +84,8 @@
                             class="button icon-button button-secondary"
                             @click="showAddEvent = true"
                         >
-                            <ph-plus class="icon text-gray-400" />Add Event
+                            <ph-plus class="icon text-gray-400" />
+                            <span>Add Event</span>
                         </button>
                     </div>
                 </template>
