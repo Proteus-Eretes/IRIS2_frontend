@@ -25,6 +25,12 @@
                 class="grid grid-cols-3 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
             >
                 <div>
+                    <h6 class="font-semibold">Shirt number(s)</h6>
+                    <span>{{
+                        crews.shirtNumbersOfSelectedCrew.join(', ')
+                    }}</span>
+                </div>
+                <div>
                     <h6 class="font-semibold">Crew name</h6>
                     <span>{{ crews.selectedCrew.displayName }}</span>
                 </div>
@@ -38,6 +44,22 @@
                         clubs.selectedClubDetail
                             ? clubs.selectedClubDetail.name
                             : ''
+                    }}</span>
+                </div>
+                <div>
+                    <h6 class="font-semibold">Stroke</h6>
+                    <span>{{
+                        rowers.strokeOfSelectedCrew
+                            ? rowers.strokeOfSelectedCrew.fullName
+                            : 'Nothing'
+                    }}</span>
+                </div>
+                <div>
+                    <h6 class="font-semibold">Category</h6>
+                    <span>{{
+                        crews.selectedCrew.category
+                            ? crews.selectedCrew.category
+                            : '-'
                     }}</span>
                 </div>
                 <div>

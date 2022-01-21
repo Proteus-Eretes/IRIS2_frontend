@@ -27,9 +27,7 @@
                         <template #shirt-numbers="{ item }">
                             <span class="badge text-white bg-primary-800">
                                 {{
-                                    crews
-                                        .getShirtNumberByCrew(item.id)
-                                        .join(', ')
+                                    crews.shirtNumbersByCrew(item.id).join(', ')
                                 }}
                             </span>
                         </template>
@@ -65,8 +63,8 @@
 
                         <template #stroke="{ item }">
                             <span class="text-sm">{{
-                                rowers.getStrokeByCrew(item.id)
-                                    ? rowers.getStrokeByCrew(item.id).fullName
+                                rowers.strokeByCrew(item.id)
+                                    ? rowers.strokeByCrew(item.id).fullName
                                     : 'Nothing'
                             }}</span>
                         </template>

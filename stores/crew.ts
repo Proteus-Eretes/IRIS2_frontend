@@ -122,7 +122,7 @@ export const useCrewStore = defineStore('crews', {
                 return (id && state.entities[id]) || null;
             };
         },
-        getShirtNumberByCrew(state: CrewState) {
+        shirtNumbersByCrew(state: CrewState) {
             const allTeams = state.teamIds.map(
                 (id: string) => state.teamEntities[id]
             );
@@ -143,6 +143,26 @@ export const useCrewStore = defineStore('crews', {
                     : [firstNumber];
             };
         },
+        shirtNumbersOfSelectedCrew(state: CrewState) {
+            const allTeams = state.teamIds.map(
+                (id: string) => state.teamEntities[id]
+            );
+            const selectedCrewId = state.selectedCrewId;
+
+            const allTeamsFilter = allTeams.filter(
+                (team: Team) => team.crew_id == selectedCrewId
+            );
+            if (allTeamsFilter.length == 0) return [];
+
+            const shirtNumbers = allTeamsFilter.map(
+                (team: Team) => team.shirt_number
+            );
+            const firstNumber = shirtNumbers[0];
+
+            return shirtNumbers.some((num: number) => num != firstNumber)
+                ? shirtNumbers
+                : [firstNumber];
+        },
         queryResults(state: CrewState) {
             const allCrews = state.ids.map((id: string) => state.entities[id]);
             const query = state.query;
@@ -160,7 +180,7 @@ export const useCrewStore = defineStore('crews', {
                 const event: Event = useEventStore().getEventById(
                     crew.event_id
                 );
-                const stroke: Rower = useRowerStore().getStrokeByCrew(crew.id);
+                const stroke: Rower = useRowerStore().strokeByCrew(crew.id);
 
                 const nameSearch = crew.displayName
                     .toUpperCase()

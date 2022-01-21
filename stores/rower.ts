@@ -77,7 +77,7 @@ export const useRowerStore = defineStore('rowers', {
                 null
             );
         },
-        getStrokeByCrew(state: RowerState) {
+        strokeByCrew(state: RowerState) {
             const allRowers = state.ids.map((id: string) => state.entities[id]);
 
             return (id: string): Rower => {
@@ -89,6 +89,16 @@ export const useRowerStore = defineStore('rowers', {
                     (rower: Rower) => rower.position == 8
                 );
             };
+        },
+        strokeOfSelectedCrew(state: RowerState) {
+            const allRowers = state.ids.map((id: string) => state.entities[id]);
+            const selectedCrewId = useCrewStore().selectedCrewId;
+
+            const allRowersByCrew = allRowers.filter(
+                (rower: Rower) => rower.crew_id == selectedCrewId
+            );
+
+            return allRowersByCrew.find((rower: Rower) => rower.position == 8);
         }
     },
 
