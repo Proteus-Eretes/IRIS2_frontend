@@ -161,7 +161,7 @@ const tableHeaders: TableHeader[] = [
     { id: 'Status', sortable: false }
 ];
 
-const sortId = ref(tableHeaders[0].id);
+const sortId = ref(tableHeaders[1].sortId);
 const sortDirection = ref(TableSortDirection.DOWN);
 
 const sortedCrews = computed(() => {

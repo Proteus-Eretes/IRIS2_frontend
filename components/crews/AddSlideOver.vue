@@ -147,7 +147,7 @@ const addCrewData: NewCrew = reactive({
 
 interface Props {
     open: boolean;
-    event: string | null;
+    event?: string | null;
     regatta: string | null;
 }
 

@@ -47,7 +47,9 @@ export const useBlockStore = defineStore('blocks', {
 
     getters: {
         allBlocks(state: BlockState) {
-            return state.ids.map((id: string) => state.entities[id]);
+            return state.ids
+                .map((id: string) => state.entities[id])
+                .sort((a: Block, b: Block) => a.block - b.block);
         },
         selectedBlock(state: BlockState) {
             return (

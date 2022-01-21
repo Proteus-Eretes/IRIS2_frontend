@@ -218,10 +218,10 @@ const addRowerData: NewRower = reactive({
 
 interface Props {
     open: boolean;
-    role: RowerRole | null;
-    crew: string | null;
+    role?: RowerRole | null;
+    crew?: string | null;
     regatta: string | null;
-    club: string | null;
+    club?: string | null;
 }
 
 const props = withDefaults(defineProps<Props>(), {

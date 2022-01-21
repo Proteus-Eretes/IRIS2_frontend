@@ -40,7 +40,9 @@ export const useEventStore = defineStore('events', {
 
     getters: {
         allEvents(state: EventState) {
-            return state.ids.map((id: string) => state.entities[id]);
+            return state.ids
+                .map((id: string) => state.entities[id])
+                .sort((a: Event, b: Event) => a.event - b.event);
         },
         allFields(state: EventState) {
             return state.fieldIds.map((id: string) => state.fieldEntities[id]);

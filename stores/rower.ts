@@ -34,10 +34,14 @@ export const useRowerStore = defineStore('rowers', {
 
     getters: {
         allRowers(state: RowerState) {
-            return state.ids.map((id: string) => state.entities[id]);
+            return state.ids
+                .map((id: string) => state.entities[id])
+                .sort((a: Rower, b: Rower) => a.position - b.position);
         },
         allRowersOfSelectedCrew(state: RowerState) {
-            const allRowers = state.ids.map((id: string) => state.entities[id]);
+            const allRowers = state.ids
+                .map((id: string) => state.entities[id])
+                .sort((a: Rower, b: Rower) => a.position - b.position);
             const selectedCrewId = useCrewStore().selectedCrewId;
 
             return allRowers.filter(
