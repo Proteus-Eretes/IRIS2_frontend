@@ -22,7 +22,7 @@ export interface CrewDetail extends Crew {
     result_status: TeamResultStatus;
     shortname: string; // Assigned by KNRB
     alternative: string; // Created by Crew
-    combination: null;
+    combination: boolean | null;
     boat: string; // Boat id
     boattype: string;
     remarks: string | null; // Voor wedstrijdleiding
@@ -35,6 +35,17 @@ export interface CrewDetail extends Crew {
     local: boolean; // Of het is gewijzigd lokaal
     payments?: any[];
     fines?: any[];
+}
+
+export interface NewCrew {
+    event_id: string;
+    club_id: string;
+    regatta_id: string;
+    displayName: string;
+    shortname: string;
+    alternative: string;
+    combination: boolean;
+    remarks: string;
 }
 
 export interface Team {

@@ -21,7 +21,7 @@ import { useEventStore } from './event';
 import { useRegattaStore } from './regatta';
 import { useRowerStore } from './rower';
 
-import { Crew, Fine, Team } from '~~/types/crew.model';
+import { Crew, Fine, NewCrew, Team } from '~~/types/crew.model';
 import { Rower } from '~~/types/rower.model';
 import { Event } from '~~/types/event.model';
 
@@ -291,7 +291,15 @@ export const useCrewStore = defineStore('crews', {
             this.fineIds = [...this.fineIds, ...fineIds];
             this.fineEntities = { ...this.fineEntities, ...fineEntities };
         },
-        add(crew: Crew) {},
+        async add(newCrew: NewCrew) {
+            const crew = await crewService.addCrew(newCrew);
+
+            this.ids = [...this.ids, crew.id];
+            this.entities = {
+                ...this.entities,
+                [crew.id]: crew
+            };
+        },
         delete(crew: Crew) {},
         edit(crew: Crew) {},
         lotterySettings() {}

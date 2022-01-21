@@ -74,52 +74,22 @@ export const clubsMock: Club[] = [
         name: 'Nautilus'
     },
     {
-        id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
-        regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
-        code: 'ALK',
-        name: 'Alkmaarsche'
-    },
-    {
-        id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
-        regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
-        code: 'ALK',
-        name: 'Alkmaarsche'
-    },
-    {
         id: '11ec-4c5c-3ee9c27e-8ce7-fa53f5d3a545',
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         code: 'LEY',
         name: 'Leythe'
     },
     {
-        id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
-        regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
-        code: 'ALK',
-        name: 'Alkmaarsche'
-    },
-    {
         id: '11ec-4c5c-3ee7fbd8-bff9-fa53f5d3a545',
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         code: 'GOU',
         name: 'Gouda'
-    },
-    {
-        id: '11ec-4c5c-3ee51ad0-8251-fa53f5d3a545',
-        regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
-        code: 'NAU',
-        name: 'Nautilus'
     },
     {
         id: '11ec-4c5c-3ee60cb0-9976-fa53f5d3a545',
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         code: 'ALP',
         name: 'Alphen'
-    },
-    {
-        id: '11ec-4c5c-3ee7fbd8-bff9-fa53f5d3a545',
-        regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
-        code: 'GOU',
-        name: 'Gouda'
     }
 ];
 
@@ -200,56 +170,6 @@ export const clubDetailsMock: ClubDetail[] = [
         }
     },
     {
-        id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
-        regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
-        code: 'ALK',
-        name: 'Alkmaarsche',
-        federation: '',
-        address: '',
-        city: '',
-        blade: '',
-        trousers: '',
-        shirt: '',
-        knrb_num: 6,
-        contact: {
-            name: '',
-            mobile: '',
-            phone: '',
-            fax: '',
-            email: ''
-        },
-        emergency: {
-            name: '',
-            mobile: '',
-            phone: ''
-        }
-    },
-    {
-        id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
-        regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
-        code: 'ALK',
-        name: 'Alkmaarsche',
-        federation: '',
-        address: '',
-        city: '',
-        blade: '',
-        trousers: '',
-        shirt: '',
-        knrb_num: 6,
-        contact: {
-            name: '',
-            mobile: '',
-            phone: '',
-            fax: '',
-            email: ''
-        },
-        emergency: {
-            name: '',
-            mobile: '',
-            phone: ''
-        }
-    },
-    {
         id: '11ec-4c5c-3ee9c27e-8ce7-fa53f5d3a545',
         regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
         code: 'LEY',
@@ -261,31 +181,6 @@ export const clubDetailsMock: ClubDetail[] = [
         trousers: '',
         shirt: '',
         knrb_num: 9,
-        contact: {
-            name: '',
-            mobile: '',
-            phone: '',
-            fax: '',
-            email: ''
-        },
-        emergency: {
-            name: '',
-            mobile: '',
-            phone: ''
-        }
-    },
-    {
-        id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
-        regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
-        code: 'ALK',
-        name: 'Alkmaarsche',
-        federation: '',
-        address: '',
-        city: '',
-        blade: '',
-        trousers: '',
-        shirt: '',
-        knrb_num: 6,
         contact: {
             name: '',
             mobile: '',
@@ -361,31 +256,6 @@ export const clubDetailsMock: ClubDetail[] = [
         trousers: '',
         shirt: '',
         knrb_num: 5,
-        contact: {
-            name: '',
-            mobile: '',
-            phone: '',
-            fax: '',
-            email: ''
-        },
-        emergency: {
-            name: '',
-            mobile: '',
-            phone: ''
-        }
-    },
-    {
-        id: '11ec-4c5c-3ee7fbd8-bff9-fa53f5d3a545',
-        regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
-        code: 'GOU',
-        name: 'Gouda',
-        federation: '',
-        address: '',
-        city: '',
-        blade: '',
-        trousers: '',
-        shirt: '',
-        knrb_num: 7,
         contact: {
             name: '',
             mobile: '',

@@ -1,4 +1,4 @@
-import { Crew, Fine, Team } from '~~/types/crew.model';
+import { Crew, Fine, NewCrew, Team } from '~~/types/crew.model';
 
 const BASE_URL = '/api/crews';
 
@@ -23,6 +23,13 @@ export const useCrewService = () => {
         async loadFinesByCrew(id: string) {
             const url = BASE_URL + '/get-fines-by-crew?crewId=' + id;
             return await $fetch<Fine[]>(url);
+        },
+        async addCrew(crew: NewCrew) {
+            const url = BASE_URL + '/add-crew';
+            return await $fetch<Crew>(url, {
+                method: 'POST',
+                body: crew
+            });
         }
     };
 };
