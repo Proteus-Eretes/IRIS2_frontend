@@ -92,17 +92,17 @@
             />
         </div>
 
-        <EditorSlideOver v-model:open="showAddBlock">
-            <template #header>Create a new block</template>
-            <template #subheader>Create a new block for this regatta</template>
-            Hey
-        </EditorSlideOver>
+        <BlocksAddSlideOver
+            v-model:open="showAddBlock"
+            :regatta="regattas.selectedId"
+        />
     </div>
 </template>
 
 <script lang="ts" setup>
 import { PhPlus, PhUsersThree } from 'phosphor-vue';
 
+import { useRegattaStore } from '~~/stores/regatta';
 import { useBlockStore } from '~~/stores/block';
 import { useCrewStore } from '~~/stores/crew';
 import { useEventStore } from '~~/stores/event';
@@ -116,6 +116,7 @@ import { TableHeader } from '~~/types/table-header.model';
 
 const { formatDate, formatTime } = useDateFormatter();
 
+const regattas = useRegattaStore();
 const blocks = useBlockStore();
 const events = useEventStore();
 const rounds = useRoundStore();

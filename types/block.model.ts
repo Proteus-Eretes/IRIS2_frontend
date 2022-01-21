@@ -6,6 +6,12 @@ export interface Block {
     status: BlockStatus;
 }
 
+export interface NewBlock {
+    regatta_id: string;
+    block: number;
+    start_time: Date;
+}
+
 export enum BlockStatus {
     CREATED = 1,
     ROUNDS_ASSIGNED = 2,

@@ -11,12 +11,13 @@
 
         <!-- Event -->
         <div class="col-span-6 sm:col-span-4">
-            <label for="event" class="form-label">Event</label>
+            <label for="event" class="form-label required">Event</label>
             <select
                 id="event"
                 v-model="addCrewData.event_id"
                 autocomplete="organization"
                 class="form-select"
+                required
             >
                 <option
                     v-for="event in events.allEvents"
@@ -30,12 +31,13 @@
 
         <!-- Club -->
         <div class="col-span-6 sm:col-span-4">
-            <label for="club" class="form-label">Club</label>
+            <label for="club" class="form-label required">Club</label>
             <select
                 id="club"
                 v-model="addCrewData.club_id"
                 autocomplete="organization"
                 class="form-select"
+                required
             >
                 <option
                     v-for="club in clubs.allClubs"
@@ -49,13 +51,14 @@
 
         <!-- Name -->
         <div class="col-span-6">
-            <label for="name" class="form-label">Name</label>
+            <label for="name" class="form-label required">Name</label>
             <input
                 id="name"
                 type="text"
                 v-model="addCrewData.displayName"
                 autocomplete="name"
                 class="form-text"
+                required
             />
         </div>
 
@@ -91,10 +94,11 @@
                     type="checkbox"
                     v-model="addCrewData.combination"
                     class="form-checkbox"
+                    required
                 />
             </div>
             <div class="ml-3 text-sm">
-                <label for="combination" class="form-label">
+                <label for="combination" class="form-label required">
                     Combination
                 </label>
                 <!-- TODO: get a description -->

@@ -65,6 +65,11 @@
 			font-medium
 			text-gray-700;
     }
+    .form-label.required {
+        @apply after:content-['*']
+			after:ml-0.5
+			after:text-danger-500;
+    }
     .form-select {
         @apply mt-1
 			block

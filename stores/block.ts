@@ -25,7 +25,7 @@
 import { defineStore } from 'pinia';
 import { useRegattaStore } from './regatta';
 
-import { Block } from '~~/types/block.model';
+import { Block, NewBlock } from '~~/types/block.model';
 import { useBlockService } from '~~/composables/useBlockService';
 const blockService = useBlockService();
 
@@ -76,7 +76,15 @@ export const useBlockStore = defineStore('blocks', {
             this.ids = blockIds;
             this.entities = blockEntities;
         },
-        add(block: Block) {},
+        async add(newBlock: NewBlock) {
+            const block = await blockService.addBlock(newBlock);
+
+            this.ids = [...this.ids, block.id];
+            this.entities = {
+                ...this.entities,
+                [block.id]: block
+            };
+        },
         delete(block: Block) {},
         edit(block: Block) {},
         lotterySettings() {}
