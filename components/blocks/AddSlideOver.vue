@@ -2,7 +2,12 @@
     <EditorSlideOver
         :open="open"
         @update:open="$emit('update:open', $event)"
-        @save="blocks.add(addBlockData)"
+        @save="
+            () => {
+                blocks.add(addBlockData);
+                resetState();
+            }
+        "
     >
         <template #header>Create a new block</template>
         <template #subheader>Create a new block for this regatta.</template>
@@ -43,11 +48,19 @@ import { NewBlock } from '~~/types/block.model';
 
 const blocks = useBlockStore();
 
-const addBlockData: NewBlock = reactive({
+const initialState = {
     regatta_id: '',
     block: null,
     start_time: new Date()
+};
+
+const addBlockData: NewBlock = reactive({
+    ...initialState
 });
+
+const resetState = () => {
+    Object.assign(addBlockData, initialState);
+};
 
 interface Props {
     open: boolean;

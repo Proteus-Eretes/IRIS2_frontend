@@ -2,7 +2,12 @@
     <EditorSlideOver
         :open="open"
         @update:open="$emit('update:open', $event)"
-        @save="rowers.add(addRowerData)"
+        @save="
+            () => {
+                rowers.add(addRowerData);
+                resetState();
+            }
+        "
     >
         <template #header>Create a new member</template>
         <template #subheader>Create a new member for this event.</template>
@@ -200,7 +205,7 @@ import {
 const rowers = useRowerStore();
 const clubs = useClubStore();
 
-const addRowerData: NewRower = reactive({
+const initialState = {
     crew_id: '',
     regatta_id: '',
     club_id: '',
@@ -214,7 +219,15 @@ const addRowerData: NewRower = reactive({
     license: true,
     position: null,
     role: RowerRole.ROWER
+};
+
+const addRowerData: NewRower = reactive({
+    ...initialState
 });
+
+const resetState = () => {
+    Object.assign(addRowerData, initialState);
+};
 
 interface Props {
     open: boolean;
