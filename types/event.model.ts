@@ -1,3 +1,5 @@
+import { Gender } from './rower.model';
+
 export interface Event {
     id: string;
     regatta_id: string;
@@ -19,9 +21,23 @@ export interface EventDetail extends Event {
     cost_id: string;
     remarks: string;
     weighed: boolean;
-    sex: string;
+    gender: Gender;
     correction_factor_boat: number;
     fields: string[] | null;
+}
+
+export interface NewEvent {
+    regatta_id: string;
+    number: number;
+    day: Date;
+    code: string;
+    name: string;
+    category: string;
+    boat_type: string;
+    remarks: string;
+    weighed: boolean;
+    gender: Gender;
+    status: EventStatus;
 }
 
 export interface Field {
@@ -48,9 +64,9 @@ export interface NewField {
 }
 
 export enum EventStatus {
-    ONGOING = 0,
-    CANCELLED = 1,
-    MERGED = 2
+    ONGOING = '0',
+    CANCELLED = '1',
+    MERGED = '2'
 }
 
 export function getEventStatusLabel(status: EventStatus) {

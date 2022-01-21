@@ -115,17 +115,17 @@
             />
         </div>
 
-        <EditorSlideOver v-model:open="showAddEvent">
-            <template #header>Create a new event</template>
-            <template #subheader>Create a new event for this regatta</template>
-            Hey
-        </EditorSlideOver>
+        <EventsAddSlideOver
+            v-model:open="showAddEvent"
+            :regatta="regattas.selectedId"
+        />
     </div>
 </template>
 
 <script lang="ts" setup>
 import { PhPlus, PhUsersThree } from 'phosphor-vue';
 
+import { useRegattaStore } from '~~/stores/regatta';
 import { useCrewStore } from '~~/stores/crew';
 import { useEventStore } from '~~/stores/event';
 import { useRowerStore } from '~~/stores/rower';
@@ -136,6 +136,7 @@ import { TableHeader } from '~~/types/table-header.model';
 
 const { formatDate } = useDateFormatter();
 
+const regattas = useRegattaStore();
 const events = useEventStore();
 const crews = useCrewStore();
 const rowers = useRowerStore();

@@ -1,5 +1,3 @@
-// add
-
 // delete
 
 // edit
@@ -12,7 +10,7 @@ import { defineStore } from 'pinia';
 import { useBlockStore } from './block';
 import { useRegattaStore } from './regatta';
 
-import { Event, Field, NewField } from '~~/types/event.model';
+import { Event, Field, NewEvent, NewField } from '~~/types/event.model';
 import { useEventService } from '~~/composables/useEventService';
 const eventService = useEventService();
 
@@ -158,7 +156,15 @@ export const useEventStore = defineStore('events', {
             this.fieldIds = [...this.fieldIds, ...fieldIds];
             this.fieldEntities = { ...this.fieldEntities, ...fieldEntities };
         },
-        add(event: Event) {},
+        async addEvent(newEvent: NewEvent) {
+            const event = await eventService.addEvent(newEvent);
+
+            this.ids = [...this.ids, event.id];
+            this.entities = {
+                ...this.entities,
+                [event.id]: event
+            };
+        },
         async addField(newField: NewField) {
             const field = await eventService.addField(newField);
 
