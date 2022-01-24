@@ -86,7 +86,9 @@ const amountOpenPanels = computed(() => {
  * of open panels minus 2 (the 2 that will be visible)
  */
 const translate = computed(() => {
-    return Math.max(amountOpenPanels.value - 2, 0) * 100;
+    return amountOpenPanels.value
+        ? Math.max(amountOpenPanels.value - 2, 0) * 100
+        : 0;
 });
 
 /*

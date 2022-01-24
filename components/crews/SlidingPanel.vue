@@ -22,7 +22,7 @@
 
         <div v-if="crews.selectedCrew" class="p-2">
             <div
-                class="grid grid-cols-3 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
+                class="grid grid-cols-2 md:grid-cols-3 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
             >
                 <div>
                     <h6 class="font-semibold">Shirt number(s)</h6>

@@ -9,7 +9,7 @@
 }
 
 @layer components {
-    .container {
+    .assign-container {
         @apply flex flex-row
 			min-h-full
 			px-5

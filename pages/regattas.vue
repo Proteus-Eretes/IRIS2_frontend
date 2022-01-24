@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="grid grid-cols-3 gap-3 p-3">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 p-3">
             <router-link
                 v-for="regatta in regattas.allRegattas"
                 :key="regatta.id"

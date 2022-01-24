@@ -25,6 +25,7 @@ module.exports = {
             minWidth: {
                 5: '1.25rem',
                 '1/4': '25%',
+                '1/3': '33%',
                 'single-column': '100%',
                 'multiple-column': 'calc(50% - 1rem)'
             },

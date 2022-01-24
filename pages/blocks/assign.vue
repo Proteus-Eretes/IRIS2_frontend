@@ -1,7 +1,10 @@
 <template>
     <div class="w-full h-full">
-        <div class="container">
-            <Panel class="min-w-1/4 max-h-screen" :showPanel="true">
+        <div class="assign-container">
+            <Panel
+                class="min-w-1/3 md:min-w-1/4 max-h-screen"
+                :showPanel="true"
+            >
                 <template #header>Available events</template>
 
                 <Draggable
@@ -19,7 +22,7 @@
                     <template #item="{ element }">
                         <BlocksAssignItem>
                             <p class="grow text-sm">
-                                {{ element.name }}
+                                {{ element.code }}
                             </p>
 
                             <template #number-crews>{{
@@ -31,7 +34,7 @@
             </Panel>
 
             <div
-                class="grid grid-cols-3 grid-flow-row items-stretch gap-3 px-3 w-full"
+                class="grid grid-cols-2 md:grid-cols-3 grid-flow-row items-stretch gap-3 pl-3 w-full"
             >
                 <Panel
                     v-for="block in blocks.allBlocks"
@@ -82,7 +85,7 @@
                                                 {{
                                                     events.getEventById(
                                                         element.event_id
-                                                    ).name
+                                                    ).code
                                                 }}
                                             </p>
 
@@ -158,7 +161,7 @@ import { useCrewStore } from '~~/stores/crew';
 import { useToastService } from '~~/composables/useToastService';
 const { showError } = useToastService();
 
-import { Event, Field } from '~~/types/event.model';
+import { Event, Field, NewField } from '~~/types/event.model';
 
 // Draggable component: https://github.com/SortableJS/vue.draggable.next
 import Draggable from 'vuedraggable';
@@ -191,10 +194,17 @@ const addField = (event: Event, blockId: string, roundId: string) => {
             .allFieldsByRoundId(roundId)
             .findIndex((field: Field) => field.event_id == event.id) != -1
     ) {
-        showError('Something went wrong');
+        showError('Field already exists');
         return;
     }
-    events.addField(blockId, event.id, event.regatta_id, roundId);
+
+    const newField: NewField = {
+        block_id: blockId,
+        event_id: event.id,
+        regatta_id: event.regatta_id,
+        round_id: roundId
+    };
+    events.addField(newField);
 };
 const removeField = (field: Field) => {
     const confirmed = confirm('Are you sure?');
