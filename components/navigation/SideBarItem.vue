@@ -18,7 +18,7 @@
                 ]"
             >
                 <component
-                    :is="item.icon"
+                    :is="getIcon(item.icon)"
                     class="w-6 h-6 text-primary-100 group-hover:text-white"
                     aria-hidden="true"
                 />
@@ -52,6 +52,17 @@
 </template>
 
 <script lang="ts" setup>
+import {
+    PhGauge,
+    PhSquaresFour,
+    PhUsersThree,
+    PhCalendarBlank,
+    PhCoinVertical,
+    PhListNumbers,
+    PhExport,
+    PhMicrophone,
+    PhClipboardText
+} from 'phosphor-vue';
 import { RouteItem } from '~~/types/route-item.model';
 
 import { useRegattaStore } from '~~/stores/regatta';
@@ -62,6 +73,29 @@ const router = useRouter();
 const isParentActive = (base: string): boolean => {
     if (base === '/') return router.currentRoute.value.fullPath == '/';
     return router.currentRoute.value.fullPath.includes(base);
+};
+
+const getIcon = (icon: string) => {
+    switch (icon) {
+        case 'ph-gauge':
+            return PhGauge;
+        case 'ph-squares-four':
+            return PhSquaresFour;
+        case 'ph-users-three':
+            return PhUsersThree;
+        case 'ph-calendar-blank':
+            return PhCalendarBlank;
+        case 'ph-coin-vertical':
+            return PhCoinVertical;
+        case 'ph-list-numbers':
+            return PhListNumbers;
+        case 'ph-export':
+            return PhExport;
+        case 'ph-microphone':
+            return PhMicrophone;
+        case 'ph-clipboard-text':
+            return PhClipboardText;
+    }
 };
 
 const props = defineProps<{

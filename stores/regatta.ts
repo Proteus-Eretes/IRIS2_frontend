@@ -10,9 +10,12 @@
 
 import { defineStore } from 'pinia';
 
-import { Regatta } from '~~/types/regatta.model';
+import { NewRegatta, Regatta } from '~~/types/regatta.model';
 import { useRegattaService } from '~~/composables/useRegattaService';
 const regattaService = useRegattaService();
+
+import { useDateFormatter } from '~~/composables/useDateFormatter';
+const { isBeforeOrAfter } = useDateFormatter();
 
 interface RegattaState {
     ids: string[];
@@ -29,7 +32,11 @@ export const useRegattaStore = defineStore('regattas', {
 
     getters: {
         allRegattas(state: RegattaState) {
-            return state.ids.map((id: string) => state.entities[id]);
+            return state.ids
+                .map((id: string) => state.entities[id])
+                .sort((a: Regatta, b: Regatta) =>
+                    isBeforeOrAfter(a.start_date, b.start_date)
+                );
         },
         selectedRegatta(state: RegattaState) {
             return (
@@ -53,8 +60,20 @@ export const useRegattaStore = defineStore('regattas', {
             this.ids = regattaIds;
             this.entities = regattaEntities;
         },
-        add(regatta: Regatta) {},
-        delete(regatta: Regatta) {},
+        async add(newRegatta: NewRegatta) {
+            const regatta = await regattaService.addRegatta(newRegatta);
+
+            this.ids = [...this.ids, regatta.id];
+            this.entities = {
+                ...this.entities,
+                [regatta.id]: regatta
+            };
+        },
+        delete(id: string) {
+            this.ids.splice(this.ids.findIndex((i: string) => i == id));
+
+            delete this.entities[id];
+        },
         edit(regatta: Regatta) {},
         lotterySettings() {}
     }

@@ -75,12 +75,13 @@
                                 'flex group w-full space-x-3 text-primary-500 hover:text-white hover:bg-primary-600 px-3 py-2 rounded-md text-base font-medium'
                             ]"
                         >
-                            <component
-                                :is="
-                                    sideBarCollapsed
-                                        ? 'ph-caret-double-right'
-                                        : 'ph-caret-double-left'
-                                "
+                            <ph-caret-double-right
+                                v-if="sideBarCollapsed"
+                                class="w-6 h-6 text-primary-500 group-hover:text-white"
+                                aria-hidden="true"
+                            />
+                            <ph-caret-double-left
+                                v-else
                                 class="w-6 h-6 text-primary-500 group-hover:text-white"
                                 aria-hidden="true"
                             />
@@ -94,19 +95,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-    PhGauge,
-    PhSquaresFour,
-    PhUsersThree,
-    PhCalendarBlank,
-    PhCoinVertical,
-    PhListNumbers,
-    PhExport,
-    PhMicrophone,
-    PhClipboardText,
-    PhCaretDoubleLeft,
-    PhCaretDoubleRight
-} from 'phosphor-vue';
+import { PhCaretDoubleLeft, PhCaretDoubleRight } from 'phosphor-vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 import { useRegattaStore } from '~~/stores/regatta';

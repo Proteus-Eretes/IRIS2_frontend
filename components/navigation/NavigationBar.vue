@@ -4,7 +4,7 @@
             <div class="relative flex items-center justify-between h-24">
                 <div class="flex-1">
                     <h1
-                        class="text-lg font-semibold leading-7 text-primary-900 sm:text-3xl sm:truncate"
+                        class="text-2xl font-semibold leading-7 text-primary-900 sm:text-3xl sm:truncate"
                     >
                         <!-- FIXME: Node hydration -->
                         {{
@@ -15,20 +15,27 @@
                     </h1>
                     <div
                         v-if="regattas.selectedRegatta"
-                        class="flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6"
+                        class="flex flex-row flex-wrap mt-0 gap-3 sm:gap-6"
                     >
                         <div class="mt-1 flex items-center text-sm">
                             <ph-calendar-blank
                                 weight="fill"
-                                class="icon text-gray-400 shrink-0 mr-1.5"
+                                class="icon text-primary-400 shrink-0 mr-1.5"
                                 aria-hidden="true"
                             />
                             <UseTimeAgo
                                 v-slot="{ timeAgo }"
                                 :time="regattas.selectedRegatta.start_date"
                             >
-                                <!-- TODO: v-tooltip (floating-vue) toevoegen met 'formatDate()' -->
-                                <span class="text-gray-500">
+                                <span
+                                    class="text-primary-500"
+                                    :title="
+                                        formatDate(
+                                            regattas.selectedRegatta.start_date,
+                                            true
+                                        )
+                                    "
+                                >
                                     {{ timeAgo }}
                                 </span>
                             </UseTimeAgo>
@@ -36,10 +43,10 @@
                         <div class="mt-1 flex items-center text-sm">
                             <ph-bookmark-simple
                                 weight="fill"
-                                class="icon text-gray-400 shrink-0 mr-1.5"
+                                class="icon text-primary-400 shrink-0 mr-1.5"
                                 aria-hidden="true"
                             />
-                            <span class="text-gray-500">
+                            <span class="text-primary-500">
                                 {{
                                     getRegattaTypeLabel(
                                         regattas.selectedRegatta.race_type
@@ -55,7 +62,7 @@
                 >
                     <button
                         type="button"
-                        class="relative bg-white p-1 rounded-full text-gray-600 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-secondary-500"
+                        class="relative bg-white p-1 rounded-full text-primary-600 hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-secondary-500"
                     >
                         <span class="sr-only">View notifications</span>
                         <ph-bell
@@ -88,7 +95,7 @@
                                         viewBox="0 0 20 20"
                                         fill="currentColor"
                                         aria-hidden="true"
-                                        class="w-8 h-8 text-gray-400 translate-y-1"
+                                        class="w-8 h-8 text-primary-400 translate-y-1"
                                     >
                                         <path
                                             fill-rule="evenodd"

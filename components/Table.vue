@@ -68,7 +68,7 @@
                 </div>
                 <div class="table-row-group divide-y divide-gray-200">
                     <template v-for="(item, index) in items" :key="item.id">
-                        <div
+                        <a
                             v-if="isInRange(index)"
                             :class="[
                                 activeId == item.id
@@ -76,12 +76,12 @@
                                     : 'bg-white odd:bg-gray-50 hover:bg-gray-100',
                                 'table-row cursor-pointer'
                             ]"
+                            @click="$emit('item-click', item)"
                         >
                             <div
                                 v-for="header in headers"
                                 :key="header.id"
                                 class="table-cell px-3 py-2 whitespace-nowrap"
-                                @click="$emit('item-click', item)"
                             >
                                 <slot
                                     :name="getSlotName(header.id)"
@@ -165,7 +165,7 @@
                                     </Transition>
                                 </Menu>
                             </div>
-                        </div>
+                        </a>
                     </template>
                 </div>
             </div>
@@ -209,7 +209,16 @@
 
 <script lang="ts" setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import { PhDotsThree, PhCaretDown, PhCaretUp } from 'phosphor-vue';
+import {
+    PhCalendarPlus,
+    PhCoinVertical,
+    PhListNumbers,
+    PhTrash,
+    PhPencil,
+    PhDotsThree,
+    PhCaretDown,
+    PhCaretUp
+} from 'phosphor-vue';
 
 import { TableHeader } from '~~/types/table-header.model';
 import { TableSortDirection } from '~~/types/table-sort-direction.model';

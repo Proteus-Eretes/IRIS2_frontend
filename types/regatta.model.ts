@@ -15,6 +15,16 @@ export interface RegattaDetail extends Regatta {
     lottery_settings: LotterySettings;
 }
 
+export interface NewRegatta {
+    name: string;
+    start_date: Date;
+    end_date: Date;
+    breaking_news: string;
+    correction_factor_type: string | null;
+    race_type: RegattaType;
+    venue_id: string;
+}
+
 export interface LotterySettings {
     maximumCrewsType: string;
     baseCrewPercentageOn: string;

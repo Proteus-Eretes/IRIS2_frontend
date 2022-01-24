@@ -55,12 +55,10 @@ interface Props {
     index: number;
     amount: number;
     spacing: number;
-    showText?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    index: 1,
-    showText: false
+    index: 1
 });
 
 const emits = defineEmits<{
