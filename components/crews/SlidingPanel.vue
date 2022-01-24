@@ -87,6 +87,7 @@
                 :items="rowers.allRowersOfSelectedCrew"
                 :activeId="rowers.selectedId"
                 @item-click="$emit('select-rower', $event.id)"
+                @action="performTableAction($event)"
             >
                 <template #position="{ item }">
                     <span class="badge text-white bg-primary-800">
@@ -125,6 +126,7 @@
                 :items="rowers.allCoachesOfSelectedCrew"
                 :activeId="rowers.selectedId"
                 @item-click="$emit('select-rower', $event.id)"
+                @action="performTableAction($event)"
             >
                 <template #position="{ item }">
                     <span class="badge text-white bg-primary-800">
@@ -163,6 +165,7 @@
                 :items="rowers.allCoxesOfSelectedCrew"
                 :activeId="rowers.selectedId"
                 @item-click="$emit('select-rower', $event.id)"
+                @action="performTableAction($event)"
             >
                 <template #position="{ item }">
                     <span class="badge text-white bg-primary-800">
@@ -251,7 +254,7 @@ import {
     getCrewStatusLabel,
     getTeamResultStatusLabel
 } from '~~/types/crew.model';
-import { RowerRole } from '~~/types/rower.model';
+import { Rower, RowerRole } from '~~/types/rower.model';
 import { TableHeader } from '~~/types/table-header.model';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
@@ -301,4 +304,21 @@ const finesTableHeader: TableHeader[] = [
     { id: 'Amount', sortable: false },
     { id: 'Date', sortable: false }
 ];
+
+const performTableAction = (action: { action: string; item: any }) => {
+    //FIXME: do the other actions
+    console.log(action.action, action.item);
+    switch (action.action) {
+        case 'edit':
+            break;
+        case 'delete':
+            deleteRower(action.item);
+            break;
+    }
+};
+
+const deleteRower = (rower: Rower) => {
+    const c = window.confirm('Are you sure you want to delete this rower?');
+    if (c) rowers.delete(rower.id);
+};
 </script>

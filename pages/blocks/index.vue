@@ -17,7 +17,7 @@
                         :items="blocks.allBlocks"
                         :activeId="blocks.selectedId"
                         @item-click="selectBlock($event.id)"
-                        @action=""
+                        @action="performTableAction($event)"
                         has-headers
                     >
                         <template #block="{ item }">
@@ -110,7 +110,7 @@ import { useRoundStore } from '~~/stores/round';
 import { useRowerStore } from '~~/stores/rower';
 import { useClubStore } from '~~/stores/club';
 
-import { getBlockStatusLabel } from '~~/types/block.model';
+import { Block, getBlockStatusLabel } from '~~/types/block.model';
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 import { TableHeader } from '~~/types/table-header.model';
 
@@ -136,6 +136,27 @@ const tableHeaders: TableHeader[] = [
     { id: 'Start time', sortable: false },
     { id: 'Status', sortable: false }
 ];
+
+const performTableAction = (action: { action: string; item: any }) => {
+    //FIXME: do the other actions
+    console.log(action.action, action.item);
+    switch (action.action) {
+        case 'assign':
+            break;
+        case 'lots':
+            break;
+        case 'shirts':
+            break;
+        case 'delete':
+            deleteBlock(action.item);
+            break;
+    }
+};
+
+const deleteBlock = (block: Block) => {
+    const c = window.confirm('Are you sure you want to delete this block?');
+    if (c) blocks.delete(block.id);
+};
 
 /*
  * useUrlSearchParams to add and delete search params in url:

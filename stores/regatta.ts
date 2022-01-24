@@ -1,7 +1,3 @@
-// add
-
-// delete
-
 // documentation
 
 // edit
@@ -70,8 +66,7 @@ export const useRegattaStore = defineStore('regattas', {
             };
         },
         delete(id: string) {
-            this.ids.splice(this.ids.findIndex((i: string) => i == id));
-
+            this.ids.splice(this.ids.indexOf(id), 1);
             delete this.entities[id];
         },
         edit(regatta: Regatta) {},

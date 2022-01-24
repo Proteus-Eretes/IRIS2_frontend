@@ -1,5 +1,3 @@
-// delete
-
 // edit
 
 // merge
@@ -174,9 +172,12 @@ export const useEventStore = defineStore('events', {
                 [field.id]: field
             };
         },
-        delete(event: Event) {},
+        deleteEvent(id: string) {
+            this.ids.splice(this.ids.indexOf(id), 1);
+            delete this.entities[id];
+        },
         deleteField(id: string) {
-            this.fieldIds.splice(this.fieldIds.indexOf(id));
+            this.fieldIds.splice(this.fieldIds.indexOf(id), 1);
             delete this.fieldEntities[id];
         },
         edit(event: Event) {},

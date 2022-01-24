@@ -17,7 +17,7 @@
                         :items="events.allEvents"
                         :activeId="events.selectedEventId"
                         @item-click="selectEvent($event.id)"
-                        @action=""
+                        @action="performTableAction($event)"
                         has-headers
                     >
                         <template #number="{ item }">
@@ -133,6 +133,7 @@ import { useClubStore } from '~~/stores/club';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 import { TableHeader } from '~~/types/table-header.model';
+import { Event } from '~~/types/event.model';
 
 const { formatDate } = useDateFormatter();
 
@@ -158,6 +159,23 @@ const tableHeaders: TableHeader[] = [
     { id: 'Category', sortable: false },
     { id: 'Boat type', sortable: false }
 ];
+
+const performTableAction = (action: { action: string; item: any }) => {
+    //FIXME: do the other actions
+    console.log(action.action, action.item);
+    switch (action.action) {
+        case 'edit':
+            break;
+        case 'delete':
+            deleteEvent(action.item);
+            break;
+    }
+};
+
+const deleteEvent = (event: Event) => {
+    const c = window.confirm('Are you sure you want to delete this event?');
+    if (c) events.deleteEvent(event.id);
+};
 
 /*
  * useUrlSearchParams to add and delete search params in url:

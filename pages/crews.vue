@@ -16,10 +16,11 @@
                     <Table
                         title="Crews"
                         :headers="tableHeaders"
+                        :actions="['edit', 'delete']"
                         :items="sortedCrews"
                         :activeId="crews.selectedCrewId"
                         @item-click="selectCrew($event.id)"
-                        @action=""
+                        @action="performTableAction($event)"
                         has-headers
                         v-model:sort-id="sortId"
                         v-model:sort-direction="sortDirection"
@@ -160,6 +161,23 @@ const tableHeaders: TableHeader[] = [
     { id: 'Stroke', sortable: false },
     { id: 'Status', sortable: false }
 ];
+
+const performTableAction = (action: { action: string; item: any }) => {
+    //FIXME: do the other actions
+    console.log(action.action, action.item);
+    switch (action.action) {
+        case 'edit':
+            break;
+        case 'delete':
+            deleteCrew(action.item);
+            break;
+    }
+};
+
+const deleteCrew = (crew: Crew) => {
+    const c = window.confirm('Are you sure you want to delete this crew?');
+    if (c) crews.deleteCrew(crew.id);
+};
 
 const sortId = ref(tableHeaders[1].sortId);
 const sortDirection = ref(TableSortDirection.DOWN);

@@ -1,5 +1,3 @@
-// delete
-
 // edit
 
 // removeData
@@ -316,7 +314,10 @@ export const useCrewStore = defineStore('crews', {
                 [crew.id]: crew
             };
         },
-        delete(crew: Crew) {},
+        deleteCrew(id: string) {
+            this.ids.splice(this.ids.indexOf(id), 1);
+            delete this.entities[id];
+        },
         edit(crew: Crew) {},
         lotterySettings() {}
     }

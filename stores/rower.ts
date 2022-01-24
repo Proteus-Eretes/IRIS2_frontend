@@ -1,5 +1,3 @@
-// delete
-
 // edit
 
 // getRowerInformation
@@ -170,7 +168,13 @@ export const useRowerStore = defineStore('rowers', {
                 [rower.id]: rower
             };
         },
-        delete(rower: Rower) {},
+        delete(id: string) {
+            this.ids.splice(this.ids.indexOf(id), 1);
+            delete this.entities[id];
+
+            this.detailIds.splice(this.detailIds.indexOf(id), 1);
+            delete this.detailEntities[id];
+        },
         edit(rower: Rower) {},
         lotterySettings() {}
     }

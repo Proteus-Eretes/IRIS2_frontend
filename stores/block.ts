@@ -6,8 +6,6 @@
 
 // assignRounds
 
-// delete
-
 // drawBlock
 
 // drawLots
@@ -85,7 +83,10 @@ export const useBlockStore = defineStore('blocks', {
                 [block.id]: block
             };
         },
-        delete(block: Block) {},
+        delete(id: string) {
+            this.ids.splice(this.ids.indexOf(id), 1);
+            delete this.entities[id];
+        },
         edit(block: Block) {},
         lotterySettings() {}
     }

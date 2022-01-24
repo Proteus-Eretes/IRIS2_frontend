@@ -68,7 +68,7 @@
                 </div>
                 <div class="table-row-group divide-y divide-gray-200">
                     <template v-for="(item, index) in items" :key="item.id">
-                        <a
+                        <div
                             v-if="isInRange(index)"
                             :class="[
                                 activeId == item.id
@@ -76,19 +76,19 @@
                                     : 'bg-white odd:bg-gray-50 hover:bg-gray-100',
                                 'table-row cursor-pointer'
                             ]"
-                            @click="$emit('item-click', item)"
                         >
-                            <div
+                            <a
                                 v-for="header in headers"
                                 :key="header.id"
                                 class="table-cell px-3 py-2 whitespace-nowrap"
+                                @click="$emit('item-click', item)"
                             >
                                 <slot
                                     :name="getSlotName(header.id)"
                                     :item="item"
                                     :index="index"
                                 />
-                            </div>
+                            </a>
 
                             <div
                                 v-if="actions"
@@ -165,7 +165,7 @@
                                     </Transition>
                                 </Menu>
                             </div>
-                        </a>
+                        </div>
                     </template>
                 </div>
             </div>
