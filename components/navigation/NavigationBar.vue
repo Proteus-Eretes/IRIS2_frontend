@@ -1,10 +1,10 @@
 <template>
     <nav class="bg-white drop-shadow-sm">
         <div class="px-2 sm:px-6 lg:px-8">
-            <div class="relative flex items-center justify-between h-24">
+            <div class="relative flex h-24 items-center justify-between">
                 <div class="flex-1">
                     <h1
-                        class="text-2xl font-semibold leading-7 text-primary-900 sm:text-3xl sm:truncate"
+                        class="text-2xl font-semibold leading-7 text-primary-900 sm:truncate sm:text-3xl"
                     >
                         <!-- FIXME: Node hydration -->
                         {{
@@ -15,12 +15,12 @@
                     </h1>
                     <div
                         v-if="regattas.selectedRegatta"
-                        class="flex flex-row flex-wrap mt-0 gap-3 sm:gap-6"
+                        class="mt-0 flex flex-row flex-wrap gap-3 sm:gap-6"
                     >
                         <div class="mt-1 flex items-center text-sm">
                             <ph-calendar-blank
                                 weight="fill"
-                                class="icon text-primary-400 shrink-0 mr-1.5"
+                                class="icon mr-1.5 shrink-0 text-primary-400"
                                 aria-hidden="true"
                             />
                             <UseTimeAgo
@@ -43,7 +43,7 @@
                         <div class="mt-1 flex items-center text-sm">
                             <ph-bookmark-simple
                                 weight="fill"
-                                class="icon text-primary-400 shrink-0 mr-1.5"
+                                class="icon mr-1.5 shrink-0 text-primary-400"
                                 aria-hidden="true"
                             />
                             <span class="text-primary-500">
@@ -62,7 +62,7 @@
                 >
                     <button
                         type="button"
-                        class="relative bg-white p-1 rounded-full text-primary-600 hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-secondary-500"
+                        class="relative rounded-full bg-white p-1 text-primary-600 hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2 focus:ring-offset-white"
                     >
                         <span class="sr-only">View notifications</span>
                         <ph-bell
@@ -75,19 +75,19 @@
                                 regattas.selectedRegatta &&
                                 regattas.selectedRegatta.breaking_news
                             "
-                            class="w-2.5 h-2.5 absolute top-1 right-1 rounded-full bg-secondary-500"
+                            class="absolute top-1 right-1 h-2.5 w-2.5 rounded-full bg-secondary-500"
                         />
                     </button>
 
                     <!-- Profile dropdown -->
-                    <Menu as="div" class="ml-3 relative">
+                    <Menu as="div" class="relative ml-3">
                         <div>
                             <MenuButton
-                                class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-secondary-500"
+                                class="flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2 focus:ring-offset-white"
                             >
                                 <span class="sr-only">Open user menu</span>
                                 <div
-                                    class="flex justify-center h-8 w-8 rounded-full bg-gray-100 overflow-hidden text-center"
+                                    class="flex h-8 w-8 justify-center overflow-hidden rounded-full bg-gray-100 text-center"
                                 >
                                     <!-- UserIcon -->
                                     <svg
@@ -95,7 +95,7 @@
                                         viewBox="0 0 20 20"
                                         fill="currentColor"
                                         aria-hidden="true"
-                                        class="w-8 h-8 text-primary-400 translate-y-1"
+                                        class="h-8 w-8 translate-y-1 text-primary-400"
                                     >
                                         <path
                                             fill-rule="evenodd"
@@ -115,7 +115,7 @@
                             leave-to-class="opacity-0 scale-95"
                         >
                             <MenuItems
-                                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                class="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                             >
                                 <MenuItem v-slot="{ active }">
                                     <a

@@ -1,8 +1,8 @@
 <template>
-    <div class="w-full h-full">
+    <div class="h-full w-full">
         <div class="assign-container">
             <Panel
-                class="min-w-1/3 md:min-w-1/4 max-h-screen"
+                class="max-h-screen min-w-1/3 md:min-w-1/4"
                 :showPanel="true"
             >
                 <template #header>Available events</template>
@@ -16,7 +16,7 @@
                         revertClone: true
                     }"
                     item-key="id"
-                    class="flex flex-col h-full gap-1"
+                    class="flex h-full flex-col gap-1"
                     ghost-class="hidden"
                 >
                     <template #item="{ element }">
@@ -34,7 +34,7 @@
             </Panel>
 
             <div
-                class="grid grid-cols-2 md:grid-cols-3 grid-flow-row items-stretch gap-3 pl-3 w-full"
+                class="grid w-full grid-flow-row grid-cols-2 items-stretch gap-3 pl-3 md:grid-cols-3"
             >
                 <Panel
                     v-for="block in blocks.allBlocks"
@@ -51,9 +51,9 @@
                             :key="round.id"
                         >
                             <fieldset
-                                class="border-2 border-primary-500 rounded-md p-1.5"
+                                class="rounded-md border-2 border-primary-500 p-1.5"
                             >
-                                <legend class="text-primary-600 px-1">
+                                <legend class="px-1 text-primary-600">
                                     {{ round.name }}
                                 </legend>
 
@@ -70,7 +70,7 @@
                                         changeList($event, block.id, round.id)
                                     "
                                     item-key="id"
-                                    class="flex flex-col h-full gap-1"
+                                    class="flex h-full flex-col gap-1"
                                     ghost-class="assign-event-ghost"
                                 >
                                     <template #item="{ element }">
@@ -128,14 +128,14 @@
                     :key="round.id"
                     class="flex items-start"
                 >
-                    <div class="flex items-center h-5">
+                    <div class="flex h-5 items-center">
                         <input
                             :id="round.id"
                             :name="round.id"
                             type="checkbox"
                             :value="round.id"
                             v-model="roundList"
-                            class="focus:ring-secondary-400 h-4 w-4 text-secondary-500 border-gray-300 rounded"
+                            class="h-4 w-4 rounded border-gray-300 text-secondary-500 focus:ring-secondary-400"
                         />
                     </div>
                     <div class="ml-3 text-sm">
@@ -233,11 +233,11 @@ export default defineComponent({
 
 <style scoped>
 .assign-event-ghost {
-    @apply text-opacity-0
-        border-2
+    @apply border-2
         border-dashed
-        bg-transparent
         border-primary-200
+        bg-transparent
+        text-opacity-0
         shadow-none;
 }
 </style>

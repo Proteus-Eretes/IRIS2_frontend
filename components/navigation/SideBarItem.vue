@@ -12,14 +12,14 @@
             <div
                 :class="[
                     isExactActive
-                        ? 'text-white bg-secondary-500 hover:bg-secondary-400'
+                        ? 'bg-secondary-500 text-white hover:bg-secondary-400'
                         : 'text-primary-300 hover:bg-primary-600',
-                    'flex group space-x-3 hover:text-white px-3 py-2 rounded-md text-base font-medium'
+                    'group flex space-x-3 rounded-md px-3 py-2 text-base font-medium hover:text-white'
                 ]"
             >
                 <component
                     :is="getIcon(item.icon)"
-                    class="w-6 h-6 text-primary-100 group-hover:text-white"
+                    class="h-6 w-6 text-primary-100 group-hover:text-white"
                     aria-hidden="true"
                 />
                 <span v-show="showText">{{ item.name }}</span>
@@ -37,9 +37,9 @@
                         <div
                             :class="[
                                 isExactActive
-                                    ? 'text-white bg-secondary-500 hover:bg-secondary-400'
+                                    ? 'bg-secondary-500 text-white hover:bg-secondary-400'
                                     : 'text-primary-300 hover:bg-primary-600',
-                                'hover:text-white px-3 py-2 ml-9 rounded-md text-base font-medium flex space-x-3'
+                                'ml-9 flex space-x-3 rounded-md px-3 py-2 text-base font-medium hover:text-white'
                             ]"
                         >
                             {{ subItem.name }}

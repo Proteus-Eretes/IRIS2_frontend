@@ -2,7 +2,7 @@
     <TransitionRoot as="template" :show="open">
         <Dialog
             as="div"
-            class="fixed inset-0 overflow-hidden z-40"
+            class="fixed inset-0 z-40 overflow-hidden"
             @close="$emit('update:open', false)"
         >
             <div class="absolute inset-0 overflow-hidden">
@@ -19,7 +19,7 @@
                         class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
                     />
                 </TransitionChild>
-                <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
+                <div class="fixed inset-y-0 right-0 flex max-w-full pl-10">
                     <TransitionChild
                         as="template"
                         enter="transition ease-in-out duration-300 sm:duration-500"
@@ -35,13 +35,13 @@
                                     $emit('save');
                                     $emit('update:open', false);
                                 "
-                                class="h-full flex flex-col bg-white shadow-xl overflow-y-scroll"
+                                class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl"
                             >
                                 <div
-                                    class="py-6 px-4 sm:px-6 h-24 border-b border-gray-200"
+                                    class="h-24 border-b border-gray-200 py-6 px-4 sm:px-6"
                                 >
                                     <DialogTitle
-                                        class="flex flex-row h-full items-center justify-between"
+                                        class="flex h-full flex-row items-center justify-between"
                                     >
                                         <div>
                                             <h5
@@ -75,7 +75,7 @@
                                 </div>
 
                                 <div
-                                    class="relative grow overflow-y-scroll px-4 py-5 space-y-6 sm:px-6"
+                                    class="relative grow space-y-6 overflow-y-scroll px-4 py-5 sm:px-6"
                                 >
                                     <div class="grid grid-cols-6 gap-6">
                                         <slot />
@@ -83,7 +83,7 @@
                                 </div>
 
                                 <div
-                                    class="px-6 py-4 border-t border-gray-200 text-right space-x-2"
+                                    class="space-x-2 border-t border-gray-200 px-6 py-4 text-right"
                                 >
                                     <button
                                         type="reset"

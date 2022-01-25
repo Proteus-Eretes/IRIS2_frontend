@@ -26,7 +26,7 @@
                 class="px-2"
             >
                 <template #name="{ item }">
-                    <span class="badge text-white bg-primary-800">
+                    <span class="badge bg-primary-800 text-white">
                         {{ item.name }}
                     </span>
                 </template>
@@ -38,10 +38,10 @@
                 :items="events.allFieldsOfSelectedBlock"
                 :activeId="events.selectedFieldId"
                 @item-click="$emit('select-field', $event.id)"
-                class="pb-2 px-2"
+                class="px-2 pb-2"
             >
                 <template #code="{ item }">
-                    <span class="badge text-white bg-primary-800">
+                    <span class="badge bg-primary-800 text-white">
                         {{
                             events.getEventById(item.event_id)
                                 ? events.getEventById(item.event_id).code

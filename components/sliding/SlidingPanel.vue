@@ -12,7 +12,7 @@
             type="button"
             :class="[
                 isMuted ? '' : 'hidden',
-                'block absolute inset-0 rounded-md bg-black opacity-0 hover:opacity-30 transition-opacity'
+                'absolute inset-0 block rounded-md bg-black opacity-0 transition-opacity hover:opacity-30'
             ]"
             @click="$emit('focus')"
         >

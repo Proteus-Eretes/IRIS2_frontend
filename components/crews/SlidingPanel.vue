@@ -22,7 +22,7 @@
 
         <div v-if="crews.selectedCrew" class="p-2">
             <div
-                class="grid grid-cols-2 md:grid-cols-3 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
+                class="grid w-full grid-cols-2 gap-3 rounded-md border border-gray-200 bg-white p-3 text-xs md:grid-cols-3"
             >
                 <div>
                     <h6 class="font-semibold">Shirt number(s)</h6>
@@ -90,7 +90,7 @@
                 @action="performTableAction($event)"
             >
                 <template #position="{ item }">
-                    <span class="badge text-white bg-primary-800">
+                    <span class="badge bg-primary-800 text-white">
                         {{ item.position }}
                     </span>
                 </template>
@@ -102,13 +102,13 @@
                 </template>
 
                 <template #gender="{ item }">
-                    <span class="pill text-white bg-primary-400">
+                    <span class="pill bg-primary-400 text-white">
                         {{ item.gender }}
                     </span>
                 </template>
             </Table>
 
-            <div class="w-full p-2 flex justify-center">
+            <div class="flex w-full justify-center p-2">
                 <button
                     type="button"
                     class="button icon-button button-secondary"
@@ -129,7 +129,7 @@
                 @action="performTableAction($event)"
             >
                 <template #position="{ item }">
-                    <span class="badge text-white bg-primary-800">
+                    <span class="badge bg-primary-800 text-white">
                         {{ item.position }}
                     </span>
                 </template>
@@ -141,13 +141,13 @@
                 </template>
 
                 <template #gender="{ item }">
-                    <span class="pill text-white bg-primary-400">
+                    <span class="pill bg-primary-400 text-white">
                         {{ item.gender }}
                     </span>
                 </template>
             </Table>
 
-            <div class="w-full p-2 flex justify-center">
+            <div class="flex w-full justify-center p-2">
                 <button
                     type="button"
                     class="button icon-button button-secondary"
@@ -168,7 +168,7 @@
                 @action="performTableAction($event)"
             >
                 <template #position="{ item }">
-                    <span class="badge text-white bg-primary-800">
+                    <span class="badge bg-primary-800 text-white">
                         {{ item.position }}
                     </span>
                 </template>
@@ -180,13 +180,13 @@
                 </template>
 
                 <template #gender="{ item }">
-                    <span class="pill text-white bg-primary-400">
+                    <span class="pill bg-primary-400 text-white">
                         {{ item.gender }}
                     </span>
                 </template>
             </Table>
 
-            <div class="w-full p-2 flex justify-center">
+            <div class="flex w-full justify-center p-2">
                 <button
                     type="button"
                     class="button icon-button button-secondary"
@@ -219,7 +219,7 @@
             </Table>
 
             <!-- FIXME: Add fine -->
-            <div class="w-full p-2 flex justify-center">
+            <div class="flex w-full justify-center p-2">
                 <button
                     type="button"
                     class="button icon-button button-secondary"

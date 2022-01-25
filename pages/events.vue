@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-full">
+    <div class="h-full w-full">
         <div class="sliding-container">
             <SlidingPanel
                 :index="0"
@@ -21,7 +21,7 @@
                         has-headers
                     >
                         <template #number="{ item }">
-                            <span class="badge text-white bg-primary-800">
+                            <span class="badge bg-primary-800 text-white">
                                 {{ item.number }}
                             </span>
                         </template>
@@ -65,7 +65,7 @@
                         <template #category="{ item }">
                             <span
                                 v-if="item.category"
-                                class="pill text-white bg-primary-400"
+                                class="pill bg-primary-400 text-white"
                             >
                                 {{ item.category }}
                             </span>
@@ -78,7 +78,7 @@
                         </template>
                     </Table>
 
-                    <div class="w-full p-2 flex justify-center">
+                    <div class="flex w-full justify-center p-2">
                         <button
                             type="button"
                             class="button icon-button button-secondary"

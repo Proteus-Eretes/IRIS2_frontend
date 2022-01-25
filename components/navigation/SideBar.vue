@@ -2,7 +2,7 @@
     <nav
         :class="[
             sideBarCollapsed ? 'w-side-bar-collapse' : 'w-side-bar',
-            'h-full flex flex-col'
+            'flex h-full flex-col'
         ]"
     >
         <div class="flex items-end justify-end bg-secondary-500">
@@ -11,15 +11,15 @@
             >
                 <NavigationIrisLogo
                     v-if="!sideBarCollapsed"
-                    class="text-white w-64 h-24"
+                    class="h-24 w-64 text-white"
                 />
-                <div v-else class="w-16 h-24" />
+                <div v-else class="h-24 w-16" />
             </NuxtLink>
         </div>
 
         <div class="grow bg-primary-700">
             <section v-if="regattas.selectedRegatta != null">
-                <ul class="px-2 pt-3 pb-3 space-y-1">
+                <ul class="space-y-1 px-2 pt-3 pb-3">
                     <li v-for="item in main.mainNavigation" :key="item.name">
                         <NavigationSideBarItem
                             :item="item"
@@ -32,11 +32,11 @@
             <section v-if="regattas.selectedRegatta != null">
                 <p
                     v-if="!sideBarCollapsed"
-                    class="pt-3 px-5 text-primary-500 text-sm font-medium uppercase"
+                    class="px-5 pt-3 text-sm font-medium uppercase text-primary-500"
                 >
                     During the competition
                 </p>
-                <ul class="px-2 pt-2 pb-3 space-y-1">
+                <ul class="space-y-1 px-2 pt-2 pb-3">
                     <li
                         v-for="item in main.competitionNavigation"
                         :key="item.name"
@@ -52,11 +52,11 @@
             <section>
                 <p
                     v-if="!sideBarCollapsed"
-                    class="pt-3 px-5 text-primary-500 text-sm font-medium uppercase"
+                    class="px-5 pt-3 text-sm font-medium uppercase text-primary-500"
                 >
                     IRIS admin
                 </p>
-                <ul class="px-2 pt-2 pb-3 space-y-1">
+                <ul class="space-y-1 px-2 pt-2 pb-3">
                     <li v-for="item in main.adminNavigation" :key="item.name">
                         <NavigationSideBarItem
                             :item="item"
@@ -67,22 +67,22 @@
             </section>
 
             <section>
-                <ul class="px-2 pt-2 space-y-1">
+                <ul class="space-y-1 px-2 pt-2">
                     <li>
                         <button
                             @click="toggleSideBar()"
                             :class="[
-                                'flex group w-full space-x-3 text-primary-500 hover:text-white hover:bg-primary-600 px-3 py-2 rounded-md text-base font-medium'
+                                'group flex w-full space-x-3 rounded-md px-3 py-2 text-base font-medium text-primary-500 hover:bg-primary-600 hover:text-white'
                             ]"
                         >
                             <ph-caret-double-right
                                 v-if="sideBarCollapsed"
-                                class="w-6 h-6 text-primary-500 group-hover:text-white"
+                                class="h-6 w-6 text-primary-500 group-hover:text-white"
                                 aria-hidden="true"
                             />
                             <ph-caret-double-left
                                 v-else
-                                class="w-6 h-6 text-primary-500 group-hover:text-white"
+                                class="h-6 w-6 text-primary-500 group-hover:text-white"
                                 aria-hidden="true"
                             />
                             <span v-show="!sideBarCollapsed">Collapse</span>

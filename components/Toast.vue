@@ -1,6 +1,6 @@
 <template>
     <TransitionRoot as="template" :show="open">
-        <div class="fixed top-0 right-0 overflow-hidden z-50">
+        <div class="fixed top-0 right-0 z-50 overflow-hidden">
             <TransitionChild
                 as="template"
                 enter="transform ease-out duration-300 transition"
@@ -13,7 +13,7 @@
                 <div
                     :class="[
                         !toast.primary ? 'max-w-sm' : 'max-w-md',
-                        'p-3 w-screen'
+                        'w-screen p-3'
                     ]"
                 >
                     <div
@@ -22,7 +22,7 @@
                             toast.type == ToastType.DENIED
                                 ? 'bg-danger-600'
                                 : 'bg-white',
-                            'shadow-lg rounded-lg relative overflow-hidden p-3'
+                            'relative overflow-hidden rounded-lg p-3 shadow-lg'
                         ]"
                     >
                         <div class="flex items-start">
@@ -34,7 +34,7 @@
                                         toast.type == ToastType.DENIED
                                             ? 'text-danger-100'
                                             : 'text-gray-900',
-                                        'text-sm leading-5 font-medium'
+                                        'text-sm font-medium leading-5'
                                     ]"
                                 >
                                     {{ toast.title }}
@@ -52,7 +52,7 @@
                             </div>
                             <div class="ml-4 shrink-0">
                                 <button
-                                    class="inline-flex text-gray-400 transition ease-in-out duration-150 focus:outline-none focus:text-gray-500"
+                                    class="inline-flex text-gray-400 transition duration-150 ease-in-out focus:text-gray-500 focus:outline-none"
                                     @click="destroy"
                                 >
                                     <ph-x
@@ -73,11 +73,11 @@
                             toast.type == ToastType.DENIED
                                 ? 'bg-danger-600'
                                 : 'bg-white',
-                            'shadow-lg rounded-lg'
+                            'rounded-lg shadow-lg'
                         ]"
                     >
-                        <div class="flex rounded-lg shadow-xs">
-                            <div class="grow flex items-center p-3">
+                        <div class="shadow-xs flex rounded-lg">
+                            <div class="flex grow items-center p-3">
                                 <ToastIcon class="mr-4" :type="toast.type" />
                                 <div class="w-full">
                                     <p
@@ -86,7 +86,7 @@
                                             toast.type == ToastType.DENIED
                                                 ? 'text-danger-100'
                                                 : 'text-gray-900',
-                                            'text-sm leading-5 font-medium'
+                                            'text-sm font-medium leading-5'
                                         ]"
                                     >
                                         {{ toast.title }}
@@ -109,24 +109,24 @@
                                         class="flex grow border-b border-gray-200"
                                     >
                                         <button
-                                            class="flex items-center justify-center w-full rounded-tr-lg border border-transparent px-4 py-1 text-sm leading-5 font-medium transition ease-in-out duration-150 focus:outline-none"
+                                            class="flex w-full items-center justify-center rounded-tr-lg border border-transparent px-4 py-1 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none"
                                             :class="[
                                                 toast.type == ToastType.DENIED
                                                     ? 'text-danger-100'
-                                                    : 'text-secondary-500 hover:text-secondary-400 focus:shadow-outline-blue'
+                                                    : 'focus:shadow-outline-blue text-secondary-500 hover:text-secondary-400'
                                             ]"
                                             @click="primaryAction"
                                         >
                                             {{ toast.primary.label }}
                                         </button>
                                     </div>
-                                    <div class="grow flex">
+                                    <div class="flex grow">
                                         <button
-                                            class="flex items-center justify-center w-full rounded-br-lg border border-transparent px-4 py-1 text-sm leading-5 font-medium transition ease-in-out duration-150 focus:outline-none"
+                                            class="flex w-full items-center justify-center rounded-br-lg border border-transparent px-4 py-1 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none"
                                             :class="
                                                 toast.type == ToastType.DENIED
                                                     ? ''
-                                                    : 'text-gray-700 hover:text-gray-500 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50'
+                                                    : 'focus:shadow-outline-blue text-gray-700 hover:text-gray-500 active:bg-gray-50 active:text-gray-800'
                                             "
                                             @click="secondaryAction"
                                         >
@@ -143,19 +143,19 @@
                             toast.type == ToastType.DENIED
                                 ? 'bg-danger-600'
                                 : 'bg-white',
-                            'shadow-lg rounded-lg'
+                            'rounded-lg shadow-lg'
                         ]"
                     >
-                        <div class="rounded-lg shadow-xs overflow-hidden p-4">
+                        <div class="shadow-xs overflow-hidden rounded-lg p-4">
                             <div class="flex items-center">
                                 <ToastIcon class="mr-4" :type="toast.type" />
-                                <div class="grow flex justify-between">
+                                <div class="flex grow justify-between">
                                     <p
                                         class="grow text-sm leading-5"
                                         v-html="toast.message"
                                     ></p>
                                     <button
-                                        class="ml-3 shrink-0 text-sm leading-5 font-medium transition ease-in-out duration-150 focus:outline-none"
+                                        class="ml-3 shrink-0 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none"
                                         :class="
                                             toast.type == ToastType.DENIED
                                                 ? ''
@@ -166,9 +166,9 @@
                                         {{ toast.primary.label }}
                                     </button>
                                 </div>
-                                <div class="ml-4 shrink-0 flex">
+                                <div class="ml-4 flex shrink-0">
                                     <button
-                                        class="inline-flex text-gray-400 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150"
+                                        class="inline-flex text-gray-400 transition duration-150 ease-in-out focus:text-gray-500 focus:outline-none"
                                         @click="destroy"
                                     >
                                         <ph-x

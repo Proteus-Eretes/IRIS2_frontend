@@ -22,7 +22,7 @@
             class="p-2"
         >
             <div
-                class="grid grid-cols-2 md:grid-cols-3 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
+                class="grid w-full grid-cols-2 gap-3 rounded-md border border-gray-200 bg-white p-3 text-xs md:grid-cols-3"
             >
                 <div>
                     <h6 class="font-semibold">Event code</h6>
@@ -80,7 +80,7 @@
                 </template>
             </Table>
 
-            <div class="w-full p-2 flex justify-center">
+            <div class="flex w-full justify-center p-2">
                 <button
                     type="button"
                     class="button icon-button button-secondary"

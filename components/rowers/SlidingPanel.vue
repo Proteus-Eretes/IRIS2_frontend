@@ -11,7 +11,7 @@
 
         <div v-if="rowers.selectedRowerDetail" class="p-2">
             <div
-                class="grid grid-cols-3 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
+                class="grid w-full grid-cols-3 gap-3 rounded-md border border-gray-200 bg-white p-3 text-xs"
             >
                 <div>
                     <h6 class="font-semibold">First name</h6>
@@ -60,7 +60,7 @@
         </div>
         <div v-else-if="rowers.selectedRower" class="p-2">
             <div
-                class="grid grid-cols-3 gap-3 p-3 bg-white border border-gray-200 rounded-md w-full text-xs"
+                class="grid w-full grid-cols-3 gap-3 rounded-md border border-gray-200 bg-white p-3 text-xs"
             >
                 <div>
                     <h6 class="font-semibold">Full name</h6>

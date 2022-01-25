@@ -1,10 +1,10 @@
 <template>
     <nav
-        class="relative z-0 inline-flex rounded-md -space-x-px"
+        class="relative z-0 inline-flex -space-x-px rounded-md"
         aria-label="Pagination"
     >
         <button
-            class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 disabled:text-gray-300 hover:bg-gray-50"
+            class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:text-gray-300"
             @click="$emit('update:index', index - 1)"
             :disabled="index == min"
         >
@@ -13,7 +13,7 @@
         </button>
         <span
             v-if="isTooWide && index - 1 > min"
-            class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700"
+            class="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700"
         >
             ...
         </span>
@@ -23,9 +23,9 @@
             aria-current="page"
             :class="[
                 i == index
-                    ? 'z-10 bg-secondary-50 border-secondary-500 text-secondary-600'
-                    : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50',
-                'relative inline-flex items-center px-4 py-2 border text-sm font-medium'
+                    ? 'z-10 border-secondary-500 bg-secondary-50 text-secondary-600'
+                    : 'border-gray-300 bg-white text-gray-500 hover:bg-gray-50',
+                'relative inline-flex items-center border px-4 py-2 text-sm font-medium'
             ]"
             @click="$emit('update:index', i)"
         >
@@ -33,12 +33,12 @@
         </button>
         <span
             v-if="isTooWide && index + 1 < max"
-            class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700"
+            class="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700"
         >
             ...
         </span>
         <button
-            class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 disabled:text-gray-300 hover:bg-gray-50"
+            class="relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:text-gray-300"
             @click="$emit('update:index', index + 1)"
             :disabled="index == max"
         >

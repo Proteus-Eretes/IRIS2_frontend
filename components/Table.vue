@@ -3,7 +3,7 @@
         <div class="flex items-end">
             <h3
                 v-if="!hasHeaders"
-                class="grow pl-1 py-1 mt-2 text-xs font-medium uppercase"
+                class="mt-2 grow py-1 pl-1 text-xs font-medium uppercase"
             >
                 {{ title }}
             </h3>
@@ -47,12 +47,12 @@
                                                 TableSortDirection.UP
                                         "
                                         weight="bold"
-                                        class="w-4 h-4"
+                                        class="h-4 w-4"
                                     />
                                     <ph-caret-down
                                         v-else
                                         weight="bold"
-                                        class="w-4 h-4"
+                                        class="h-4 w-4"
                                     />
                                 </a>
                             </div>
@@ -60,7 +60,7 @@
                         <div
                             v-if="actions"
                             scope="col"
-                            class="table-cell relative px-3 py-2"
+                            class="relative table-cell px-3 py-2"
                         >
                             <span class="sr-only">Actions</span>
                         </div>
@@ -80,7 +80,7 @@
                             <a
                                 v-for="header in headers"
                                 :key="header.id"
-                                class="table-cell px-3 py-2 whitespace-nowrap"
+                                class="table-cell whitespace-nowrap px-3 py-2"
                                 @click="$emit('item-click', item)"
                             >
                                 <slot
@@ -96,7 +96,7 @@
                             >
                                 <Menu as="template">
                                     <MenuButton
-                                        class="rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-secondary-500"
+                                        class="rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2 focus:ring-offset-white"
                                     >
                                         <span class="sr-only">
                                             Open action menu
@@ -115,7 +115,7 @@
                                         leave-to-class="opacity-0 scale-95"
                                     >
                                         <MenuItems
-                                            class="origin-top-right absolute right-0 w-48 rounded-md shadow-lg py-1 text-left bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                            class="absolute right-0 w-48 origin-top-right rounded-md bg-white py-1 text-left shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                                         >
                                             <MenuItem
                                                 v-for="action in actions"
@@ -171,7 +171,7 @@
             </div>
         </div>
         <template v-else>
-            <div class="px-1 text-sm font-base text-gray-500">
+            <div class="font-base px-1 text-sm text-gray-500">
                 {{
                     errorMessage
                         ? errorMessage
@@ -184,12 +184,12 @@
             v-if="items.length > 10"
             :class="[
                 hasHeaders ? 'px-2' : '',
-                'py-2 flex items-center justify-between'
+                'flex items-center justify-between py-2'
             ]"
         >
             <select
                 v-model="maxRows"
-                class="rounded-md text-sm py-0.5 pl-2 pr-5 bg-[right_0.125rem_center] border border-gray-200 text-primary-700 bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-400"
+                class="rounded-md border border-gray-200 bg-white bg-[right_0.125rem_center] py-0.5 pl-2 pr-5 text-sm text-primary-700 focus:outline-none focus:ring-2 focus:ring-secondary-400 focus:ring-offset-2"
             >
                 <option :value="10">10 rows</option>
                 <option :value="15">15 rows</option>

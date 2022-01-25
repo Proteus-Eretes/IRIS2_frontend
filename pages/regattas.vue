@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 p-3">
+        <div class="grid grid-cols-2 gap-3 p-3 md:grid-cols-3">
             <template
                 v-for="(regatta, index) in regattas.allRegattas"
                 :key="regatta.id"
             >
                 <div class="panel group relative bg-white">
                     <div
-                        class="absolute hidden group-hover:block top-2 right-2 space-x-1"
+                        class="absolute top-2 right-2 hidden space-x-1 group-hover:block"
                     >
                         <button
                             type="button"
@@ -30,35 +30,35 @@
                         v-if="isInRange(index)"
                         :to="{ path: '/', query: { regatta: regatta.id } }"
                         @click="selectRegatta(regatta.id)"
-                        class="flex flex-col justify-center items-center p-3"
+                        class="flex flex-col items-center justify-center p-3"
                     >
                         <div
-                            class="flex justify-center items-center w-24 h-24 bg-primary-100 text-primary-500 rounded-full font-semibold text-3xl mb-3"
+                            class="mb-3 flex h-24 w-24 items-center justify-center rounded-full bg-primary-100 text-3xl font-semibold text-primary-500"
                             :title="getRegattaTypeLabel(regatta.race_type)"
                         >
                             <!-- {{ getYear(regatta.start_date) }} -->
                             <ph-arrows-counter-clockwise
                                 v-if="regatta.race_type == RegattaType.CHASE"
                                 weight="fill"
-                                class="w-14 h-14"
+                                class="h-14 w-14"
                             />
                             <ph-clock-counter-clockwise
                                 v-if="
                                     regatta.race_type == RegattaType.ALL_ROUND
                                 "
                                 weight="fill"
-                                class="w-14 h-14"
+                                class="h-14 w-14"
                             />
                         </div>
 
                         <span
-                            class="text-lg font-semibold leading-7 text-primary-900 sm:text-xl sm:truncate"
+                            class="text-lg font-semibold leading-7 text-primary-900 sm:truncate sm:text-xl"
                         >
                             {{ regatta.name }}
                         </span>
 
                         <span
-                            class="text-sm text-primary-400 sm:text-md sm:truncate"
+                            class="sm:text-md text-sm text-primary-400 sm:truncate"
                         >
                             {{ formatDate(regatta.start_date, true) }}
                         </span>
@@ -67,7 +67,7 @@
             </template>
         </div>
 
-        <div class="flex flex-col w-full p-2 gap-2 items-center justify-center">
+        <div class="flex w-full flex-col items-center justify-center gap-2 p-2">
             <TablePagination
                 v-if="regattas.allRegattas.length > maxItems"
                 v-model:index="paginationIndex"

@@ -92,7 +92,7 @@
 
         <!-- Weighed -->
         <div class="col-span-6 flex items-start">
-            <div class="flex items-center h-5">
+            <div class="flex h-5 items-center">
                 <input
                     id="weighed"
                     type="checkbox"

@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-full">
+    <div class="h-full w-full">
         <div class="sliding-container">
             <SlidingPanel
                 :index="0"
@@ -26,7 +26,7 @@
                         v-model:sort-direction="sortDirection"
                     >
                         <template #shirt-numbers="{ item }">
-                            <span class="badge text-white bg-primary-800">
+                            <span class="badge bg-primary-800 text-white">
                                 {{
                                     crews.shirtNumbersByCrew(item.id).join(', ')
                                 }}
@@ -71,13 +71,13 @@
                         </template>
 
                         <template #status="{ item }">
-                            <span class="pill text-white bg-primary-400">
+                            <span class="pill bg-primary-400 text-white">
                                 {{ getCrewStatusLabel(item.status) }}
                             </span>
                         </template>
                     </Table>
 
-                    <div class="w-full p-2 flex justify-center">
+                    <div class="flex w-full justify-center p-2">
                         <button
                             type="button"
                             class="button icon-button button-secondary"
