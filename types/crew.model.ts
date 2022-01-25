@@ -46,6 +46,7 @@ export interface NewCrew {
     alternative: string;
     combination: boolean;
     remarks: string;
+    status: CrewStatus;
 }
 
 export interface Team {
@@ -79,10 +80,10 @@ export interface Fine {
 }
 
 export enum CrewStatus {
-    ENTERED = 1,
-    WITHDRAWN_AFTER_LOTTERY_WITHOUT_FINE = 2,
-    WITHDRAWN_BEFORE_LOTTERY = 8,
-    WITHDRAWN_AFTER_LOTTERY_WITH_FINE = 16
+    ENTERED = '1',
+    WITHDRAWN_AFTER_LOTTERY_WITHOUT_FINE = '2',
+    WITHDRAWN_BEFORE_LOTTERY = '8',
+    WITHDRAWN_AFTER_LOTTERY_WITH_FINE = '16'
 }
 
 export function getCrewStatusLabel(status: CrewStatus) {

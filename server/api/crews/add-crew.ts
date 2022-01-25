@@ -13,7 +13,7 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
         regatta_id: newCrew.regatta_id,
         event_id: newCrew.event_id,
         sub_event_id: null,
-        status: null,
+        status: newCrew.status,
         displayStatus: null,
         clubName: newCrew.displayName,
         displayName: newCrew.displayName,

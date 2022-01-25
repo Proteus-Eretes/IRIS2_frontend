@@ -125,6 +125,25 @@
             <!-- TODO: get a description -->
             <p class="mt-2 text-sm text-gray-500">This is a description.</p>
         </div>
+
+        <!-- Status -->
+        <div class="col-span-6 sm:col-span-4">
+            <label for="status" class="form-label">Status</label>
+            <select
+                id="status"
+                v-model="addCrewData.status"
+                autocomplete="off"
+                class="form-select"
+            >
+                <option
+                    v-for="status in Object.values(CrewStatus)"
+                    :key="status"
+                    :value="status"
+                >
+                    {{ getCrewStatusLabel(status) }}
+                </option>
+            </select>
+        </div>
     </EditorSlideOver>
 </template>
 
@@ -133,7 +152,7 @@ import { useCrewStore } from '~~/stores/crew';
 import { useEventStore } from '~~/stores/event';
 import { useClubStore } from '~~/stores/club';
 
-import { NewCrew } from '~~/types/crew.model';
+import { CrewStatus, NewCrew, getCrewStatusLabel } from '~~/types/crew.model';
 
 const crews = useCrewStore();
 const events = useEventStore();
@@ -147,7 +166,8 @@ const initialState = {
     shortname: '',
     alternative: '',
     combination: false,
-    remarks: ''
+    remarks: '',
+    status: CrewStatus.ENTERED
 };
 
 const addCrewData: NewCrew = reactive({
