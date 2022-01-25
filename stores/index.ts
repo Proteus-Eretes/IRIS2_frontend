@@ -98,7 +98,10 @@ const getters = {
     }
 };
 
-const actions = {};
+const actions = {
+    // TODO: login flow
+    signOut() {}
+};
 
 export const useMainStore = defineStore('main', {
     state,

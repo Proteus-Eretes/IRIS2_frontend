@@ -119,7 +119,7 @@
                             >
                                 <MenuItem v-slot="{ active }">
                                     <a
-                                        href="#"
+                                        @click="main.signOut()"
                                         :class="[
                                             active ? 'bg-gray-100' : '',
                                             'icon-button text-danger-700'
@@ -141,7 +141,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useTimeAgo } from '@vueuse/core';
 import { UseTimeAgo } from '@vueuse/components';
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
@@ -152,13 +151,14 @@ import {
     PhSignOut
 } from 'phosphor-vue';
 
+import { useRegattaStore } from '~~/stores/regatta';
+import { useMainStore } from '~~/stores';
+
 import { getRegattaTypeLabel } from '~~/types/regatta.model';
 
-import { useRegattaStore } from '~~/stores/regatta';
+const main = useMainStore();
 const regattas = useRegattaStore();
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 const { formatDate } = useDateFormatter();
-
-// const timeAgo = useTimeAgo(new Date(2021, 0, 1));
 </script>
