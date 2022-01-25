@@ -83,7 +83,7 @@
             <Table
                 title="Rowers"
                 :headers="tableHeaders"
-                :actions="['delete']"
+                :actions="['edit', 'delete']"
                 :items="rowers.allRowersOfSelectedCrew"
                 :activeId="rowers.selectedId"
                 @item-click="$emit('select-rower', $event.id)"
@@ -122,7 +122,7 @@
             <Table
                 title="Coaches"
                 :headers="tableHeaders"
-                :actions="['delete']"
+                :actions="['edit', 'delete']"
                 :items="rowers.allCoachesOfSelectedCrew"
                 :activeId="rowers.selectedId"
                 @item-click="$emit('select-rower', $event.id)"
@@ -161,7 +161,7 @@
             <Table
                 title="Coxes"
                 :headers="tableHeaders"
-                :actions="['delete']"
+                :actions="['edit', 'delete']"
                 :items="rowers.allCoxesOfSelectedCrew"
                 :activeId="rowers.selectedId"
                 @item-click="$emit('select-rower', $event.id)"
@@ -201,7 +201,9 @@
                 title="Fines"
                 error-message="This crew didn't receive any fines"
                 :headers="finesTableHeader"
+                :actions="['edit', 'delete']"
                 :items="crews.allFinesOfSelectedCrew"
+                @action="performFineTableAction($event)"
             >
                 <template #amount="{ item }">
                     <span class="text-sm font-semibold">
@@ -216,6 +218,7 @@
                 </template>
             </Table>
 
+            <!-- FIXME: Add fine -->
             <div class="w-full p-2 flex justify-center">
                 <button
                     type="button"
@@ -251,6 +254,7 @@ import { useClubStore } from '~~/stores/club';
 import { useRowerStore } from '~~/stores/rower';
 
 import {
+    Fine,
     getCrewStatusLabel,
     getTeamResultStatusLabel
 } from '~~/types/crew.model';
@@ -316,9 +320,24 @@ const performTableAction = (action: { action: string; item: any }) => {
             break;
     }
 };
+const performFineTableAction = (action: { action: string; item: any }) => {
+    //FIXME: do the other actions
+    console.log(action.action, action.item);
+    switch (action.action) {
+        case 'edit':
+            break;
+        case 'delete':
+            deleteFine(action.item);
+            break;
+    }
+};
 
 const deleteRower = (rower: Rower) => {
     const c = window.confirm('Are you sure you want to delete this rower?');
     if (c) rowers.delete(rower.id);
+};
+const deleteFine = (fine: Fine) => {
+    const c = window.confirm('Are you sure you want to delete this fine?');
+    if (c) crews.deleteFine(fine.id);
 };
 </script>

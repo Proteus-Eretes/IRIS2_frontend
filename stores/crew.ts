@@ -318,6 +318,10 @@ export const useCrewStore = defineStore('crews', {
             this.ids.splice(this.ids.indexOf(id), 1);
             delete this.entities[id];
         },
+        deleteFine(id: string) {
+            this.fineIds.splice(this.fineIds.indexOf(id), 1);
+            delete this.fineEntities[id];
+        },
         edit(crew: Crew) {},
         lotterySettings() {}
     }
