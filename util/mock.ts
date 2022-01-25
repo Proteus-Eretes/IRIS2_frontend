@@ -274,7 +274,7 @@ export const clubDetailsMock: ClubDetail[] = [
 export const crewsMock: Crew[] = [
     {
         knrb_num: 307349,
-        status: 1,
+        status: CrewStatus.ENTERED,
         category: '',
         id: '11ec-4c5c-3fc524f4-82a0-fa53f5d3a545',
         club_id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
@@ -290,7 +290,7 @@ export const crewsMock: Crew[] = [
     },
     {
         knrb_num: 306926,
-        status: 1,
+        status: CrewStatus.ENTERED,
         category: '',
         id: '11ec-4c5c-3fe5828a-a2b3-fa53f5d3a545',
         club_id: '11ec-4c5c-3ee8e14c-b526-fa53f5d3a545',
@@ -306,7 +306,7 @@ export const crewsMock: Crew[] = [
     },
     {
         knrb_num: 306988,
-        status: 1,
+        status: CrewStatus.ENTERED,
         category: '',
         club_id: '11ec-4c5c-3ee51ad0-8251-fa53f5d3a545',
         id: '11ec-4c5c-3fdf94a6-a102-fa53f5d3a545',
@@ -322,7 +322,7 @@ export const crewsMock: Crew[] = [
     },
     {
         knrb_num: 307354,
-        status: 1,
+        status: CrewStatus.ENTERED,
         category: '',
         id: '11ec-4c5c-3fc7c164-80d5-fa53f5d3a545',
         club_id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
@@ -338,7 +338,7 @@ export const crewsMock: Crew[] = [
     },
     {
         knrb_num: 307569,
-        status: 1,
+        status: CrewStatus.ENTERED,
         category: '',
         id: '11ec-4c5c-3fdc7f00-8293-fa53f5d3a545',
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
@@ -354,7 +354,7 @@ export const crewsMock: Crew[] = [
     },
     {
         knrb_num: 307352,
-        status: 1,
+        status: CrewStatus.ENTERED,
         category: '',
         id: '11ec-4c5c-3fca771a-99fb-fa53f5d3a545',
         club_id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
@@ -370,7 +370,7 @@ export const crewsMock: Crew[] = [
     },
     {
         knrb_num: 307393,
-        status: 1,
+        status: CrewStatus.ENTERED,
         category: '',
         club_id: '11ec-4c5c-3ee7fbd8-bff9-fa53f5d3a545',
         id: '11ec-4c5c-3fd98df4-bce8-fa53f5d3a545',
@@ -386,7 +386,7 @@ export const crewsMock: Crew[] = [
     },
     {
         knrb_num: 307911,
-        status: 1,
+        status: CrewStatus.ENTERED,
         category: '',
         club_id: '11ec-4c5c-3ee51ad0-8251-fa53f5d3a545',
         id: '11ec-4c5c-3fe2883c-be9f-fa53f5d3a545',
@@ -402,7 +402,7 @@ export const crewsMock: Crew[] = [
     },
     {
         knrb_num: 307938,
-        status: 1,
+        status: CrewStatus.ENTERED,
         category: '',
         club_id: '11ec-4c5c-3ee60cb0-9976-fa53f5d3a545',
         id: '11ec-4c5c-3fd16890-92dc-fa53f5d3a545',
@@ -418,7 +418,7 @@ export const crewsMock: Crew[] = [
     },
     {
         knrb_num: 306981,
-        status: 1,
+        status: CrewStatus.ENTERED,
         category: '',
         club_id: '11ec-4c5c-3ee7fbd8-bff9-fa53f5d3a545',
         id: '11ec-4c5c-3fd6600c-a433-fa53f5d3a545',
@@ -434,7 +434,7 @@ export const crewsMock: Crew[] = [
     },
     {
         knrb_num: 307680,
-        status: 1,
+        status: CrewStatus.ENTERED,
         category: '',
         club_id: '11ec-4c5c-3ee6fe9a-b737-fa53f5d3a545',
         id: '11ec-4c5c-3fcd60d8-be4a-fa53f5d3a545',
@@ -453,7 +453,7 @@ export const crewsMock: Crew[] = [
 export const crewDetailsMock: CrewDetail[] = [
     {
         knrb_num: 307349,
-        status: 1,
+        status: CrewStatus.ENTERED,
         name: 'Alkmaarsche',
         shortname: 'Alkmaarsche',
         alternative: 'Alkmaarsche 1',
@@ -485,7 +485,7 @@ export const crewDetailsMock: CrewDetail[] = [
     },
     {
         knrb_num: 306926,
-        status: 1,
+        status: CrewStatus.ENTERED,
         name: 'Rijnmond',
         shortname: 'Rijnmond',
         alternative: 'Rijnmond',
@@ -517,7 +517,7 @@ export const crewDetailsMock: CrewDetail[] = [
     },
     {
         knrb_num: 306988,
-        status: 1,
+        status: CrewStatus.ENTERED,
         name: 'Nautilus',
         shortname: 'Nautilus',
         alternative: 'Nautilus 1',
@@ -549,7 +549,7 @@ export const crewDetailsMock: CrewDetail[] = [
     },
     {
         knrb_num: 307354,
-        status: 1,
+        status: CrewStatus.ENTERED,
         name: 'Alkmaarsche',
         shortname: 'Alkmaarsche',
         alternative: 'Alkmaarsche 2',
@@ -581,7 +581,7 @@ export const crewDetailsMock: CrewDetail[] = [
     },
     {
         knrb_num: 307569,
-        status: 1,
+        status: CrewStatus.ENTERED,
         name: 'Leythe',
         shortname: 'Leythe',
         alternative: 'Leythe/Skylla',
@@ -613,7 +613,7 @@ export const crewDetailsMock: CrewDetail[] = [
     },
     {
         knrb_num: 307352,
-        status: 1,
+        status: CrewStatus.ENTERED,
         name: 'Alkmaarsche',
         shortname: 'Alkmaarsche',
         alternative: 'Alkmaarsche 3',
@@ -645,7 +645,7 @@ export const crewDetailsMock: CrewDetail[] = [
     },
     {
         knrb_num: 307393,
-        status: 1,
+        status: CrewStatus.ENTERED,
         name: 'Gouda',
         shortname: 'Gouda',
         alternative: 'Gouda 2',
@@ -677,7 +677,7 @@ export const crewDetailsMock: CrewDetail[] = [
     },
     {
         knrb_num: 307911,
-        status: 1,
+        status: CrewStatus.ENTERED,
         name: 'Nautilus',
         shortname: 'Nautilus',
         alternative: 'Nautilus 2',
@@ -709,7 +709,7 @@ export const crewDetailsMock: CrewDetail[] = [
     },
     {
         knrb_num: 307938,
-        status: 1,
+        status: CrewStatus.ENTERED,
         name: 'Alphen',
         shortname: 'Alphen',
         alternative: 'Alphen',
@@ -741,7 +741,7 @@ export const crewDetailsMock: CrewDetail[] = [
     },
     {
         knrb_num: 306981,
-        status: 1,
+        status: CrewStatus.ENTERED,
         name: 'Gouda',
         shortname: 'Gouda',
         alternative: 'Gouda 1',
@@ -773,7 +773,7 @@ export const crewDetailsMock: CrewDetail[] = [
     },
     {
         knrb_num: 307680,
-        status: 1,
+        status: CrewStatus.ENTERED,
         name: 'Alkmaarsche',
         shortname: 'Alkmaarsche',
         alternative: 'Alkmaarsche 4',
@@ -867,7 +867,7 @@ export const eventDetailsMock: EventDetail[] = [
         category: '',
         boat_type: '',
         weighed: false,
-        sex: '',
+        gender: Gender.MAN,
         remarks: '',
         status: EventStatus.ONGOING,
         block_knrb: null,
@@ -1123,7 +1123,7 @@ export const rowerDetailsMock: RowerDetail[] = [
         crew_id: '11ec-4c5c-3fc524f4-82a0-fa53f5d3a545',
         role: RowerRole.ROWER,
         position: 1,
-        license: 124,
+        license: true,
         initals: 'TES',
         firstname: 'Test',
         middlename: 'Ernst',
@@ -1141,7 +1141,7 @@ export const rowerDetailsMock: RowerDetail[] = [
         crew_id: '11ec-4c5c-3fdf94a6-a102-fa53f5d3a545',
         role: RowerRole.ROWER,
         position: 2,
-        license: 126,
+        license: true,
         initals: 'TES 2',
         firstname: 'Test',
         middlename: 'Ernst',
@@ -1159,7 +1159,7 @@ export const rowerDetailsMock: RowerDetail[] = [
         crew_id: '11ec-4c5c-3fc524f4-82a0-fa53f5d3a545',
         role: RowerRole.ROWER,
         position: 8,
-        license: 125,
+        license: true,
         initals: 'STR',
         firstname: 'Stroke',
         middlename: 'Test',
@@ -1177,7 +1177,7 @@ export const rowerDetailsMock: RowerDetail[] = [
         crew_id: '11ec-4c5c-3fdf94a6-a102-fa53f5d3a545',
         role: RowerRole.ROWER,
         position: 8,
-        license: 127,
+        license: true,
         initals: 'STR',
         firstname: 'Stroke 2',
         middlename: 'Test',
@@ -1195,7 +1195,7 @@ export const rowerDetailsMock: RowerDetail[] = [
         crew_id: '11ec-4c5c-3fdf94a6-a102-fa53f5d3a545',
         role: RowerRole.COACH,
         position: 1,
-        license: 128,
+        license: true,
         initals: 'COA',
         firstname: 'Coach',
         middlename: 'Otto',
