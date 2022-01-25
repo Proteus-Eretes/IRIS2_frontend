@@ -41,7 +41,7 @@
                                     class="py-6 px-4 sm:px-6 h-24 border-b border-gray-200"
                                 >
                                     <DialogTitle
-                                        class="flex flex-row items-center justify-between"
+                                        class="flex flex-row h-full items-center justify-between"
                                     >
                                         <div>
                                             <h5
@@ -50,7 +50,10 @@
                                                 <slot name="header" />
                                             </h5>
 
-                                            <h6 class="text-sm text-gray-500">
+                                            <h6
+                                                v-if="$slots['subheader']"
+                                                class="text-sm text-gray-500"
+                                            >
                                                 <slot name="subheader" />
                                             </h6>
                                         </div>

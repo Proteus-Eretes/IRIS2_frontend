@@ -22,6 +22,14 @@ export const useDateFormatter = () => {
         formatTime: (date: Date) => {
             const format = 'HH:mm';
             return dayjs(date).format(format);
+        },
+
+        formatInputDate: (date: Date) => {
+            const format = 'YYYY-MM-DD';
+            return dayjs(date).format(format);
+        },
+        getInputDate: (date: string) => {
+            return dayjs(date).toDate();
         }
     };
 };

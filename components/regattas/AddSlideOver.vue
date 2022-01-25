@@ -4,13 +4,17 @@
         @update:open="$emit('update:open', $event)"
         @save="
             () => {
-                regattas.add(addRegattaData);
+                $emit('save', editorData);
                 resetState();
             }
         "
     >
-        <template #header>Create a new regatta</template>
-        <template #subheader>Create a new regatta for this regatta.</template>
+        <template #header>
+            <span v-if="state == SlideOverState.ADD">
+                Create a new regatta
+            </span>
+            <span v-else>Edit this regatta</span>
+        </template>
 
         <!-- Name -->
         <div class="col-span-6">
@@ -18,7 +22,7 @@
             <input
                 id="name"
                 type="text"
-                v-model="addRegattaData.name"
+                v-model="editorData.name"
                 autocomplete="organization"
                 class="form-text"
                 required
@@ -31,7 +35,7 @@
             <div class="mt-1">
                 <textarea
                     id="breaking_news"
-                    v-model="addRegattaData.breaking_news"
+                    v-model="editorData.breaking_news"
                     rows="3"
                     class="form-text"
                 />
@@ -48,7 +52,7 @@
             <input
                 id="start-date"
                 type="date"
-                v-model="addRegattaData.start_date"
+                v-model="start_date"
                 autocomplete="off"
                 class="form-text"
                 required
@@ -61,7 +65,7 @@
             <input
                 id="end-date"
                 type="date"
-                v-model="addRegattaData.end_date"
+                v-model="end_date"
                 autocomplete="off"
                 class="form-text"
                 required
@@ -75,7 +79,7 @@
             </label>
             <select
                 id="correction_factor_type"
-                v-model="addRegattaData.correction_factor_type"
+                v-model="editorData.correction_factor_type"
                 autocomplete="off"
                 class="form-select"
                 required
@@ -97,7 +101,7 @@
             <label for="race_type" class="form-label required">Race type</label>
             <select
                 id="race_type"
-                v-model="addRegattaData.race_type"
+                v-model="editorData.race_type"
                 autocomplete="off"
                 class="form-select"
                 required
@@ -117,7 +121,7 @@
             <label for="venue" class="form-label required"> Venue </label>
             <select
                 id="venue"
-                v-model="addRegattaData.venue_id"
+                v-model="editorData.venue_id"
                 autocomplete="off"
                 class="form-select"
                 required
@@ -144,6 +148,10 @@ import {
     RegattaType,
     getRegattaTypeLabel
 } from '~~/types/regatta.model';
+import { SlideOverState } from '~~/types/slide-over-state.model';
+
+import { useDateFormatter } from '~~/composables/useDateFormatter';
+const { formatInputDate, getInputDate } = useDateFormatter();
 
 const regattas = useRegattaStore();
 
@@ -157,16 +165,18 @@ const initialState: NewRegatta = {
     venue_id: ''
 };
 
-const addRegattaData = reactive({
+const editorData = reactive({
     ...initialState
 });
 
-const resetState = () => {
-    Object.assign(addRegattaData, initialState);
+const resetState = (data: NewRegatta = initialState) => {
+    Object.assign(editorData, data);
 };
 
 interface Props {
     open: boolean;
+    state: SlideOverState;
+    data: NewRegatta;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -175,6 +185,33 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emits = defineEmits<{
     (e: 'update:open', open: boolean): void;
-    (e: 'save'): void;
+    (e: 'save', data: NewRegatta): void;
 }>();
+
+const start_date = computed({
+    get() {
+        return formatInputDate(editorData.start_date);
+    },
+    set(value: string) {
+        editorData.start_date = getInputDate(value);
+    }
+});
+const end_date = computed({
+    get() {
+        return formatInputDate(editorData.end_date);
+    },
+    set(value: string) {
+        editorData.end_date = getInputDate(value);
+    }
+});
+
+watchEffect(() => {
+    if (!props.open) return;
+
+    if (props.state == SlideOverState.EDIT) {
+        console.log(props.data);
+
+        resetState(props.data);
+    }
+});
 </script>

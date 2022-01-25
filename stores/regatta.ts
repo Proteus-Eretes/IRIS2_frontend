@@ -6,7 +6,7 @@
 
 import { defineStore } from 'pinia';
 
-import { NewRegatta, Regatta } from '~~/types/regatta.model';
+import { NewRegatta, Regatta, RegattaDetail } from '~~/types/regatta.model';
 import { useRegattaService } from '~~/composables/useRegattaService';
 const regattaService = useRegattaService();
 
@@ -16,6 +16,8 @@ const { isBeforeOrAfter } = useDateFormatter();
 interface RegattaState {
     ids: string[];
     entities: { [id: string]: Regatta };
+    detailIds: string[];
+    detailEntities: { [id: string]: RegattaDetail };
     selectedId: string | null;
 }
 
@@ -23,6 +25,8 @@ export const useRegattaStore = defineStore('regattas', {
     state: (): RegattaState => ({
         ids: [],
         entities: {},
+        detailIds: [],
+        detailEntities: {},
         selectedId: null
     }),
 
@@ -37,6 +41,12 @@ export const useRegattaStore = defineStore('regattas', {
         selectedRegatta(state: RegattaState) {
             return (
                 (state.selectedId && state.entities[state.selectedId]) || null
+            );
+        },
+        selectedRegattaDetail(state: RegattaState) {
+            return (
+                (state.selectedId && state.detailEntities[state.selectedId]) ||
+                null
             );
         }
     },
@@ -56,6 +66,20 @@ export const useRegattaStore = defineStore('regattas', {
             this.ids = regattaIds;
             this.entities = regattaEntities;
         },
+        async loadSelectedRegatta() {
+            const regattaId = this.selectedId;
+            if (regattaId == null) {
+                return;
+            }
+
+            const regatta = await regattaService.loadRegattaDetail(regattaId);
+
+            this.detailIds = [...this.detailIds, regatta.id];
+            this.detailEntities = {
+                ...this.detailEntities,
+                [regatta.id]: regatta
+            };
+        },
         async add(newRegatta: NewRegatta) {
             const regatta = await regattaService.addRegatta(newRegatta);
 
@@ -68,8 +92,15 @@ export const useRegattaStore = defineStore('regattas', {
         delete(id: string) {
             this.ids.splice(this.ids.indexOf(id), 1);
             delete this.entities[id];
+
+            this.detailIds.splice(this.detailIds.indexOf(id), 1);
+            delete this.detailEntities[id];
         },
-        edit(regatta: Regatta) {},
+        async edit(id: string, data: NewRegatta) {
+            const editedRegatta = await regattaService.editRegatta(id, data);
+
+            this.entities[id] = editedRegatta;
+        },
         lotterySettings() {}
     }
 });
