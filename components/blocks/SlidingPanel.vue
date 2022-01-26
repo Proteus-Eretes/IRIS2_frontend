@@ -92,8 +92,8 @@ import { useCrewStore } from '~~/stores/crew';
 import { useEventStore } from '~~/stores/event';
 import { useRoundStore } from '~~/stores/round';
 
-import { getBlockStatusLabel } from '~~/types/block.model';
-import { TableHeader } from '~~/types/table-header.model';
+import { getBlockStatusLabel } from '~~/models/block';
+import { TableHeader } from '~~/models/table-header';
 
 const blocks = useBlockStore();
 const events = useEventStore();

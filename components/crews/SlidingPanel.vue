@@ -235,7 +235,7 @@
         </div>
     </SlidingPanel>
 
-    <RowersAddSlideOver
+    <RowersEditorSlideOver
         v-model:open="showRowerEditor"
         :state="rowerEditorState"
         :data="rowerEditorData"
@@ -257,10 +257,10 @@ import {
     Fine,
     getCrewStatusLabel,
     getTeamResultStatusLabel
-} from '~~/types/crew.model';
-import { Gender, NewRower, Rower, RowerRole } from '~~/types/rower.model';
-import { TableHeader } from '~~/types/table-header.model';
-import { SlideOverState } from '~~/types/slide-over-state.model';
+} from '~~/models/crew';
+import { Gender, NewRower, Rower, RowerRole } from '~~/models/rower';
+import { TableHeader } from '~~/models/table-header';
+import { SlideOverState } from '~~/models/slide-over-state';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 const { formatDate } = useDateFormatter();
@@ -282,8 +282,6 @@ const finesTableHeader: TableHeader[] = [
 ];
 
 const performTableAction = (action: { action: string; item: Rower }) => {
-    //FIXME: do the other actions
-    console.log(action.action, action.item);
     switch (action.action) {
         case 'edit':
             editRower(action.item.id);

@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'http';
 import { useBody } from 'h3';
 
-import { Rower, NewRower } from '~~/types/rower.model';
+import { Rower, NewRower } from '~~/models/rower';
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
     const newRower: NewRower = await useBody(req);

@@ -220,8 +220,8 @@ import {
     PhCaretUp
 } from 'phosphor-vue';
 
-import { TableHeader } from '~~/types/table-header.model';
-import { TableSortDirection } from '~~/types/table-sort-direction.model';
+import { TableHeader } from '~~/models/table-header';
+import { TableSortDirection } from '~~/models/table-sort-direction';
 
 import { useMainStore } from '~~/stores';
 const main = useMainStore();

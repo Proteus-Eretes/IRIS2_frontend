@@ -154,11 +154,11 @@ import {
 import { useRegattaStore } from '~~/stores/regatta';
 import { useMainStore } from '~~/stores';
 
-import { getRegattaTypeLabel } from '~~/types/regatta.model';
-
-const main = useMainStore();
-const regattas = useRegattaStore();
+import { getRegattaTypeLabel } from '~~/models/regatta';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 const { formatDate } = useDateFormatter();
+
+const main = useMainStore();
+const regattas = useRegattaStore();
 </script>

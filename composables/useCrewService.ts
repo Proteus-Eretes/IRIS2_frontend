@@ -1,11 +1,4 @@
-import {
-    Crew,
-    CrewDetail,
-    Fine,
-    NewCrew,
-    NewTeam,
-    Team
-} from '~~/types/crew.model';
+import { Crew, CrewDetail, Fine, NewCrew, NewTeam, Team } from '~~/models/crew';
 
 const BASE_URL = '/api/crews';
 

@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'http';
 import { useBody, useQuery } from 'h3';
 
-import { Regatta, NewRegatta } from '~~/types/regatta.model';
+import { Regatta, NewRegatta } from '~~/models/regatta';
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
     const { regattaId } = useQuery(req);

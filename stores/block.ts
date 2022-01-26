@@ -19,7 +19,7 @@
 import { defineStore } from 'pinia';
 import { useRegattaStore } from './regatta';
 
-import { Block, NewBlock } from '~~/types/block.model';
+import { Block, NewBlock } from '~~/models/block';
 import { useBlockService } from '~~/composables/useBlockService';
 const blockService = useBlockService();
 

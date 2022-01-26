@@ -1,4 +1,4 @@
-import { Round } from '~~/types/round.model';
+import { Round } from '~~/models/round';
 
 const BASE_URL = '/api/rounds';
 

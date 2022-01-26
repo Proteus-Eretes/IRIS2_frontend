@@ -13,16 +13,9 @@ import { useEventStore } from './event';
 import { useRegattaStore } from './regatta';
 import { useRowerStore } from './rower';
 
-import {
-    Crew,
-    CrewDetail,
-    Fine,
-    NewCrew,
-    NewTeam,
-    Team
-} from '~~/types/crew.model';
-import { Rower } from '~~/types/rower.model';
-import { Event } from '~~/types/event.model';
+import { Crew, CrewDetail, Fine, NewCrew, NewTeam, Team } from '~~/models/crew';
+import { Rower } from '~~/models/rower';
+import { Event } from '~~/models/event';
 
 import { useCrewService } from '~~/composables/useCrewService';
 const crewService = useCrewService();

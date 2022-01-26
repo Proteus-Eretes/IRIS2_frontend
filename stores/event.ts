@@ -6,13 +6,7 @@ import { defineStore } from 'pinia';
 import { useBlockStore } from './block';
 import { useRegattaStore } from './regatta';
 
-import {
-    Event,
-    EventDetail,
-    Field,
-    NewEvent,
-    NewField
-} from '~~/types/event.model';
+import { Event, EventDetail, Field, NewEvent, NewField } from '~~/models/event';
 import { useEventService } from '~~/composables/useEventService';
 const eventService = useEventService();
 

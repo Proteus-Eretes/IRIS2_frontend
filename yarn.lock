@@ -1818,6 +1818,11 @@ argparse@^2.0.1:
   resolved "https://registry.yarnpkg.com/argparse/-/argparse-2.0.1.tgz#246f50f3ca78a3240f6c997e8a9bd1eac49e4b38"
   integrity sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
 
+aria-query@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/aria-query/-/aria-query-5.0.0.tgz#210c21aaf469613ee8c9a62c7f86525e058db52c"
+  integrity sha512-V+SM7AbUwJ+EBnB8+DXs0hPZHO0W6pqBcc0dW90OwtVG02PswOu/teuARoLQjdDOH+t9pJgGnW5/Qmouf3gPJg==
+
 array-union@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/array-union/-/array-union-2.1.0.tgz#b798420adbeb1de828d84acd8a2e23d3efe85e8d"
@@ -2649,6 +2654,11 @@ electron-to-chromium@^1.3.896:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.16.tgz#38ddecc616385e6f101359d1b978c802664157d2"
   integrity sha512-BQb7FgYwnu6haWLU63/CdVW+9xhmHls3RCQUFiV4lvw3wimEHTVcUk2hkuZo76QhR8nnDdfZE7evJIZqijwPdA==
 
+emoji-regex@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-10.0.0.tgz#96559e19f82231b436403e059571241d627c42b8"
+  integrity sha512-KmJa8l6uHi1HrBI34udwlzZY1jOEuID/ft4d8BSSEdRyap7PwBEt910453PJa5MuGvxkLqlt4Uvhu7tttFHViw==
+
 emoji-regex@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
@@ -3007,6 +3017,15 @@ eslint-config-prettier@^8.3.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.3.0.tgz#f7471b20b6fe8a9a9254cc684454202886a2dd7a"
   integrity sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==
 
+eslint-plugin-vuejs-accessibility@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vuejs-accessibility/-/eslint-plugin-vuejs-accessibility-1.1.1.tgz#bb7bd0462b6a7be86514a8fc651c1b9d0c8b356f"
+  integrity sha512-vmXfZQMlVLLhoEd9WWOzzhwLKRFVOnteSsrWD/DGvIMUDZ9MkwB3gQ+sdSpjqYMC+bb68BPsp3YpNZBzygp9Xg==
+  dependencies:
+    aria-query "^5.0.0"
+    emoji-regex "^10.0.0"
+    vue-eslint-parser "^8.0.0"
+
 eslint-scope@5.1.1, eslint-scope@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-5.1.1.tgz#e786e59a66cb92b3f6c1fb0d508aab174848f48c"
@@ -3015,7 +3034,7 @@ eslint-scope@5.1.1, eslint-scope@^5.1.1:
     esrecurse "^4.3.0"
     estraverse "^4.1.1"
 
-eslint-scope@^7.1.0:
+eslint-scope@^7.0.0, eslint-scope@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-7.1.0.tgz#c1f6ea30ac583031f203d65c73e723b01298f153"
   integrity sha512-aWwkhnS0qAXqNOgKOK0dJ2nvzEbhEvpy8OlJ9kZ0FeZnA6zpjv1/Vei+puGFFX7zkPCkHHXb7IDX3A+7yPrRWg==
@@ -3093,7 +3112,7 @@ eslint@^8.7.0:
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
-espree@^9.2.0, espree@^9.3.0:
+espree@^9.0.0, espree@^9.2.0, espree@^9.3.0:
   version "9.3.0"
   resolved "https://registry.yarnpkg.com/espree/-/espree-9.3.0.tgz#c1240d79183b72aaee6ccfa5a90bc9111df085a8"
   integrity sha512-d/5nCsb0JcqsSEeQzFZ8DH1RmxPcglRWh24EFTlUEmCKoehXGdpsx0RkHDubqUI8LSAIKMQp4r9SzQ3n+sm4HQ==
@@ -4333,7 +4352,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.17.20:
+lodash@^4.17.20, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -6431,6 +6450,19 @@ vue-demi@*:
   version "0.12.1"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.12.1.tgz#f7e18efbecffd11ab069d1472d7a06e319b4174c"
   integrity sha512-QL3ny+wX8c6Xm1/EZylbgzdoDolye+VpCXRhI2hug9dJTP3OUJ3lmiKN3CsVV3mOJKwFi0nsstbgob0vG7aoIw==
+
+vue-eslint-parser@^8.0.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-8.2.0.tgz#8c3990deb901b0d528d99f4d052a831cd1d0284c"
+  integrity sha512-hvl8OVT8imlKk/lQyhkshqwQQChzHETcBd5abiO4ePw7ib7QUZLfW+2TUrJHKUvFOCFRJrDin5KJO9OHzB5bRQ==
+  dependencies:
+    debug "^4.3.2"
+    eslint-scope "^7.0.0"
+    eslint-visitor-keys "^3.1.0"
+    espree "^9.0.0"
+    esquery "^1.4.0"
+    lodash "^4.17.21"
+    semver "^7.3.5"
 
 vue-loader@^16.8.3:
   version "16.8.3"

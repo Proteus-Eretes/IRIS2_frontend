@@ -63,7 +63,7 @@ import {
     PhMicrophone,
     PhClipboardText
 } from 'phosphor-vue';
-import { RouteItem } from '~~/types/route-item.model';
+import { RouteItem } from '~~/models/route-item';
 
 import { useRegattaStore } from '~~/stores/regatta';
 const regattas = useRegattaStore();

@@ -98,11 +98,11 @@
 import { PhCaretDoubleLeft, PhCaretDoubleRight } from 'phosphor-vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
-import { useRegattaStore } from '~~/stores/regatta';
-const regattas = useRegattaStore();
-
 import { useMainStore } from '~/stores/index';
+import { useRegattaStore } from '~~/stores/regatta';
+
 const main = useMainStore();
+const regattas = useRegattaStore();
 
 const sideBarCollapsed = ref(false);
 const toggleSideBar = useToggle(sideBarCollapsed);

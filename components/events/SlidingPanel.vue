@@ -96,7 +96,7 @@
         </div>
     </SlidingPanel>
 
-    <CrewsAddSlideOver
+    <CrewsEditorSlideOver
         v-model:open="showCrewEditor"
         :state="SlideOverState.ADD"
         :data="crewEditorData"
@@ -112,10 +112,10 @@ import { useEventStore } from '~~/stores/event';
 import { useCrewStore } from '~~/stores/crew';
 import { useClubStore } from '~~/stores/club';
 
-import { getEventStatusLabel } from '~~/types/event.model';
-import { TableHeader } from '~~/types/table-header.model';
-import { SlideOverState } from '~~/types/slide-over-state.model';
-import { CrewStatus, NewCrew, NewTeam } from '~~/types/crew.model';
+import { getEventStatusLabel } from '~~/models/event';
+import { TableHeader } from '~~/models/table-header';
+import { SlideOverState } from '~~/models/slide-over-state';
+import { CrewStatus, NewCrew, NewTeam } from '~~/models/crew';
 
 const regattas = useRegattaStore();
 const events = useEventStore();

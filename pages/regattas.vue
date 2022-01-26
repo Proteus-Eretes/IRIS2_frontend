@@ -85,7 +85,7 @@
             </button>
         </div>
 
-        <RegattasAddSlideOver
+        <RegattasEditorSlideOver
             v-model:open="showEditor"
             :state="editorState"
             :data="editorData"
@@ -107,10 +107,10 @@ import {
     RegattaType,
     getRegattaTypeLabel,
     NewRegatta
-} from '~~/types/regatta.model';
+} from '~~/models/regatta';
 import { useRegattaStore } from '~~/stores/regatta';
 
-import { SlideOverState } from '~~/types/slide-over-state.model';
+import { SlideOverState } from '~~/models/slide-over-state';
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 
 const { getYear, formatDate } = useDateFormatter();

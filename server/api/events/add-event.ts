@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'http';
 import { useBody } from 'h3';
 
-import { Event, NewEvent } from '~~/types/event.model';
+import { Event, NewEvent } from '~~/models/event';
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
     const newEvent: NewEvent = await useBody(req);

@@ -1,4 +1,4 @@
-import { Gender } from './rower.model';
+import { Gender } from './rower';
 
 export interface Event {
     id: string;

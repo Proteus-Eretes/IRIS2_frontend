@@ -1,5 +1,5 @@
-import { Block, BlockStatus } from '~~/types/block.model';
-import { Club, ClubDetail } from '~/types/club.model';
+import { Block, BlockStatus } from '~~/models/block';
+import { Club, ClubDetail } from '~/models/club';
 import {
     Crew,
     CrewDetail,
@@ -8,20 +8,20 @@ import {
     Team,
     TeamDetail,
     TeamResultStatus
-} from '~/types/crew.model';
+} from '~/models/crew';
 import {
     Event,
     EventDetail,
     EventStatus,
     Field,
     FieldDetail
-} from '~~/types/event.model';
-import { Location, LocationType } from '~/types/location.model';
-import { Regatta, RegattaDetail, RegattaType } from '~~/types/regatta.model';
-import { Result } from '~/types/result.model';
-import { Round } from '~~/types/round.model';
-import { Gender, Rower, RowerDetail, RowerRole } from '~/types/rower.model';
-import { User } from '~/types/user.model';
+} from '~~/models/event';
+import { Location, LocationType } from '~/models/location';
+import { Regatta, RegattaDetail, RegattaType } from '~~/models/regatta';
+import { Result } from '~/models/result';
+import { Round } from '~~/models/round';
+import { Gender, Rower, RowerDetail, RowerRole } from '~/models/rower';
+import { User } from '~/models/user';
 
 export const blocksMock: Block[] = [
     {

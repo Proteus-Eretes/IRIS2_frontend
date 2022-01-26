@@ -2,7 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'http';
 import { useQuery } from 'h3';
 
 import { blocksMock } from '~/util/mock';
-import { Block } from '~~/types/block.model';
+import { Block } from '~~/models/block';
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
     const { regattaId } = useQuery(req);

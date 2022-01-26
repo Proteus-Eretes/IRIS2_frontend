@@ -5,8 +5,17 @@
         @save="$emit('save', editorData)"
         @cancel="$emit('cancel')"
     >
-        <template #header>Create a new member</template>
-        <template #subheader>Create a new member for this event.</template>
+        <template #header>
+            <span v-if="state == SlideOverState.ADD">
+                Create a new member
+            </span>
+            <span v-else>Edit this member</span>
+        </template>
+        <template #subheader>
+            <span v-if="state == SlideOverState.ADD">
+                Create a new member for this event.
+            </span>
+        </template>
 
         <!-- Club -->
         <div class="col-span-6 sm:col-span-4">
@@ -138,13 +147,10 @@
                     type="checkbox"
                     v-model="editorData.license"
                     class="form-checkbox"
-                    required
                 />
             </div>
             <div class="ml-3 text-sm">
-                <label for="license" class="form-label required">
-                    License
-                </label>
+                <label for="license" class="form-label"> License </label>
                 <!-- TODO: get a description -->
                 <p class="text-gray-500">This is a description.</p>
             </div>
@@ -195,8 +201,8 @@ import {
     RowerRole,
     getGenderLabel,
     getRowerRoleLabel
-} from '~~/types/rower.model';
-import { SlideOverState } from '~~/types/slide-over-state.model';
+} from '~~/models/rower';
+import { SlideOverState } from '~~/models/slide-over-state';
 
 const clubs = useClubStore();
 

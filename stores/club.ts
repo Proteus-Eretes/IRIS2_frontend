@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import { Club, ClubDetail } from '~~/types/club.model';
+import { Club, ClubDetail } from '~~/models/club';
 import { useClubService } from '~~/composables/useClubService';
 const clubService = useClubService();
 

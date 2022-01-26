@@ -98,7 +98,7 @@
             />
         </div>
 
-        <BlocksAddSlideOver
+        <BlocksEditorSlideOver
             v-model:open="showBlockEditor"
             :state="blockEditorState"
             :data="blockEditorData"
@@ -119,10 +119,10 @@ import { useRoundStore } from '~~/stores/round';
 import { useRowerStore } from '~~/stores/rower';
 import { useClubStore } from '~~/stores/club';
 
-import { Block, getBlockStatusLabel, NewBlock } from '~~/types/block.model';
+import { Block, getBlockStatusLabel, NewBlock } from '~~/models/block';
 import { useDateFormatter } from '~~/composables/useDateFormatter';
-import { TableHeader } from '~~/types/table-header.model';
-import { SlideOverState } from '~~/types/slide-over-state.model';
+import { TableHeader } from '~~/models/table-header';
+import { SlideOverState } from '~~/models/slide-over-state';
 
 const { formatDate, formatTime } = useDateFormatter();
 

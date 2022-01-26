@@ -129,7 +129,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emits = defineEmits<{
     (e: 'update:open', open: boolean): void;
-    (e: 'save'): void;
+    (e: 'save', event: any): void;
     (e: 'cancel'): void;
 }>();
 

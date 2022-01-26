@@ -2,7 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'http';
 import { useQuery } from 'h3';
 
 import { fieldsMock } from '~/util/mock';
-import { Field } from '~~/types/event.model';
+import { Field } from '~~/models/event';
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
     const { blockId } = useQuery(req);

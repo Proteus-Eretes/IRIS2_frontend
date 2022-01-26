@@ -89,7 +89,7 @@
 <script lang="ts" setup>
 import { useRowerStore } from '~~/stores/rower';
 
-import { getGenderLabel, getRowerRoleLabel } from '~~/types/rower.model';
+import { getGenderLabel, getRowerRoleLabel } from '~~/models/rower';
 
 const rowers = useRowerStore();
 

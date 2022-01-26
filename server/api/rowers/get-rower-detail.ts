@@ -2,7 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'http';
 import { useQuery } from 'h3';
 
 import { rowerDetailsMock } from '~/util/mock';
-import { Rower } from '~~/types/rower.model';
+import { Rower } from '~~/models/rower';
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
     const { rowerId } = useQuery(req);

@@ -5,8 +5,15 @@
         @save="$emit('save', editorData)"
         @cancel="$emit('cancel')"
     >
-        <template #header>Create a new event</template>
-        <template #subheader>Create a new event for this regatta.</template>
+        <template #header>
+            <span v-if="state == SlideOverState.ADD">Create a new event</span>
+            <span v-else>Edit this event</span>
+        </template>
+        <template #subheader>
+            <span v-if="state == SlideOverState.ADD">
+                Create a new event for this regatta.
+            </span>
+        </template>
 
         <!-- Event number -->
         <div class="col-span-6">
@@ -189,13 +196,9 @@
 </template>
 
 <script lang="ts" setup>
-import {
-    EventStatus,
-    NewEvent,
-    getEventStatusLabel
-} from '~~/types/event.model';
-import { Gender, getGenderLabel } from '~~/types/rower.model';
-import { SlideOverState } from '~~/types/slide-over-state.model';
+import { EventStatus, NewEvent, getEventStatusLabel } from '~~/models/event';
+import { Gender, getGenderLabel } from '~~/models/rower';
+import { SlideOverState } from '~~/models/slide-over-state';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 const { formatInputDate, getInputDate } = useDateFormatter();

@@ -158,13 +158,13 @@ import { useEventStore } from '~~/stores/event';
 import { useRoundStore } from '~~/stores/round';
 import { useCrewStore } from '~~/stores/crew';
 
-import { useToastService } from '~~/composables/useToastService';
-const { showError } = useToastService();
-
-import { Event, Field, NewField } from '~~/types/event.model';
+import { Event, Field, NewField } from '~~/models/event';
 
 // Draggable component: https://github.com/SortableJS/vue.draggable.next
 import Draggable from 'vuedraggable';
+
+import { useToastService } from '~~/composables/useToastService';
+const { showError } = useToastService();
 
 const blocks = useBlockStore();
 blocks.loadBlocks();
@@ -181,10 +181,10 @@ crews.loadCrews();
 
 const changeList = (evt, blockId: string, roundId: string) => {
     if (evt.added) {
-        console.log('Added', evt.added.element);
+        // console.log('Added', evt.added.element);
         addField(evt.added.element, blockId, roundId);
     } else if (evt.removed) {
-        console.log('Removed', evt.removed.element);
+        // console.log('Removed', evt.removed.element);
         removeField(evt.removed.element);
     }
 };

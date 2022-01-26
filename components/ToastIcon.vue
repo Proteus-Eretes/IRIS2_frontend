@@ -47,7 +47,7 @@
 
 <script lang="ts" setup>
 import { PhX } from 'phosphor-vue';
-import { ToastType } from '~~/types/toast.model';
+import { ToastType } from '~~/models/toast';
 
 interface Props {
     type: ToastType;

@@ -4,7 +4,7 @@
 
 import { defineStore } from 'pinia';
 
-import { NewRegatta, Regatta, RegattaDetail } from '~~/types/regatta.model';
+import { NewRegatta, Regatta, RegattaDetail } from '~~/models/regatta';
 import { useRegattaService } from '~~/composables/useRegattaService';
 const regattaService = useRegattaService();
 

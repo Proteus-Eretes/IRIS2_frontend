@@ -143,8 +143,8 @@ import {
     NewRegatta,
     RegattaType,
     getRegattaTypeLabel
-} from '~~/types/regatta.model';
-import { SlideOverState } from '~~/types/slide-over-state.model';
+} from '~~/models/regatta';
+import { SlideOverState } from '~~/models/slide-over-state';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 const { formatInputDate, getInputDate } = useDateFormatter();

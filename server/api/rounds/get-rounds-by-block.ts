@@ -2,7 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'http';
 import { useQuery } from 'h3';
 
 import { roundsMock } from '~/util/mock';
-import { Round } from '~~/types/round.model';
+import { Round } from '~~/models/round';
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
     const { blockId } = useQuery(req);

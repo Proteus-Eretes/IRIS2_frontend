@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
-import { RouteItem } from '~~/types/route-item.model';
-import { TableAction } from '~~/types/table-action.model';
-import { Toast } from '~~/types/toast.model';
+import { RouteItem } from '~~/models/route-item';
+import { TableAction } from '~~/models/table-action';
+import { Toast } from '~~/models/toast';
 
 interface RootState {
     mainNavigation: RouteItem[];

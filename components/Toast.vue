@@ -199,7 +199,7 @@ import {
     TransitionRoot
 } from '@headlessui/vue';
 import { PhX } from 'phosphor-vue';
-import { Toast, ToastType } from '~~/types/toast.model';
+import { Toast, ToastType } from '~~/models/toast';
 
 interface Props {
     open: boolean;

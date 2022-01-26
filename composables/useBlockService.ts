@@ -1,4 +1,4 @@
-import { Block, NewBlock } from '~~/types/block.model';
+import { Block, NewBlock } from '~~/models/block';
 
 const BASE_URL = '/api/blocks';
 

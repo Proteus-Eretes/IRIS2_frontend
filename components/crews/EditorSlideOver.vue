@@ -5,9 +5,14 @@
         @save="$emit('save', editorData)"
         @cancel="$emit('cancel')"
     >
-        <template #header>Create a new crew</template>
+        <template #header>
+            <span v-if="state == SlideOverState.ADD">Create a new crew</span>
+            <span v-else>Edit this crew</span>
+        </template>
         <template #subheader>
-            Create a new crew for this regatta. Add rowers later.
+            <span v-if="state == SlideOverState.ADD">
+                Create a new crew for this regatta. Add rowers later.
+            </span>
         </template>
 
         <!-- Event -->
@@ -95,11 +100,10 @@
                     type="checkbox"
                     v-model="editorData.combination"
                     class="form-checkbox"
-                    required
                 />
             </div>
             <div class="ml-3 text-sm">
-                <label for="combination" class="form-label required">
+                <label for="combination" class="form-label">
                     Combination
                 </label>
                 <!-- TODO: get a description -->
@@ -147,8 +151,8 @@
 import { useEventStore } from '~~/stores/event';
 import { useClubStore } from '~~/stores/club';
 
-import { CrewStatus, NewCrew, getCrewStatusLabel } from '~~/types/crew.model';
-import { SlideOverState } from '~~/types/slide-over-state.model';
+import { CrewStatus, NewCrew, getCrewStatusLabel } from '~~/models/crew';
+import { SlideOverState } from '~~/models/slide-over-state';
 
 const events = useEventStore();
 const clubs = useClubStore();

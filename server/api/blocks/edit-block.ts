@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'http';
 import { useBody, useQuery } from 'h3';
 
-import { Block, BlockStatus, NewBlock } from '~~/types/block.model';
+import { Block, BlockStatus, NewBlock } from '~~/models/block';
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
     const { blockId } = useQuery(req);

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { useBlockStore } from './block';
 
-import { Round } from '~~/types/round.model';
+import { Round } from '~~/models/round';
 import { useRoundService } from '~~/composables/useRoundService';
 const roundService = useRoundService();
 

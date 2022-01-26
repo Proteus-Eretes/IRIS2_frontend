@@ -3,7 +3,7 @@
 import { defineStore } from 'pinia';
 import { useRegattaStore } from './regatta';
 
-import { NewRower, Rower, RowerDetail, RowerRole } from '~~/types/rower.model';
+import { NewRower, Rower, RowerDetail, RowerRole } from '~~/models/rower';
 import { useRowerService } from '~~/composables/useRowerService';
 const rowerService = useRowerService();
 

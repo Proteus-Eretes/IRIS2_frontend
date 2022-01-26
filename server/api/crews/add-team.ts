@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'http';
 import { useBody } from 'h3';
 
-import { NewTeam, Team, TeamResultStatus } from '~~/types/crew.model';
+import { NewTeam, Team, TeamResultStatus } from '~~/models/crew';
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
     const newTeam: NewTeam = await useBody(req);

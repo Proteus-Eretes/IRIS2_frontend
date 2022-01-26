@@ -107,7 +107,7 @@
             />
         </div>
 
-        <CrewsAddSlideOver
+        <CrewsEditorSlideOver
             v-model:open="showCrewEditor"
             :state="crewEditorState"
             :data="crewEditorData"
@@ -126,13 +126,13 @@ import { useRowerStore } from '~~/stores/rower';
 import { useEventStore } from '~~/stores/event';
 import { useClubStore } from '~~/stores/club';
 
-import { CrewStatus, getCrewStatusLabel, NewCrew } from '~~/types/crew.model';
-import { TableHeader } from '~~/types/table-header.model';
-import { TableSortDirection } from '~~/types/table-sort-direction.model';
-import { Crew } from '~~/types/crew.model';
-import { Event } from '~~/types/event.model';
-import { Rower } from '~~/types/rower.model';
-import { SlideOverState } from '~~/types/slide-over-state.model';
+import { CrewStatus, getCrewStatusLabel, NewCrew } from '~~/models/crew';
+import { TableHeader } from '~~/models/table-header';
+import { TableSortDirection } from '~~/models/table-sort-direction';
+import { Crew } from '~~/models/crew';
+import { Event } from '~~/models/event';
+import { Rower } from '~~/models/rower';
+import { SlideOverState } from '~~/models/slide-over-state';
 
 const regattas = useRegattaStore();
 const crews = useCrewStore();
@@ -161,8 +161,6 @@ const tableHeaders: TableHeader[] = [
 ];
 
 const performTableAction = (action: { action: string; item: Crew }) => {
-    //FIXME: do the other actions
-    console.log(action.action, action.item);
     switch (action.action) {
         case 'edit':
             editCrew(action.item.id);

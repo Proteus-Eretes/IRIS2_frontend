@@ -1,5 +1,0 @@
-// assignShirts
-
-// assignShirtsOverview
-
-// updateTeam

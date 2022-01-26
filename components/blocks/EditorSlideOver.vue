@@ -5,8 +5,15 @@
         @save="$emit('save', editorData)"
         @cancel="$emit('cancel')"
     >
-        <template #header>Create a new block</template>
-        <template #subheader>Create a new block for this regatta.</template>
+        <template #header>
+            <span v-if="state == SlideOverState.ADD">Create a new block</span>
+            <span v-else>Edit this block</span>
+        </template>
+        <template #subheader>
+            <span v-if="state == SlideOverState.ADD">
+                Create a new block for this regatta.
+            </span>
+        </template>
 
         <!-- Block number -->
         <div class="col-span-6">
@@ -38,8 +45,8 @@
 </template>
 
 <script lang="ts" setup>
-import { NewBlock } from '~~/types/block.model';
-import { SlideOverState } from '~~/types/slide-over-state.model';
+import { NewBlock } from '~~/models/block';
+import { SlideOverState } from '~~/models/slide-over-state';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 const { formatInputTime, getInputTime } = useDateFormatter();

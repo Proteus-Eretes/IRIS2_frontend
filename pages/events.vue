@@ -115,7 +115,7 @@
             />
         </div>
 
-        <EventsAddSlideOver
+        <EventsEditorSlideOver
             v-model:open="showEventEditor"
             :state="eventEditorState"
             :data="eventEditorData"
@@ -135,10 +135,10 @@ import { useRowerStore } from '~~/stores/rower';
 import { useClubStore } from '~~/stores/club';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
-import { TableHeader } from '~~/types/table-header.model';
-import { Event, EventStatus, NewEvent } from '~~/types/event.model';
-import { SlideOverState } from '~~/types/slide-over-state.model';
-import { Gender } from '~~/types/rower.model';
+import { TableHeader } from '~~/models/table-header';
+import { Event, EventStatus, NewEvent } from '~~/models/event';
+import { SlideOverState } from '~~/models/slide-over-state';
+import { Gender } from '~~/models/rower';
 
 const { formatDate } = useDateFormatter();
 
@@ -165,8 +165,6 @@ const tableHeaders: TableHeader[] = [
 ];
 
 const performTableAction = (action: { action: string; item: Event }) => {
-    //FIXME: do the other actions
-    console.log(action.action, action.item);
     switch (action.action) {
         case 'edit':
             editEvent(action.item.id);
