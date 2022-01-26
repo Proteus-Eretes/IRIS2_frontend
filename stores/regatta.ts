@@ -1,7 +1,5 @@
 // documentation
 
-// edit
-
 // lotterySettings
 
 import { defineStore } from 'pinia';

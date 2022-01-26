@@ -84,7 +84,7 @@
                 <button
                     type="button"
                     class="button icon-button button-secondary"
-                    @click="openAddCrew()"
+                    @click="addCrew()"
                 >
                     <ph-plus class="icon text-gray-400" />
                     <span>Add Crew</span>
@@ -97,9 +97,10 @@
     </SlidingPanel>
 
     <CrewsAddSlideOver
-        v-model:open="showAddCrew"
-        :event="events.selectedEventId"
-        :regatta="regattas.selectedId"
+        v-model:open="showCrewEditor"
+        :state="SlideOverState.ADD"
+        :data="crewEditorData"
+        @save="saveCrewEditor($event)"
     />
 </template>
 
@@ -113,18 +114,13 @@ import { useClubStore } from '~~/stores/club';
 
 import { getEventStatusLabel } from '~~/types/event.model';
 import { TableHeader } from '~~/types/table-header.model';
+import { SlideOverState } from '~~/types/slide-over-state.model';
+import { CrewStatus, NewCrew, NewTeam } from '~~/types/crew.model';
 
 const regattas = useRegattaStore();
 const events = useEventStore();
 const crews = useCrewStore();
 const clubs = useClubStore();
-
-const showAddCrew = ref(false);
-
-const openAddCrew = () => {
-    showAddCrew.value = true;
-    clubs.loadClubs();
-};
 
 interface Props {
     index: number;
@@ -150,6 +146,50 @@ const tableHeaders: TableHeader[] = [
     { id: 'Club name', sortable: false },
     { id: 'Rowers count', sortable: false }
 ];
+
+const showCrewEditor = ref(false);
+const initialCrewEditorData: NewCrew = {
+    event_id: '',
+    club_id: '',
+    regatta_id: '',
+    displayName: '',
+    shortname: '',
+    alternative: '',
+    combination: false,
+    remarks: '',
+    status: CrewStatus.ENTERED
+};
+
+const crewEditorData: NewCrew = reactive({
+    ...initialCrewEditorData
+});
+
+const resetCrewData = (data: NewCrew = initialCrewEditorData) => {
+    Object.assign(crewEditorData, data);
+};
+
+const addCrew = async () => {
+    resetCrewData();
+
+    await clubs.loadClubs();
+    crewEditorData.event_id = events.selectedEventId;
+    crewEditorData.regatta_id = regattas.selectedId;
+
+    showCrewEditor.value = true;
+};
+
+const saveCrewEditor = async (data: NewCrew) => {
+    const newCrewId = await crews.addCrew(data);
+
+    if (props.useField) {
+        const newTeam: NewTeam = {
+            crew_id: newCrewId,
+            regatta_id: regattas.selectedId,
+            field_id: events.selectedFieldId
+        };
+        crews.addTeam(newTeam);
+    }
+};
 
 const getCrew = (item: any) => {
     const id = props.useField ? item.crew_id : item.id;

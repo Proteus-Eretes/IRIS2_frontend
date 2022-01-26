@@ -2,12 +2,8 @@
     <EditorSlideOver
         :open="open"
         @update:open="$emit('update:open', $event)"
-        @save="
-            () => {
-                blocks.add(addBlockData);
-                resetState();
-            }
-        "
+        @save="$emit('save', editorData)"
+        @cancel="$emit('cancel')"
     >
         <template #header>Create a new block</template>
         <template #subheader>Create a new block for this regatta.</template>
@@ -19,7 +15,7 @@
                 id="knrb"
                 type="number"
                 inputmode="numeric"
-                v-model="addBlockData.block"
+                v-model="editorData.block"
                 autocomplete="off"
                 class="form-text"
                 required
@@ -32,7 +28,7 @@
             <input
                 id="knrb"
                 type="datetime-local"
-                v-model="addBlockData.start_time"
+                v-model="start_time"
                 autocomplete="off"
                 class="form-text"
                 required
@@ -42,29 +38,16 @@
 </template>
 
 <script lang="ts" setup>
-import { useBlockStore } from '~~/stores/block';
-
 import { NewBlock } from '~~/types/block.model';
+import { SlideOverState } from '~~/types/slide-over-state.model';
 
-const blocks = useBlockStore();
-
-const initialState = {
-    regatta_id: '',
-    block: null,
-    start_time: new Date()
-};
-
-const addBlockData: NewBlock = reactive({
-    ...initialState
-});
-
-const resetState = () => {
-    Object.assign(addBlockData, initialState);
-};
+import { useDateFormatter } from '~~/composables/useDateFormatter';
+const { formatInputTime, getInputTime } = useDateFormatter();
 
 interface Props {
     open: boolean;
-    regatta: string | null;
+    state: SlideOverState;
+    data: NewBlock;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -73,12 +56,33 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emits = defineEmits<{
     (e: 'update:open', open: boolean): void;
-    (e: 'save'): void;
+    (e: 'save', data: NewBlock): void;
+    (e: 'cancel'): void;
 }>();
 
-watchEffect(() => {
-    if (!props.open) return;
+const editorData: NewBlock = reactive({
+    ...props.data
+});
 
-    if (props.regatta) addBlockData.regatta_id = props.regatta;
+const setData = (data: NewBlock) => {
+    Object.assign(editorData, data);
+};
+
+watch(
+    () => props.open,
+    (open, _) => {
+        if (!open) return;
+
+        setData(props.data);
+    }
+);
+
+const start_time = computed({
+    get() {
+        return formatInputTime(editorData.start_time);
+    },
+    set(value: string) {
+        editorData.start_time = getInputTime(value);
+    }
 });
 </script>

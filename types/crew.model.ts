@@ -70,6 +70,12 @@ export interface TeamDetail extends Team {
     finishTime: number;
 }
 
+export interface NewTeam {
+    crew_id: string;
+    regatta_id: string;
+    field_id: string;
+}
+
 export interface Fine {
     id: string;
     crew_id: string;

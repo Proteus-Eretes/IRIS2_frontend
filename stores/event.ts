@@ -1,5 +1,3 @@
-// edit
-
 // merge
 
 // splitEvents
@@ -8,7 +6,13 @@ import { defineStore } from 'pinia';
 import { useBlockStore } from './block';
 import { useRegattaStore } from './regatta';
 
-import { Event, Field, NewEvent, NewField } from '~~/types/event.model';
+import {
+    Event,
+    EventDetail,
+    Field,
+    NewEvent,
+    NewField
+} from '~~/types/event.model';
 import { useEventService } from '~~/composables/useEventService';
 const eventService = useEventService();
 
@@ -16,8 +20,10 @@ import { useToastService } from '~~/composables/useToastService';
 const { showError } = useToastService();
 
 interface EventState {
-    ids: string[];
-    entities: { [id: string]: Event };
+    eventIds: string[];
+    eventEntities: { [id: string]: Event };
+    eventDetailIds: string[];
+    eventDetailEntities: { [id: string]: EventDetail };
     fieldIds: string[];
     fieldEntities: { [id: string]: Field };
     selectedEventId: string | null;
@@ -26,8 +32,10 @@ interface EventState {
 
 export const useEventStore = defineStore('events', {
     state: (): EventState => ({
-        ids: [],
-        entities: {},
+        eventIds: [],
+        eventEntities: {},
+        eventDetailIds: [],
+        eventDetailEntities: {},
         fieldIds: [],
         fieldEntities: {},
         selectedEventId: null,
@@ -36,8 +44,8 @@ export const useEventStore = defineStore('events', {
 
     getters: {
         allEvents(state: EventState) {
-            return state.ids
-                .map((id: string) => state.entities[id])
+            return state.eventIds
+                .map((id: string) => state.eventEntities[id])
                 .sort((a: Event, b: Event) => a.event - b.event);
         },
         allFields(state: EventState) {
@@ -65,7 +73,14 @@ export const useEventStore = defineStore('events', {
         selectedEvent(state: EventState) {
             return (
                 (state.selectedEventId &&
-                    state.entities[state.selectedEventId]) ||
+                    state.eventEntities[state.selectedEventId]) ||
+                null
+            );
+        },
+        selectedEventDetail(state: EventState) {
+            return (
+                (state.selectedEventId &&
+                    state.eventDetailEntities[state.selectedEventId]) ||
                 null
             );
         },
@@ -78,7 +93,7 @@ export const useEventStore = defineStore('events', {
         },
         getEventById(state: EventState) {
             return (id: string) => {
-                return (id && state.entities[id]) || null;
+                return (id && state.eventEntities[id]) || null;
             };
         }
     },
@@ -100,24 +115,24 @@ export const useEventStore = defineStore('events', {
                 {}
             );
 
-            this.ids = eventIds;
-            this.entities = eventEntities;
+            this.eventIds = eventIds;
+            this.eventEntities = eventEntities;
         },
-        // async loadSelectedEvent() {
-        // 	const eventId = this.selectedEventId;
-        // 	if (eventId == null) {
-        // 		showError('No event selected');
-        // 		return;
-        // 	}
+        async loadSelectedEvent() {
+            const eventId = this.selectedEventId;
+            if (eventId == null) {
+                showError('No event selected');
+                return;
+            }
 
-        // 	const event = await eventService.loadEventDetail(eventId);
+            const event = await eventService.loadEventDetail(eventId);
 
-        // 	this.detailIds = [...this.detailIds, event.id];
-        // 	this.detailEntities = {
-        // 		...this.detailEntities,
-        // 		[event.id]: event,
-        // 	};
-        // },
+            this.eventDetailIds = [...this.eventDetailIds, event.id];
+            this.eventDetailEntities = {
+                ...this.eventDetailEntities,
+                [event.id]: event
+            };
+        },
         async loadFields() {
             const loadedFields = await eventService.loadFields();
 
@@ -157,9 +172,9 @@ export const useEventStore = defineStore('events', {
         async addEvent(newEvent: NewEvent) {
             const event = await eventService.addEvent(newEvent);
 
-            this.ids = [...this.ids, event.id];
-            this.entities = {
-                ...this.entities,
+            this.eventIds = [...this.eventIds, event.id];
+            this.eventEntities = {
+                ...this.eventEntities,
                 [event.id]: event
             };
         },
@@ -173,14 +188,17 @@ export const useEventStore = defineStore('events', {
             };
         },
         deleteEvent(id: string) {
-            this.ids.splice(this.ids.indexOf(id), 1);
-            delete this.entities[id];
+            this.eventIds.splice(this.eventIds.indexOf(id), 1);
+            delete this.eventEntities[id];
         },
         deleteField(id: string) {
             this.fieldIds.splice(this.fieldIds.indexOf(id), 1);
             delete this.fieldEntities[id];
         },
-        edit(event: Event) {},
-        lotterySettings() {}
+        async editEvent(id: string, data: NewEvent) {
+            const editedEvent = await eventService.editEvent(id, data);
+
+            this.eventEntities[id] = editedEvent;
+        }
     }
 });

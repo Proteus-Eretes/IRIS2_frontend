@@ -86,10 +86,11 @@
         </div>
 
         <RegattasAddSlideOver
-            v-model:open="showRegattaEditor"
-            :state="regattaEditorState"
-            :data="regattaEditorData"
+            v-model:open="showEditor"
+            :state="editorState"
+            :data="editorData"
             @save="saveRegattaEditor($event)"
+            @cancel="cancelRegattaEditor()"
         />
     </div>
 </template>
@@ -108,26 +109,15 @@ import {
     NewRegatta
 } from '~~/types/regatta.model';
 import { useRegattaStore } from '~~/stores/regatta';
-const regattas = useRegattaStore();
 
-import { useDateFormatter } from '~~/composables/useDateFormatter';
 import { SlideOverState } from '~~/types/slide-over-state.model';
+import { useDateFormatter } from '~~/composables/useDateFormatter';
+
 const { getYear, formatDate } = useDateFormatter();
+const regattas = useRegattaStore();
 
 const paginationIndex = ref(1);
 const maxItems = ref(10);
-
-const showRegattaEditor = ref(false);
-const regattaEditorState = ref(SlideOverState.ADD);
-const regattaEditorData = ref<NewRegatta>({
-    name: '',
-    start_date: new Date(),
-    end_date: new Date(),
-    breaking_news: '',
-    correction_factor_type: '',
-    race_type: RegattaType.CHASE,
-    venue_id: ''
-});
 
 const isInRange = (index: number): boolean => {
     return (
@@ -136,22 +126,44 @@ const isInRange = (index: number): boolean => {
     );
 };
 
+const showEditor = ref(false);
+const editorState = ref(SlideOverState.ADD);
+const initialEditorData: NewRegatta = {
+    name: '',
+    start_date: new Date(),
+    end_date: new Date(),
+    breaking_news: '',
+    correction_factor_type: '',
+    race_type: RegattaType.CHASE,
+    venue_id: ''
+};
+
+const editorData: NewRegatta = reactive({
+    ...initialEditorData
+});
+
+const resetData = (data: NewRegatta = initialEditorData) => {
+    Object.assign(editorData, data);
+};
+
 const addRegatta = () => {
-    regattaEditorState.value = SlideOverState.ADD;
-    showRegattaEditor.value = true;
+    resetData();
+
+    editorState.value = SlideOverState.ADD;
+    showEditor.value = true;
 };
 const editRegatta = async (id: string) => {
     regattas.selectedId = id;
 
     await regattas.loadSelectedRegatta();
 
-    regattaEditorState.value = SlideOverState.EDIT;
-    showRegattaEditor.value = true;
+    editorState.value = SlideOverState.EDIT;
+    showEditor.value = true;
 
     const r = regattas.selectedRegatta;
     const rD = regattas.selectedRegattaDetail;
 
-    regattaEditorData.value = {
+    resetData({
         name: r.name,
         start_date: r.start_date,
         end_date: r.end_date,
@@ -159,7 +171,7 @@ const editRegatta = async (id: string) => {
         correction_factor_type: rD ? rD.correction_factor_type : '',
         race_type: r.race_type,
         venue_id: r.venue_id
-    };
+    });
 };
 const deleteRegatta = (id: string) => {
     if (confirm('Are you sure you want to delete this regatta?'))
@@ -167,7 +179,7 @@ const deleteRegatta = (id: string) => {
 };
 
 const saveRegattaEditor = (data: NewRegatta) => {
-    switch (regattaEditorState.value) {
+    switch (editorState.value) {
         case SlideOverState.ADD:
             regattas.add(data);
             break;
@@ -176,6 +188,9 @@ const saveRegattaEditor = (data: NewRegatta) => {
             regattas.selectedId = null;
             break;
     }
+};
+const cancelRegattaEditor = () => {
+    regattas.selectedId = null;
 };
 
 const params = useUrlSearchParams('history');

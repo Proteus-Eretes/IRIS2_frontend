@@ -112,7 +112,7 @@
                 <button
                     type="button"
                     class="button icon-button button-secondary"
-                    @click="openAddRower(RowerRole.ROWER)"
+                    @click="addRower(RowerRole.ROWER)"
                 >
                     <ph-plus class="icon text-gray-400" />
                     <span>Add Rower</span>
@@ -151,7 +151,7 @@
                 <button
                     type="button"
                     class="button icon-button button-secondary"
-                    @click="openAddRower(RowerRole.COACH)"
+                    @click="addRower(RowerRole.COACH)"
                 >
                     <ph-plus class="icon text-gray-400" />
                     <span>Add Coach</span>
@@ -190,7 +190,7 @@
                 <button
                     type="button"
                     class="button icon-button button-secondary"
-                    @click="openAddRower(RowerRole.COX)"
+                    @click="addRower(RowerRole.COX)"
                 >
                     <ph-plus class="icon text-gray-400" />
                     <span>Add Cox</span>
@@ -236,11 +236,11 @@
     </SlidingPanel>
 
     <RowersAddSlideOver
-        v-model:open="showAddRower"
-        :role="addRowerRole"
-        :crew="crews.selectedCrewId"
-        :regatta="regattas.selectedId"
-        :club="crews.selectedCrew ? crews.selectedCrew.club_id : null"
+        v-model:open="showRowerEditor"
+        :state="rowerEditorState"
+        :data="rowerEditorData"
+        @save="saveRowerEditor($event)"
+        @cancel="cancelRowerEditor()"
     />
 </template>
 
@@ -258,11 +258,11 @@ import {
     getCrewStatusLabel,
     getTeamResultStatusLabel
 } from '~~/types/crew.model';
-import { Rower, RowerRole } from '~~/types/rower.model';
+import { Gender, NewRower, Rower, RowerRole } from '~~/types/rower.model';
 import { TableHeader } from '~~/types/table-header.model';
+import { SlideOverState } from '~~/types/slide-over-state.model';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
-
 const { formatDate } = useDateFormatter();
 
 const regattas = useRegattaStore();
@@ -271,14 +271,130 @@ const crews = useCrewStore();
 const clubs = useClubStore();
 const rowers = useRowerStore();
 
-const showAddRower = ref(false);
-const addRowerRole = ref(null);
+const tableHeaders: TableHeader[] = [
+    { id: 'Position', sortable: false },
+    { id: 'Name', sortable: false },
+    { id: 'Gender', sortable: false }
+];
+const finesTableHeader: TableHeader[] = [
+    { id: 'Amount', sortable: false },
+    { id: 'Date', sortable: false }
+];
 
-const openAddRower = (role: RowerRole) => {
-    showAddRower.value = true;
-    clubs.loadClubs();
+const performTableAction = (action: { action: string; item: Rower }) => {
+    //FIXME: do the other actions
+    console.log(action.action, action.item);
+    switch (action.action) {
+        case 'edit':
+            editRower(action.item.id);
+            break;
+        case 'delete':
+            deleteRower(action.item.id);
+            break;
+    }
+};
+const performFineTableAction = (action: { action: string; item: Fine }) => {
+    //FIXME: do the other actions
+    console.log(action.action, action.item);
+    switch (action.action) {
+        case 'edit':
+            break;
+        case 'delete':
+            deleteFine(action.item.id);
+            break;
+    }
+};
 
-    addRowerRole.value = role;
+const showRowerEditor = ref(false);
+const rowerEditorState = ref(SlideOverState.ADD);
+const initialRowerEditorData: NewRower = {
+    crew_id: '',
+    regatta_id: '',
+    club_id: '',
+    knrb: '',
+    initials: '',
+    firstname: '',
+    middlename: '',
+    lastname: '',
+    year_of_birth: null,
+    gender: Gender.MAN,
+    license: true,
+    position: null,
+    role: RowerRole.ROWER
+};
+
+const rowerEditorData: NewRower = reactive({
+    ...initialRowerEditorData
+});
+
+const resetRowerData = (data: NewRower = initialRowerEditorData) => {
+    Object.assign(rowerEditorData, data);
+};
+
+const addRower = async (role: RowerRole) => {
+    resetRowerData();
+
+    await clubs.loadClubs();
+    rowerEditorData.role = role;
+    rowerEditorData.crew_id = crews.selectedCrewId;
+    rowerEditorData.regatta_id = regattas.selectedId;
+    rowerEditorData.club_id = crews.selectedCrew
+        ? crews.selectedCrew.club_id
+        : null;
+
+    rowerEditorState.value = SlideOverState.ADD;
+    showRowerEditor.value = true;
+};
+const editRower = async (id: string) => {
+    await clubs.loadClubs();
+    rowers.selectedId = id;
+
+    await rowers.loadSelectedRower();
+
+    rowerEditorState.value = SlideOverState.EDIT;
+    showRowerEditor.value = true;
+
+    const r = rowers.selectedRower;
+    const rD = rowers.selectedRowerDetail;
+
+    resetRowerData({
+        crew_id: r.crew_id,
+        regatta_id: r.regatta_id,
+        club_id: r.club_id,
+        knrb: r.knrb,
+        initials: rD.initials,
+        firstname: rD.firstname,
+        middlename: rD.middlename,
+        lastname: rD.lastname,
+        year_of_birth: rD.year_of_birth,
+        gender: r.gender,
+        license: rD.license,
+        position: r.position,
+        role: r.role
+    });
+};
+const deleteRower = (id: string) => {
+    const c = window.confirm('Are you sure you want to delete this rower?');
+    if (c) rowers.delete(id);
+};
+const deleteFine = (id: string) => {
+    const c = window.confirm('Are you sure you want to delete this fine?');
+    if (c) crews.deleteFine(id);
+};
+
+const saveRowerEditor = (data: NewRower) => {
+    switch (rowerEditorState.value) {
+        case SlideOverState.ADD:
+            rowers.add(data);
+            break;
+        case SlideOverState.EDIT:
+            rowers.edit(rowers.selectedId, data);
+            rowers.selectedId = null;
+            break;
+    }
+};
+const cancelRowerEditor = () => {
+    rowers.selectedId = null;
 };
 
 interface Props {
@@ -298,46 +414,4 @@ const emits = defineEmits<{
     (e: 'close'): void;
     (e: 'select-rower', id: string): void;
 }>();
-
-const tableHeaders: TableHeader[] = [
-    { id: 'Position', sortable: false },
-    { id: 'Name', sortable: false },
-    { id: 'Gender', sortable: false }
-];
-const finesTableHeader: TableHeader[] = [
-    { id: 'Amount', sortable: false },
-    { id: 'Date', sortable: false }
-];
-
-const performTableAction = (action: { action: string; item: any }) => {
-    //FIXME: do the other actions
-    console.log(action.action, action.item);
-    switch (action.action) {
-        case 'edit':
-            break;
-        case 'delete':
-            deleteRower(action.item);
-            break;
-    }
-};
-const performFineTableAction = (action: { action: string; item: any }) => {
-    //FIXME: do the other actions
-    console.log(action.action, action.item);
-    switch (action.action) {
-        case 'edit':
-            break;
-        case 'delete':
-            deleteFine(action.item);
-            break;
-    }
-};
-
-const deleteRower = (rower: Rower) => {
-    const c = window.confirm('Are you sure you want to delete this rower?');
-    if (c) rowers.delete(rower.id);
-};
-const deleteFine = (fine: Fine) => {
-    const c = window.confirm('Are you sure you want to delete this fine?');
-    if (c) crews.deleteFine(fine.id);
-};
 </script>

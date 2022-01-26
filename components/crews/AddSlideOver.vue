@@ -2,12 +2,8 @@
     <EditorSlideOver
         :open="open"
         @update:open="$emit('update:open', $event)"
-        @save="
-            () => {
-                crews.addCrew(addCrewData);
-                resetState();
-            }
-        "
+        @save="$emit('save', editorData)"
+        @cancel="$emit('cancel')"
     >
         <template #header>Create a new crew</template>
         <template #subheader>
@@ -19,7 +15,7 @@
             <label for="event" class="form-label required">Event</label>
             <select
                 id="event"
-                v-model="addCrewData.event_id"
+                v-model="editorData.event_id"
                 autocomplete="organization"
                 class="form-select"
                 required
@@ -29,7 +25,7 @@
                     :key="event.id"
                     :value="event.id"
                 >
-                    {{ event.name }}
+                    {{ event.code }}
                 </option>
             </select>
         </div>
@@ -39,7 +35,7 @@
             <label for="club" class="form-label required">Club</label>
             <select
                 id="club"
-                v-model="addCrewData.club_id"
+                v-model="editorData.club_id"
                 autocomplete="organization"
                 class="form-select"
                 required
@@ -60,7 +56,7 @@
             <input
                 id="name"
                 type="text"
-                v-model="addCrewData.displayName"
+                v-model="editorData.displayName"
                 autocomplete="name"
                 class="form-text"
                 required
@@ -73,7 +69,7 @@
             <input
                 id="shortname"
                 type="text"
-                v-model="addCrewData.shortname"
+                v-model="editorData.shortname"
                 autocomplete="nickname"
                 class="form-text"
             />
@@ -85,7 +81,7 @@
             <input
                 id="alternative"
                 type="text"
-                v-model="addCrewData.alternative"
+                v-model="editorData.alternative"
                 autocomplete="nickname"
                 class="form-text"
             />
@@ -97,7 +93,7 @@
                 <input
                     id="combination"
                     type="checkbox"
-                    v-model="addCrewData.combination"
+                    v-model="editorData.combination"
                     class="form-checkbox"
                     required
                 />
@@ -117,7 +113,7 @@
             <div class="mt-1">
                 <textarea
                     id="remarks"
-                    v-model="addCrewData.remarks"
+                    v-model="editorData.remarks"
                     rows="3"
                     class="form-text"
                 />
@@ -131,7 +127,7 @@
             <label for="status" class="form-label">Status</label>
             <select
                 id="status"
-                v-model="addCrewData.status"
+                v-model="editorData.status"
                 autocomplete="off"
                 class="form-select"
             >
@@ -148,40 +144,19 @@
 </template>
 
 <script lang="ts" setup>
-import { useCrewStore } from '~~/stores/crew';
 import { useEventStore } from '~~/stores/event';
 import { useClubStore } from '~~/stores/club';
 
 import { CrewStatus, NewCrew, getCrewStatusLabel } from '~~/types/crew.model';
+import { SlideOverState } from '~~/types/slide-over-state.model';
 
-const crews = useCrewStore();
 const events = useEventStore();
 const clubs = useClubStore();
 
-const initialState = {
-    event_id: '',
-    club_id: '',
-    regatta_id: '',
-    displayName: '',
-    shortname: '',
-    alternative: '',
-    combination: false,
-    remarks: '',
-    status: CrewStatus.ENTERED
-};
-
-const addCrewData: NewCrew = reactive({
-    ...initialState
-});
-
-const resetState = () => {
-    Object.assign(addCrewData, initialState);
-};
-
 interface Props {
     open: boolean;
-    event?: string | null;
-    regatta: string | null;
+    state: SlideOverState;
+    data: NewCrew;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -190,13 +165,24 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emits = defineEmits<{
     (e: 'update:open', open: boolean): void;
-    (e: 'save'): void;
+    (e: 'save', data: NewCrew): void;
+    (e: 'cancel'): void;
 }>();
 
-watchEffect(() => {
-    if (!props.open) return;
-
-    if (props.event) addCrewData.event_id = props.event;
-    if (props.regatta) addCrewData.regatta_id = props.regatta;
+const editorData: NewCrew = reactive({
+    ...props.data
 });
+
+const setData = (data: NewCrew) => {
+    Object.assign(editorData, data);
+};
+
+watch(
+    () => props.open,
+    (open, _) => {
+        if (!open) return;
+
+        setData(props.data);
+    }
+);
 </script>

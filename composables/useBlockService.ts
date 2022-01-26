@@ -15,6 +15,13 @@ export const useBlockService = () => {
                 method: 'POST',
                 body: block
             });
+        },
+        async editBlock(id: string, data: NewBlock) {
+            const url = BASE_URL + '/edit-block?blockId=' + id;
+            return await $fetch<Block>(url, {
+                method: 'POST',
+                body: data
+            });
         }
     };
 };

@@ -13,7 +13,13 @@
                     <Table
                         title="Blocks"
                         :headers="tableHeaders"
-                        :actions="['assign', 'lots', 'shirts', 'delete']"
+                        :actions="[
+                            'assign',
+                            'lots',
+                            'shirts',
+                            'edit',
+                            'delete'
+                        ]"
                         :items="blocks.allBlocks"
                         :activeId="blocks.selectedId"
                         @item-click="selectBlock($event.id)"
@@ -21,8 +27,8 @@
                         has-headers
                     >
                         <template #block="{ item }">
-                            <span class="text-sm font-semibold">
-                                Block {{ item.block }}
+                            <span class="badge bg-primary-800 text-white">
+                                {{ item.block }}
                             </span>
                         </template>
 
@@ -49,7 +55,7 @@
                         <button
                             type="button"
                             class="button icon-button button-secondary"
-                            @click="showAddBlock = true"
+                            @click="addBlock()"
                         >
                             <ph-plus class="icon text-gray-400" />
                             <span>Add Block</span>
@@ -93,8 +99,11 @@
         </div>
 
         <BlocksAddSlideOver
-            v-model:open="showAddBlock"
-            :regatta="regattas.selectedId"
+            v-model:open="showBlockEditor"
+            :state="blockEditorState"
+            :data="blockEditorData"
+            @save="saveBlockEditor($event)"
+            @cancel="cancelBlockEditor()"
         />
     </div>
 </template>
@@ -110,9 +119,10 @@ import { useRoundStore } from '~~/stores/round';
 import { useRowerStore } from '~~/stores/rower';
 import { useClubStore } from '~~/stores/club';
 
-import { Block, getBlockStatusLabel } from '~~/types/block.model';
+import { Block, getBlockStatusLabel, NewBlock } from '~~/types/block.model';
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 import { TableHeader } from '~~/types/table-header.model';
+import { SlideOverState } from '~~/types/slide-over-state.model';
 
 const { formatDate, formatTime } = useDateFormatter();
 
@@ -128,7 +138,6 @@ await blocks.loadBlocks();
 
 // The panel that is last opened
 const activePanel = ref(0);
-const showAddBlock = ref(false);
 
 const tableHeaders: TableHeader[] = [
     { id: 'Block', sortable: false },
@@ -137,7 +146,7 @@ const tableHeaders: TableHeader[] = [
     { id: 'Status', sortable: false }
 ];
 
-const performTableAction = (action: { action: string; item: any }) => {
+const performTableAction = (action: { action: string; item: Block }) => {
     //FIXME: do the other actions
     console.log(action.action, action.item);
     switch (action.action) {
@@ -147,15 +156,73 @@ const performTableAction = (action: { action: string; item: any }) => {
             break;
         case 'shirts':
             break;
+        case 'edit':
+            editBlock(action.item.id);
+            break;
         case 'delete':
-            deleteBlock(action.item);
+            deleteBlock(action.item.id);
             break;
     }
 };
 
-const deleteBlock = (block: Block) => {
+const showBlockEditor = ref(false);
+const blockEditorState = ref(SlideOverState.ADD);
+const initialBlockEditorData: NewBlock = {
+    regatta_id: '',
+    block: null,
+    start_time: new Date()
+};
+
+const blockEditorData: NewBlock = reactive({
+    ...initialBlockEditorData
+});
+
+const resetBlockData = (data: NewBlock = initialBlockEditorData) => {
+    Object.assign(blockEditorData, data);
+};
+
+const addBlock = async () => {
+    resetBlockData();
+
+    await clubs.loadClubs();
+    blockEditorData.regatta_id = regattas.selectedId;
+
+    blockEditorState.value = SlideOverState.ADD;
+    showBlockEditor.value = true;
+};
+const editBlock = async (id: string) => {
+    await clubs.loadClubs();
+    blocks.selectedId = id;
+
+    blockEditorState.value = SlideOverState.EDIT;
+    showBlockEditor.value = true;
+
+    const b = blocks.selectedBlock;
+
+    resetBlockData({
+        regatta_id: b.regatta_id,
+        block: b.block,
+        start_time: b.start_time
+    });
+};
+const deleteBlock = (id: string) => {
     const c = window.confirm('Are you sure you want to delete this block?');
-    if (c) blocks.delete(block.id);
+    if (c) blocks.delete(id);
+};
+
+const saveBlockEditor = (data: NewBlock) => {
+    switch (blockEditorState.value) {
+        case SlideOverState.ADD:
+            blocks.add(data);
+            break;
+        case SlideOverState.EDIT:
+            blocks.edit(blocks.selectedId, data);
+            blocks.selectedId = null;
+            break;
+    }
+};
+const cancelBlockEditor = () => {
+    blocks.selectedId = null;
 };
 
 /*

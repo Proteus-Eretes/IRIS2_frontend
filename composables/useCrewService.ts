@@ -1,4 +1,11 @@
-import { Crew, Fine, NewCrew, Team } from '~~/types/crew.model';
+import {
+    Crew,
+    CrewDetail,
+    Fine,
+    NewCrew,
+    NewTeam,
+    Team
+} from '~~/types/crew.model';
 
 const BASE_URL = '/api/crews';
 
@@ -11,6 +18,10 @@ export const useCrewService = () => {
         async loadCrewsByEvent(id: string) {
             const url = BASE_URL + '/get-crews-by-event?eventId=' + id;
             return await $fetch<Crew[]>(url);
+        },
+        async loadCrewDetail(id: string) {
+            const url = BASE_URL + '/get-crew-detail?crewId=' + id;
+            return await $fetch<CrewDetail>(url);
         },
         async loadTeams() {
             const url = BASE_URL + '/get-teams';
@@ -30,6 +41,20 @@ export const useCrewService = () => {
             return await $fetch<Crew>(url, {
                 method: 'POST',
                 body: crew
+            });
+        },
+        async addTeam(team: NewTeam) {
+            const url = BASE_URL + '/add-team';
+            return await $fetch<Team>(url, {
+                method: 'POST',
+                body: team
+            });
+        },
+        async editCrew(id: string, data: NewCrew) {
+            const url = BASE_URL + '/edit-crew?crewId=' + id;
+            return await $fetch<Crew>(url, {
+                method: 'POST',
+                body: data
             });
         }
     };

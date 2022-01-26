@@ -3,7 +3,7 @@
         <Dialog
             as="div"
             class="fixed inset-0 z-40 overflow-hidden"
-            @close="$emit('update:open', false)"
+            @close="cancel"
         >
             <div class="absolute inset-0 overflow-hidden">
                 <TransitionChild
@@ -61,7 +61,7 @@
                                         <button
                                             type="button"
                                             class="rounded-md text-gray-400 hover:text-danger-600 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:hover:ring-danger-200"
-                                            @click="$emit('update:open', false)"
+                                            @click="cancel"
                                         >
                                             <span class="sr-only">
                                                 Close panel
@@ -88,7 +88,7 @@
                                     <button
                                         type="reset"
                                         class="button button-secondary w-auto"
-                                        @click="$emit('update:open', false)"
+                                        @click="cancel"
                                     >
                                         Cancel
                                     </button>
@@ -130,5 +130,11 @@ const props = withDefaults(defineProps<Props>(), {
 const emits = defineEmits<{
     (e: 'update:open', open: boolean): void;
     (e: 'save'): void;
+    (e: 'cancel'): void;
 }>();
+
+const cancel = () => {
+    emits('update:open', false);
+    emits('cancel');
+};
 </script>

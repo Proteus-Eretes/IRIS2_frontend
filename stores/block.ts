@@ -10,8 +10,6 @@
 
 // drawLots
 
-// edit
-
 // getDrawBlock
 
 // showDrawnLots
@@ -87,7 +85,10 @@ export const useBlockStore = defineStore('blocks', {
             this.ids.splice(this.ids.indexOf(id), 1);
             delete this.entities[id];
         },
-        edit(block: Block) {},
-        lotterySettings() {}
+        async edit(id: string, data: NewBlock) {
+            const editedRower = await blockService.editBlock(id, data);
+
+            this.entities[id] = editedRower;
+        }
     }
 });

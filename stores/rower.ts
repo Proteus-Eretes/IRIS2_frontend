@@ -1,5 +1,3 @@
-// edit
-
 // getRowerInformation
 
 import { defineStore } from 'pinia';
@@ -175,7 +173,10 @@ export const useRowerStore = defineStore('rowers', {
             this.detailIds.splice(this.detailIds.indexOf(id), 1);
             delete this.detailEntities[id];
         },
-        edit(rower: Rower) {},
-        lotterySettings() {}
+        async edit(id: string, data: NewRower) {
+            const editedRower = await rowerService.editRower(id, data);
+
+            this.entities[id] = editedRower;
+        }
     }
 });

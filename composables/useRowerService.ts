@@ -23,6 +23,13 @@ export const useRowerService = () => {
                 method: 'POST',
                 body: rower
             });
+        },
+        async editRower(id: string, data: NewRower) {
+            const url = BASE_URL + '/edit-rower?rowerId=' + id;
+            return await $fetch<Rower>(url, {
+                method: 'POST',
+                body: data
+            });
         }
     };
 };

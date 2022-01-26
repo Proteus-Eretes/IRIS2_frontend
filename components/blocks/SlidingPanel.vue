@@ -118,8 +118,8 @@ const emits = defineEmits<{
 
 const roundsTableHeaders: TableHeader[] = [{ id: 'Name', sortable: false }];
 const fieldsTableHeaders: TableHeader[] = [
-    { id: 'Name', sortable: false },
     { id: 'Code', sortable: false },
+    { id: 'Name', sortable: false },
     { id: 'Teams', sortable: false }
 ];
 </script>

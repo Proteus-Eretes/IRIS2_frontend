@@ -81,7 +81,7 @@
                         <button
                             type="button"
                             class="button icon-button button-secondary"
-                            @click="openAddCrew"
+                            @click="addCrew()"
                         >
                             <ph-plus class="icon text-gray-400" />
                             <span>Add Crew</span>
@@ -108,8 +108,11 @@
         </div>
 
         <CrewsAddSlideOver
-            v-model:open="showAddCrew"
-            :regatta="regattas.selectedId"
+            v-model:open="showCrewEditor"
+            :state="crewEditorState"
+            :data="crewEditorData"
+            @save="saveCrewEditor($event)"
+            @cancel="cancelCrewEditor()"
         />
     </div>
 </template>
@@ -123,12 +126,13 @@ import { useRowerStore } from '~~/stores/rower';
 import { useEventStore } from '~~/stores/event';
 import { useClubStore } from '~~/stores/club';
 
-import { getCrewStatusLabel } from '~~/types/crew.model';
+import { CrewStatus, getCrewStatusLabel, NewCrew } from '~~/types/crew.model';
 import { TableHeader } from '~~/types/table-header.model';
 import { TableSortDirection } from '~~/types/table-sort-direction.model';
 import { Crew } from '~~/types/crew.model';
 import { Event } from '~~/types/event.model';
 import { Rower } from '~~/types/rower.model';
+import { SlideOverState } from '~~/types/slide-over-state.model';
 
 const regattas = useRegattaStore();
 const crews = useCrewStore();
@@ -145,12 +149,6 @@ await rowers.loadRowers();
 
 // The panel that is last opened
 const activePanel = ref(0);
-const showAddCrew = ref(false);
-
-const openAddCrew = () => {
-    showAddCrew.value = true;
-    clubs.loadClubs();
-};
 
 const tableHeaders: TableHeader[] = [
     { id: 'Shirt numbers', sortable: false },
@@ -162,21 +160,92 @@ const tableHeaders: TableHeader[] = [
     { id: 'Status', sortable: false }
 ];
 
-const performTableAction = (action: { action: string; item: any }) => {
+const performTableAction = (action: { action: string; item: Crew }) => {
     //FIXME: do the other actions
     console.log(action.action, action.item);
     switch (action.action) {
         case 'edit':
+            editCrew(action.item.id);
             break;
         case 'delete':
-            deleteCrew(action.item);
+            deleteCrew(action.item.id);
             break;
     }
 };
 
-const deleteCrew = (crew: Crew) => {
+const showCrewEditor = ref(false);
+const crewEditorState = ref(SlideOverState.ADD);
+const initialCrewEditorData: NewCrew = {
+    event_id: '',
+    club_id: '',
+    regatta_id: '',
+    displayName: '',
+    shortname: '',
+    alternative: '',
+    combination: false,
+    remarks: '',
+    status: CrewStatus.ENTERED
+};
+
+const crewEditorData: NewCrew = reactive({
+    ...initialCrewEditorData
+});
+
+const resetCrewData = (data: NewCrew = initialCrewEditorData) => {
+    Object.assign(crewEditorData, data);
+};
+
+const addCrew = async () => {
+    resetCrewData();
+
+    await clubs.loadClubs();
+    crewEditorData.regatta_id = regattas.selectedId;
+
+    crewEditorState.value = SlideOverState.ADD;
+    showCrewEditor.value = true;
+};
+const editCrew = async (id: string) => {
+    await clubs.loadClubs();
+    crews.selectedCrewId = id;
+
+    await crews.loadSelectedCrew();
+
+    crewEditorState.value = SlideOverState.EDIT;
+    showCrewEditor.value = true;
+
+    const c = crews.selectedCrew;
+    const cD = crews.selectedCrewDetail;
+
+    resetCrewData({
+        event_id: c.event_id,
+        club_id: c.club_id,
+        regatta_id: c.regatta_id,
+        displayName: c.displayName,
+        shortname: cD.shortname,
+        alternative: cD.alternative,
+        combination: cD.combination,
+        remarks: cD.remarks,
+        status: c.status
+    });
+};
+const deleteCrew = (id: string) => {
     const c = window.confirm('Are you sure you want to delete this crew?');
-    if (c) crews.deleteCrew(crew.id);
+    if (c) crews.deleteCrew(id);
+};
+
+const saveCrewEditor = (data: NewCrew) => {
+    switch (crewEditorState.value) {
+        case SlideOverState.ADD:
+            crews.addCrew(data);
+            break;
+        case SlideOverState.EDIT:
+            crews.editCrew(crews.selectedCrewId, data);
+            crews.selectedCrewId = null;
+            break;
+    }
+};
+const cancelCrewEditor = () => {
+    crews.selectedCrewId = null;
 };
 
 const sortId = ref(tableHeaders[1].sortId);

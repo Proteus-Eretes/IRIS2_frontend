@@ -82,7 +82,7 @@
                         <button
                             type="button"
                             class="button icon-button button-secondary"
-                            @click="showAddEvent = true"
+                            @click="addEvent()"
                         >
                             <ph-plus class="icon text-gray-400" />
                             <span>Add Event</span>
@@ -116,8 +116,11 @@
         </div>
 
         <EventsAddSlideOver
-            v-model:open="showAddEvent"
-            :regatta="regattas.selectedId"
+            v-model:open="showEventEditor"
+            :state="eventEditorState"
+            :data="eventEditorData"
+            @save="saveEventEditor($event)"
+            @cancel="cancelEventEditor()"
         />
     </div>
 </template>
@@ -133,7 +136,9 @@ import { useClubStore } from '~~/stores/club';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 import { TableHeader } from '~~/types/table-header.model';
-import { Event } from '~~/types/event.model';
+import { Event, EventStatus, NewEvent } from '~~/types/event.model';
+import { SlideOverState } from '~~/types/slide-over-state.model';
+import { Gender } from '~~/types/rower.model';
 
 const { formatDate } = useDateFormatter();
 
@@ -148,7 +153,6 @@ await crews.loadCrews();
 
 // The panel that is last opened
 const activePanel = ref(0);
-const showAddEvent = ref(false);
 
 const tableHeaders: TableHeader[] = [
     { id: 'Number', sortable: false },
@@ -160,21 +164,94 @@ const tableHeaders: TableHeader[] = [
     { id: 'Boat type', sortable: false }
 ];
 
-const performTableAction = (action: { action: string; item: any }) => {
+const performTableAction = (action: { action: string; item: Event }) => {
     //FIXME: do the other actions
     console.log(action.action, action.item);
     switch (action.action) {
         case 'edit':
+            editEvent(action.item.id);
             break;
         case 'delete':
-            deleteEvent(action.item);
+            deleteEvent(action.item.id);
             break;
     }
 };
 
-const deleteEvent = (event: Event) => {
+const showEventEditor = ref(false);
+const eventEditorState = ref(SlideOverState.ADD);
+const initialEventEditorData: NewEvent = {
+    regatta_id: '',
+    number: null,
+    day: new Date(),
+    code: '',
+    name: '',
+    category: '',
+    boat_type: '',
+    remarks: '',
+    weighed: false,
+    gender: Gender.MAN,
+    status: EventStatus.ONGOING
+};
+
+const eventEditorData: NewEvent = reactive({
+    ...initialEventEditorData
+});
+
+const resetEventData = (data: NewEvent = initialEventEditorData) => {
+    Object.assign(eventEditorData, data);
+};
+
+const addEvent = () => {
+    resetEventData();
+
+    eventEditorData.regatta_id = regattas.selectedId;
+
+    eventEditorState.value = SlideOverState.ADD;
+    showEventEditor.value = true;
+};
+const editEvent = async (id: string) => {
+    events.selectedEventId = id;
+
+    await events.loadSelectedEvent();
+
+    eventEditorState.value = SlideOverState.EDIT;
+    showEventEditor.value = true;
+
+    const e = events.selectedEvent;
+    const eD = events.selectedEventDetail;
+
+    resetEventData({
+        regatta_id: e.regatta_id,
+        number: e.number,
+        day: e.day,
+        code: e.code,
+        name: e.name,
+        category: e.category,
+        boat_type: e.boat_type,
+        remarks: eD.remarks,
+        weighed: eD.weighed,
+        gender: eD.gender,
+        status: e.status
+    });
+};
+const deleteEvent = (id: string) => {
     const c = window.confirm('Are you sure you want to delete this event?');
-    if (c) events.deleteEvent(event.id);
+    if (c) events.deleteEvent(id);
+};
+
+const saveEventEditor = (data: NewEvent) => {
+    switch (eventEditorState.value) {
+        case SlideOverState.ADD:
+            events.addEvent(data);
+            break;
+        case SlideOverState.EDIT:
+            events.editEvent(events.selectedEventId, data);
+            events.selectedEventId = null;
+            break;
+    }
+};
+const cancelEventEditor = () => {
+    events.selectedEventId = null;
 };
 
 /*

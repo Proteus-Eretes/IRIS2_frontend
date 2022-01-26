@@ -2,12 +2,8 @@
     <EditorSlideOver
         :open="open"
         @update:open="$emit('update:open', $event)"
-        @save="
-            () => {
-                $emit('save', editorData);
-                resetState();
-            }
-        "
+        @save="$emit('save', editorData)"
+        @cancel="$emit('cancel')"
     >
         <template #header>
             <span v-if="state == SlideOverState.ADD">
@@ -137,12 +133,12 @@
                 </option> -->
             </select>
         </div>
+
+        <!-- TODO: dingen voor rounds -->
     </EditorSlideOver>
 </template>
 
 <script lang="ts" setup>
-import { useRegattaStore } from '~~/stores/regatta';
-
 import {
     NewRegatta,
     RegattaType,
@@ -152,26 +148,6 @@ import { SlideOverState } from '~~/types/slide-over-state.model';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 const { formatInputDate, getInputDate } = useDateFormatter();
-
-const regattas = useRegattaStore();
-
-const initialState: NewRegatta = {
-    name: '',
-    start_date: new Date(),
-    end_date: new Date(),
-    breaking_news: '',
-    correction_factor_type: '',
-    race_type: RegattaType.CHASE,
-    venue_id: ''
-};
-
-const editorData = reactive({
-    ...initialState
-});
-
-const resetState = (data: NewRegatta = initialState) => {
-    Object.assign(editorData, data);
-};
 
 interface Props {
     open: boolean;
@@ -186,7 +162,25 @@ const props = withDefaults(defineProps<Props>(), {
 const emits = defineEmits<{
     (e: 'update:open', open: boolean): void;
     (e: 'save', data: NewRegatta): void;
+    (e: 'cancel'): void;
 }>();
+
+const editorData: NewRegatta = reactive({
+    ...props.data
+});
+
+const setData = (data: NewRegatta) => {
+    Object.assign(editorData, data);
+};
+
+watch(
+    () => props.open,
+    (open, _) => {
+        if (!open) return;
+
+        setData(props.data);
+    }
+);
 
 const start_date = computed({
     get() {
@@ -202,16 +196,6 @@ const end_date = computed({
     },
     set(value: string) {
         editorData.end_date = getInputDate(value);
-    }
-});
-
-watchEffect(() => {
-    if (!props.open) return;
-
-    if (props.state == SlideOverState.EDIT) {
-        console.log(props.data);
-
-        resetState(props.data);
     }
 });
 </script>

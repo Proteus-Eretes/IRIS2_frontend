@@ -13,7 +13,7 @@ export interface Rower {
 
 export interface RowerDetail extends Rower {
     license: boolean;
-    initals: string;
+    initials: string;
     firstname: string;
     middlename: string;
     lastname: string;
@@ -25,7 +25,7 @@ export interface NewRower {
     regatta_id: string;
     club_id: string;
     knrb: string;
-    initals: string;
+    initials: string;
     firstname: string;
     middlename: string;
     lastname: string;

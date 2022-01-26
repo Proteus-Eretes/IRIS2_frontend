@@ -34,6 +34,13 @@ export const useEventService = () => {
         async addField(field: NewField) {
             const url = BASE_URL + '/add-field';
             return await $fetch<Field>(url, { method: 'POST', body: field });
+        },
+        async editEvent(id: string, data: NewEvent) {
+            const url = BASE_URL + '/edit-event?eventId=' + id;
+            return await $fetch<Event>(url, {
+                method: 'POST',
+                body: data
+            });
         }
     };
 };

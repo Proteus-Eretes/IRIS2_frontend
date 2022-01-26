@@ -2,12 +2,8 @@
     <EditorSlideOver
         :open="open"
         @update:open="$emit('update:open', $event)"
-        @save="
-            () => {
-                events.addEvent(addEventData);
-                resetState();
-            }
-        "
+        @save="$emit('save', editorData)"
+        @cancel="$emit('cancel')"
     >
         <template #header>Create a new event</template>
         <template #subheader>Create a new event for this regatta.</template>
@@ -19,7 +15,7 @@
                 id="knrb"
                 type="number"
                 inputmode="numeric"
-                v-model="addEventData.number"
+                v-model="editorData.number"
                 autocomplete="off"
                 class="form-text"
                 required
@@ -32,7 +28,7 @@
             <input
                 id="date"
                 type="date"
-                v-model="addEventData.day"
+                v-model="day"
                 autocomplete="off"
                 class="form-text"
                 required
@@ -45,7 +41,7 @@
             <input
                 id="code"
                 type="text"
-                v-model="addEventData.code"
+                v-model="editorData.code"
                 autocomplete="off"
                 class="form-text"
                 required
@@ -58,7 +54,7 @@
             <input
                 id="name"
                 type="text"
-                v-model="addEventData.name"
+                v-model="editorData.name"
                 autocomplete="organization"
                 class="form-text"
                 required
@@ -71,7 +67,7 @@
             <input
                 id="category"
                 type="text"
-                v-model="addEventData.category"
+                v-model="editorData.category"
                 autocomplete="off"
                 class="form-text"
             />
@@ -83,7 +79,7 @@
             <input
                 id="boat_type"
                 type="text"
-                v-model="addEventData.boat_type"
+                v-model="editorData.boat_type"
                 autocomplete="off"
                 class="form-text"
                 required
@@ -96,7 +92,7 @@
                 <input
                     id="weighed"
                     type="checkbox"
-                    v-model="addEventData.weighed"
+                    v-model="editorData.weighed"
                     class="form-checkbox"
                 />
             </div>
@@ -113,7 +109,7 @@
             <div class="mt-1">
                 <textarea
                     id="remarks"
-                    v-model="addEventData.remarks"
+                    v-model="editorData.remarks"
                     rows="3"
                     class="form-text"
                 />
@@ -127,7 +123,7 @@
             <label for="gender" class="form-label required">Gender</label>
             <select
                 id="gender"
-                v-model="addEventData.gender"
+                v-model="editorData.gender"
                 autocomplete="off"
                 class="form-select"
                 required
@@ -176,7 +172,7 @@
             <label for="status" class="form-label">Status</label>
             <select
                 id="status"
-                v-model="addEventData.status"
+                v-model="editorData.status"
                 autocomplete="off"
                 class="form-select"
             >
@@ -193,42 +189,21 @@
 </template>
 
 <script lang="ts" setup>
-import { useEventStore } from '~~/stores/event';
-
 import {
     EventStatus,
     NewEvent,
     getEventStatusLabel
 } from '~~/types/event.model';
 import { Gender, getGenderLabel } from '~~/types/rower.model';
+import { SlideOverState } from '~~/types/slide-over-state.model';
 
-const events = useEventStore();
-
-const initialState: NewEvent = {
-    regatta_id: '',
-    number: null,
-    day: new Date(),
-    code: '',
-    name: '',
-    category: '',
-    boat_type: '',
-    remarks: '',
-    weighed: false,
-    gender: Gender.MAN,
-    status: EventStatus.ONGOING
-};
-
-const addEventData = reactive({
-    ...initialState
-});
-
-const resetState = () => {
-    Object.assign(addEventData, initialState);
-};
+import { useDateFormatter } from '~~/composables/useDateFormatter';
+const { formatInputDate, getInputDate } = useDateFormatter();
 
 interface Props {
     open: boolean;
-    regatta: string | null;
+    state: SlideOverState;
+    data: NewEvent;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -237,12 +212,33 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emits = defineEmits<{
     (e: 'update:open', open: boolean): void;
-    (e: 'save'): void;
+    (e: 'save', data: NewEvent): void;
+    (e: 'cancel'): void;
 }>();
 
-watchEffect(() => {
-    if (!props.open) return;
+const editorData: NewEvent = reactive({
+    ...props.data
+});
 
-    if (props.regatta) addEventData.regatta_id = props.regatta;
+const setData = (data: NewEvent) => {
+    Object.assign(editorData, data);
+};
+
+watch(
+    () => props.open,
+    (open, _) => {
+        if (!open) return;
+
+        setData(props.data);
+    }
+);
+
+const day = computed({
+    get() {
+        return formatInputDate(editorData.day);
+    },
+    set(value: string) {
+        editorData.day = getInputDate(value);
+    }
 });
 </script>

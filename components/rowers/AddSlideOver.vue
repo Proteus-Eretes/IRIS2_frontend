@@ -2,12 +2,8 @@
     <EditorSlideOver
         :open="open"
         @update:open="$emit('update:open', $event)"
-        @save="
-            () => {
-                rowers.add(addRowerData);
-                resetState();
-            }
-        "
+        @save="$emit('save', editorData)"
+        @cancel="$emit('cancel')"
     >
         <template #header>Create a new member</template>
         <template #subheader>Create a new member for this event.</template>
@@ -17,7 +13,7 @@
             <label for="club" class="form-label required">Club</label>
             <select
                 id="club"
-                v-model="addRowerData.club_id"
+                v-model="editorData.club_id"
                 autocomplete="organization"
                 class="form-select"
                 required
@@ -39,7 +35,7 @@
                 id="knrb"
                 type="number"
                 inputmode="numeric"
-                v-model="addRowerData.knrb"
+                v-model="editorData.knrb"
                 autocomplete="off"
                 class="form-text"
                 required
@@ -52,7 +48,7 @@
             <input
                 id="initials"
                 type="text"
-                v-model="addRowerData.initals"
+                v-model="editorData.initials"
                 autocomplete="name"
                 class="form-text"
             />
@@ -66,7 +62,7 @@
             <input
                 id="firstname"
                 type="text"
-                v-model="addRowerData.firstname"
+                v-model="editorData.firstname"
                 autocomplete="given-name"
                 class="form-text"
                 required
@@ -79,7 +75,7 @@
             <input
                 id="middlename"
                 type="text"
-                v-model="addRowerData.middlename"
+                v-model="editorData.middlename"
                 autocomplete="additional-name"
                 class="form-text"
             />
@@ -91,7 +87,7 @@
             <input
                 id="lastname"
                 type="text"
-                v-model="addRowerData.lastname"
+                v-model="editorData.lastname"
                 autocomplete="family-name"
                 class="form-text"
                 required
@@ -100,14 +96,14 @@
 
         <!-- Year of Birth -->
         <div class="col-span-6">
-            <label for="year_of_birth" class="form-label required"
-                >Year of Birth</label
-            >
+            <label for="year_of_birth" class="form-label required">
+                Year of Birth
+            </label>
             <input
                 id="year_of_birth"
                 type="number"
                 inputmode="numeric"
-                v-model="addRowerData.year_of_birth"
+                v-model="editorData.year_of_birth"
                 autocomplete="bday-year"
                 class="form-text"
                 required
@@ -119,7 +115,7 @@
             <label for="gender" class="form-label required">Gender</label>
             <select
                 id="gender"
-                v-model="addRowerData.gender"
+                v-model="editorData.gender"
                 autocomplete="off"
                 class="form-select"
                 required
@@ -140,7 +136,7 @@
                 <input
                     id="license"
                     type="checkbox"
-                    v-model="addRowerData.license"
+                    v-model="editorData.license"
                     class="form-checkbox"
                     required
                 />
@@ -161,7 +157,7 @@
                 id="position"
                 type="number"
                 inputmode="numeric"
-                v-model="addRowerData.position"
+                v-model="editorData.position"
                 autocomplete="bday-year"
                 class="form-text"
                 required
@@ -173,7 +169,7 @@
             <label for="role" class="form-label required">Role</label>
             <select
                 id="role"
-                v-model="addRowerData.role"
+                v-model="editorData.role"
                 autocomplete="off"
                 class="form-select"
                 required
@@ -191,7 +187,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useRowerStore } from '~~/stores/rower';
 import { useClubStore } from '~~/stores/club';
 
 import {
@@ -201,40 +196,14 @@ import {
     getGenderLabel,
     getRowerRoleLabel
 } from '~~/types/rower.model';
+import { SlideOverState } from '~~/types/slide-over-state.model';
 
-const rowers = useRowerStore();
 const clubs = useClubStore();
-
-const initialState = {
-    crew_id: '',
-    regatta_id: '',
-    club_id: '',
-    knrb: '',
-    initals: '',
-    firstname: '',
-    middlename: '',
-    lastname: '',
-    year_of_birth: null,
-    gender: Gender.MAN,
-    license: true,
-    position: null,
-    role: RowerRole.ROWER
-};
-
-const addRowerData: NewRower = reactive({
-    ...initialState
-});
-
-const resetState = () => {
-    Object.assign(addRowerData, initialState);
-};
 
 interface Props {
     open: boolean;
-    role?: RowerRole | null;
-    crew?: string | null;
-    regatta: string | null;
-    club?: string | null;
+    state: SlideOverState;
+    data: NewRower;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -243,15 +212,24 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emits = defineEmits<{
     (e: 'update:open', open: boolean): void;
-    (e: 'save'): void;
+    (e: 'save', data: NewRower): void;
+    (e: 'cancel'): void;
 }>();
 
-watchEffect(() => {
-    if (!props.open) return;
-
-    if (props.role) addRowerData.role = props.role;
-    if (props.crew) addRowerData.crew_id = props.crew;
-    if (props.regatta) addRowerData.regatta_id = props.regatta;
-    if (props.club) addRowerData.club_id = props.club;
+const editorData: NewRower = reactive({
+    ...props.data
 });
+
+const setData = (data: NewRower) => {
+    Object.assign(editorData, data);
+};
+
+watch(
+    () => props.open,
+    (open, _) => {
+        if (!open) return;
+
+        setData(props.data);
+    }
+);
 </script>
