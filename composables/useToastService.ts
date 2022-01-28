@@ -1,8 +1,6 @@
 import { useMainStore } from '~~/stores';
 import { Toast, ToastType } from '~~/models/toast';
 
-const main = useMainStore();
-
 export const useToastService = () => {
     const defaults = {
         title: '',
@@ -18,6 +16,8 @@ export const useToastService = () => {
 
     return {
         showToast: (toast: Toast) => {
+            const main = useMainStore();
+
             main.showToast = true;
             main.toast = {
                 title: toast.title ? toast.title : defaults.title,
@@ -33,6 +33,8 @@ export const useToastService = () => {
             };
         },
         showError: (message: string) => {
+            const main = useMainStore();
+
             main.showToast = true;
             main.toast = {
                 title: defaultsError.title,

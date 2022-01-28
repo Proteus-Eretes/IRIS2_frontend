@@ -97,6 +97,7 @@
 
 <script lang="ts" setup>
 import {
+    PhPencil,
     PhTrash,
     PhArrowsCounterClockwise,
     PhClockCounterClockwise,
@@ -204,10 +205,8 @@ if (regatta && typeof regatta == 'string') {
 const selectRegatta = (id: string) => {
     regattas.selectedId = id;
 };
-</script>
 
-<script lang="ts">
-export default defineComponent({
+definePageMeta({
     layout: 'main'
 });
 </script>

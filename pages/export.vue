@@ -2,8 +2,8 @@
     <div></div>
 </template>
 
-<script lang="ts">
-export default defineComponent({
+<script lang="ts" setup>
+definePageMeta({
     layout: 'main'
 });
 </script>

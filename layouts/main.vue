@@ -1,5 +1,5 @@
 <template>
-    <div class="flex min-h-screen w-screen flex-row">
+    <div class="flex min-h-screen w-screen flex-row overflow-x-hidden">
         <aside class="z-30">
             <NavigationSideBar />
         </aside>
@@ -9,7 +9,7 @@
                 <NavigationBar />
             </aside>
 
-            <main class="grow bg-gray-200">
+            <main class="grow overflow-x-scroll bg-gray-200">
                 <slot />
             </main>
 
@@ -26,28 +26,4 @@ const regattas = useRegattaStore();
 const main = useMainStore();
 
 await regattas.loadRegattas();
-
-const router = useRouter();
-
-const { regatta } = useUrlSearchParams('history');
-if (regatta && typeof regatta == 'string') {
-    regattas.selectedId = regatta;
-} else {
-    router.push('/regattas');
-}
-
-// FIXME: #2 Nuxt middleware
-router.beforeEach((to, from, next) => {
-    const { regatta } = to.query;
-
-    if ((regatta && typeof regatta == 'string') || to.path == '/regattas')
-        next();
-    else next('/regattas');
-});
-</script>
-
-<script lang="ts">
-export default defineComponent({
-    middleware: 'regatta'
-});
 </script>

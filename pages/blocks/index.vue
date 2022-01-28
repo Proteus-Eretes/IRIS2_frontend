@@ -321,10 +321,9 @@ onMounted(async () => {
     if (team && typeof team == 'string') await selectTeam(team);
     if (rower && typeof rower == 'string') await selectRower(rower);
 });
-</script>
 
-<script lang="ts">
-export default defineComponent({
+definePageMeta({
     layout: 'main'
+    // title: 'Blocks - IRIS',
 });
 </script>

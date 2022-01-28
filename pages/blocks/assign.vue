@@ -223,11 +223,10 @@ const submitAssignRounds = () => {
     rounds.assignRounds(roundList.value);
 };
 const roundList = ref([]);
-</script>
 
-<script lang="ts">
-export default defineComponent({
+definePageMeta({
     layout: 'main'
+    // title: 'Assign Events & Rounds - IRIS',
 });
 </script>
 

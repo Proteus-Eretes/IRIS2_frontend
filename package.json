@@ -18,12 +18,12 @@
         "@typescript-eslint/eslint-plugin": "^5.10.0",
         "@typescript-eslint/parser": "^5.10.0",
         "@vueuse/components": "^7.5.3",
-        "@vueuse/nuxt": "^7.3.0",
+        "@vueuse/nuxt": "^7.5.5",
         "autoprefixer": "^10.4.0",
         "eslint": "^8.7.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-vuejs-accessibility": "^1.1.1",
-        "nuxt3": "latest",
+        "nuxt3": "^3.0.0-27389502.88da719",
         "postcss": "^8.4.4",
         "prettier": "^2.5.1",
         "prettier-plugin-tailwindcss": "^0.1.4",
@@ -31,10 +31,10 @@
     },
     "dependencies": {
         "@headlessui/vue": "^1.4.2",
-        "@pinia/nuxt": "^0.1.6",
+        "@pinia/nuxt": "^0.1.8",
         "dayjs": "^1.10.7",
         "phosphor-vue": "^4.4.0",
-        "pinia": "^2.0.4",
+        "pinia": "^2.0.10",
         "tv-icon": "^1.0.24",
         "vuedraggable": "^4.1.0"
     }

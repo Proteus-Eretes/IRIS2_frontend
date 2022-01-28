@@ -30,6 +30,14 @@ Build the application for production:
 yarn build
 ```
 
+### Nuxt upgrade
+
+Upgrade Nuxt3:
+
+```bash
+npx nuxi upgrade
+```
+
 ## Packages
 
 ### phosphor-vue
@@ -39,3 +47,8 @@ Dit zijn de icoontjes. Kijk op [phosphoricons.com](https://phosphoricons.com/) v
 ### pinia
 
 Een alternatief voor Vuex, maar deze werkt beter met Nuxt en Vue 3.
+
+### Recommendations
+
+-   [PrimeVue](https://primefaces.org/primevue/showcase/#/) of [Vuetensils](https://vuetensils.stegosource.com/Introduction.html)
+-   UnoCSS

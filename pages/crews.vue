@@ -344,10 +344,8 @@ onMounted(async () => {
     if (crew && typeof crew == 'string') await selectCrew(crew);
     if (rower && typeof rower == 'string') await selectRower(rower);
 });
-</script>
 
-<script lang="ts">
-export default defineComponent({
+definePageMeta({
     layout: 'main'
 });
 </script>

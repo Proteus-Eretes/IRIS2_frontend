@@ -13,10 +13,8 @@
 <script lang="ts" setup>
 import { useToastService } from '~~/composables/useToastService';
 const { showError } = useToastService();
-</script>
 
-<script lang="ts">
-export default defineComponent({
+definePageMeta({
     layout: 'main'
 });
 </script>
