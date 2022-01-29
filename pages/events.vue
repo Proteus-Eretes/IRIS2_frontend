@@ -135,7 +135,7 @@ import { useRowerStore } from '~~/stores/rower';
 import { useClubStore } from '~~/stores/club';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
-import { TableHeader } from '~~/models/table-header';
+import { TableHeader } from '~~/models/table';
 import { Event, EventStatus, NewEvent } from '~~/models/event';
 import { SlideOverState } from '~~/models/slide-over-state';
 import { Gender } from '~~/models/rower';

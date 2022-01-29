@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { RouteItem } from '~~/models/route-item';
-import { TableAction } from '~~/models/table-action';
+import { TableAction } from '~~/models/table';
 import { Toast } from '~~/models/toast';
 
 interface RootState {

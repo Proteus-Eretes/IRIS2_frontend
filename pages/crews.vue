@@ -127,8 +127,7 @@ import { useEventStore } from '~~/stores/event';
 import { useClubStore } from '~~/stores/club';
 
 import { CrewStatus, getCrewStatusLabel, NewCrew } from '~~/models/crew';
-import { TableHeader } from '~~/models/table-header';
-import { TableSortDirection } from '~~/models/table-sort-direction';
+import { TableHeader, TableSortDirection } from '~~/models/table';
 import { Crew } from '~~/models/crew';
 import { Event } from '~~/models/event';
 import { Rower } from '~~/models/rower';

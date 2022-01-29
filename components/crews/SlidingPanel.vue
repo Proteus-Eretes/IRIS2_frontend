@@ -259,7 +259,7 @@ import {
     getTeamResultStatusLabel
 } from '~~/models/crew';
 import { Gender, NewRower, Rower, RowerRole } from '~~/models/rower';
-import { TableHeader } from '~~/models/table-header';
+import { TableHeader } from '~~/models/table';
 import { SlideOverState } from '~~/models/slide-over-state';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';

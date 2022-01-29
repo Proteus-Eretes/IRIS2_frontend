@@ -121,7 +121,7 @@ import { useClubStore } from '~~/stores/club';
 
 import { Block, getBlockStatusLabel, NewBlock } from '~~/models/block';
 import { useDateFormatter } from '~~/composables/useDateFormatter';
-import { TableHeader } from '~~/models/table-header';
+import { TableHeader } from '~~/models/table';
 import { SlideOverState } from '~~/models/slide-over-state';
 
 const { formatDate, formatTime } = useDateFormatter();

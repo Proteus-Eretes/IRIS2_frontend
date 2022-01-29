@@ -113,7 +113,7 @@ import { useCrewStore } from '~~/stores/crew';
 import { useClubStore } from '~~/stores/club';
 
 import { getEventStatusLabel } from '~~/models/event';
-import { TableHeader } from '~~/models/table-header';
+import { TableHeader } from '~~/models/table';
 import { SlideOverState } from '~~/models/slide-over-state';
 import { CrewStatus, NewCrew, NewTeam } from '~~/models/crew';
 

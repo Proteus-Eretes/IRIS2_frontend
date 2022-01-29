@@ -93,7 +93,7 @@ import { useEventStore } from '~~/stores/event';
 import { useRoundStore } from '~~/stores/round';
 
 import { getBlockStatusLabel } from '~~/models/block';
-import { TableHeader } from '~~/models/table-header';
+import { TableHeader } from '~~/models/table';
 
 const blocks = useBlockStore();
 const events = useEventStore();
