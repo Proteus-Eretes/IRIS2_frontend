@@ -87,5 +87,24 @@ export enum FieldResultStatus {
     FINISHED = 3,
     STARTED = 4,
     FINISHING = 5,
-    CANCELED = 6
+    CANCELLED = 6
+}
+
+export function getFieldResultStatusLabel(status: FieldResultStatus) {
+    switch (status) {
+        case FieldResultStatus.DEFAULT:
+            return '';
+        case FieldResultStatus.APPROVED:
+            return 'Approved';
+        case FieldResultStatus.UNDER_INVESTIGATION:
+            return 'Under investigation';
+        case FieldResultStatus.FINISHED:
+            return 'Finished';
+        case FieldResultStatus.STARTED:
+            return 'Started';
+        case FieldResultStatus.FINISHING:
+            return 'Finishing';
+        case FieldResultStatus.CANCELLED:
+            return 'Cancelled';
+    }
 }

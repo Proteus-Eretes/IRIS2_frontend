@@ -13,3 +13,14 @@ export enum LocationType {
     CLOCKING_LOCATION = 'Clocking location',
     FINISH = 'Finish'
 }
+
+export function getLocationTypeLabel(type: LocationType) {
+    switch (type) {
+        case LocationType.START:
+            return 'Start';
+        case LocationType.CLOCKING_LOCATION:
+            return 'Clocking location';
+        case LocationType.FINISH:
+            return 'Finish';
+    }
+}

@@ -4,11 +4,11 @@ export interface User {
     name: string;
     emailadres: string;
     mobile: string;
-    role: Role;
+    role: UserRole;
     last_login: Date;
 }
 
-export enum Role {
+export enum UserRole {
     ADMIN = 3,
     REGATTA_OWNER = 2,
     REGATTA_USER = 1
