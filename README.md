@@ -105,7 +105,7 @@ Voor documentatie: [tailwindcss.com](https://tailwindcss.com/)
 
 -   Zoals ik al eerder zei zijn nog niet alle [modules](https://modules.nuxtjs.org/) geüpdate voor Nuxt 3. Deze modules kunnen handig zijn of al gebruikte dependencies vervangen voor makkelijkere samenwerking met Nuxt, dus hier zijn een paar voorbeelden van modules die misschien kunnen worden toegevoegd als ze klaar zijn:
     -   [PWA](https://pwa.nuxtjs.org/) zodat de applicatie ook als PWA gebruikt kan worden op mobiele devices.
-    -   [i18n](https://i18n.nuxtjs.org/) voor makkelijke vertalingen voor het geval dat de applicatie ook vertaald moet worden.
+    -   [i18n](https://i18n.nuxtjs.org/) voor makkelijke vertalingen voor het geval dat de applicatie ook vertaald moet worden. [@intlify/nuxt3](https://github.com/intlify/nuxt3) kan ook een interessante optie zijn.
     -   [validate](https://github.com/lewyuburi/nuxt-validate) is een module voor de package [vee-validate](https://github.com/logaretm/vee-validate). Hiermee kun je forms valideren en ervoor zorgen dat inputs goed zijn en ook kun je betere feedback geven aan gebruikers.
     -   [dayjs](https://github.com/nuxt-community/dayjs-module) is een module voor de dependency die ik al gebruikt heb; [dayjs](https://day.js.org/en/).
     -   [tailwindcss](https://tailwindcss.nuxtjs.org/) is de module voor de dependency TailwindCSS.

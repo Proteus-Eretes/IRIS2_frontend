@@ -26,4 +26,9 @@ const regattas = useRegattaStore();
 const main = useMainStore();
 
 await regattas.loadRegattas();
+
+// onMounted(() => {
+const { regatta: regattaId } = useUrlSearchParams();
+regattas.selectedId = regattaId as string;
+// });
 </script>

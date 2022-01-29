@@ -19,7 +19,7 @@
                     >
                         <div class="mt-1 flex items-center text-sm">
                             <ph-calendar-blank
-                                weight="fill"
+                                weight="bold"
                                 class="icon mr-1.5 shrink-0 text-primary-400"
                                 aria-hidden="true"
                             />
@@ -41,8 +41,21 @@
                             </UseTimeAgo>
                         </div>
                         <div class="mt-1 flex items-center text-sm">
-                            <ph-bookmark-simple
-                                weight="fill"
+                            <ph-arrows-counter-clockwise
+                                v-if="
+                                    regattas.selectedRegatta.race_type ==
+                                    RegattaType.CHASE
+                                "
+                                weight="bold"
+                                class="icon mr-1.5 shrink-0 text-primary-400"
+                                aria-hidden="true"
+                            />
+                            <ph-clock-counter-clockwise
+                                v-if="
+                                    regattas.selectedRegatta.race_type ==
+                                    RegattaType.ALL_ROUND
+                                "
+                                weight="bold"
                                 class="icon mr-1.5 shrink-0 text-primary-400"
                                 aria-hidden="true"
                             />
@@ -146,7 +159,8 @@ import { UseTimeAgo } from '@vueuse/components';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import {
     PhCalendarBlank,
-    PhBookmarkSimple,
+    PhArrowsCounterClockwise,
+    PhClockCounterClockwise,
     PhBell,
     PhSignOut
 } from 'phosphor-vue';
@@ -154,7 +168,7 @@ import {
 import { useRegattaStore } from '~~/stores/regatta';
 import { useMainStore } from '~~/stores';
 
-import { getRegattaTypeLabel } from '~~/models/regatta';
+import { RegattaType, getRegattaTypeLabel } from '~~/models/regatta';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 const { formatDate } = useDateFormatter();

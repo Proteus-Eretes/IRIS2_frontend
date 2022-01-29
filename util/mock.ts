@@ -1014,7 +1014,7 @@ export const regattasMock: Regatta[] = [
         name: 'Sebastiaan test',
         start_date: new Date('2021-10-08T00:00:00+00:00'),
         end_date: new Date('2021-10-14T00:00:00+00:00'),
-        race_type: RegattaType.CHASE,
+        race_type: RegattaType.ALL_ROUND,
         breaking_news: ''
     }
 ];
@@ -1050,7 +1050,7 @@ export const regattaDetailsMock: RegattaDetail[] = [
         file: 'tbr21_20211008205501.xml',
         start_date: new Date('2021-10-08T00:00:00+00:00'),
         end_date: new Date('2021-10-14T00:00:00+00:00'),
-        race_type: RegattaType.CHASE,
+        race_type: RegattaType.ALL_ROUND,
         breaking_news: '',
         lottery_settings: {
             maximumCrewsType: 'percentage',

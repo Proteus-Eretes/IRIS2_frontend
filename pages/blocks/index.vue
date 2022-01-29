@@ -109,7 +109,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PhPlus, PhUsersThree } from 'phosphor-vue';
+import { PhPlus } from 'phosphor-vue';
 
 import { useRegattaStore } from '~~/stores/regatta';
 import { useBlockStore } from '~~/stores/block';
