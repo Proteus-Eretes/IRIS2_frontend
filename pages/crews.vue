@@ -12,7 +12,6 @@
                 <template #header>Crews</template>
 
                 <div v-if="crews.allCrews">
-                    <!-- FIXME: do the action -->
                     <Table
                         title="Crews"
                         :headers="tableHeaders"
@@ -334,11 +333,9 @@ const deselectRower = () => {
     delete params.rower;
 };
 
-// TODO: waarom werken urlsearchparams niet?
 // If the queries are set in the router, select the items
 onMounted(async () => {
-    const router = useRouter();
-    const { crew, rower } = router.currentRoute.value.query;
+    const { crew, rower } = params;
 
     if (crew && typeof crew == 'string') await selectCrew(crew);
     if (rower && typeof rower == 'string') await selectRower(rower);

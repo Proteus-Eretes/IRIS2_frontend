@@ -15,6 +15,7 @@
                 'absolute inset-0 block rounded-md bg-black opacity-0 transition-opacity hover:opacity-30'
             ]"
             @click="$emit('focus')"
+            title="Focus panel"
         >
             <span v-if="!isMuted" class="sr-only">Focus panel</span>
         </button>
@@ -38,7 +39,12 @@
                 :options="searchOptions"
             />
 
-            <button type="button" v-show="allowClose" @click="$emit('close')">
+            <button
+                type="button"
+                v-show="allowClose"
+                @click="$emit('close')"
+                title="Close panel"
+            >
                 <span class="sr-only">Close panel</span>
                 <ph-x class="icon text-white" />
             </button>

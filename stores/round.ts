@@ -94,10 +94,6 @@ export const useRoundStore = defineStore('rounds', {
             list.forEach((id: string) => {
                 this.entities[id].block_id = blockId;
             });
-        },
-        add(round: Round) {},
-        delete(round: Round) {},
-        edit(round: Round) {},
-        lotterySettings() {}
+        }
     }
 });

@@ -9,7 +9,6 @@
                 <template #header>Blocks</template>
 
                 <template #default>
-                    <!-- FIXME: do the action -->
                     <Table
                         title="Blocks"
                         :headers="tableHeaders"
@@ -310,11 +309,9 @@ const deselectRower = () => {
     delete params.rower;
 };
 
-// TODO: waarom werken urlsearchparams niet?
 // If the queries are set in the router, select the items
 onMounted(async () => {
-    const router = useRouter();
-    const { block, field, team, rower } = router.currentRoute.value.query;
+    const { block, field, team, rower } = params;
 
     if (block && typeof block == 'string') await selectBlock(block);
     if (field && typeof field == 'string') await selectField(field);

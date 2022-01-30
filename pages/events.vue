@@ -9,7 +9,6 @@
                 <template #header>Events</template>
 
                 <template #default>
-                    <!-- FIXME: do the action -->
                     <Table
                         title="Events"
                         :headers="tableHeaders"
@@ -308,11 +307,9 @@ const deselectRower = () => {
     delete params.rower;
 };
 
-// TODO: waarom werken urlsearchparams niet?
 // If the queries are set in the router, select the items
 onMounted(async () => {
-    const router = useRouter();
-    const { event, crew, rower } = router.currentRoute.value.query;
+    const { event, crew, rower } = params;
 
     if (event && typeof event == 'string') await selectEvent(event);
     if (crew && typeof crew == 'string') await selectCrew(crew);

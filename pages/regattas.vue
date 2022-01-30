@@ -51,11 +51,11 @@
                             />
                         </div>
 
-                        <span
+                        <h2
                             class="text-lg font-semibold leading-7 text-primary-900 sm:truncate sm:text-xl"
                         >
                             {{ regatta.name }}
-                        </span>
+                        </h2>
 
                         <span
                             class="sm:text-md text-sm text-primary-400 sm:truncate"

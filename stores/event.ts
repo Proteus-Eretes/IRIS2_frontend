@@ -64,6 +64,15 @@ export const useEventStore = defineStore('events', {
                 return allFields.filter((field: Field) => field.round_id == id);
             };
         },
+        allFieldsByBlockId(state: EventState) {
+            const allFields = state.fieldIds.map(
+                (id: string) => state.fieldEntities[id]
+            );
+
+            return (id: string) => {
+                return allFields.filter((field: Field) => field.block_id == id);
+            };
+        },
         selectedEvent(state: EventState) {
             return (
                 (state.selectedEventId &&

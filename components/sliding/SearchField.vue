@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent>
+    <VForm @submit.prevent>
         <label for="search" class="sr-only">Search</label>
         <div
             class="group relative max-w-sm rounded-md text-white transition-colors duration-200 hover:text-primary-700"
@@ -19,7 +19,7 @@
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 peer-focus:text-primary-700"
             >
                 <span class="text-sm">
-                    <ph-magnifying-glass weight="bold" />
+                    <ph-magnifying-glass weight="bold" title="Search" />
                 </span>
             </div>
         </div>
@@ -29,7 +29,7 @@
                 {{ option }}
             </option>
         </datalist>
-    </form>
+    </VForm>
 </template>
 
 <script lang="ts" setup>

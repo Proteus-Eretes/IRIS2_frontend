@@ -43,14 +43,14 @@ export const blocksMock: Block[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         block: 3,
         start_time: new Date('2021-11-28T13:43:00+01:00'),
-        status: BlockStatus.CREATED
+        status: BlockStatus.EVENTS_ASSIGNED
     },
     {
         id: '11ec-4fe5-b2954964-9edf-fa53f5d3a545',
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         block: 10,
         start_time: new Date('2021-11-28T09:53:00+01:00'),
-        status: BlockStatus.EVENTS_ASSIGNED
+        status: BlockStatus.TOSSED
     }
 ];
 
@@ -1250,6 +1250,8 @@ export const rowerDetailsMock: RowerDetail[] = [
 
 export const teamsMock: Team[] = [
     {
+        starting_order: 1,
+        toss_reason: 'Random toss starting number: 1',
         id: '11ec-4c5c-a02832ea-aaa4-fa53f5d3a545',
         crew_id: '11ec-4c5c-3fc524f4-82a0-fa53f5d3a545',
         field_id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',
@@ -1258,14 +1260,8 @@ export const teamsMock: Team[] = [
         shirt_number: 1
     },
     {
-        id: '11ec-4c5c-a02801ea-aaa4-fa53f5d3a545',
-        crew_id: '11ec-4c5c-3fc524f4-82a0-fa53f5d3a545',
-        field_id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',
-        regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
-        result_status: TeamResultStatus.EXCLUDED,
-        shirt_number: 12
-    },
-    {
+        starting_order: 3,
+        toss_reason: 'Random toss starting number: 3',
         id: '11ec-4c5c-a0301876-a778-fa53f5d3a545',
         crew_id: '11ec-4c5c-3fe5828a-a2b3-fa53f5d3a545',
         field_id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',
@@ -1274,6 +1270,8 @@ export const teamsMock: Team[] = [
         shirt_number: 2
     },
     {
+        starting_order: 4,
+        toss_reason: 'Random toss starting number: 4',
         id: '11ec-4c5c-a02ea59a-a560-fa53f5d3a545',
         crew_id: '11ec-4c5c-3fdf94a6-a102-fa53f5d3a545',
         field_id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',
@@ -1282,6 +1280,8 @@ export const teamsMock: Team[] = [
         shirt_number: 3
     },
     {
+        starting_order: 5,
+        toss_reason: 'Random toss starting number: 5',
         id: '11ec-4c5c-a028da3e-b298-fa53f5d3a545',
         crew_id: '11ec-4c5c-3fc7c164-80d5-fa53f5d3a545',
         field_id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',
@@ -1290,6 +1290,8 @@ export const teamsMock: Team[] = [
         shirt_number: 4
     },
     {
+        starting_order: 6,
+        toss_reason: 'Random toss starting number: 6',
         id: '11ec-4c5c-a02dffa0-b12e-fa53f5d3a545',
         crew_id: '11ec-4c5c-3fdc7f00-8293-fa53f5d3a545',
         field_id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',
@@ -1298,6 +1300,8 @@ export const teamsMock: Team[] = [
         shirt_number: 5
     },
     {
+        starting_order: 7,
+        toss_reason: 'Random toss starting number: 7',
         id: '11ec-4c5c-a0298790-9bc4-fa53f5d3a545',
         crew_id: '11ec-4c5c-3fca771a-99fb-fa53f5d3a545',
         field_id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',
@@ -1306,6 +1310,8 @@ export const teamsMock: Team[] = [
         shirt_number: 6
     },
     {
+        starting_order: 8,
+        toss_reason: 'Random toss starting number: 8',
         id: '11ec-4c5c-a02d47cc-ada5-fa53f5d3a545',
         crew_id: '11ec-4c5c-3fd98df4-bce8-fa53f5d3a545',
         field_id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',
@@ -1314,6 +1320,8 @@ export const teamsMock: Team[] = [
         shirt_number: 7
     },
     {
+        starting_order: 9,
+        toss_reason: 'Random toss starting number: 9',
         id: '11ec-4c5c-a02f757e-950b-fa53f5d3a545',
         crew_id: '11ec-4c5c-3fe2883c-be9f-fa53f5d3a545',
         field_id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',
@@ -1322,6 +1330,8 @@ export const teamsMock: Team[] = [
         shirt_number: 8
     },
     {
+        starting_order: 10,
+        toss_reason: 'Random toss starting number: 10',
         id: '11ec-4c5c-a02ab80e-ade9-fa53f5d3a545',
         crew_id: '11ec-4c5c-3fd16890-92dc-fa53f5d3a545',
         field_id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',
@@ -1330,6 +1340,8 @@ export const teamsMock: Team[] = [
         shirt_number: 9
     },
     {
+        starting_order: 11,
+        toss_reason: 'Random toss starting number: 11',
         id: '11ec-4c5c-a02b5dc2-a651-fa53f5d3a545',
         crew_id: '11ec-4c5c-3fd6600c-a433-fa53f5d3a545',
         field_id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',
@@ -1338,6 +1350,8 @@ export const teamsMock: Team[] = [
         shirt_number: 10
     },
     {
+        starting_order: 12,
+        toss_reason: 'Random toss starting number: 12',
         id: '11ec-4c5c-a02a2e66-9d57-fa53f5d3a545',
         crew_id: '11ec-4c5c-3fcd60d8-be4a-fa53f5d3a545',
         field_id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',

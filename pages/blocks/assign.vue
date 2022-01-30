@@ -167,16 +167,17 @@ import { useToastService } from '~~/composables/useToastService';
 const { showError } = useToastService();
 
 const blocks = useBlockStore();
+const events = useEventStore();
+const rounds = useRoundStore();
+const crews = useCrewStore();
+
 blocks.loadBlocks();
 
-const events = useEventStore();
 events.loadEvents();
 events.loadFields();
 
-const rounds = useRoundStore();
 rounds.loadRounds();
 
-const crews = useCrewStore();
 crews.loadCrews();
 
 const changeList = (evt, blockId: string, roundId: string) => {

@@ -32,7 +32,7 @@
                         <div class="relative w-screen max-w-md">
                             <form
                                 @submit.prevent="
-                                    $emit('save');
+                                    $emit('save', null);
                                     $emit('update:open', false);
                                 "
                                 class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl"
@@ -62,6 +62,7 @@
                                             type="button"
                                             class="rounded-md text-gray-400 hover:text-danger-600 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:hover:ring-danger-200"
                                             @click="cancel"
+                                            title="Close panel"
                                         >
                                             <span class="sr-only">
                                                 Close panel
@@ -97,7 +98,7 @@
                                         type="submit"
                                         class="button button-primary w-auto"
                                     >
-                                        Save
+                                        <slot name="save-action">Save</slot>
                                     </button>
                                 </div>
                             </form>

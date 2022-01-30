@@ -80,10 +80,6 @@ export const useClubStore = defineStore('clubs', {
                 ...this.detailEntities,
                 [club.id]: club
             };
-        },
-        add(club: Club) {},
-        delete(club: Club) {},
-        edit(club: Club) {},
-        lotterySettings() {}
+        }
     }
 });

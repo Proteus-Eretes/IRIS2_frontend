@@ -30,9 +30,9 @@ export function getBlockStatusLabel(status: BlockStatus) {
         case BlockStatus.EVENTS_ASSIGNED:
             return 'Events assigned';
         case BlockStatus.START_ORDER:
-            return 'Start order';
+            return 'Starting order determined';
         case BlockStatus.TOSSED:
-            return 'Tossed';
+            return 'Lots drawn';
         case BlockStatus.SHIRT_NUMBERS_ASSIGNED:
             return 'Shirt numbers assigned';
         default:

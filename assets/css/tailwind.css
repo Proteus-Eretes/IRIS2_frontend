@@ -10,51 +10,51 @@
 
 @layer components {
     .assign-container {
-        @apply flex flex-row
-			min-h-full
+        @apply flex min-h-full
+			flex-row
 			px-5
 			py-3;
     }
     .sliding-container {
         @apply flex
+			gap-3
 			px-5
-			py-3
-			gap-3;
+			py-3;
     }
     .sliding-container .sliding-column {
         @apply translate-x-0 transition-transform;
     }
     .panel {
-        @apply min-w-single-column
-			flex flex-col
-			bg-gray-100
+        @apply flex
+			min-w-single-column flex-col
 			rounded-md
+			bg-gray-100
 			shadow-sm;
     }
     .panel-header {
         @apply flex flex-row
 			items-center
+			gap-1
 			rounded-t-md
+			bg-secondary-400
 			px-3
 			py-2
-			gap-1
-			bg-secondary-400
 			shadow-sm;
     }
     .panel-header > h2 {
         @apply grow
-			uppercase
-			font-semibold
+			truncate
 			text-left
 			text-sm
-			truncate
+			font-semibold
+			uppercase
 			tracking-wider
 			text-white;
     }
     .table-header-group .table-cell {
-        @apply uppercase
+        @apply truncate
 			font-semibold
-			truncate
+			uppercase
 			tracking-wider
 			text-white;
     }
@@ -66,77 +66,80 @@
 			text-gray-700;
     }
     .form-label.required {
-        @apply after:content-['*']
-			after:ml-0.5
-			after:text-danger-500;
+        @apply after:ml-0.5
+			after:text-danger-500
+			after:content-['*'];
     }
     .form-select {
         @apply mt-1
 			block
 			w-full
-			py-2
-			px-3
+			rounded-md
 			border
 			border-gray-300
 			bg-white
-			rounded-md
+			py-2
+			px-3
 			shadow-sm
+			focus:border-secondary-500
 			focus:outline-none
 			focus:ring-secondary-500
-			focus:border-secondary-500
 			sm:text-sm;
     }
     .form-text {
         @apply mt-1
-			focus:ring-secondary-500
-			focus:border-secondary-500
 			block
 			w-full
-			shadow-sm
-			sm:text-sm
+			rounded-md
 			border-gray-300
-			rounded-md;
+			shadow-sm
+			focus:border-secondary-500
+			focus:ring-secondary-500
+			sm:text-sm;
     }
     .form-checkbox {
         @apply h-4 w-4
-		text-secondary-600
-		border-gray-300
 		rounded
+		border-gray-300
+		text-secondary-600
 		focus:ring-secondary-500;
     }
 
     .button {
         @apply inline-flex
-			justify-center
-			items-center
 			w-full
 			max-w-md
+			items-center
+			justify-center
+			rounded-md
 			py-2
 			px-4
 			text-sm
 			font-medium
-			rounded-md
 			focus:outline-none
 			focus:ring-2
 			focus:ring-offset-2;
     }
     .button.button-primary {
         @apply border border-transparent
-			text-white
 			bg-secondary-500
+			text-white
 			hover:bg-secondary-600
-			focus:ring-secondary-400;
+			focus:ring-secondary-400
+			disabled:border-gray-200
+			disabled:bg-white
+			disabled:text-primary-400;
     }
     .button.button-secondary {
         @apply border border-gray-200
-			text-primary-700
 			bg-white
+			text-primary-700
 			hover:bg-gray-100
 			focus:ring-secondary-400;
     }
 
     .icon {
-        @apply min-w-5 min-h-5;
+        @apply min-h-5 min-w-5;
     }
     .icon-button {
         @apply flex
@@ -151,16 +154,16 @@
 
     .pill {
         @apply rounded-full
-			font-medium
-			text-xs
 			px-2
-			py-0.5;
+			py-0.5
+			text-xs
+			font-medium;
     }
     .badge {
         @apply rounded-md
-			font-medium
-			text-xs
 			px-2
-			py-0.5;
+			py-0.5
+			text-xs
+			font-medium;
     }
 }

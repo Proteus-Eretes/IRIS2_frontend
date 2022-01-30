@@ -56,11 +56,11 @@ export interface Team {
     field_id: string;
     result_status: TeamResultStatus;
     shirt_number: number | null;
+    starting_order: number | null;
+    toss_reason: string | null; // FIXME: wat is dit?
 }
 
 export interface TeamDetail extends Team {
-    starting_order: number | null;
-    toss_reason: string | null;
     penalty_time: number; // In seconden
     penalty_reason: string;
     deleted: boolean;
