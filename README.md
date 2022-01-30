@@ -54,7 +54,7 @@ Dit is een lijst met extensies die heel handig zijn voor deze applicatie.
     -   [Paste JSON as Code](https://marketplace.visualstudio.com/items?itemName=quicktype.quicktype)
     -   [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
     -   [TODO Highlight](https://marketplace.visualstudio.com/items?itemName=wayou.vscode-todo-highlight)
-    -   [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+    -   [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) + enable [Take Over Mode](https://v3.nuxtjs.org/getting-started/introduction/)
     -   [Vue Peek](https://marketplace.visualstudio.com/items?itemName=dariofuzinato.vue-peek)
 -   Chrome/Firefox
     -   [Vue DevTools](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg)
