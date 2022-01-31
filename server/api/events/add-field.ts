@@ -12,8 +12,7 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
         block_id: newField.block_id,
         event_id: newField.event_id,
         regatta_id: newField.regatta_id,
-        round_id: newField.round_id,
-        teams: []
+        round_id: newField.round_id
     };
 
     return field;

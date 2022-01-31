@@ -18,10 +18,7 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
         clubName: newCrew.displayName,
         displayName: newCrew.displayName,
         knrb_num: 123456,
-        category: 'NEW',
-        coxes: [],
-        coaches: [],
-        rowers: []
+        category: 'NEW'
     };
 
     return crew;

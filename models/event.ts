@@ -11,8 +11,6 @@ export interface Event {
     name: string;
     category: string;
     boat_type: string;
-    crews: string[] | null;
-    sub_crews: string[] | null; // Wat is het verschil tussen 'sub_crews' en 'crews'?
     status: EventStatus;
 }
 
@@ -23,7 +21,6 @@ export interface EventDetail extends Event {
     weighed: boolean;
     gender: Gender;
     correction_factor_boat: number;
-    fields: string[] | null;
 }
 
 export interface NewEvent {
@@ -46,8 +43,6 @@ export interface Field {
     event_id: string;
     regatta_id: string;
     round_id: string;
-    // FIXME: hier teams weg en ook bij andere models de arrays weg
-    teams: string[];
 }
 
 export interface FieldDetail extends Field {

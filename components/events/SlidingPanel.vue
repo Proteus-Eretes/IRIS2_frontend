@@ -70,10 +70,12 @@
                             aria-hidden="true"
                         />
 
-                        <!-- FIXME: Rowers niet zo -->
                         <span class="text-xs font-medium">
                             {{
-                                getCrew(item) ? getCrew(item).rowers.length : 0
+                                rowers.allRowersByCrewId(getCrewId(item))
+                                    ? rowers.allRowersByCrewId(getCrewId(item))
+                                          .length
+                                    : 0
                             }}
                         </span>
                     </div>
@@ -111,6 +113,7 @@ import { useRegattaStore } from '~~/stores/regatta';
 import { useEventStore } from '~~/stores/event';
 import { useCrewStore } from '~~/stores/crew';
 import { useClubStore } from '~~/stores/club';
+import { useRowerStore } from '~~/stores/rower';
 
 import { getEventStatusLabel } from '~~/models/event';
 import { TableHeader } from '~~/models/table';
@@ -121,6 +124,7 @@ const regattas = useRegattaStore();
 const events = useEventStore();
 const crews = useCrewStore();
 const clubs = useClubStore();
+const rowers = useRowerStore();
 
 interface Props {
     index: number;
@@ -194,5 +198,9 @@ const saveCrewEditor = async (data: NewCrew) => {
 const getCrew = (item: any) => {
     const id = props.useField ? item.crew_id : item.id;
     return crews.getCrewById(id);
+};
+const getCrewId = (item: any) => {
+    const id = props.useField ? item.crew_id : item.id;
+    return id;
 };
 </script>

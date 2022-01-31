@@ -138,11 +138,9 @@ const events = useEventStore();
 const clubs = useClubStore();
 const rowers = useRowerStore();
 
-// TODO: leg uit waarom alles meteen laden
 await crews.loadCrews();
 await crews.loadTeams();
 await events.loadEvents();
-// await clubs.loadClubs();
 await rowers.loadRowers();
 
 // The panel that is last opened

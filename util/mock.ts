@@ -283,10 +283,7 @@ export const crewsMock: Crew[] = [
         sub_event_id: null,
         clubName: 'Alkmaarsche 1',
         displayName: 'Danoontje Pouwer',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 306926,
@@ -299,10 +296,7 @@ export const crewsMock: Crew[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Rijnmond',
         displayName: 'Rijnmond',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 306988,
@@ -315,10 +309,7 @@ export const crewsMock: Crew[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Nautilus 1',
         displayName: 'Solo Queue',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307354,
@@ -331,10 +322,7 @@ export const crewsMock: Crew[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Alkmaarsche 2',
         displayName: 'Alkmaarsche 2',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307569,
@@ -347,10 +335,7 @@ export const crewsMock: Crew[] = [
         sub_event_id: null,
         clubName: 'Leythe/Skylla',
         displayName: 'Leythe/Skylla',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307352,
@@ -363,10 +348,7 @@ export const crewsMock: Crew[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Alkmaarsche 3',
         displayName: 'Alkmaarsche 3',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307393,
@@ -379,10 +361,7 @@ export const crewsMock: Crew[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Gouda 2',
         displayName: 'Anton',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307911,
@@ -395,10 +374,7 @@ export const crewsMock: Crew[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Nautilus 2',
         displayName: 'Nautilus 2',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307938,
@@ -411,10 +387,7 @@ export const crewsMock: Crew[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Alphen',
         displayName: 'Alphen',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 306981,
@@ -427,10 +400,7 @@ export const crewsMock: Crew[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Gouda 1',
         displayName: 'Gouda 1',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307680,
@@ -443,10 +413,7 @@ export const crewsMock: Crew[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Alkmaarsche 4',
         displayName: 'Alkmaarsche 4',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     }
 ];
 
@@ -478,10 +445,7 @@ export const crewDetailsMock: CrewDetail[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Alkmaarsche 1',
         displayName: 'Alkmaarsche 1',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 306926,
@@ -510,10 +474,7 @@ export const crewDetailsMock: CrewDetail[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Rijnmond',
         displayName: 'Rijnmond',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 306988,
@@ -542,10 +503,7 @@ export const crewDetailsMock: CrewDetail[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Nautilus 1',
         displayName: 'Nautilus 1',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307354,
@@ -574,10 +532,7 @@ export const crewDetailsMock: CrewDetail[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Alkmaarsche 2',
         displayName: 'Alkmaarsche 2',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307569,
@@ -606,10 +561,7 @@ export const crewDetailsMock: CrewDetail[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Leythe/Skylla',
         displayName: 'Leythe/Skylla',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307352,
@@ -638,10 +590,7 @@ export const crewDetailsMock: CrewDetail[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Alkmaarsche 3',
         displayName: 'Alkmaarsche 3',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307393,
@@ -670,10 +619,7 @@ export const crewDetailsMock: CrewDetail[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Gouda 2',
         displayName: 'Gouda 2',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307911,
@@ -702,10 +648,7 @@ export const crewDetailsMock: CrewDetail[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Nautilus 2',
         displayName: 'Nautilus 2',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307938,
@@ -734,10 +677,7 @@ export const crewDetailsMock: CrewDetail[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Alphen',
         displayName: 'Alphen',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 306981,
@@ -766,10 +706,7 @@ export const crewDetailsMock: CrewDetail[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Gouda 1',
         displayName: 'Gouda 1',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     },
     {
         knrb_num: 307680,
@@ -798,10 +735,7 @@ export const crewDetailsMock: CrewDetail[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         clubName: 'Alkmaarsche 4',
         displayName: 'Alkmaarsche 4',
-        displayStatus: CrewStatus.ENTERED,
-        coxes: [],
-        coaches: [],
-        rowers: []
+        displayStatus: CrewStatus.ENTERED
     }
 ];
 
@@ -817,8 +751,6 @@ export const eventsMock: Event[] = [
         name: 'Dames skiff',
         category: '',
         boat_type: '1x',
-        sub_crews: [],
-        crews: [],
         status: EventStatus.ONGOING
     },
     {
@@ -832,8 +764,6 @@ export const eventsMock: Event[] = [
         id: '11ec-4c5c-3f08f9aa-bdb4-fa53f5d3a545',
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         parent_id: null,
-        sub_crews: [],
-        crews: [],
         status: EventStatus.ONGOING
     },
     {
@@ -847,8 +777,6 @@ export const eventsMock: Event[] = [
         id: '11ec-4c5c-3f01ddfa-b7cf-fa53f5d3a545',
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         parent_id: null,
-        sub_crews: [],
-        crews: [],
         status: EventStatus.ONGOING
     }
 ];
@@ -869,12 +797,9 @@ export const eventDetailsMock: EventDetail[] = [
         weighed: false,
         gender: Gender.MAN,
         remarks: '',
-        sub_crews: [],
-        crews: [],
         status: EventStatus.ONGOING,
         block_knrb: null,
-        correction_factor_boat: 1,
-        fields: []
+        correction_factor_boat: 1
     },
     {
         event: 0,
@@ -891,12 +816,9 @@ export const eventDetailsMock: EventDetail[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         cost_id: '11ec-4c5c-3ef5aa94-a599-fa53f5d3a545',
         parent_id: null,
-        sub_crews: [],
-        crews: [],
         status: EventStatus.ONGOING,
         block_knrb: null,
-        correction_factor_boat: 1,
-        fields: []
+        correction_factor_boat: 1
     },
     {
         event: 24,
@@ -913,12 +835,9 @@ export const eventDetailsMock: EventDetail[] = [
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
         cost_id: '11ec-4c5c-3ef5aa94-a599-fa53f5d3a545',
         parent_id: null,
-        sub_crews: [],
-        crews: [],
         status: EventStatus.ONGOING,
         block_knrb: null,
-        correction_factor_boat: 1,
-        fields: []
+        correction_factor_boat: 1
     }
 ];
 
@@ -928,16 +847,14 @@ export const fieldsMock: Field[] = [
         event_id: '11ec-505f-9ed438a2-a17c-fa53f5d3a545',
         id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
-        round_id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545',
-        teams: []
+        round_id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545'
     },
     {
         block_id: '11ec-4fe5-a92bc36c-bd79-fa53f5d3a545',
         event_id: '11ec-4c5c-3f08f9aa-bdb4-fa53f5d3a545',
         id: '11ec-505f-9ed438a2-a17c-fa53f5d3a545',
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
-        round_id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545',
-        teams: []
+        round_id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545'
     }
 ];
 
@@ -950,8 +867,7 @@ export const fieldDetailsMock: FieldDetail[] = [
         event_id: '11ec-505f-9ed438a2-a17c-fa53f5d3a545',
         id: '11ec-4c5c-a026a75a-a828-fa53f5d3a545',
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
-        round_id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545',
-        teams: []
+        round_id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545'
     },
     {
         starting_order: null,
@@ -961,8 +877,7 @@ export const fieldDetailsMock: FieldDetail[] = [
         event_id: '11ec-4c5c-3f08f9aa-bdb4-fa53f5d3a545',
         id: '11ec-505f-9ed438a2-a17c-fa53f5d3a545',
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
-        round_id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545',
-        teams: []
+        round_id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545'
     }
 ];
 
@@ -1376,7 +1291,6 @@ export const teamDetailsMock: TeamDetail[] = [
         regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
         id: '11ec-4c5c-a02801ea-aaa4-fa53f5d3a545',
         equal_time_correction: '0',
-        results: [],
         finishTime: 0
     },
     {
@@ -1393,7 +1307,6 @@ export const teamDetailsMock: TeamDetail[] = [
         regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
         id: '11ec-4c5c-a0301876-a778-fa53f5d3a545',
         equal_time_correction: '0',
-        results: [],
         finishTime: 0
     },
     {
@@ -1410,7 +1323,6 @@ export const teamDetailsMock: TeamDetail[] = [
         regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
         id: '11ec-4c5c-a02ea59a-a560-fa53f5d3a545',
         equal_time_correction: '0',
-        results: [],
         finishTime: 0
     },
     {
@@ -1427,7 +1339,6 @@ export const teamDetailsMock: TeamDetail[] = [
         regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
         id: '11ec-4c5c-a028da3e-b298-fa53f5d3a545',
         equal_time_correction: '0',
-        results: [],
         finishTime: 0
     },
     {
@@ -1444,7 +1355,6 @@ export const teamDetailsMock: TeamDetail[] = [
         regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
         id: '11ec-4c5c-a02dffa0-b12e-fa53f5d3a545',
         equal_time_correction: '0',
-        results: [],
         finishTime: 0
     },
     {
@@ -1461,7 +1371,6 @@ export const teamDetailsMock: TeamDetail[] = [
         regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
         id: '11ec-4c5c-a0298790-9bc4-fa53f5d3a545',
         equal_time_correction: '0',
-        results: [],
         finishTime: 0
     },
     {
@@ -1478,7 +1387,6 @@ export const teamDetailsMock: TeamDetail[] = [
         regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
         id: '11ec-4c5c-a02d47cc-ada5-fa53f5d3a545',
         equal_time_correction: '0',
-        results: [],
         finishTime: 0
     },
     {
@@ -1495,7 +1403,6 @@ export const teamDetailsMock: TeamDetail[] = [
         regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
         id: '11ec-4c5c-a02f757e-950b-fa53f5d3a545',
         equal_time_correction: '0',
-        results: [],
         finishTime: 0
     },
     {
@@ -1512,7 +1419,6 @@ export const teamDetailsMock: TeamDetail[] = [
         regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
         id: '11ec-4c5c-a02ab80e-ade9-fa53f5d3a545',
         equal_time_correction: '0',
-        results: [],
         finishTime: 0
     },
     {
@@ -1529,7 +1435,6 @@ export const teamDetailsMock: TeamDetail[] = [
         regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
         id: '11ec-4c5c-a02b5dc2-a651-fa53f5d3a545',
         equal_time_correction: '0',
-        results: [],
         finishTime: 0
     },
     {
@@ -1546,7 +1451,6 @@ export const teamDetailsMock: TeamDetail[] = [
         regatta_id: '11ec-4c5c-32393cee-84b6-fa53f5d3a545',
         id: '11ec-4c5c-a02a2e66-9d57-fa53f5d3a545',
         equal_time_correction: '0',
-        results: [],
         finishTime: 0
     }
 ];

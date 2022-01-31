@@ -46,6 +46,18 @@ export const useRowerStore = defineStore('rowers', {
                     rower.role == RowerRole.ROWER
             );
         },
+        allRowersByCrewId(state: RowerState) {
+            const allRowers = state.ids
+                .map((id: string) => state.entities[id])
+                .sort((a: Rower, b: Rower) => a.position - b.position);
+
+            return (id: string) => {
+                return allRowers.filter(
+                    (rower: Rower) =>
+                        rower.crew_id == id && rower.role == RowerRole.ROWER
+                );
+            };
+        },
         allCoachesOfSelectedCrew(state: RowerState) {
             const allRowers = state.ids.map((id: string) => state.entities[id]);
             const selectedCrewId = useCrewStore().selectedCrewId;

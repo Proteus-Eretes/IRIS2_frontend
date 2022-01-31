@@ -145,15 +145,27 @@ const tableHeaders: TableHeader[] = [
     { id: 'Status', sortable: false }
 ];
 
+const router = useRouter();
+
 const performTableAction = (action: { action: string; item: Block }) => {
-    //FIXME: do the other actions
-    console.log(action.action, action.item);
     switch (action.action) {
         case 'assign':
+            router.push({
+                path: '/blocks/assign',
+                query: { regatta: regattas.selectedId }
+            });
             break;
         case 'lots':
+            router.push({
+                path: '/lots',
+                query: { regatta: regattas.selectedId }
+            });
             break;
         case 'shirts':
+            router.push({
+                path: '/shirt-numbers',
+                query: { regatta: regattas.selectedId }
+            });
             break;
         case 'edit':
             editBlock(action.item.id);

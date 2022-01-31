@@ -13,7 +13,9 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
         regatta_id: newTeam.regatta_id,
         field_id: newTeam.field_id,
         result_status: TeamResultStatus.NORMAL,
-        shirt_number: null
+        shirt_number: null,
+        starting_order: 0,
+        toss_reason: ''
     };
 
     return team;

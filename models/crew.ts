@@ -10,9 +10,6 @@ export interface Crew {
     displayStatus: CrewStatus;
     knrb_num: number;
     category: string; // Preferred category (this is used)
-    coxes: string[] | null;
-    coaches: string[] | null;
-    rowers: string[] | null;
 }
 
 export interface CrewDetail extends Crew {
@@ -66,7 +63,6 @@ export interface TeamDetail extends Team {
     deleted: boolean;
     user_set_deleted: boolean;
     equal_time_correction: string;
-    results: string[];
     finishTime: number;
 }
 
