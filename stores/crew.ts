@@ -34,7 +34,7 @@ interface CrewState {
     fineEntities: { [id: string]: Fine };
     selectedCrewId: string | null;
     selectedTeamId: string | null;
-    query: string | null;
+    query: string;
 }
 
 export const useCrewStore = defineStore('crews', {
@@ -49,7 +49,7 @@ export const useCrewStore = defineStore('crews', {
         fineEntities: {},
         selectedCrewId: null,
         selectedTeamId: null,
-        query: null
+        query: ''
     }),
 
     getters: {

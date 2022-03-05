@@ -184,14 +184,16 @@ const events = useEventStore();
 const rounds = useRoundStore();
 const crews = useCrewStore();
 
-blocks.loadBlocks();
+onMounted(async () => {
+    await blocks.loadBlocks();
 
-events.loadEvents();
-events.loadFields();
+    await events.loadEvents();
+    await events.loadFields();
 
-rounds.loadRounds();
+    await rounds.loadRounds();
 
-crews.loadCrews();
+    await crews.loadCrews();
+});
 
 const changeList = (evt, blockId: string, roundId: string) => {
     if (evt.added) {

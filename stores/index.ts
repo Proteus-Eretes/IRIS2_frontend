@@ -15,7 +15,7 @@ interface RootState {
 export const useMainStore = defineStore('main', {
     state: (): RootState => ({
         mainNavigation: [
-            { name: 'Dashboard', to: '/', icon: 'ph-gauge', items: [] },
+            { name: 'Dashboard', to: '/', icon: 'ph-gauge' },
             {
                 name: 'Blocks',
                 to: '/blocks',
@@ -24,8 +24,7 @@ export const useMainStore = defineStore('main', {
                     {
                         name: 'Assign Events & Rounds',
                         to: '/blocks/assign',
-                        icon: '',
-                        items: []
+                        icon: ''
                     }
                 ]
             },
@@ -33,20 +32,24 @@ export const useMainStore = defineStore('main', {
                 name: 'Draw lots',
                 to: '/draw',
                 icon: 'ph-coin-vertical',
-                items: []
+                items: [
+                    {
+                        name: 'Starting order',
+                        to: '/draw/starting-order',
+                        icon: ''
+                    }
+                ]
             },
             {
                 name: 'Shirt numbers',
                 to: '/shirt-numbers',
-                icon: 'ph-list-numbers',
-                items: []
+                icon: 'ph-list-numbers'
             },
             { name: 'Crews', to: '/crews', icon: 'ph-users-three', items: [] },
             {
                 name: 'Events',
                 to: '/events',
-                icon: 'ph-calendar-blank',
-                items: []
+                icon: 'ph-calendar-blank'
             }
         ],
         competitionNavigation: [
@@ -54,16 +57,14 @@ export const useMainStore = defineStore('main', {
             {
                 name: 'Live recording',
                 to: '/live-recording',
-                icon: 'ph-microphone',
-                items: []
+                icon: 'ph-microphone'
             }
         ],
         adminNavigation: [
             {
                 name: 'Regattas',
                 to: '/regattas',
-                icon: 'ph-clipboard-text',
-                items: []
+                icon: 'ph-clipboard-text'
             }
         ],
         tableActions: [

@@ -135,7 +135,9 @@ const crews = useCrewStore();
 const rowers = useRowerStore();
 const clubs = useClubStore();
 
-await blocks.loadBlocks();
+onMounted(async () => {
+    await blocks.loadBlocks();
+});
 
 // The panel that is last opened
 const activePanel = ref(0);

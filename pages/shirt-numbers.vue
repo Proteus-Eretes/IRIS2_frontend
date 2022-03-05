@@ -60,7 +60,9 @@
                                 <span class="text-sm font-semibold">
                                     {{
                                         crews.getCrewById(item.crew_id)
-                                            .displayName
+                                            ? crews.getCrewById(item.crew_id)
+                                                  .displayName
+                                            : ''
                                     }}
                                 </span>
                             </template>
@@ -68,7 +70,10 @@
                             <template #club="{ item }">
                                 <span class="text-sm">
                                     {{
-                                        crews.getCrewById(item.crew_id).clubName
+                                        crews.getCrewById(item.crew_id)
+                                            ? crews.getCrewById(item.crew_id)
+                                                  .clubName
+                                            : ''
                                     }}
                                 </span>
                             </template>
@@ -109,15 +114,17 @@ const events = useEventStore();
 const rounds = useRoundStore();
 const crews = useCrewStore();
 
-blocks.loadBlocks();
+onMounted(async () => {
+    await blocks.loadBlocks();
 
-events.loadEvents();
-events.loadFields();
+    await events.loadEvents();
+    await events.loadFields();
 
-rounds.loadRounds();
+    await rounds.loadRounds();
 
-crews.loadCrews();
-crews.loadTeams();
+    await crews.loadCrews();
+    await crews.loadTeams();
+});
 
 const blockTableHeaders: TableHeader[] = [
     { id: 'Block', sortable: false },

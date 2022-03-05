@@ -1,5 +1,5 @@
 <template>
-    <VForm @submit.prevent>
+    <form @submit.prevent>
         <label for="search" class="sr-only">Search</label>
         <div
             class="group relative max-w-sm rounded-md text-white transition-colors duration-200 hover:text-primary-700"
@@ -29,7 +29,7 @@
                 {{ option }}
             </option>
         </datalist>
-    </VForm>
+    </form>
 </template>
 
 <script lang="ts" setup>

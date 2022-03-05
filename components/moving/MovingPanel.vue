@@ -17,7 +17,7 @@
             @click="$emit('focus')"
             title="Focus panel"
         >
-            <span v-if="!isMuted" class="sr-only">Focus panel</span>
+            <span v-show="!isMuted" class="sr-only">Focus panel</span>
         </button>
 
         <div class="panel-header">
@@ -26,14 +26,14 @@
             </h2>
 
             <span
-                v-if="$slots['header-status']"
+                v-show="$slots['header-status']"
                 class="pill bg-white text-secondary-500"
             >
                 <slot name="header-status" />
             </span>
 
             <MovingSearchField
-                v-if="hasSearch"
+                v-show="hasSearch"
                 :query="search"
                 @update:query="$emit('update:search', $event)"
                 :options="searchOptions"
@@ -70,6 +70,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
     index: 0,
     activePanel: 0,
+    search: '',
+    searchOptions: () => [],
     hasSearch: false
 });
 

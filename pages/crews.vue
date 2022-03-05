@@ -142,10 +142,18 @@ const events = useEventStore();
 const clubs = useClubStore();
 const rowers = useRowerStore();
 
-await crews.loadCrews();
-await crews.loadTeams();
-await events.loadEvents();
-await rowers.loadRowers();
+onMounted(async () => {
+    await crews.loadCrews();
+    await crews.loadTeams();
+    await events.loadEvents();
+    await rowers.loadRowers();
+
+    // If the queries are set in the router, select the items
+    const { crew, rower } = params;
+
+    if (crew && typeof crew == 'string') await selectCrew(crew);
+    if (rower && typeof rower == 'string') await selectRower(rower);
+});
 
 // The panel that is last opened
 const activePanel = ref(0);
@@ -334,14 +342,6 @@ const deselectRower = () => {
 
     delete params.rower;
 };
-
-// If the queries are set in the router, select the items
-onMounted(async () => {
-    const { crew, rower } = params;
-
-    if (crew && typeof crew == 'string') await selectCrew(crew);
-    if (rower && typeof rower == 'string') await selectRower(rower);
-});
 
 definePageMeta({
     layout: false
