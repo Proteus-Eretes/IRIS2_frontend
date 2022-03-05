@@ -54,18 +54,25 @@ export const useClubStore = defineStore('clubs', {
                 return;
             }
 
-            const loadedClubs = await clubService.loadClubs(regattaId);
+            try {
+                const loadedClubs = await clubService.loadClubs(regattaId);
 
-            const clubIds = loadedClubs.map((club) => club.id);
-            const clubEntities = loadedClubs.reduce(
-                (entities: { [id: string]: Club }, club: Club) => {
-                    return { ...entities, [club.id]: club };
-                },
-                {}
-            );
+                const clubIds = loadedClubs.map((club) => club.id);
+                const clubEntities = loadedClubs.reduce(
+                    (entities: { [id: string]: Club }, club: Club) => {
+                        return { ...entities, [club.id]: club };
+                    },
+                    {}
+                );
 
-            this.ids = clubIds;
-            this.entities = clubEntities;
+                this.ids = clubIds;
+                this.entities = clubEntities;
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong loading the clubs'
+                );
+            }
         },
         async loadSelectedClub() {
             const clubId = this.selectedId;
@@ -73,13 +80,20 @@ export const useClubStore = defineStore('clubs', {
                 return;
             }
 
-            const club = await clubService.loadClubDetail(clubId);
+            try {
+                const club = await clubService.loadClubDetail(clubId);
 
-            this.detailIds = [...this.detailIds, club.id];
-            this.detailEntities = {
-                ...this.detailEntities,
-                [club.id]: club
-            };
+                this.detailIds = [...this.detailIds, club.id];
+                this.detailEntities = {
+                    ...this.detailEntities,
+                    [club.id]: club
+                };
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong loading the selected club'
+                );
+            }
         }
     }
 });

@@ -8,8 +8,6 @@ interface RootState {
     competitionNavigation: RouteItem[];
     adminNavigation: RouteItem[];
     tableActions: TableAction[];
-    showToast: boolean;
-    toast: Toast;
 }
 
 export const useMainStore = defineStore('main', {
@@ -93,11 +91,7 @@ export const useMainStore = defineStore('main', {
                 icon: 'ph-pencil',
                 setting: 'Edit'
             }
-        ],
-        showToast: false,
-        toast: {
-            message: ''
-        }
+        ]
     }),
 
     getters: {

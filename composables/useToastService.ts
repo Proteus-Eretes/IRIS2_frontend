@@ -1,4 +1,3 @@
-import { useMainStore } from '~~/stores';
 import { Toast, ToastType } from '~~/models/toast';
 
 export const useToastService = () => {
@@ -15,28 +14,30 @@ export const useToastService = () => {
     };
 
     return {
-        showToast: (toast: Toast) => {
-            const main = useMainStore();
+        showToast: (t: Toast) => {
+            const active = useState<boolean>('showToast', () => false);
+            const toast = useState<Toast>('toast');
 
-            main.showToast = true;
-            main.toast = {
-                title: toast.title ? toast.title : defaults.title,
-                message: toast.message ? toast.message : defaults.message,
-                type: toast.type ? toast.type : defaults.type,
-                progress: toast.progress ? toast.progress : defaults.progress,
-                icon: toast.icon ? toast.icon : '',
-                iconPrimary: toast.iconPrimary ? toast.iconPrimary : '',
-                iconSecondary: toast.iconSecondary ? toast.iconSecondary : '',
-                timeout: toast.timeout ? toast.timeout : defaults.timeout,
-                primary: toast.primary ? toast.primary : undefined,
-                secondary: toast.secondary ? toast.secondary : undefined
+            active.value = true;
+            toast.value = {
+                title: t.title ? t.title : defaults.title,
+                message: t.message ? t.message : defaults.message,
+                type: t.type ? t.type : defaults.type,
+                progress: t.progress ? t.progress : defaults.progress,
+                icon: t.icon ? t.icon : '',
+                iconPrimary: t.iconPrimary ? t.iconPrimary : '',
+                iconSecondary: t.iconSecondary ? t.iconSecondary : '',
+                timeout: t.timeout ? t.timeout : defaults.timeout,
+                primary: t.primary ? t.primary : undefined,
+                secondary: t.secondary ? t.secondary : undefined
             };
         },
         showError: (message: string) => {
-            const main = useMainStore();
+            const active = useState<boolean>('showToast', () => false);
+            const toast = useState<Toast>('toast');
 
-            main.showToast = true;
-            main.toast = {
+            active.value = true;
+            toast.value = {
                 title: defaultsError.title,
                 message: message ? message : defaults.message,
                 type: defaultsError.type,

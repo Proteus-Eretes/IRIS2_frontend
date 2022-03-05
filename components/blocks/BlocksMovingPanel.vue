@@ -22,7 +22,7 @@
             <Table
                 title="Rounds"
                 :headers="roundsTableHeaders"
-                :items="rounds.allRoundsByBlock"
+                :items="rounds.allRoundsByBlock()"
                 class="px-2"
             >
                 <template #name="{ item }">
@@ -35,7 +35,7 @@
             <Table
                 title="Fields"
                 :headers="fieldsTableHeaders"
-                :items="events.allFieldsByBlock"
+                :items="events.allFieldsByBlock()"
                 :activeId="events.selectedFieldId"
                 @item-click="$emit('select-field', $event.id)"
                 class="px-2 pb-2"

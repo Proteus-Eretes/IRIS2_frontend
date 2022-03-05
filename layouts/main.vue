@@ -13,17 +13,15 @@
                 <slot />
             </main>
 
-            <Toast v-model:open="main.showToast" :toast="main.toast" />
+            <Toast />
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
 import { useRegattaStore } from '~~/stores/regatta';
-import { useMainStore } from '~~/stores';
 
 const regattas = useRegattaStore();
-const main = useMainStore();
 
 onMounted(async () => {
     await regattas.loadRegattas();

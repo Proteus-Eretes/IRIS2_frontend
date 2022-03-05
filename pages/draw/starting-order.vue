@@ -29,6 +29,7 @@
                                             a.starting_order - b.starting_order
                                     )
                             "
+                            is-draggable
                         >
                             <template #name="{ item }">
                                 <span class="text-sm font-semibold">

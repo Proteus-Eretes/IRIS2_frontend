@@ -104,7 +104,7 @@ import { useRegattaStore } from '~~/stores/regatta';
 const main = useMainStore();
 const regattas = useRegattaStore();
 
-const sideBarCollapsed = ref(false);
+const sideBarCollapsed = useState<boolean>('sideBar', () => false);
 const toggleSideBar = useToggle(sideBarCollapsed);
 
 onMounted(() => {

@@ -27,8 +27,9 @@ export const useRoundStore = defineStore('rounds', {
         },
         allRoundsByBlock(state: RoundState) {
             const allRounds = state.ids.map((id: string) => state.entities[id]);
+            const selectedId = useBlockStore().selectedId;
 
-            return (id: string = useBlockStore().selectedId) => {
+            return (id: string = selectedId) => {
                 return allRounds.filter((round: Round) => round.block_id == id);
             };
         },
@@ -46,18 +47,25 @@ export const useRoundStore = defineStore('rounds', {
 
     actions: {
         async loadRounds() {
-            const loadedRounds = await roundService.loadRounds();
+            try {
+                const loadedRounds = await roundService.loadRounds();
 
-            const roundIds = loadedRounds.map((round) => round.id);
-            const roundEntities = loadedRounds.reduce(
-                (entities: { [id: string]: Round }, round: Round) => {
-                    return { ...entities, [round.id]: round };
-                },
-                {}
-            );
+                const roundIds = loadedRounds.map((round) => round.id);
+                const roundEntities = loadedRounds.reduce(
+                    (entities: { [id: string]: Round }, round: Round) => {
+                        return { ...entities, [round.id]: round };
+                    },
+                    {}
+                );
 
-            this.ids = roundIds;
-            this.entities = roundEntities;
+                this.ids = roundIds;
+                this.entities = roundEntities;
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong loading the rounds'
+                );
+            }
         },
         async loadRoundsByBlock() {
             const blockId = useBlockStore().selectedId;
@@ -66,18 +74,27 @@ export const useRoundStore = defineStore('rounds', {
                 return;
             }
 
-            const loadedRounds = await roundService.loadRoundsByBlock(blockId);
+            try {
+                const loadedRounds = await roundService.loadRoundsByBlock(
+                    blockId
+                );
 
-            const roundIds = loadedRounds.map((round) => round.id);
-            const roundEntities = loadedRounds.reduce(
-                (entities: { [id: string]: Round }, round: Round) => {
-                    return { ...entities, [round.id]: round };
-                },
-                {}
-            );
+                const roundIds = loadedRounds.map((round) => round.id);
+                const roundEntities = loadedRounds.reduce(
+                    (entities: { [id: string]: Round }, round: Round) => {
+                        return { ...entities, [round.id]: round };
+                    },
+                    {}
+                );
 
-            this.ids = roundIds;
-            this.entities = roundEntities;
+                this.ids = roundIds;
+                this.entities = roundEntities;
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong loading the rounds'
+                );
+            }
         },
         assignRounds(list: string[]) {
             const blockId = useBlockStore().selectedId;

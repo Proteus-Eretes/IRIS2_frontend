@@ -1,5 +1,5 @@
 <template>
-    <TransitionRoot as="template" :show="open">
+    <TransitionRoot as="template" :show="active">
         <div class="fixed top-0 right-0 z-50 overflow-hidden">
             <TransitionChild
                 as="template"
@@ -17,7 +17,7 @@
                     ]"
                 >
                     <div
-                        v-if="open && !toast.primary"
+                        v-if="active && !toast.primary"
                         :class="[
                             toast.type == ToastType.DENIED
                                 ? 'bg-danger-600'
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <div
-                        v-if="open && toast.primary && toast.secondary"
+                        v-if="active && toast.primary && toast.secondary"
                         :class="[
                             toast.type == ToastType.DENIED
                                 ? 'bg-danger-600'
@@ -138,7 +138,7 @@
                         </div>
                     </div>
                     <div
-                        v-if="open && toast.primary && !toast.secondary"
+                        v-if="active && toast.primary && !toast.secondary"
                         :class="[
                             toast.type == ToastType.DENIED
                                 ? 'bg-danger-600'
@@ -191,37 +191,21 @@
 </template>
 
 <script lang="ts" setup>
-import {
-    Dialog,
-    DialogOverlay,
-    DialogTitle,
-    TransitionChild,
-    TransitionRoot
-} from '@headlessui/vue';
+import { TransitionChild, TransitionRoot } from '@headlessui/vue';
 import { PhX } from 'phosphor-vue';
+
 import { Toast, ToastType } from '~~/models/toast';
 
-interface Props {
-    open: boolean;
-    toast: Toast;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-    open: false
-});
-
-const emits = defineEmits<{
-    (e: 'update:open', open: boolean): void;
-}>();
+const active = useState<boolean>('showToast', () => false);
+const toast = useState<Toast>('toast');
 
 const interval = ref(null);
 const timeLeft = ref(0);
 const speed = ref(100);
-// const element: HTMLElement = ref(null);
 
 const timeLeftPercent = computed(() => {
     return Math.round(
-        (((timeLeft.value * 100) / (props.toast.timeout * 1000)) * 100) / 100
+        (((timeLeft.value * 100) / (toast.value.timeout * 1000)) * 100) / 100
     );
 });
 const progressStyle = computed(() => {
@@ -229,10 +213,10 @@ const progressStyle = computed(() => {
 });
 
 watch(
-    () => props.open,
+    () => active.value,
     (isOpen, prevIsOpen) => {
-        if (isOpen && props.toast.timeout > 0) {
-            timeLeft.value = props.toast.timeout * 1000;
+        if (isOpen && toast.value.timeout > 0) {
+            timeLeft.value = toast.value.timeout * 1000;
             interval.value = setInterval(() => updateTime(), speed.value);
         }
     }
@@ -243,16 +227,16 @@ const updateTime = () => {
     if (timeLeft.value === 0) destroy();
 };
 const destroy = () => {
-    // active.value = false;
-    emits('update:open', false);
+    active.value = false;
+    // emits('update:open', false);
     clearInterval(interval.value);
 };
 const primaryAction = () => {
-    props.toast.primary.action();
+    toast.value.primary.action();
     destroy();
 };
 const secondaryAction = () => {
-    props.toast.secondary.action();
+    toast.value.secondary.action();
     destroy();
 };
 

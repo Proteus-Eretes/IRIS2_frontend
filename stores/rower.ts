@@ -38,8 +38,9 @@ export const useRowerStore = defineStore('rowers', {
             const allRowers = state.ids
                 .map((id: string) => state.entities[id])
                 .sort((a: Rower, b: Rower) => a.position - b.position);
+            const selectedId = useCrewStore().selectedCrewId;
 
-            return (id: string = useCrewStore().selectedCrewId) => {
+            return (id: string = selectedId) => {
                 return allRowers.filter(
                     (rower: Rower) =>
                         rower.crew_id == id && rower.role == RowerRole.ROWER
@@ -48,8 +49,9 @@ export const useRowerStore = defineStore('rowers', {
         },
         allCoachesByCrew(state: RowerState) {
             const allRowers = state.ids.map((id: string) => state.entities[id]);
+            const selectedId = useCrewStore().selectedCrewId;
 
-            return (id: string = useCrewStore().selectedCrewId) => {
+            return (id: string = selectedId) => {
                 return allRowers.filter(
                     (rower: Rower) =>
                         rower.crew_id == id && rower.role == RowerRole.COACH
@@ -58,8 +60,9 @@ export const useRowerStore = defineStore('rowers', {
         },
         allCoxesByCrew(state: RowerState) {
             const allRowers = state.ids.map((id: string) => state.entities[id]);
+            const selectedId = useCrewStore().selectedCrewId;
 
-            return (id: string = useCrewStore().selectedCrewId) => {
+            return (id: string = selectedId) => {
                 return allRowers.filter(
                     (rower: Rower) =>
                         rower.crew_id == id && rower.role == RowerRole.COX
@@ -79,8 +82,9 @@ export const useRowerStore = defineStore('rowers', {
         },
         strokeByCrew(state: RowerState) {
             const allRowers = state.ids.map((id: string) => state.entities[id]);
+            const selectedId = useCrewStore().selectedCrewId;
 
-            return (id: string = useCrewStore().selectedCrewId) => {
+            return (id: string = selectedId) => {
                 const allRowersByCrew = allRowers.filter(
                     (rower: Rower) => rower.crew_id == id
                 );
@@ -99,18 +103,25 @@ export const useRowerStore = defineStore('rowers', {
                 return;
             }
 
-            const loadedRowers = await rowerService.loadRowers(regattaId);
+            try {
+                const loadedRowers = await rowerService.loadRowers(regattaId);
 
-            const rowerIds = loadedRowers.map((rower) => rower.id);
-            const rowerEntities = loadedRowers.reduce(
-                (entities: { [id: string]: Rower }, rower: Rower) => {
-                    return { ...entities, [rower.id]: rower };
-                },
-                {}
-            );
+                const rowerIds = loadedRowers.map((rower) => rower.id);
+                const rowerEntities = loadedRowers.reduce(
+                    (entities: { [id: string]: Rower }, rower: Rower) => {
+                        return { ...entities, [rower.id]: rower };
+                    },
+                    {}
+                );
 
-            this.ids = rowerIds;
-            this.entities = rowerEntities;
+                this.ids = rowerIds;
+                this.entities = rowerEntities;
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong loading the rowers'
+                );
+            }
         },
         async loadRowersByCrew() {
             const crewId = useCrewStore().selectedCrewId;
@@ -118,20 +129,29 @@ export const useRowerStore = defineStore('rowers', {
                 return;
             }
 
-            const loadedRowers = await rowerService.loadRowersByCrew(crewId);
+            try {
+                const loadedRowers = await rowerService.loadRowersByCrew(
+                    crewId
+                );
 
-            const rowerIds = loadedRowers
-                .map((rower) => rower.id)
-                .filter((id: string) => this.ids.indexOf(id) == -1);
-            const rowerEntities = loadedRowers.reduce(
-                (entities: { [id: string]: Rower }, rower: Rower) => {
-                    return { ...entities, [rower.id]: rower };
-                },
-                {}
-            );
+                const rowerIds = loadedRowers
+                    .map((rower) => rower.id)
+                    .filter((id: string) => this.ids.indexOf(id) == -1);
+                const rowerEntities = loadedRowers.reduce(
+                    (entities: { [id: string]: Rower }, rower: Rower) => {
+                        return { ...entities, [rower.id]: rower };
+                    },
+                    {}
+                );
 
-            this.ids = [...this.ids, ...rowerIds];
-            this.entities = { ...this.entities, ...rowerEntities };
+                this.ids = [...this.ids, ...rowerIds];
+                this.entities = { ...this.entities, ...rowerEntities };
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong loading the rowers'
+                );
+            }
         },
         async loadSelectedRower() {
             const rowerId = this.selectedId;
@@ -139,22 +159,36 @@ export const useRowerStore = defineStore('rowers', {
                 return;
             }
 
-            const rower = await rowerService.loadRowerDetail(rowerId);
+            try {
+                const rower = await rowerService.loadRowerDetail(rowerId);
 
-            this.detailIds = [...this.detailIds, rower.id];
-            this.detailEntities = {
-                ...this.detailEntities,
-                [rower.id]: rower
-            };
+                this.detailIds = [...this.detailIds, rower.id];
+                this.detailEntities = {
+                    ...this.detailEntities,
+                    [rower.id]: rower
+                };
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong loading the selected rower'
+                );
+            }
         },
         async add(newRower: NewRower) {
-            const rower = await rowerService.addRower(newRower);
+            try {
+                const rower = await rowerService.addRower(newRower);
 
-            this.ids = [...this.ids, rower.id];
-            this.entities = {
-                ...this.entities,
-                [rower.id]: rower
-            };
+                this.ids = [...this.ids, rower.id];
+                this.entities = {
+                    ...this.entities,
+                    [rower.id]: rower
+                };
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong adding the rower'
+                );
+            }
         },
         delete(id: string) {
             this.ids.splice(this.ids.indexOf(id), 1);
@@ -164,9 +198,16 @@ export const useRowerStore = defineStore('rowers', {
             delete this.detailEntities[id];
         },
         async edit(id: string, data: NewRower) {
-            const editedRower = await rowerService.editRower(id, data);
+            try {
+                const editedRower = await rowerService.editRower(id, data);
 
-            this.entities[id] = editedRower;
+                this.entities[id] = editedRower;
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong editing the rower'
+                );
+            }
         }
     }
 });

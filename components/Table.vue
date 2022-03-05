@@ -22,6 +22,17 @@
                 >
                     <div class="table-row">
                         <div
+                            v-if="isDraggable"
+                            scope="col"
+                            class="group table-cell px-1 py-2"
+                        >
+                            <ph-dots-three-vertical
+                                class="icon text-white group-hover:text-primary-400"
+                                aria-hidden="true"
+                            />
+                            <span class="sr-only">Drag handle</span>
+                        </div>
+                        <div
                             v-for="header in headers"
                             :key="header.id"
                             scope="col"
@@ -210,6 +221,7 @@
 <script lang="ts" setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import {
+    PhDotsThreeVertical,
     PhCalendarPlus,
     PhCoinVertical,
     PhListNumbers,
@@ -233,6 +245,7 @@ interface Props {
     items: any[];
     activeId?: string;
     hasHeaders?: boolean;
+    isDraggable?: boolean;
     maxRows?: number;
     sortId?: string;
     sortDirection?: TableSortDirection;
@@ -241,6 +254,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
     activeId: '',
     hasHeaders: false,
+    isDraggable: false,
     maxRows: 10
 });
 

@@ -60,8 +60,9 @@ export const useCrewStore = defineStore('crews', {
             const allCrews = state.crewIds.map(
                 (id: string) => state.crewEntities[id]
             );
+            const selectedId = useEventStore().selectedEventId;
 
-            return (id: string = useEventStore().selectedEventId) => {
+            return (id: string = selectedId) => {
                 return allCrews.filter((crew: Crew) => crew.event_id == id);
             };
         },
@@ -72,8 +73,9 @@ export const useCrewStore = defineStore('crews', {
             const allTeams = state.teamIds.map(
                 (id: string) => state.teamEntities[id]
             );
+            const selectedId = useEventStore().selectedFieldId;
 
-            return (id: string = useEventStore().selectedFieldId) => {
+            return (id: string = selectedId) => {
                 return allTeams.filter((team: Team) => team.field_id == id);
             };
         },
@@ -81,8 +83,9 @@ export const useCrewStore = defineStore('crews', {
             const allFines = state.fineIds.map(
                 (id: string) => state.fineEntities[id]
             );
+            const selectedId = state.selectedCrewId;
 
-            return (id: string = state.selectedCrewId) => {
+            return (id: string = selectedId) => {
                 return allFines.filter((fine: Fine) => fine.crew_id == id);
             };
         },
@@ -116,8 +119,9 @@ export const useCrewStore = defineStore('crews', {
             const allTeams = state.teamIds.map(
                 (id: string) => state.teamEntities[id]
             );
+            const selectedId = state.selectedCrewId;
 
-            return (id: string = state.selectedCrewId) => {
+            return (id: string = selectedId) => {
                 const allTeamsFilter = allTeams.filter(
                     (team: Team) => team.crew_id == id
                 );
@@ -186,18 +190,25 @@ export const useCrewStore = defineStore('crews', {
                 return;
             }
 
-            const loadedCrews = await crewService.loadCrews(regattaId);
+            try {
+                const loadedCrews = await crewService.loadCrews(regattaId);
 
-            const crewIds = loadedCrews.map((crew) => crew.id);
-            const crewEntities = loadedCrews.reduce(
-                (entities: { [id: string]: Crew }, crew: Crew) => {
-                    return { ...entities, [crew.id]: crew };
-                },
-                {}
-            );
+                const crewIds = loadedCrews.map((crew) => crew.id);
+                const crewEntities = loadedCrews.reduce(
+                    (entities: { [id: string]: Crew }, crew: Crew) => {
+                        return { ...entities, [crew.id]: crew };
+                    },
+                    {}
+                );
 
-            this.crewIds = crewIds;
-            this.crewEntities = crewEntities;
+                this.crewIds = crewIds;
+                this.crewEntities = crewEntities;
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong loading the crews'
+                );
+            }
         },
         async loadCrewsByEvent() {
             const eventId = useEventStore().selectedEventId;
@@ -206,20 +217,27 @@ export const useCrewStore = defineStore('crews', {
                 return;
             }
 
-            const loadedCrews = await crewService.loadCrewsByEvent(eventId);
+            try {
+                const loadedCrews = await crewService.loadCrewsByEvent(eventId);
 
-            const crewIds = loadedCrews
-                .map((crew) => crew.id)
-                .filter((id: string) => this.crewIds.indexOf(id) == -1);
-            const crewEntities = loadedCrews.reduce(
-                (entities: { [id: string]: Crew }, crew: Crew) => {
-                    return { ...entities, [crew.id]: crew };
-                },
-                {}
-            );
+                const crewIds = loadedCrews
+                    .map((crew) => crew.id)
+                    .filter((id: string) => this.crewIds.indexOf(id) == -1);
+                const crewEntities = loadedCrews.reduce(
+                    (entities: { [id: string]: Crew }, crew: Crew) => {
+                        return { ...entities, [crew.id]: crew };
+                    },
+                    {}
+                );
 
-            this.crewIds = [...this.crewIds, ...crewIds];
-            this.crewEntities = { ...this.crewEntities, ...crewEntities };
+                this.crewIds = [...this.crewIds, ...crewIds];
+                this.crewEntities = { ...this.crewEntities, ...crewEntities };
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong loading the crews'
+                );
+            }
         },
         async loadSelectedCrew() {
             const crewId = this.selectedCrewId;
@@ -228,27 +246,41 @@ export const useCrewStore = defineStore('crews', {
                 return;
             }
 
-            const crew = await crewService.loadCrewDetail(crewId);
+            try {
+                const crew = await crewService.loadCrewDetail(crewId);
 
-            this.crewDetailIds = [...this.crewDetailIds, crew.id];
-            this.crewDetailEntities = {
-                ...this.crewDetailEntities,
-                [crew.id]: crew
-            };
+                this.crewDetailIds = [...this.crewDetailIds, crew.id];
+                this.crewDetailEntities = {
+                    ...this.crewDetailEntities,
+                    [crew.id]: crew
+                };
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong loading the selected crew'
+                );
+            }
         },
         async loadTeams() {
-            const loadedTeams = await crewService.loadTeams();
+            try {
+                const loadedTeams = await crewService.loadTeams();
 
-            const teamIds = loadedTeams.map((team) => team.id);
-            const teamEntities = loadedTeams.reduce(
-                (entities: { [id: string]: Team }, team: Team) => {
-                    return { ...entities, [team.id]: team };
-                },
-                {}
-            );
+                const teamIds = loadedTeams.map((team) => team.id);
+                const teamEntities = loadedTeams.reduce(
+                    (entities: { [id: string]: Team }, team: Team) => {
+                        return { ...entities, [team.id]: team };
+                    },
+                    {}
+                );
 
-            this.teamIds = teamIds;
-            this.teamEntities = teamEntities;
+                this.teamIds = teamIds;
+                this.teamEntities = teamEntities;
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong loading the teams'
+                );
+            }
         },
         async loadTeamsByField() {
             const fieldId = useEventStore().selectedFieldId;
@@ -257,20 +289,27 @@ export const useCrewStore = defineStore('crews', {
                 return;
             }
 
-            const loadedTeams = await crewService.loadTeamsByField(fieldId);
+            try {
+                const loadedTeams = await crewService.loadTeamsByField(fieldId);
 
-            const teamIds = loadedTeams
-                .map((team) => team.id)
-                .filter((id: string) => this.teamIds.indexOf(id) == -1);
-            const teamEntities = loadedTeams.reduce(
-                (entities: { [id: string]: Team }, team: Team) => {
-                    return { ...entities, [team.id]: team };
-                },
-                {}
-            );
+                const teamIds = loadedTeams
+                    .map((team) => team.id)
+                    .filter((id: string) => this.teamIds.indexOf(id) == -1);
+                const teamEntities = loadedTeams.reduce(
+                    (entities: { [id: string]: Team }, team: Team) => {
+                        return { ...entities, [team.id]: team };
+                    },
+                    {}
+                );
 
-            this.teamIds = [...this.teamIds, ...teamIds];
-            this.teamEntities = { ...this.teamEntities, ...teamEntities };
+                this.teamIds = [...this.teamIds, ...teamIds];
+                this.teamEntities = { ...this.teamEntities, ...teamEntities };
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong loading the teams'
+                );
+            }
         },
         async loadFinesByCrew() {
             const crewId = this.selectedCrewId;
@@ -279,40 +318,61 @@ export const useCrewStore = defineStore('crews', {
                 return;
             }
 
-            const loadedFines = await crewService.loadFinesByCrew(crewId);
+            try {
+                const loadedFines = await crewService.loadFinesByCrew(crewId);
 
-            const fineIds = loadedFines
-                .map((fine) => fine.id)
-                .filter((id: string) => this.fineIds.indexOf(id) == -1);
-            const fineEntities = loadedFines.reduce(
-                (entities: { [id: string]: Fine }, fine: Fine) => {
-                    return { ...entities, [fine.id]: fine };
-                },
-                {}
-            );
+                const fineIds = loadedFines
+                    .map((fine) => fine.id)
+                    .filter((id: string) => this.fineIds.indexOf(id) == -1);
+                const fineEntities = loadedFines.reduce(
+                    (entities: { [id: string]: Fine }, fine: Fine) => {
+                        return { ...entities, [fine.id]: fine };
+                    },
+                    {}
+                );
 
-            this.fineIds = [...this.fineIds, ...fineIds];
-            this.fineEntities = { ...this.fineEntities, ...fineEntities };
+                this.fineIds = [...this.fineIds, ...fineIds];
+                this.fineEntities = { ...this.fineEntities, ...fineEntities };
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong loading the fines'
+                );
+            }
         },
         async addCrew(newCrew: NewCrew): Promise<string> {
-            const crew = await crewService.addCrew(newCrew);
+            try {
+                const crew = await crewService.addCrew(newCrew);
 
-            this.crewIds = [...this.crewIds, crew.id];
-            this.crewEntities = {
-                ...this.crewEntities,
-                [crew.id]: crew
-            };
+                this.crewIds = [...this.crewIds, crew.id];
+                this.crewEntities = {
+                    ...this.crewEntities,
+                    [crew.id]: crew
+                };
 
-            return crew.id;
+                return crew.id;
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong adding the crew'
+                );
+            }
         },
         async addTeam(newTeam: NewTeam) {
-            const team = await crewService.addTeam(newTeam);
+            try {
+                const team = await crewService.addTeam(newTeam);
 
-            this.teamIds = [...this.teamIds, team.id];
-            this.teamEntities = {
-                ...this.teamEntities,
-                [team.id]: team
-            };
+                this.teamIds = [...this.teamIds, team.id];
+                this.teamEntities = {
+                    ...this.teamEntities,
+                    [team.id]: team
+                };
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong adding the team'
+                );
+            }
         },
         deleteCrew(id: string) {
             this.crewIds.splice(this.crewIds.indexOf(id), 1);
@@ -323,9 +383,16 @@ export const useCrewStore = defineStore('crews', {
             delete this.fineEntities[id];
         },
         async editCrew(id: string, data: NewCrew) {
-            const editedCrew = await crewService.editCrew(id, data);
+            try {
+                const editedCrew = await crewService.editCrew(id, data);
 
-            this.crewEntities[id] = editedCrew;
+                this.crewEntities[id] = editedCrew;
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong editing the crew'
+                );
+            }
         }
     }
 });
