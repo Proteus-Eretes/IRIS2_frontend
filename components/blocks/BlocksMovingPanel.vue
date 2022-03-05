@@ -22,7 +22,7 @@
             <Table
                 title="Rounds"
                 :headers="roundsTableHeaders"
-                :items="rounds.allRoundsOfSelectedBlock"
+                :items="rounds.allRoundsByBlock"
                 class="px-2"
             >
                 <template #name="{ item }">
@@ -35,7 +35,7 @@
             <Table
                 title="Fields"
                 :headers="fieldsTableHeaders"
-                :items="events.allFieldsOfSelectedBlock"
+                :items="events.allFieldsByBlock"
                 :activeId="events.selectedFieldId"
                 @item-click="$emit('select-field', $event.id)"
                 class="px-2 pb-2"
@@ -69,8 +69,8 @@
 
                         <span class="text-xs font-medium">
                             {{
-                                crews.allTeamsByFieldId(item.id)
-                                    ? crews.allTeamsByFieldId(item.id).length
+                                crews.allTeamsByField(item.id)
+                                    ? crews.allTeamsByField(item.id).length
                                     : 0
                             }}
                         </span>

@@ -56,56 +56,35 @@ export const useCrewStore = defineStore('crews', {
         allCrews(state: CrewState): Crew[] {
             return state.crewIds.map((id: string) => state.crewEntities[id]);
         },
-        allCrewsOfSelectedEvent(state: CrewState) {
-            const allCrews = state.crewIds.map(
-                (id: string) => state.crewEntities[id]
-            );
-            const selectedEventId = useEventStore().selectedEventId;
-
-            return allCrews.filter(
-                (crew: Crew) => crew.event_id == selectedEventId
-            );
-        },
-        allCrewsByEventId(state: CrewState) {
+        allCrewsByEvent(state: CrewState) {
             const allCrews = state.crewIds.map(
                 (id: string) => state.crewEntities[id]
             );
 
-            return (id: string) => {
+            return (id: string = useEventStore().selectedEventId) => {
                 return allCrews.filter((crew: Crew) => crew.event_id == id);
             };
         },
         allTeams(state: CrewState): Team[] {
             return state.teamIds.map((id: string) => state.teamEntities[id]);
         },
-        allTeamsOfSelectedField(state: CrewState): Team[] {
-            const allTeams = state.teamIds.map(
-                (id: string) => state.teamEntities[id]
-            );
-            const selectedFieldId = useEventStore().selectedFieldId;
-
-            return allTeams.filter(
-                (team: Team) => team.field_id == selectedFieldId
-            );
-        },
-        allTeamsByFieldId(state: CrewState) {
+        allTeamsByField(state: CrewState) {
             const allTeams = state.teamIds.map(
                 (id: string) => state.teamEntities[id]
             );
 
-            return (id: string) => {
+            return (id: string = useEventStore().selectedFieldId) => {
                 return allTeams.filter((team: Team) => team.field_id == id);
             };
         },
-        allFinesOfSelectedCrew(state: CrewState): Fine[] {
+        allFinesByCrew(state: CrewState) {
             const allFines = state.fineIds.map(
                 (id: string) => state.fineEntities[id]
             );
-            const selectedCrewId = state.selectedCrewId;
 
-            return allFines.filter(
-                (fine: Fine) => fine.crew_id == selectedCrewId
-            );
+            return (id: string = state.selectedCrewId) => {
+                return allFines.filter((fine: Fine) => fine.crew_id == id);
+            };
         },
         selectedCrew(state: CrewState): Crew {
             return (
@@ -138,7 +117,7 @@ export const useCrewStore = defineStore('crews', {
                 (id: string) => state.teamEntities[id]
             );
 
-            return (id: string) => {
+            return (id: string = state.selectedCrewId) => {
                 const allTeamsFilter = allTeams.filter(
                     (team: Team) => team.crew_id == id
                 );
@@ -153,26 +132,6 @@ export const useCrewStore = defineStore('crews', {
                     ? shirtNumbers
                     : [firstNumber];
             };
-        },
-        shirtNumbersOfSelectedCrew(state: CrewState) {
-            const allTeams = state.teamIds.map(
-                (id: string) => state.teamEntities[id]
-            );
-            const selectedCrewId = state.selectedCrewId;
-
-            const allTeamsFilter = allTeams.filter(
-                (team: Team) => team.crew_id == selectedCrewId
-            );
-            if (allTeamsFilter.length == 0) return [];
-
-            const shirtNumbers = allTeamsFilter.map(
-                (team: Team) => team.shirt_number
-            );
-            const firstNumber = shirtNumbers[0];
-
-            return shirtNumbers.some((num: number) => num != firstNumber)
-                ? shirtNumbers
-                : [firstNumber];
         },
         queryResults(state: CrewState) {
             const allCrews = state.crewIds.map(

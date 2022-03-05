@@ -18,7 +18,7 @@
 
                         <template #fields="{ item }">
                             <span class="text-sm">
-                                {{ events.allFieldsByBlockId(item.id).length }}
+                                {{ events.allFieldsByBlock(item.id).length }}
                                 fields
                             </span>
                         </template>
@@ -42,7 +42,7 @@
 
                 <template #default>
                     <template
-                        v-for="field in events.allFieldsByBlockId(block.id)"
+                        v-for="field in events.allFieldsByBlock(block.id)"
                         :key="field.id"
                     >
                         <Table
@@ -53,7 +53,7 @@
                             "
                             :actions="['edit']"
                             :headers="crewTableHeaders"
-                            :items="crews.allTeamsByFieldId(field.id)"
+                            :items="crews.allTeamsByField(field.id)"
                             has-headers
                         >
                             <template #name="{ item }">

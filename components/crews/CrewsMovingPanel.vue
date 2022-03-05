@@ -26,9 +26,7 @@
             >
                 <div>
                     <h6 class="font-semibold">Shirt number(s)</h6>
-                    <span>{{
-                        crews.shirtNumbersOfSelectedCrew.join(', ')
-                    }}</span>
+                    <span>{{ crews.shirtNumbersByCrew().join(', ') }}</span>
                 </div>
                 <div>
                     <h6 class="font-semibold">Crew name</h6>
@@ -49,8 +47,8 @@
                 <div>
                     <h6 class="font-semibold">Stroke</h6>
                     <span>{{
-                        rowers.strokeOfSelectedCrew
-                            ? rowers.strokeOfSelectedCrew.fullName
+                        rowers.strokeByCrew()
+                            ? rowers.strokeByCrew().fullName
                             : 'Nothing'
                     }}</span>
                 </div>
@@ -84,7 +82,7 @@
                 title="Rowers"
                 :headers="tableHeaders"
                 :actions="['edit', 'delete']"
-                :items="rowers.allRowersOfSelectedCrew"
+                :items="rowers.allRowersByCrew()"
                 :activeId="rowers.selectedId"
                 @item-click="$emit('select-rower', $event.id)"
                 @action="performTableAction($event)"
@@ -123,7 +121,7 @@
                 title="Coaches"
                 :headers="tableHeaders"
                 :actions="['edit', 'delete']"
-                :items="rowers.allCoachesOfSelectedCrew"
+                :items="rowers.allCoachesByCrew()"
                 :activeId="rowers.selectedId"
                 @item-click="$emit('select-rower', $event.id)"
                 @action="performTableAction($event)"
@@ -162,7 +160,7 @@
                 title="Coxes"
                 :headers="tableHeaders"
                 :actions="['edit', 'delete']"
-                :items="rowers.allCoxesOfSelectedCrew"
+                :items="rowers.allCoxesByCrew()"
                 :activeId="rowers.selectedId"
                 @item-click="$emit('select-rower', $event.id)"
                 @action="performTableAction($event)"
@@ -202,7 +200,7 @@
                 error-message="This crew didn't receive any fines"
                 :headers="finesTableHeader"
                 :actions="['edit', 'delete']"
-                :items="crews.allFinesOfSelectedCrew"
+                :items="crews.allFinesByCrew()"
                 @action="performFineTableAction($event)"
             >
                 <template #amount="{ item }">

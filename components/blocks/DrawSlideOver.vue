@@ -31,7 +31,7 @@
             <select name="default" id="default" class="form-select"></select>
         </div>
 
-        <template v-for="field in events.allFieldsOfSelectedBlock">
+        <template v-for="field in events.allFieldsByBlock()">
             <div class="col-span-6 sm:col-span-4">
                 <label :for="field.id" class="form-label">
                     {{ events.getEventById(field.event_id).code }}

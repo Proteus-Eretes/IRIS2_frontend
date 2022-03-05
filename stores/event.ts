@@ -45,17 +45,7 @@ export const useEventStore = defineStore('events', {
         allFields(state: EventState) {
             return state.fieldIds.map((id: string) => state.fieldEntities[id]);
         },
-        allFieldsOfSelectedBlock(state: EventState) {
-            const allFields = state.fieldIds.map(
-                (id: string) => state.fieldEntities[id]
-            );
-            const selectedBlockId = useBlockStore().selectedId;
-
-            return allFields.filter(
-                (field: Field) => field.block_id == selectedBlockId
-            );
-        },
-        allFieldsByRoundId(state: EventState) {
+        allFieldsByRound(state: EventState) {
             const allFields = state.fieldIds.map(
                 (id: string) => state.fieldEntities[id]
             );
@@ -64,12 +54,12 @@ export const useEventStore = defineStore('events', {
                 return allFields.filter((field: Field) => field.round_id == id);
             };
         },
-        allFieldsByBlockId(state: EventState) {
+        allFieldsByBlock(state: EventState) {
             const allFields = state.fieldIds.map(
                 (id: string) => state.fieldEntities[id]
             );
 
-            return (id: string) => {
+            return (id: string = useBlockStore().selectedId) => {
                 return allFields.filter((field: Field) => field.block_id == id);
             };
         },

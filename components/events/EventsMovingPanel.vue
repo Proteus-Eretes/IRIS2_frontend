@@ -38,9 +38,7 @@
                 :title="useField ? 'Teams' : 'Crews'"
                 :headers="tableHeaders"
                 :items="
-                    useField
-                        ? crews.allTeamsOfSelectedField
-                        : crews.allCrewsOfSelectedEvent
+                    useField ? crews.allTeamsByField() : crews.allCrewsByEvent()
                 "
                 :activeId="
                     useField ? crews.selectedTeamId : crews.selectedCrewId
@@ -72,8 +70,8 @@
 
                         <span class="text-xs font-medium">
                             {{
-                                rowers.allRowersByCrewId(getCrewId(item))
-                                    ? rowers.allRowersByCrewId(getCrewId(item))
+                                rowers.allRowersByCrew(getCrewId(item))
+                                    ? rowers.allRowersByCrew(getCrewId(item))
                                           .length
                                     : 0
                             }}

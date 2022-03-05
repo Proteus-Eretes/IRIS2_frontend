@@ -27,7 +27,7 @@
                                 </p>
 
                                 <template #number-crews>{{
-                                    crews.allCrewsByEventId(element.id).length
+                                    crews.allCrewsByEvent(element.id).length
                                 }}</template>
                             </BlocksAssignItem>
                         </template>
@@ -45,12 +45,10 @@
                         <template #header>Block {{ block.block }}</template>
 
                         <template
-                            v-if="
-                                rounds.allRoundsByBlockId(block.id).length > 0
-                            "
+                            v-if="rounds.allRoundsByBlock(block.id).length > 0"
                         >
                             <div
-                                v-for="round in rounds.allRoundsByBlockId(
+                                v-for="round in rounds.allRoundsByBlock(
                                     block.id
                                 )"
                                 :key="round.id"
@@ -64,7 +62,7 @@
 
                                     <Draggable
                                         :model-value="
-                                            events.allFieldsByRoundId(round.id)
+                                            events.allFieldsByRound(round.id)
                                         "
                                         :group="{
                                             name: 'rounds',
@@ -100,7 +98,7 @@
 
                                                 <template #number-crews>
                                                     {{
-                                                        crews.allCrewsByEventId(
+                                                        crews.allCrewsByEvent(
                                                             element.event_id
                                                         ).length
                                                     }}
@@ -207,7 +205,7 @@ const changeList = (evt, blockId: string, roundId: string) => {
 const addField = (event: Event, blockId: string, roundId: string) => {
     if (
         events
-            .allFieldsByRoundId(roundId)
+            .allFieldsByRound(roundId)
             .findIndex((field: Field) => field.event_id == event.id) != -1
     ) {
         showError('Field already exists');

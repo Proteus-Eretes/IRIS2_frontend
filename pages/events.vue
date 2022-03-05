@@ -53,10 +53,9 @@
 
                                     <span class="text-xs font-medium">
                                         {{
-                                            crews.allCrewsByEventId(item.id)
-                                                ? crews.allCrewsByEventId(
-                                                      item.id
-                                                  ).length
+                                            crews.allCrewsByEvent(item.id)
+                                                ? crews.allCrewsByEvent(item.id)
+                                                      .length
                                                 : 0
                                         }}
                                     </span>

@@ -25,18 +25,10 @@ export const useRoundStore = defineStore('rounds', {
         allRounds(state: RoundState) {
             return state.ids.map((id: string) => state.entities[id]);
         },
-        allRoundsOfSelectedBlock(state: RoundState) {
-            const allRounds = state.ids.map((id: string) => state.entities[id]);
-            const selectedBlockId = useBlockStore().selectedId;
-
-            return allRounds.filter(
-                (round: Round) => round.block_id == selectedBlockId
-            );
-        },
-        allRoundsByBlockId(state: RoundState) {
+        allRoundsByBlock(state: RoundState) {
             const allRounds = state.ids.map((id: string) => state.entities[id]);
 
-            return (id: string) => {
+            return (id: string = useBlockStore().selectedId) => {
                 return allRounds.filter((round: Round) => round.block_id == id);
             };
         },

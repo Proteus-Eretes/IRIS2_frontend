@@ -34,49 +34,37 @@ export const useRowerStore = defineStore('rowers', {
                 .map((id: string) => state.entities[id])
                 .sort((a: Rower, b: Rower) => a.position - b.position);
         },
-        allRowersOfSelectedCrew(state: RowerState) {
-            const allRowers = state.ids
-                .map((id: string) => state.entities[id])
-                .sort((a: Rower, b: Rower) => a.position - b.position);
-            const selectedCrewId = useCrewStore().selectedCrewId;
-
-            return allRowers.filter(
-                (rower: Rower) =>
-                    rower.crew_id == selectedCrewId &&
-                    rower.role == RowerRole.ROWER
-            );
-        },
-        allRowersByCrewId(state: RowerState) {
+        allRowersByCrew(state: RowerState) {
             const allRowers = state.ids
                 .map((id: string) => state.entities[id])
                 .sort((a: Rower, b: Rower) => a.position - b.position);
 
-            return (id: string) => {
+            return (id: string = useCrewStore().selectedCrewId) => {
                 return allRowers.filter(
                     (rower: Rower) =>
                         rower.crew_id == id && rower.role == RowerRole.ROWER
                 );
             };
         },
-        allCoachesOfSelectedCrew(state: RowerState) {
+        allCoachesByCrew(state: RowerState) {
             const allRowers = state.ids.map((id: string) => state.entities[id]);
-            const selectedCrewId = useCrewStore().selectedCrewId;
 
-            return allRowers.filter(
-                (rower: Rower) =>
-                    rower.crew_id == selectedCrewId &&
-                    rower.role == RowerRole.COACH
-            );
+            return (id: string = useCrewStore().selectedCrewId) => {
+                return allRowers.filter(
+                    (rower: Rower) =>
+                        rower.crew_id == id && rower.role == RowerRole.COACH
+                );
+            };
         },
-        allCoxesOfSelectedCrew(state: RowerState) {
+        allCoxesByCrew(state: RowerState) {
             const allRowers = state.ids.map((id: string) => state.entities[id]);
-            const selectedCrewId = useCrewStore().selectedCrewId;
 
-            return allRowers.filter(
-                (rower: Rower) =>
-                    rower.crew_id == selectedCrewId &&
-                    rower.role == RowerRole.COX
-            );
+            return (id: string = useCrewStore().selectedCrewId) => {
+                return allRowers.filter(
+                    (rower: Rower) =>
+                        rower.crew_id == id && rower.role == RowerRole.COX
+                );
+            };
         },
         selectedRower(state: RowerState) {
             return (
@@ -92,7 +80,7 @@ export const useRowerStore = defineStore('rowers', {
         strokeByCrew(state: RowerState) {
             const allRowers = state.ids.map((id: string) => state.entities[id]);
 
-            return (id: string): Rower => {
+            return (id: string = useCrewStore().selectedCrewId) => {
                 const allRowersByCrew = allRowers.filter(
                     (rower: Rower) => rower.crew_id == id
                 );
@@ -101,16 +89,6 @@ export const useRowerStore = defineStore('rowers', {
                     (rower: Rower) => rower.position == 8
                 );
             };
-        },
-        strokeOfSelectedCrew(state: RowerState) {
-            const allRowers = state.ids.map((id: string) => state.entities[id]);
-            const selectedCrewId = useCrewStore().selectedCrewId;
-
-            const allRowersByCrew = allRowers.filter(
-                (rower: Rower) => rower.crew_id == selectedCrewId
-            );
-
-            return allRowersByCrew.find((rower: Rower) => rower.position == 8);
         }
     },
 
