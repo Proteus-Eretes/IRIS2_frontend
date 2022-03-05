@@ -1,7 +1,7 @@
 <template>
     <div
         :class="[
-            showPanel ? 'sliding-column' : 'hidden',
+            showPanel ? 'moving-column' : 'hidden',
             activePanel > 0 ? 'min-w-multiple-column' : '',
             isMuted ? 'opacity-50' : '',
             'panel'
@@ -32,7 +32,7 @@
                 <slot name="header-status" />
             </span>
 
-            <SlidingSearchField
+            <MovingSearchField
                 v-if="hasSearch"
                 :query="search"
                 @update:query="$emit('update:search', $event)"

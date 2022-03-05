@@ -1,5 +1,5 @@
 <template>
-    <EditorSlideOver :open="open" @update:open="$emit('update:open', $event)">
+    <SlideOver :open="open" @update:open="$emit('update:open', $event)">
         <template #header>
             Draw block
             {{ blocks.selectedBlock ? blocks.selectedBlock.block : '' }}
@@ -44,7 +44,7 @@
         </template>
 
         <template #save-action>Draw lots</template>
-    </EditorSlideOver>
+    </SlideOver>
 </template>
 
 <script lang="ts" setup>

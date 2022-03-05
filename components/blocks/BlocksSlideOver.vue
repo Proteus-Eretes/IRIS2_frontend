@@ -1,5 +1,5 @@
 <template>
-    <EditorSlideOver
+    <SlideOver
         :open="open"
         @update:open="$emit('update:open', $event)"
         @save="$emit('save', editorData)"
@@ -41,7 +41,7 @@
                 required
             />
         </div>
-    </EditorSlideOver>
+    </SlideOver>
 </template>
 
 <script lang="ts" setup>

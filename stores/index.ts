@@ -31,7 +31,7 @@ export const useMainStore = defineStore('main', {
             },
             {
                 name: 'Draw lots',
-                to: '/lots',
+                to: '/draw',
                 icon: 'ph-coin-vertical',
                 items: []
             },
@@ -73,7 +73,7 @@ export const useMainStore = defineStore('main', {
                 setting: 'Assign events and Rounds'
             },
             {
-                id: 'lots',
+                id: 'draw',
                 icon: 'ph-coin-vertical',
                 setting: 'Draw lots'
             },

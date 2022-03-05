@@ -15,13 +15,13 @@
 			px-5
 			py-3;
     }
-    .sliding-container {
+    .moving-container {
         @apply flex
 			gap-3
 			px-5
 			py-3;
     }
-    .sliding-container .sliding-column {
+    .moving-container .moving-column {
         @apply translate-x-0 transition-transform;
     }
     .panel {

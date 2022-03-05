@@ -1,119 +1,123 @@
 <template>
-    <div class="h-full w-full">
-        <div class="sliding-container">
-            <SlidingPanel
-                :index="0"
-                :activePanel="activePanel"
-                @focus="activePanel = 0"
-                v-model:search="crews.query"
-                :search-options="searchOptions"
-                has-search
-            >
-                <template #header>Crews</template>
+    <NuxtLayout name="main">
+        <div class="h-full w-full">
+            <div class="moving-container">
+                <MovingPanel
+                    :index="0"
+                    :activePanel="activePanel"
+                    @focus="activePanel = 0"
+                    v-model:search="crews.query"
+                    :search-options="searchOptions"
+                    has-search
+                >
+                    <template #header>Crews</template>
 
-                <div v-if="crews.allCrews">
-                    <Table
-                        title="Crews"
-                        :headers="tableHeaders"
-                        :actions="['edit', 'delete']"
-                        :items="sortedCrews"
-                        :activeId="crews.selectedCrewId"
-                        @item-click="selectCrew($event.id)"
-                        @action="performTableAction($event)"
-                        has-headers
-                        v-model:sort-id="sortId"
-                        v-model:sort-direction="sortDirection"
-                    >
-                        <template #shirt-numbers="{ item }">
-                            <span class="badge bg-primary-800 text-white">
-                                {{
-                                    crews.shirtNumbersByCrew(item.id).join(', ')
-                                }}
-                            </span>
-                        </template>
-
-                        <template #name="{ item }">
-                            <span class="text-sm font-semibold">
-                                {{ item.displayName }}
-                            </span>
-                        </template>
-
-                        <template #club="{ item }">
-                            <span class="text-sm">
-                                {{ item.clubName }}
-                            </span>
-                        </template>
-
-                        <template #event="{ item }">
-                            <span class="text-sm">
-                                {{
-                                    events.getEventById(item.event_id)
-                                        ? events.getEventById(item.event_id)
-                                              .code
-                                        : 'Nothing'
-                                }}
-                            </span>
-                        </template>
-
-                        <template #category="{ item }">
-                            <span class="text-sm">
-                                {{ item.category ? item.category : '-' }}
-                            </span>
-                        </template>
-
-                        <template #stroke="{ item }">
-                            <span class="text-sm">{{
-                                rowers.strokeByCrew(item.id)
-                                    ? rowers.strokeByCrew(item.id).fullName
-                                    : 'Nothing'
-                            }}</span>
-                        </template>
-
-                        <template #status="{ item }">
-                            <span class="pill bg-primary-400 text-white">
-                                {{ getCrewStatusLabel(item.status) }}
-                            </span>
-                        </template>
-                    </Table>
-
-                    <div class="flex w-full justify-center p-2">
-                        <button
-                            type="button"
-                            class="button icon-button button-secondary"
-                            @click="addCrew()"
+                    <div v-if="crews.allCrews">
+                        <Table
+                            title="Crews"
+                            :headers="tableHeaders"
+                            :actions="['edit', 'delete']"
+                            :items="sortedCrews"
+                            :activeId="crews.selectedCrewId"
+                            @item-click="selectCrew($event.id)"
+                            @action="performTableAction($event)"
+                            has-headers
+                            v-model:sort-id="sortId"
+                            v-model:sort-direction="sortDirection"
                         >
-                            <ph-plus class="icon text-gray-400" />
-                            <span>Add Crew</span>
-                        </button>
+                            <template #shirt-numbers="{ item }">
+                                <span class="badge bg-primary-800 text-white">
+                                    {{
+                                        crews
+                                            .shirtNumbersByCrew(item.id)
+                                            .join(', ')
+                                    }}
+                                </span>
+                            </template>
+
+                            <template #name="{ item }">
+                                <span class="text-sm font-semibold">
+                                    {{ item.displayName }}
+                                </span>
+                            </template>
+
+                            <template #club="{ item }">
+                                <span class="text-sm">
+                                    {{ item.clubName }}
+                                </span>
+                            </template>
+
+                            <template #event="{ item }">
+                                <span class="text-sm">
+                                    {{
+                                        events.getEventById(item.event_id)
+                                            ? events.getEventById(item.event_id)
+                                                  .code
+                                            : 'Nothing'
+                                    }}
+                                </span>
+                            </template>
+
+                            <template #category="{ item }">
+                                <span class="text-sm">
+                                    {{ item.category ? item.category : '-' }}
+                                </span>
+                            </template>
+
+                            <template #stroke="{ item }">
+                                <span class="text-sm">{{
+                                    rowers.strokeByCrew(item.id)
+                                        ? rowers.strokeByCrew(item.id).fullName
+                                        : 'Nothing'
+                                }}</span>
+                            </template>
+
+                            <template #status="{ item }">
+                                <span class="pill bg-primary-400 text-white">
+                                    {{ getCrewStatusLabel(item.status) }}
+                                </span>
+                            </template>
+                        </Table>
+
+                        <div class="flex w-full justify-center p-2">
+                            <button
+                                type="button"
+                                class="button icon-button button-secondary"
+                                @click="addCrew()"
+                            >
+                                <ph-plus class="icon text-gray-400" />
+                                <span>Add Crew</span>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div v-else>Nothing</div>
-            </SlidingPanel>
+                    <div v-else>Nothing</div>
+                </MovingPanel>
 
-            <CrewsSlidingPanel
-                :index="1"
-                :activePanel="activePanel"
-                @close="deselectCrew()"
-                @focus="activePanel = 1"
-                @select-rower="selectRower($event)"
-            />
+                <CrewsMovingPanel
+                    :index="1"
+                    :activePanel="activePanel"
+                    @close="deselectCrew()"
+                    @focus="activePanel = 1"
+                    @select-rower="selectRower($event)"
+                />
 
-            <RowersSlidingPanel
-                :index="2"
-                :activePanel="activePanel"
-                @close="deselectRower()"
-                @focus="activePanel = 2"
+                <RowersMovingPanel
+                    :index="2"
+                    :activePanel="activePanel"
+                    @close="deselectRower()"
+                    @focus="activePanel = 2"
+                />
+            </div>
+
+            <CrewsSlideOver
+                v-model:open="showCrewEditor"
+                :state="crewEditorState"
+                :data="crewEditorData"
+                @save="saveCrewEditor($event)"
+                @cancel="cancelCrewEditor()"
             />
         </div>
-
-        <CrewsEditorSlideOver
-            v-model:open="showCrewEditor"
-            :state="crewEditorState"
-            :data="crewEditorData"
-            @save="saveCrewEditor($event)"
-            @cancel="cancelCrewEditor()"
-        />
-    </div>
+    </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
@@ -340,6 +344,6 @@ onMounted(async () => {
 });
 
 definePageMeta({
-    layout: 'main'
+    layout: false
 });
 </script>

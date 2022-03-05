@@ -1,9 +1,9 @@
 <template>
-    <div></div>
+    <NuxtLayout name="main"></NuxtLayout>
 </template>
 
 <script lang="ts" setup>
 definePageMeta({
-    layout: 'main'
+    layout: false
 });
 </script>

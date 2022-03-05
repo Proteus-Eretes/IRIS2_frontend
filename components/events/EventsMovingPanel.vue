@@ -1,5 +1,5 @@
 <template>
-    <SlidingPanel
+    <MovingPanel
         :index="index"
         :activePanel="activePanel"
         @close="$emit('close')"
@@ -96,9 +96,9 @@
         <div v-else class="p-3 text-sm font-semibold text-danger-500">
             Nothing
         </div>
-    </SlidingPanel>
+    </MovingPanel>
 
-    <CrewsEditorSlideOver
+    <CrewsSlideOver
         v-model:open="showCrewEditor"
         :state="SlideOverState.ADD"
         :data="crewEditorData"

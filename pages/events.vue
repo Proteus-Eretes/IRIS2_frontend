@@ -1,127 +1,130 @@
 <template>
-    <div class="h-full w-full">
-        <div class="sliding-container">
-            <SlidingPanel
-                :index="0"
-                :activePanel="activePanel"
-                @focus="activePanel = 0"
-            >
-                <template #header>Events</template>
+    <NuxtLayout name="main">
+        <div class="h-full w-full">
+            <div class="moving-container">
+                <MovingPanel
+                    :index="0"
+                    :activePanel="activePanel"
+                    @focus="activePanel = 0"
+                >
+                    <template #header>Events</template>
 
-                <template #default>
-                    <Table
-                        title="Events"
-                        :headers="tableHeaders"
-                        :actions="['edit', 'delete']"
-                        :items="events.allEvents"
-                        :activeId="events.selectedEventId"
-                        @item-click="selectEvent($event.id)"
-                        @action="performTableAction($event)"
-                        has-headers
-                    >
-                        <template #number="{ item }">
-                            <span class="badge bg-primary-800 text-white">
-                                {{ item.number }}
-                            </span>
-                        </template>
-
-                        <template #day="{ item }">
-                            <span class="text-sm">
-                                {{ formatDate(item.day) }}
-                            </span>
-                        </template>
-
-                        <template #code="{ item }">
-                            <span class="text-sm">
-                                {{ item.code }}
-                            </span>
-                        </template>
-
-                        <template #name="{ item }">
-                            <span class="text-sm font-semibold">
-                                {{ item.name }}
-                            </span>
-                        </template>
-
-                        <template #crews="{ item }">
-                            <div class="flex items-center gap-2">
-                                <ph-users-three
-                                    class="icon text-primary-400"
-                                    aria-hidden="true"
-                                />
-
-                                <span class="text-xs font-medium">
-                                    {{
-                                        crews.allCrewsByEventId(item.id)
-                                            ? crews.allCrewsByEventId(item.id)
-                                                  .length
-                                            : 0
-                                    }}
-                                </span>
-                            </div>
-                        </template>
-
-                        <template #category="{ item }">
-                            <span
-                                v-if="item.category"
-                                class="pill bg-primary-400 text-white"
-                            >
-                                {{ item.category }}
-                            </span>
-                        </template>
-
-                        <template #boat-type="{ item }">
-                            <span class="text-sm">
-                                {{ item.boat_type }}
-                            </span>
-                        </template>
-                    </Table>
-
-                    <div class="flex w-full justify-center p-2">
-                        <button
-                            type="button"
-                            class="button icon-button button-secondary"
-                            @click="addEvent()"
+                    <template #default>
+                        <Table
+                            title="Events"
+                            :headers="tableHeaders"
+                            :actions="['edit', 'delete']"
+                            :items="events.allEvents"
+                            :activeId="events.selectedEventId"
+                            @item-click="selectEvent($event.id)"
+                            @action="performTableAction($event)"
+                            has-headers
                         >
-                            <ph-plus class="icon text-gray-400" />
-                            <span>Add Event</span>
-                        </button>
-                    </div>
-                </template>
-            </SlidingPanel>
+                            <template #number="{ item }">
+                                <span class="badge bg-primary-800 text-white">
+                                    {{ item.number }}
+                                </span>
+                            </template>
 
-            <EventsSlidingPanel
-                :index="1"
-                :activePanel="activePanel"
-                @close="deselectEvent()"
-                @focus="activePanel = 1"
-                @select-crew="selectCrew($event)"
-            />
+                            <template #day="{ item }">
+                                <span class="text-sm">
+                                    {{ formatDate(item.day) }}
+                                </span>
+                            </template>
 
-            <CrewsSlidingPanel
-                :index="2"
-                :activePanel="activePanel"
-                @close="deselectCrew()"
-                @focus="activePanel = 2"
-                @select-rower="selectRower($event)"
-            />
+                            <template #code="{ item }">
+                                <span class="text-sm">
+                                    {{ item.code }}
+                                </span>
+                            </template>
 
-            <RowersSlidingPanel
-                :index="3"
-                :activePanel="activePanel"
-                @close="deselectRower()"
-                @focus="activePanel = 3"
+                            <template #name="{ item }">
+                                <span class="text-sm font-semibold">
+                                    {{ item.name }}
+                                </span>
+                            </template>
+
+                            <template #crews="{ item }">
+                                <div class="flex items-center gap-2">
+                                    <ph-users-three
+                                        class="icon text-primary-400"
+                                        aria-hidden="true"
+                                    />
+
+                                    <span class="text-xs font-medium">
+                                        {{
+                                            crews.allCrewsByEventId(item.id)
+                                                ? crews.allCrewsByEventId(
+                                                      item.id
+                                                  ).length
+                                                : 0
+                                        }}
+                                    </span>
+                                </div>
+                            </template>
+
+                            <template #category="{ item }">
+                                <span
+                                    v-if="item.category"
+                                    class="pill bg-primary-400 text-white"
+                                >
+                                    {{ item.category }}
+                                </span>
+                            </template>
+
+                            <template #boat-type="{ item }">
+                                <span class="text-sm">
+                                    {{ item.boat_type }}
+                                </span>
+                            </template>
+                        </Table>
+
+                        <div class="flex w-full justify-center p-2">
+                            <button
+                                type="button"
+                                class="button icon-button button-secondary"
+                                @click="addEvent()"
+                            >
+                                <ph-plus class="icon text-gray-400" />
+                                <span>Add Event</span>
+                            </button>
+                        </div>
+                    </template>
+                </MovingPanel>
+
+                <EventsMovingPanel
+                    :index="1"
+                    :activePanel="activePanel"
+                    @close="deselectEvent()"
+                    @focus="activePanel = 1"
+                    @select-crew="selectCrew($event)"
+                />
+
+                <CrewsMovingPanel
+                    :index="2"
+                    :activePanel="activePanel"
+                    @close="deselectCrew()"
+                    @focus="activePanel = 2"
+                    @select-rower="selectRower($event)"
+                />
+
+                <RowersMovingPanel
+                    :index="3"
+                    :activePanel="activePanel"
+                    @close="deselectRower()"
+                    @focus="activePanel = 3"
+                />
+            </div>
+
+            <EventsSlideOver
+                v-model:open="showEventEditor"
+                :state="eventEditorState"
+                :data="eventEditorData"
+                @save="saveEventEditor($event)"
+                @cancel="cancelEventEditor()"
             />
         </div>
-
-        <EventsEditorSlideOver
-            v-model:open="showEventEditor"
-            :state="eventEditorState"
-            :data="eventEditorData"
-            @save="saveEventEditor($event)"
-            @cancel="cancelEventEditor()"
-        />
-    </div>
+    </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
@@ -317,6 +320,6 @@ onMounted(async () => {
 });
 
 definePageMeta({
-    layout: 'main'
+    layout: false
 });
 </script>

@@ -1,155 +1,166 @@
 <template>
-    <div class="h-full w-full">
-        <div class="assign-container">
-            <Panel
-                class="max-h-screen min-w-1/3 md:min-w-1/4"
-                :showPanel="true"
-            >
-                <template #header>Available events</template>
-
-                <Draggable
-                    :model-value="events.allEvents"
-                    :group="{
-                        name: 'events',
-                        pull: 'clone',
-                        put: true,
-                        revertClone: true
-                    }"
-                    item-key="id"
-                    class="flex h-full flex-col gap-1"
-                    ghost-class="hidden"
-                >
-                    <template #item="{ element }">
-                        <BlocksAssignItem>
-                            <p class="grow text-sm">
-                                {{ element.code }}
-                            </p>
-
-                            <template #number-crews>{{
-                                crews.allCrewsByEventId(element.id).length
-                            }}</template>
-                        </BlocksAssignItem>
-                    </template>
-                </Draggable>
-            </Panel>
-
-            <div
-                class="grid w-full grid-flow-row grid-cols-2 items-stretch gap-3 pl-3 md:grid-cols-3"
-            >
+    <NuxtLayout name="main">
+        <div class="h-full w-full">
+            <div class="assign-container">
                 <Panel
-                    v-for="block in blocks.allBlocks"
-                    :key="block.id"
-                    class="max-h-1/2-screen"
+                    class="max-h-screen min-w-1/3 md:min-w-1/4"
+                    :showPanel="true"
                 >
-                    <template #header>Block {{ block.block }}</template>
+                    <template #header>Available events</template>
 
-                    <template
-                        v-if="rounds.allRoundsByBlockId(block.id).length > 0"
+                    <Draggable
+                        :model-value="events.allEvents"
+                        :group="{
+                            name: 'events',
+                            pull: 'clone',
+                            put: true,
+                            revertClone: true
+                        }"
+                        item-key="id"
+                        class="flex h-full flex-col gap-1"
+                        ghost-class="hidden"
                     >
-                        <div
-                            v-for="round in rounds.allRoundsByBlockId(block.id)"
-                            :key="round.id"
-                        >
-                            <fieldset
-                                class="rounded-md border-2 border-primary-500 p-1.5"
-                            >
-                                <legend class="px-1 text-primary-600">
-                                    {{ round.name }}
-                                </legend>
+                        <template #item="{ element }">
+                            <BlocksAssignItem>
+                                <p class="grow text-sm">
+                                    {{ element.code }}
+                                </p>
 
-                                <Draggable
-                                    :model-value="
-                                        events.allFieldsByRoundId(round.id)
-                                    "
-                                    :group="{
-                                        name: 'rounds',
-                                        pull: true,
-                                        put: ['events']
-                                    }"
-                                    @change="
-                                        changeList($event, block.id, round.id)
-                                    "
-                                    item-key="id"
-                                    class="flex h-full flex-col gap-1"
-                                    ghost-class="assign-event-ghost"
+                                <template #number-crews>{{
+                                    crews.allCrewsByEventId(element.id).length
+                                }}</template>
+                            </BlocksAssignItem>
+                        </template>
+                    </Draggable>
+                </Panel>
+
+                <div
+                    class="grid w-full grid-flow-row grid-cols-2 items-stretch gap-3 pl-3 md:grid-cols-3"
+                >
+                    <Panel
+                        v-for="block in blocks.allBlocks"
+                        :key="block.id"
+                        class="max-h-1/2-screen"
+                    >
+                        <template #header>Block {{ block.block }}</template>
+
+                        <template
+                            v-if="
+                                rounds.allRoundsByBlockId(block.id).length > 0
+                            "
+                        >
+                            <div
+                                v-for="round in rounds.allRoundsByBlockId(
+                                    block.id
+                                )"
+                                :key="round.id"
+                            >
+                                <fieldset
+                                    class="rounded-md border-2 border-primary-500 p-1.5"
                                 >
-                                    <template #item="{ element }">
-                                        <BlocksAssignItem
-                                            v-if="
-                                                events.getEventById(
-                                                    element.event_id
-                                                )
-                                            "
-                                        >
-                                            <p class="grow text-sm">
-                                                {{
+                                    <legend class="px-1 text-primary-600">
+                                        {{ round.name }}
+                                    </legend>
+
+                                    <Draggable
+                                        :model-value="
+                                            events.allFieldsByRoundId(round.id)
+                                        "
+                                        :group="{
+                                            name: 'rounds',
+                                            pull: true,
+                                            put: ['events']
+                                        }"
+                                        @change="
+                                            changeList(
+                                                $event,
+                                                block.id,
+                                                round.id
+                                            )
+                                        "
+                                        item-key="id"
+                                        class="flex h-full flex-col gap-1"
+                                        ghost-class="assign-event-ghost"
+                                    >
+                                        <template #item="{ element }">
+                                            <BlocksAssignItem
+                                                v-if="
                                                     events.getEventById(
                                                         element.event_id
-                                                    ).code
-                                                }}
-                                            </p>
+                                                    )
+                                                "
+                                            >
+                                                <p class="grow text-sm">
+                                                    {{
+                                                        events.getEventById(
+                                                            element.event_id
+                                                        ).code
+                                                    }}
+                                                </p>
 
-                                            <template #number-crews>
-                                                {{
-                                                    crews.allCrewsByEventId(
-                                                        element.event_id
-                                                    ).length
-                                                }}
-                                            </template>
-                                        </BlocksAssignItem>
-                                    </template>
-                                </Draggable>
-                            </fieldset>
-                        </div>
-                    </template>
-                    <template v-else>
-                        <button
-                            type="button"
-                            class="button button-secondary w-full"
-                            @click="openAssignRounds(block.id)"
-                        >
-                            Assign round
-                        </button>
-                    </template>
-                </Panel>
-            </div>
-        </div>
-
-        <EditorSlideOver
-            v-model:open="showAssignRound"
-            @save="submitAssignRounds"
-        >
-            <template #header>Assign Rounds</template>
-            <template #subheader>Assign the rounds for this block</template>
-
-            <div class="mt-4 space-y-4">
-                <div
-                    v-for="round in rounds.allRounds"
-                    :key="round.id"
-                    class="flex items-start"
-                >
-                    <div class="flex h-5 items-center">
-                        <input
-                            :id="round.id"
-                            :name="round.id"
-                            type="checkbox"
-                            :value="round.id"
-                            v-model="roundList"
-                            class="h-4 w-4 rounded border-gray-300 text-secondary-500 focus:ring-secondary-400"
-                        />
-                    </div>
-                    <div class="ml-3 text-sm">
-                        <label
-                            :for="round.id"
-                            class="font-medium text-gray-700"
-                        >
-                            {{ round.name }}
-                        </label>
-                    </div>
+                                                <template #number-crews>
+                                                    {{
+                                                        crews.allCrewsByEventId(
+                                                            element.event_id
+                                                        ).length
+                                                    }}
+                                                </template>
+                                            </BlocksAssignItem>
+                                        </template>
+                                    </Draggable>
+                                </fieldset>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <button
+                                type="button"
+                                class="button button-secondary w-full"
+                                @click="openAssignRounds(block.id)"
+                            >
+                                Assign round
+                            </button>
+                        </template>
+                    </Panel>
                 </div>
             </div>
-        </EditorSlideOver>
-    </div>
+
+            <SlideOver
+                v-model:open="showAssignRound"
+                @save="submitAssignRounds"
+                :state="SlideOverState.ADD"
+            >
+                <template #header>Assign Rounds</template>
+                <template #subheader>Assign the rounds for this block</template>
+
+                <div class="mt-4 space-y-4">
+                    <div
+                        v-for="round in rounds.allRounds"
+                        :key="round.id"
+                        class="flex items-start"
+                    >
+                        <div class="flex h-5 items-center">
+                            <input
+                                :id="round.id"
+                                :name="round.id"
+                                type="checkbox"
+                                :value="round.id"
+                                v-model="roundList"
+                                class="h-4 w-4 rounded border-gray-300 text-secondary-500 focus:ring-secondary-400"
+                            />
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label
+                                :for="round.id"
+                                class="font-medium text-gray-700"
+                            >
+                                {{ round.name }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </SlideOver>
+        </div>
+    </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
@@ -162,6 +173,8 @@ import { Event, Field, NewField } from '~~/models/event';
 
 // Draggable component: https://github.com/SortableJS/vue.draggable.next
 import Draggable from 'vuedraggable';
+
+import { SlideOverState } from '~~/models/slide-over-state';
 
 import { useToastService } from '~~/composables/useToastService';
 const { showError } = useToastService();
@@ -226,8 +239,7 @@ const submitAssignRounds = () => {
 const roundList = ref([]);
 
 definePageMeta({
-    layout: 'main'
-    // title: 'Assign Events & Rounds - IRIS',
+    layout: false
 });
 </script>
 

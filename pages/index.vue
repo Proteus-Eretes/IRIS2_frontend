@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <NuxtLayout name="main">
         <button
             type="button"
             class="button button-primary m-2"
@@ -7,7 +7,7 @@
         >
             Error
         </button>
-    </div>
+    </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
@@ -15,6 +15,6 @@ import { useToastService } from '~~/composables/useToastService';
 const { showError } = useToastService();
 
 definePageMeta({
-    layout: 'main'
+    layout: false
 });
 </script>

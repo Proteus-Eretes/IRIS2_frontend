@@ -1,110 +1,112 @@
 <template>
-    <div class="h-full w-full">
-        <div class="sliding-container">
-            <SlidingPanel
-                :index="0"
-                :activePanel="activePanel"
-                @focus="activePanel = 0"
-            >
-                <template #header>Blocks</template>
+    <NuxtLayout name="main">
+        <div class="h-full w-full">
+            <div class="moving-container">
+                <MovingPanel
+                    :index="0"
+                    :activePanel="activePanel"
+                    @focus="activePanel = 0"
+                >
+                    <template #header>Blocks</template>
 
-                <template #default>
-                    <Table
-                        title="Blocks"
-                        :headers="tableHeaders"
-                        :actions="[
-                            'assign',
-                            'lots',
-                            'shirts',
-                            'edit',
-                            'delete'
-                        ]"
-                        :items="blocks.allBlocks"
-                        :activeId="blocks.selectedId"
-                        @item-click="selectBlock($event.id)"
-                        @action="performTableAction($event)"
-                        has-headers
-                    >
-                        <template #block="{ item }">
-                            <span class="badge bg-primary-800 text-white">
-                                {{ item.block }}
-                            </span>
-                        </template>
-
-                        <template #start-date="{ item }">
-                            <span class="text-sm">
-                                {{ formatDate(item.start_time) }}
-                            </span>
-                        </template>
-
-                        <template #start-time="{ item }">
-                            <span class="text-sm">
-                                {{ formatTime(item.start_time) }}
-                            </span>
-                        </template>
-
-                        <template #status="{ item }">
-                            <span class="pill bg-primary-400 text-white">
-                                {{ getBlockStatusLabel(item.status) }}
-                            </span>
-                        </template>
-                    </Table>
-
-                    <div class="flex w-full justify-center p-2">
-                        <button
-                            type="button"
-                            class="button icon-button button-secondary"
-                            @click="addBlock()"
+                    <template #default>
+                        <Table
+                            title="Blocks"
+                            :headers="tableHeaders"
+                            :actions="[
+                                'assign',
+                                'draw',
+                                'shirts',
+                                'edit',
+                                'delete'
+                            ]"
+                            :items="blocks.allBlocks"
+                            :activeId="blocks.selectedId"
+                            @item-click="selectBlock($event.id)"
+                            @action="performTableAction($event)"
+                            has-headers
                         >
-                            <ph-plus class="icon text-gray-400" />
-                            <span>Add Block</span>
-                        </button>
-                    </div>
-                </template>
-            </SlidingPanel>
+                            <template #block="{ item }">
+                                <span class="badge bg-primary-800 text-white">
+                                    {{ item.block }}
+                                </span>
+                            </template>
 
-            <BlocksSlidingPanel
-                :index="1"
-                :activePanel="activePanel"
-                @close="deselectBlock()"
-                @focus="activePanel = 1"
-                @select-field="selectField($event)"
-            />
+                            <template #start-date="{ item }">
+                                <span class="text-sm">
+                                    {{ formatDate(item.start_time) }}
+                                </span>
+                            </template>
 
-            <EventsSlidingPanel
-                :index="2"
-                :activePanel="activePanel"
-                @close="deselectField()"
-                @focus="activePanel = 2"
-                @select-team="selectTeam($event)"
-                use-field
-            />
+                            <template #start-time="{ item }">
+                                <span class="text-sm">
+                                    {{ formatTime(item.start_time) }}
+                                </span>
+                            </template>
 
-            <CrewsSlidingPanel
-                :index="3"
-                :activePanel="activePanel"
-                @close="deselectTeam()"
-                @focus="activePanel = 3"
-                @select-rower="selectRower($event)"
-                use-team
-            />
+                            <template #status="{ item }">
+                                <span class="pill bg-primary-400 text-white">
+                                    {{ getBlockStatusLabel(item.status) }}
+                                </span>
+                            </template>
+                        </Table>
 
-            <RowersSlidingPanel
-                :index="4"
-                :activePanel="activePanel"
-                @close="deselectRower()"
-                @focus="activePanel = 4"
+                        <div class="flex w-full justify-center p-2">
+                            <button
+                                type="button"
+                                class="button icon-button button-secondary"
+                                @click="addBlock()"
+                            >
+                                <ph-plus class="icon text-gray-400" />
+                                <span>Add Block</span>
+                            </button>
+                        </div>
+                    </template>
+                </MovingPanel>
+
+                <BlocksMovingPanel
+                    :index="1"
+                    :activePanel="activePanel"
+                    @close="deselectBlock()"
+                    @focus="activePanel = 1"
+                    @select-field="selectField($event)"
+                />
+
+                <EventsMovingPanel
+                    :index="2"
+                    :activePanel="activePanel"
+                    @close="deselectField()"
+                    @focus="activePanel = 2"
+                    @select-team="selectTeam($event)"
+                    use-field
+                />
+
+                <CrewsMovingPanel
+                    :index="3"
+                    :activePanel="activePanel"
+                    @close="deselectTeam()"
+                    @focus="activePanel = 3"
+                    @select-rower="selectRower($event)"
+                    use-team
+                />
+
+                <RowersMovingPanel
+                    :index="4"
+                    :activePanel="activePanel"
+                    @close="deselectRower()"
+                    @focus="activePanel = 4"
+                />
+            </div>
+
+            <BlocksSlideOver
+                v-model:open="showBlockEditor"
+                :state="blockEditorState"
+                :data="blockEditorData"
+                @save="saveBlockEditor($event)"
+                @cancel="cancelBlockEditor()"
             />
         </div>
-
-        <BlocksEditorSlideOver
-            v-model:open="showBlockEditor"
-            :state="blockEditorState"
-            :data="blockEditorData"
-            @save="saveBlockEditor($event)"
-            @cancel="cancelBlockEditor()"
-        />
-    </div>
+    </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
@@ -155,9 +157,9 @@ const performTableAction = (action: { action: string; item: Block }) => {
                 query: { regatta: regattas.selectedId }
             });
             break;
-        case 'lots':
+        case 'draw':
             router.push({
-                path: '/lots',
+                path: '/draw',
                 query: { regatta: regattas.selectedId }
             });
             break;
@@ -332,7 +334,6 @@ onMounted(async () => {
 });
 
 definePageMeta({
-    layout: 'main'
-    // title: 'Blocks - IRIS',
+    layout: false
 });
 </script>

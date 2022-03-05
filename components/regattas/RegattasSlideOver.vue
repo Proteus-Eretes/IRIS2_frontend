@@ -1,5 +1,5 @@
 <template>
-    <EditorSlideOver
+    <SlideOver
         :open="open"
         @update:open="$emit('update:open', $event)"
         @save="$emit('save', editorData)"
@@ -135,7 +135,7 @@
         </div>
 
         <!-- TODO: dingen voor rounds -->
-    </EditorSlideOver>
+    </SlideOver>
 </template>
 
 <script lang="ts" setup>

@@ -25,10 +25,10 @@ import { useMainStore } from '~~/stores';
 const regattas = useRegattaStore();
 const main = useMainStore();
 
-await regattas.loadRegattas();
+onMounted(async () => {
+    await regattas.loadRegattas();
 
-// onMounted(() => {
-const { regatta: regattaId } = useUrlSearchParams();
-regattas.selectedId = regattaId as string;
-// });
+    const { regatta: regattaId } = useUrlSearchParams();
+    regattas.selectedId = regattaId as string;
+});
 </script>

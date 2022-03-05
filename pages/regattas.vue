@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <NuxtLayout name="main">
         <div class="grid grid-cols-2 gap-3 p-3 md:grid-cols-3">
             <template
                 v-for="(regatta, index) in regattas.allRegattas"
@@ -85,14 +85,14 @@
             </button>
         </div>
 
-        <RegattasEditorSlideOver
+        <RegattasSlideOver
             v-model:open="showEditor"
             :state="editorState"
             :data="editorData"
             @save="saveRegattaEditor($event)"
             @cancel="cancelRegattaEditor()"
         />
-    </div>
+    </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
@@ -207,6 +207,6 @@ const selectRegatta = (id: string) => {
 };
 
 definePageMeta({
-    layout: 'main'
+    layout: false
 });
 </script>
