@@ -393,6 +393,17 @@ export const useCrewStore = defineStore('crews', {
                     'Something went wrong editing the crew'
                 );
             }
+        },
+        async editStartingOrder(id: string, number: number) {
+            try {
+                // FIXME: add all to server
+                this.teamEntities[id].starting_order = number;
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong editing the starting order'
+                );
+            }
         }
     }
 });

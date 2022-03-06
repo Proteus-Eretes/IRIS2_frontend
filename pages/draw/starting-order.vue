@@ -132,12 +132,11 @@ const dragTeams = ({
             )
                 continue;
 
-            crews.teamEntities[i].starting_order =
-                el.starting_order - direction;
+            crews.editStartingOrder(i, el.starting_order - direction);
         }
     }
 
-    crews.teamEntities[id].starting_order = newNumber;
+    crews.editStartingOrder(id, newNumber);
 };
 
 definePageMeta({
