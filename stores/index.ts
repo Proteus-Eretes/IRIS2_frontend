@@ -41,7 +41,14 @@ export const useMainStore = defineStore('main', {
             {
                 name: 'Shirt numbers',
                 to: '/shirt-numbers',
-                icon: 'ph-list-numbers'
+                icon: 'ph-list-numbers',
+                items: [
+                    {
+                        name: 'Overview',
+                        to: '/shirt-numbers/overview',
+                        icon: ''
+                    }
+                ]
             },
             { name: 'Crews', to: '/crews', icon: 'ph-users-three', items: [] },
             {
