@@ -19,6 +19,7 @@
                         item-key="id"
                         class="flex h-full flex-col gap-1"
                         ghost-class="hidden"
+                        :sort="false"
                     >
                         <template #item="{ element }">
                             <BlocksAssignItem>

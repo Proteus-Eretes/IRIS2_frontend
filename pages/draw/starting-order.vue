@@ -14,7 +14,7 @@
                         v-for="field in events.allFieldsByRound(round.id)"
                         :key="field.id"
                     >
-                        <Table
+                        <TableDraggable
                             :title="
                                 events.getEventById(field.event_id)
                                     ? events.getEventById(field.event_id).code
@@ -29,7 +29,7 @@
                                             a.starting_order - b.starting_order
                                     )
                             "
-                            is-draggable
+                            @drag="dragTeams"
                         >
                             <template #name="{ item }">
                                 <span class="text-sm font-semibold">
@@ -64,7 +64,7 @@
                                     {{ item.toss_reason }}
                                 </span>
                             </template>
-                        </Table>
+                        </TableDraggable>
                     </template>
                 </template>
             </Panel>
@@ -99,6 +99,46 @@ const fieldTableHeaders: TableHeader[] = [
     { id: 'Starting Order', sortable: false },
     { id: 'Toss reason', sortable: false }
 ];
+
+const dragTeams = ({
+    id,
+    oldIndex,
+    newIndex
+}: {
+    id: string;
+    oldIndex: number;
+    newIndex: number;
+}) => {
+    const oldNumber = oldIndex + 1;
+    const newNumber = newIndex + 1;
+    const direction = Math.max(-1, Math.min(1, newNumber - oldNumber)); // -1 is hoger in de lijst (meer op nummer 1/0) en +1 is lager in de lijst
+
+    for (const i in crews.teamEntities) {
+        if (i === id) continue;
+
+        if (Object.prototype.hasOwnProperty.call(crews.teamEntities, i)) {
+            const el = crews.teamEntities[i];
+
+            if (
+                direction > 0 &&
+                (el.starting_order <= oldNumber ||
+                    el.starting_order > newNumber)
+            )
+                continue;
+            else if (
+                direction < 0 &&
+                (el.starting_order >= oldNumber ||
+                    el.starting_order < newNumber)
+            )
+                continue;
+
+            crews.teamEntities[i].starting_order =
+                el.starting_order - direction;
+        }
+    }
+
+    crews.teamEntities[id].starting_order = newNumber;
+};
 
 definePageMeta({
     layout: false
