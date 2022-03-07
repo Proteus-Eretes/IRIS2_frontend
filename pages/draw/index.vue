@@ -1,6 +1,6 @@
 <template>
     <NuxtLayout name="main">
-        <div class="flex h-full w-full flex-col gap-3 px-5 py-3">
+        <div class="grid w-full grid-cols-2/3 gap-3 px-5 py-3">
             <Panel>
                 <template #header>Blocks</template>
 
@@ -40,12 +40,16 @@
                                 {{
                                     item.status >= BlockStatus.START_ORDER
                                         ? 'Drawn'
-                                        : 'Draw lots'
+                                        : 'Draw separately'
                                 }}
                             </button>
                         </template>
                     </Table>
                 </template>
+            </Panel>
+
+            <Panel>
+                <template #header>Draw all</template>
             </Panel>
 
             <BlocksDrawSlideOver v-model:open="showDraw" />

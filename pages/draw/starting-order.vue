@@ -6,6 +6,7 @@
         >
             Starting order
         </h2> -->
+            <!-- Blocks (collapse) -> Rounds -> Events -> Teams -->
             <Panel v-for="round in rounds.allRounds" :key="round.id">
                 <template #header>{{ round.name }}</template>
 
@@ -61,7 +62,13 @@
 
                             <template #toss-reason="{ item }">
                                 <span class="text-sm">
-                                    {{ item.toss_reason }}
+                                    {{
+                                        // FIXME: Replace weghalen
+                                        item.toss_reason.replace(
+                                            /( starting number: \d+)/g,
+                                            ''
+                                        )
+                                    }}
                                 </span>
                             </template>
                         </TableDraggable>

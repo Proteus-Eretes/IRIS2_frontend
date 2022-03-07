@@ -58,6 +58,9 @@
 			tracking-wider
 			text-white;
     }
+    .table-cell {
+        @apply align-middle;
+    }
 
     .form-label {
         @apply block

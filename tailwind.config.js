@@ -23,6 +23,9 @@ module.exports = {
             gray: colors.gray
         },
         extend: {
+            gridTemplateColumns: {
+                '2/3': '1fr 2fr'
+            },
             minWidth: {
                 5: '1.25rem',
                 '1/4': '25%',

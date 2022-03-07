@@ -43,7 +43,6 @@
                 <Draggable
                     :model-value="items"
                     @change="changeList"
-                    handle=".handle"
                     item-key="id"
                     class="table-row-group divide-y divide-gray-200"
                 >
@@ -56,11 +55,9 @@
                                 'group table-row cursor-pointer'
                             ]"
                         >
-                            <div
-                                class="handle table-cell px-1 py-2 text-center"
-                            >
-                                <ph-dots-three-vertical
-                                    class="icon text-white group-hover:text-primary-400"
+                            <div class="handle table-cell py-2 text-center">
+                                <ph-dots-six-vertical
+                                    class="icon mx-1 text-white group-hover:text-primary-400"
                                     aria-hidden="true"
                                 />
                             </div>
@@ -99,7 +96,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PhDotsThreeVertical } from 'phosphor-vue';
+import { PhDotsSixVertical } from 'phosphor-vue';
 
 // Draggable component: https://github.com/SortableJS/vue.draggable.next
 import Draggable from 'vuedraggable';
