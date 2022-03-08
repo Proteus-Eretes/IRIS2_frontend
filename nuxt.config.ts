@@ -52,7 +52,12 @@ export default defineNuxtConfig({
             }
         }
     },
-    buildModules: ['@pinia/nuxt', '@vueuse/nuxt', '@nuxtjs/eslint-module'],
+    buildModules: [
+        '@pinia/nuxt',
+        '@vueuse/nuxt',
+        '@nuxtjs/eslint-module',
+        '@formkit/nuxt'
+    ],
 
     publicRuntimeConfig: {
         BASE_URL: process.env.BASE_URL
