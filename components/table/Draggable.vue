@@ -21,6 +21,10 @@
                     class="table-header-group bg-secondary-300"
                 >
                     <div class="table-row">
+                        <div scope="col" class="table-cell">
+                            <span class="hidden" aria-hidden>Drag handle</span>
+                        </div>
+
                         <div
                             v-for="header in headers"
                             :key="header.id"
@@ -31,6 +35,7 @@
                                 <span>{{ header.id }}</span>
                             </div>
                         </div>
+
                         <div
                             v-if="actions"
                             scope="col"

@@ -25,7 +25,7 @@ module.exports = {
         },
         extend: {
             gridTemplateColumns: {
-                '2/3': '1fr 2fr'
+                '2/3': '2fr 1fr'
             },
             minWidth: {
                 5: '1.25rem',

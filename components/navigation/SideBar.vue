@@ -1,7 +1,7 @@
 <template>
     <nav
         :class="[
-            sideBarCollapsed ? 'w-side-bar-collapse' : 'w-side-bar',
+            isSideBarCollapsed ? 'w-side-bar-collapse' : 'w-side-bar',
             'flex h-full flex-col'
         ]"
     >
@@ -10,7 +10,7 @@
                 :to="{ path: '/', query: { regatta: regattas.selectedId } }"
             >
                 <NavigationIrisLogo
-                    v-if="!sideBarCollapsed"
+                    v-if="!isSideBarCollapsed"
                     class="h-24 w-64 text-white"
                 />
                 <div v-else class="h-24 w-16" />
@@ -23,7 +23,7 @@
                     <li v-for="item in main.mainNavigation" :key="item.name">
                         <NavigationSideBarItem
                             :item="item"
-                            :show-text="!sideBarCollapsed"
+                            :show-text="!isSideBarCollapsed"
                         />
                     </li>
                 </ul>
@@ -31,7 +31,7 @@
 
             <section v-if="regattas.selectedRegatta != null">
                 <p
-                    v-if="!sideBarCollapsed"
+                    v-if="!isSideBarCollapsed"
                     class="px-5 pt-3 text-sm font-medium uppercase text-primary-500"
                 >
                     During the competition
@@ -43,7 +43,7 @@
                     >
                         <NavigationSideBarItem
                             :item="item"
-                            :show-text="!sideBarCollapsed"
+                            :show-text="!isSideBarCollapsed"
                         />
                     </li>
                 </ul>
@@ -51,7 +51,7 @@
 
             <section>
                 <p
-                    v-if="!sideBarCollapsed"
+                    v-if="!isSideBarCollapsed"
                     class="px-5 pt-3 text-sm font-medium uppercase text-primary-500"
                 >
                     IRIS admin
@@ -60,7 +60,7 @@
                     <li v-for="item in main.adminNavigation" :key="item.name">
                         <NavigationSideBarItem
                             :item="item"
-                            :show-text="!sideBarCollapsed"
+                            :show-text="!isSideBarCollapsed"
                         />
                     </li>
                 </ul>
@@ -75,17 +75,16 @@
                                 'group flex w-full space-x-3 rounded-md px-3 py-2 text-base font-medium text-primary-500 hover:bg-primary-600 hover:text-white'
                             ]"
                         >
-                            <ph-caret-double-right
-                                v-if="sideBarCollapsed"
-                                class="h-6 w-6 text-primary-500 group-hover:text-white"
+                            <ph-caret-double-down
+                                :class="[
+                                    'h-6 w-6 text-primary-500 transition-transform group-hover:text-white',
+                                    isSideBarCollapsed
+                                        ? '-rotate-90'
+                                        : 'rotate-90'
+                                ]"
                                 aria-hidden="true"
                             />
-                            <ph-caret-double-left
-                                v-else
-                                class="h-6 w-6 text-primary-500 group-hover:text-white"
-                                aria-hidden="true"
-                            />
-                            <span v-show="!sideBarCollapsed">Collapse</span>
+                            <span v-show="!isSideBarCollapsed">Collapse</span>
                         </button>
                     </li>
                 </ul>
@@ -95,7 +94,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PhCaretDoubleLeft, PhCaretDoubleRight } from 'phosphor-vue';
+import { PhCaretDoubleDown } from 'phosphor-vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 import { useMainStore } from '~/stores/index';
@@ -104,13 +103,13 @@ import { useRegattaStore } from '~~/stores/regatta';
 const main = useMainStore();
 const regattas = useRegattaStore();
 
-const sideBarCollapsed = useState<boolean>('sideBar', () => false);
-const toggleSideBar = useToggle(sideBarCollapsed);
+const isSideBarCollapsed = useState<boolean>('sideBar', () => false);
+const toggleSideBar = useToggle(isSideBarCollapsed);
 
 onMounted(() => {
     const breakpoints = useBreakpoints(breakpointsTailwind);
     const smallerLg = breakpoints.isSmaller('lg');
 
-    if (smallerLg) sideBarCollapsed.value = true;
+    if (smallerLg) isSideBarCollapsed.value = true;
 });
 </script>

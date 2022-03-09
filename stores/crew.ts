@@ -76,7 +76,9 @@ export const useCrewStore = defineStore('crews', {
             const selectedId = useEventStore().selectedFieldId;
 
             return (id: string = selectedId) => {
-                return allTeams.filter((team: Team) => team.field_id == id);
+                return allTeams
+                    .filter((team: Team) => team.field_id == id)
+                    .sort((a, b) => a.starting_order - b.starting_order);
             };
         },
         allFinesByCrew(state: CrewState) {

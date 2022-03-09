@@ -56,7 +56,8 @@ export default defineNuxtConfig({
         '@pinia/nuxt',
         '@vueuse/nuxt',
         '@nuxtjs/eslint-module',
-        '@formkit/nuxt'
+        '@formkit/nuxt',
+        'nuxt-lodash'
     ],
 
     publicRuntimeConfig: {

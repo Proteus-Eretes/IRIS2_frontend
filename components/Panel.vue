@@ -6,8 +6,18 @@
             </h2>
         </div>
 
-        <div class="grow overflow-y-scroll p-2">
+        <div :class="['grow overflow-y-scroll', hasPadding ? 'p-2' : '']">
             <slot />
         </div>
     </div>
 </template>
+
+<script lang="ts" setup>
+interface Props {
+    hasPadding?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    hasPadding: false
+});
+</script>

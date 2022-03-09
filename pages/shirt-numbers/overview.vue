@@ -1,7 +1,11 @@
 <template>
     <NuxtLayout name="main">
         <div class="flex h-full w-full flex-col gap-3 px-5 py-3">
-            <Panel v-for="block in blocks.allBlocks" :key="block.id">
+            <Panel
+                v-for="block in blocks.allBlocks"
+                :key="block.id"
+                has-padding
+            >
                 <template #header>Block {{ block.block }}</template>
 
                 <template #default>

@@ -1,96 +1,135 @@
 <template>
     <NuxtLayout name="main">
         <div class="flex h-full w-full flex-col gap-3 px-5 py-3">
-            <!-- <h2
-            class="mt-2 text-lg font-semibold leading-7 text-primary-900 sm:truncate sm:text-xl"
-        >
-            Starting order
-        </h2> -->
             <!-- Blocks (collapse) -> Rounds -> Events -> Teams -->
-            <Panel v-for="round in rounds.allRounds" :key="round.id">
-                <template #header>{{ round.name }}</template>
+            <Accordion v-for="block in blocks.allBlocks">
+                <template #header>Block {{ block.block }}</template>
 
-                <template #default>
+                <template #items>
                     <template
-                        v-for="field in events.allFieldsByRound(round.id)"
-                        :key="field.id"
+                        v-for="round in rounds.allRoundsByBlock(block.id)"
+                        :key="round.id"
                     >
-                        <TableDraggable
-                            :title="
-                                events.getEventById(field.event_id)
-                                    ? events.getEventById(field.event_id).code
-                                    : ''
-                            "
-                            :headers="fieldTableHeaders"
-                            :items="
-                                crews
-                                    .allTeamsByField(field.id)
-                                    .sort(
-                                        (a, b) =>
-                                            a.starting_order - b.starting_order
-                                    )
-                            "
-                            @drag="dragTeams"
+                        <fieldset
+                            class="flex flex-col gap-3 rounded-md border-2 border-primary-500 px-2 pb-3"
                         >
-                            <template #name="{ item }">
-                                <span class="text-sm font-semibold">
-                                    {{
-                                        crews.getCrewById(item.crew_id)
-                                            ? crews.getCrewById(item.crew_id)
-                                                  .displayName
-                                            : ''
-                                    }}
-                                </span>
-                            </template>
+                            <legend class="p-1 text-primary-600">
+                                {{ round.name }}
+                            </legend>
 
-                            <template #club="{ item }">
-                                <span class="text-sm">
-                                    {{
-                                        crews.getCrewById(item.crew_id)
-                                            ? crews.getCrewById(item.crew_id)
-                                                  .clubName
-                                            : ''
-                                    }}
-                                </span>
-                            </template>
+                            <template
+                                v-for="field in events.allFieldsByRound(
+                                    round.id
+                                )"
+                                :key="field.id"
+                            >
+                                <Panel
+                                    :has-padding="
+                                        !crews.allTeamsByField(field.id).length
+                                    "
+                                >
+                                    <template #header>
+                                        {{
+                                            events.getEventById(field.event_id)
+                                                ? events.getEventById(
+                                                      field.event_id
+                                                  ).code
+                                                : ''
+                                        }}
+                                    </template>
 
-                            <template #starting-order="{ item }">
-                                <span class="text-sm">
-                                    {{ item.starting_order }}
-                                </span>
-                            </template>
+                                    <TableDraggable
+                                        :title="
+                                            events.getEventById(field.event_id)
+                                                ? events.getEventById(
+                                                      field.event_id
+                                                  ).code
+                                                : ''
+                                        "
+                                        :headers="fieldTableHeaders"
+                                        has-headers
+                                        :items="crews.allTeamsByField(field.id)"
+                                        @drag="dragTeams"
+                                    >
+                                        <template #name="{ item }">
+                                            <span class="text-sm font-semibold">
+                                                {{
+                                                    crews.getCrewById(
+                                                        item.crew_id
+                                                    )
+                                                        ? crews.getCrewById(
+                                                              item.crew_id
+                                                          ).displayName
+                                                        : ''
+                                                }}
+                                            </span>
+                                        </template>
 
-                            <template #toss-reason="{ item }">
-                                <span class="text-sm">
-                                    {{
-                                        // FIXME: Replace weghalen
-                                        item.toss_reason.replace(
-                                            /( starting number: \d+)/g,
-                                            ''
-                                        )
-                                    }}
-                                </span>
+                                        <template #club="{ item }">
+                                            <span class="text-sm">
+                                                {{
+                                                    crews.getCrewById(
+                                                        item.crew_id
+                                                    )
+                                                        ? crews.getCrewById(
+                                                              item.crew_id
+                                                          ).clubName
+                                                        : ''
+                                                }}
+                                            </span>
+                                        </template>
+
+                                        <template #starting-order="{ item }">
+                                            <span class="text-sm">
+                                                {{ item.starting_order }}
+                                            </span>
+                                        </template>
+
+                                        <template #toss-reason="{ item }">
+                                            <span class="text-sm">
+                                                {{
+                                                    // FIXME: Replace weghalen
+                                                    item.toss_reason.replace(
+                                                        /( starting number: \d+)/g,
+                                                        ''
+                                                    )
+                                                }}
+                                            </span>
+                                        </template>
+                                    </TableDraggable>
+                                </Panel>
                             </template>
-                        </TableDraggable>
+                        </fieldset>
                     </template>
+
+                    <div
+                        v-if="!rounds.allRoundsByBlock(block.id).length"
+                        class="font-base px-1 text-sm text-gray-500"
+                    >
+                        No rounds found
+                    </div>
                 </template>
-            </Panel>
+            </Accordion>
         </div>
     </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
+import { useBlockStore } from '~~/stores/block';
 import { useRoundStore } from '~~/stores/round';
 import { useEventStore } from '~~/stores/event';
 import { useCrewStore } from '~~/stores/crew';
 
 import { TableHeader } from '~~/models/table';
 
+const blocks = useBlockStore();
 const events = useEventStore();
 const rounds = useRoundStore();
 const crews = useCrewStore();
 
 onMounted(async () => {
+    await blocks.loadBlocks();
+
     await events.loadEvents();
     await events.loadFields();
 

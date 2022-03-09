@@ -2,10 +2,7 @@
     <NuxtLayout name="main">
         <div class="h-full w-full">
             <div class="assign-container">
-                <Panel
-                    class="max-h-screen min-w-1/3 md:min-w-1/4"
-                    :showPanel="true"
-                >
+                <Panel class="max-h-screen min-w-1/3 md:min-w-1/4" has-padding>
                     <template #header>Available events</template>
 
                     <Draggable
@@ -42,6 +39,7 @@
                         v-for="block in blocks.allBlocks"
                         :key="block.id"
                         class="max-h-1/2-screen"
+                        has-padding
                     >
                         <template #header>Block {{ block.block }}</template>
 

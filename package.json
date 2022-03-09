@@ -34,6 +34,7 @@
         "@headlessui/vue": "^1.4.2",
         "@pinia/nuxt": "^0.1.8",
         "dayjs": "^1.10.7",
+        "nuxt-lodash": "^2.1.1",
         "phosphor-vue": "^4.4.0",
         "pinia": "^2.0.10",
         "vuedraggable": "^4.1.0"

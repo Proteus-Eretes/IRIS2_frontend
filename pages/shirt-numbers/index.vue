@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout name="main">
         <div class="flex h-full w-full flex-col gap-3 px-5 py-3">
-            <Panel>
+            <Panel has-padding>
                 <template #header>Blocks</template>
 
                 <template #default>

@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout name="main">
         <div class="grid w-full grid-cols-2/3 gap-3 px-5 py-3">
-            <Panel>
+            <Panel has-padding>
                 <template #header>Blocks</template>
 
                 <template #default>
@@ -48,7 +48,7 @@
                 </template>
             </Panel>
 
-            <Panel>
+            <Panel has-padding>
                 <template #header>Draw all</template>
             </Panel>
 
