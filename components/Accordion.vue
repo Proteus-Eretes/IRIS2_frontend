@@ -7,7 +7,7 @@
                 : 'rounded-md bg-gray-50 shadow-sm'
         ]"
     >
-        <a @click="toggleCollapse()" class="accordion-header">
+        <a @click="updateIndex" class="accordion-header">
             <h2>
                 <slot name="header">Header</slot>
             </h2>
@@ -32,6 +32,19 @@
 <script lang="ts" setup>
 import { PhCaretDown } from 'phosphor-vue';
 
-const isCollapsed = ref(true);
-const toggleCollapse = useToggle(isCollapsed);
+const props = defineProps<{
+    index: number;
+    selectedAccordion: number;
+}>();
+const emits = defineEmits<{
+    (e: 'update:index', index: number): void;
+}>();
+
+const isCollapsed = computed(() => props.selectedAccordion != props.index);
+
+const updateIndex = () => {
+    if (props.selectedAccordion != props.index)
+        emits('update:index', props.index);
+    else emits('update:index', -1);
+};
 </script>

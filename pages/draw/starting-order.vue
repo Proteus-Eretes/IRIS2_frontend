@@ -46,7 +46,7 @@
                                                   ).code
                                                 : ''
                                         "
-                                        :headers="fieldTableHeaders"
+                                        :headers="tableHeaders"
                                         has-headers
                                         :items="crews.allTeamsByField(field.id)"
                                         @drag="dragTeams"
@@ -139,7 +139,7 @@ onMounted(async () => {
     await crews.loadTeams();
 });
 
-const fieldTableHeaders: TableHeader[] = [
+const tableHeaders: TableHeader[] = [
     { id: 'Name', sortable: false },
     { id: 'Club', sortable: false },
     { id: 'Starting Order', sortable: false },

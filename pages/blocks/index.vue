@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout name="main">
         <div class="h-full w-full">
-            <div class="moving-container">
+            <MovingContainer>
                 <MovingPanel
                     :index="0"
                     :activePanel="activePanel"
@@ -96,7 +96,7 @@
                     @close="deselectRower()"
                     @focus="activePanel = 4"
                 />
-            </div>
+            </MovingContainer>
 
             <BlocksSlideOver
                 v-model:open="showBlockEditor"

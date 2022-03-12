@@ -406,6 +406,17 @@ export const useCrewStore = defineStore('crews', {
                     'Something went wrong editing the starting order'
                 );
             }
+        },
+        async editShirtNumber(id: string, number: number) {
+            try {
+                // FIXME: add all to server
+                this.teamEntities[id].shirt_number = number;
+            } catch (error) {
+                console.error(error);
+                useToastService().showError(
+                    'Something went wrong editing the shirt number'
+                );
+            }
         }
     }
 });

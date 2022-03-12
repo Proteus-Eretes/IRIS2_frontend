@@ -54,7 +54,7 @@ export interface Team {
     result_status: TeamResultStatus;
     shirt_number: number | null;
     starting_order: number | null;
-    toss_reason: string | null; // FIXME: wat is dit?
+    toss_reason: string | null;
 }
 
 export interface TeamDetail extends Team {
@@ -70,6 +70,10 @@ export interface NewTeam {
     crew_id: string;
     regatta_id: string;
     field_id: string;
+}
+
+export interface NewShirtNumber {
+    shirt_number: number | null;
 }
 
 export interface Fine {
