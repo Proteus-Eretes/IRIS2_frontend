@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout name="main">
-        <div class="flex h-full w-full flex-col gap-3 px-5 py-3">
-            <Panel has-padding>
+        <div class="grid w-full grid-cols-2/3 gap-3 px-5 py-3">
+            <Panel>
                 <template #header>Blocks</template>
 
                 <template #default>
@@ -9,6 +9,7 @@
                         title="Blocks"
                         :headers="blockTableHeaders"
                         :items="blocks.allBlocks"
+                        has-headers
                     >
                         <template #block="{ item }">
                             <span class="badge bg-primary-800 text-white">
@@ -23,6 +24,21 @@
                             </span>
                         </template>
 
+                        <template #crews="{ item }">
+                            <span class="text-sm">
+                                {{ crews.allTeamsByBlock(item.id).length }}
+                                fields
+                            </span>
+                        </template>
+
+                        <template #shirt-numbers="{ item }">
+                            <span class="text-sm">{{
+                                crews.allTeamsByBlock(item.id)
+                                    ? getShirtNumbers(item.id)
+                                    : '-'
+                            }}</span>
+                        </template>
+
                         <template #status="{ item }">
                             <span class="pill bg-primary-400 text-white">
                                 {{ getBlockStatusLabel(item.status) }}
@@ -31,6 +47,12 @@
                     </Table>
                 </template>
             </Panel>
+
+            <Panel has-padding>
+                <template #header>Calculation</template>
+            </Panel>
+
+            <BlocksDrawSlideOver v-model:open="showCalculation" />
         </div>
     </NuxtLayout>
 </template>
@@ -67,6 +89,7 @@ onMounted(async () => {
     await crews.loadTeams();
 });
 
+const showCalculation = ref(false);
 const blockTableHeaders: TableHeader[] = [
     { id: 'Block', sortable: false },
     { id: 'Fields', sortable: false },
@@ -74,6 +97,13 @@ const blockTableHeaders: TableHeader[] = [
     { id: 'Shirt numbers', sortable: false },
     { id: 'Status', sortable: false }
 ];
+
+const getShirtNumbers = (id: string) => {
+    const allTeams = crews.allTeamsByBlock(id);
+    const first = useHead(allTeams);
+    const last = useLast(allTeams);
+    return first && last ? `${first.shirt_number}-${last.shirt_number}` : '';
+};
 
 definePageMeta({
     layout: false

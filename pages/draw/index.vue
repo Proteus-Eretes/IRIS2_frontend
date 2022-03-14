@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout name="main">
         <div class="grid w-full grid-cols-2/3 gap-3 px-5 py-3">
-            <Panel has-padding>
+            <Panel>
                 <template #header>Blocks</template>
 
                 <template #default>
@@ -9,6 +9,7 @@
                         title="Blocks"
                         :headers="blockTableHeaders"
                         :items="blocks.allBlocks"
+                        has-headers
                     >
                         <template #block="{ item }">
                             <span class="badge bg-primary-800 text-white">
@@ -95,18 +96,17 @@ onMounted(async () => {
 });
 
 const showDraw = ref(false);
-
-const draw = (id: string) => {
-    showDraw.value = true;
-    blocks.selectedId = id;
-};
-
 const blockTableHeaders: TableHeader[] = [
     { id: 'Block', sortable: false },
     { id: 'Start date', sortable: false },
     { id: 'Start time', sortable: false },
     { id: 'Button', sortable: false }
 ];
+
+const draw = (id: string) => {
+    showDraw.value = true;
+    blocks.selectedId = id;
+};
 
 definePageMeta({
     layout: false

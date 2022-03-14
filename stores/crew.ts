@@ -21,6 +21,7 @@ import { useCrewService } from '~~/composables/useCrewService';
 const crewService = useCrewService();
 
 import { useToastService } from '~~/composables/useToastService';
+import { useBlockStore } from './block';
 const { showError } = useToastService();
 
 interface CrewState {
@@ -79,6 +80,21 @@ export const useCrewStore = defineStore('crews', {
                 return allTeams
                     .filter((team: Team) => team.field_id == id)
                     .sort((a, b) => a.starting_order - b.starting_order);
+            };
+        },
+        allTeamsByBlock(state: CrewState) {
+            const allTeams = state.teamIds.map(
+                (id: string) => state.teamEntities[id]
+            );
+            const selectedId = useBlockStore().selectedId;
+
+            return (id: string = selectedId) => {
+                return useEventStore()
+                    .allFieldsByBlock(id)
+                    .flatMap((f) =>
+                        allTeams.filter((team: Team) => team.field_id == f.id)
+                    )
+                    .sort((a, b) => a.shirt_number - b.shirt_number);
             };
         },
         allFinesByCrew(state: CrewState) {

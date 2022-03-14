@@ -27,6 +27,7 @@
     .panel {
         @apply flex
 			min-w-single-column flex-col
+			overflow-hidden
 			rounded-md
 			bg-gray-100
 			shadow-sm;
