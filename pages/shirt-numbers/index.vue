@@ -36,6 +36,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useRegattaStore } from '~~/stores/regatta';
 import { useBlockStore } from '~~/stores/block';
 import { useRoundStore } from '~~/stores/round';
 import { useEventStore } from '~~/stores/event';
@@ -45,12 +46,16 @@ import { getBlockStatusLabel } from '~~/models/block';
 
 import { TableHeader } from '~~/models/table';
 
+const regattas = useRegattaStore();
 const blocks = useBlockStore();
 const events = useEventStore();
 const rounds = useRoundStore();
 const crews = useCrewStore();
 
 onMounted(async () => {
+    const { regatta: regattaId } = useUrlSearchParams();
+    regattas.selectedId = regattaId as string;
+
     await blocks.loadBlocks();
 
     await events.loadEvents();

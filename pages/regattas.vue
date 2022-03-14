@@ -194,17 +194,20 @@ const cancelRegattaEditor = () => {
     regattas.selectedId = null;
 };
 
-const params = useUrlSearchParams('history');
-const { regatta } = params;
-if (regatta && typeof regatta == 'string') {
-    regattas.selectedId = null;
-
-    delete params.regatta;
-}
-
 const selectRegatta = (id: string) => {
     regattas.selectedId = id;
 };
+
+onMounted(() => {
+    const params = useUrlSearchParams('history');
+    const { regatta } = params;
+
+    if (regatta && typeof regatta == 'string') {
+        regattas.selectedId = null;
+
+        delete params.regatta;
+    }
+});
 
 definePageMeta({
     layout: false

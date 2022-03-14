@@ -161,6 +161,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useRegattaStore } from '~~/stores/regatta';
 import { useBlockStore } from '~~/stores/block';
 import { useEventStore } from '~~/stores/event';
 import { useRoundStore } from '~~/stores/round';
@@ -176,12 +177,16 @@ import { SlideOverState } from '~~/models/slide-over-state';
 import { useToastService } from '~~/composables/useToastService';
 const { showError } = useToastService();
 
+const regattas = useRegattaStore();
 const blocks = useBlockStore();
 const events = useEventStore();
 const rounds = useRoundStore();
 const crews = useCrewStore();
 
 onMounted(async () => {
+    const { regatta: regattaId } = useUrlSearchParams();
+    regattas.selectedId = regattaId as string;
+
     await blocks.loadBlocks();
 
     await events.loadEvents();

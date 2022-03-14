@@ -154,8 +154,9 @@ onMounted(async () => {
     await crews.loadCrews();
 
     // If the queries are set in the router, select the items
-    const { event, crew, rower } = params;
+    const { regatta: regattaId, event, crew, rower } = params;
 
+    regattas.selectedId = regattaId as string;
     if (event && typeof event == 'string') await selectEvent(event);
     if (crew && typeof crew == 'string') await selectCrew(crew);
     if (rower && typeof rower == 'string') await selectRower(rower);

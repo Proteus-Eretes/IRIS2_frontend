@@ -60,6 +60,7 @@
 <script lang="ts" setup>
 import { PhPlus } from 'phosphor-vue';
 
+import { useRegattaStore } from '~~/stores/regatta';
 import { useBlockStore } from '~~/stores/block';
 import { useRoundStore } from '~~/stores/round';
 import { useEventStore } from '~~/stores/event';
@@ -72,12 +73,16 @@ import { TableHeader } from '~~/models/table';
 
 const { formatDate, formatTime } = useDateFormatter();
 
+const regattas = useRegattaStore();
 const blocks = useBlockStore();
 const events = useEventStore();
 const rounds = useRoundStore();
 const crews = useCrewStore();
 
 onMounted(async () => {
+    const { regatta: regattaId } = useUrlSearchParams();
+    regattas.selectedId = regattaId as string;
+
     await blocks.loadBlocks();
 
     await events.loadEvents();

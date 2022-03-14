@@ -135,10 +135,6 @@ const crews = useCrewStore();
 const rowers = useRowerStore();
 const clubs = useClubStore();
 
-onMounted(async () => {
-    await blocks.loadBlocks();
-});
-
 // The panel that is last opened
 const activePanel = ref(0);
 
@@ -327,8 +323,11 @@ const deselectRower = () => {
 
 // If the queries are set in the router, select the items
 onMounted(async () => {
-    const { block, field, team, rower } = params;
+    await blocks.loadBlocks();
 
+    const { regatta: regattaId, block, field, team, rower } = params;
+
+    regattas.selectedId = regattaId as string;
     if (block && typeof block == 'string') await selectBlock(block);
     if (field && typeof field == 'string') await selectField(field);
     if (team && typeof team == 'string') await selectTeam(team);
