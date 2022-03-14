@@ -1,21 +1,3 @@
-// assign
-
-// assignEvent
-
-// unAssignEvent
-
-// assignRounds
-
-// drawBlock
-
-// drawLots
-
-// getDrawBlock
-
-// showDrawnLots
-
-// startingOrderUpdate
-
 import { defineStore } from 'pinia';
 import { useRegattaStore } from './regatta';
 

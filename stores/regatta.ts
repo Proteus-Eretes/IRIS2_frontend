@@ -1,7 +1,3 @@
-// documentation
-
-// lotterySettings
-
 import { defineStore } from 'pinia';
 
 import { NewRegatta, Regatta, RegattaDetail } from '~~/models/regatta';
@@ -131,7 +127,6 @@ export const useRegattaStore = defineStore('regattas', {
                     'Something went wrong editing the regatta'
                 );
             }
-        },
-        lotterySettings() {}
+        }
     }
 });

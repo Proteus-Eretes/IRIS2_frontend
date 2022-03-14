@@ -1,7 +1,3 @@
-// merge
-
-// splitEvents
-
 import { defineStore } from 'pinia';
 import { useBlockStore } from './block';
 import { useRegattaStore } from './regatta';

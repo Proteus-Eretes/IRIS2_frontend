@@ -18,8 +18,6 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
         name: newEvent.name,
         category: newEvent.category,
         boat_type: newEvent.boat_type,
-        crews: null,
-        sub_crews: null,
         status: newEvent.status
     };
 

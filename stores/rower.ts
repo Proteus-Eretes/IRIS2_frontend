@@ -1,5 +1,3 @@
-// getRowerInformation
-
 import { defineStore } from 'pinia';
 import { useRegattaStore } from './regatta';
 

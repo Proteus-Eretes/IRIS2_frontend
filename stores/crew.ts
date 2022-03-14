@@ -1,13 +1,3 @@
-// removeData
-
-// removeRower
-
-// searchRowers
-
-// updateCrewMembersOrder
-
-// validateCrewsCategory
-
 import { defineStore } from 'pinia';
 import { useEventStore } from './event';
 import { useRegattaStore } from './regatta';
