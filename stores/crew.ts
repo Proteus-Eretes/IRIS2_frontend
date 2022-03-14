@@ -13,16 +13,24 @@ import { useEventStore } from './event';
 import { useRegattaStore } from './regatta';
 import { useRowerStore } from './rower';
 
-import { Crew, CrewDetail, Fine, NewCrew, NewTeam, Team } from '~~/models/crew';
+import {
+    Crew,
+    CrewDetail,
+    Fine,
+    NewCrew,
+    NewTeam,
+    ShirtNumberSettings,
+    Team
+} from '~~/models/crew';
 import { Rower } from '~~/models/rower';
 import { Event } from '~~/models/event';
 
 import { useCrewService } from '~~/composables/useCrewService';
 const crewService = useCrewService();
 
-import { useToastService } from '~~/composables/useToastService';
 import { useBlockStore } from './block';
-const { showError } = useToastService();
+import { ToastType } from '~~/models/toast';
+const { showError, showToast } = useToastService();
 
 interface CrewState {
     crewIds: string[];
@@ -223,9 +231,7 @@ export const useCrewStore = defineStore('crews', {
                 this.crewEntities = crewEntities;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the crews'
-                );
+                showError('Something went wrong loading the crews');
             }
         },
         async loadCrewsByEvent() {
@@ -252,9 +258,7 @@ export const useCrewStore = defineStore('crews', {
                 this.crewEntities = { ...this.crewEntities, ...crewEntities };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the crews'
-                );
+                showError('Something went wrong loading the crews');
             }
         },
         async loadSelectedCrew() {
@@ -274,9 +278,7 @@ export const useCrewStore = defineStore('crews', {
                 };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the selected crew'
-                );
+                showError('Something went wrong loading the selected crew');
             }
         },
         async loadTeams() {
@@ -295,9 +297,7 @@ export const useCrewStore = defineStore('crews', {
                 this.teamEntities = teamEntities;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the teams'
-                );
+                showError('Something went wrong loading the teams');
             }
         },
         async loadTeamsByField() {
@@ -324,9 +324,7 @@ export const useCrewStore = defineStore('crews', {
                 this.teamEntities = { ...this.teamEntities, ...teamEntities };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the teams'
-                );
+                showError('Something went wrong loading the teams');
             }
         },
         async loadFinesByCrew() {
@@ -353,9 +351,7 @@ export const useCrewStore = defineStore('crews', {
                 this.fineEntities = { ...this.fineEntities, ...fineEntities };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the fines'
-                );
+                showError('Something went wrong loading the fines');
             }
         },
         async addCrew(newCrew: NewCrew): Promise<string> {
@@ -371,9 +367,7 @@ export const useCrewStore = defineStore('crews', {
                 return crew.id;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong adding the crew'
-                );
+                showError('Something went wrong adding the crew');
             }
         },
         async addTeam(newTeam: NewTeam) {
@@ -385,11 +379,14 @@ export const useCrewStore = defineStore('crews', {
                     ...this.teamEntities,
                     [team.id]: team
                 };
+
+                showToast({
+                    type: ToastType.SUCCESS,
+                    message: 'Added the team'
+                });
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong adding the team'
-                );
+                showError('Something went wrong adding the team');
             }
         },
         deleteCrew(id: string) {
@@ -407,9 +404,7 @@ export const useCrewStore = defineStore('crews', {
                 this.crewEntities[id] = editedCrew;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong editing the crew'
-                );
+                showError('Something went wrong editing the crew');
             }
         },
         async editStartingOrder(id: string, number: number) {
@@ -418,9 +413,7 @@ export const useCrewStore = defineStore('crews', {
                 this.teamEntities[id].starting_order = number;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong editing the starting order'
-                );
+                showError('Something went wrong editing the starting order');
             }
         },
         async editShirtNumber(id: string, number: number) {
@@ -429,9 +422,26 @@ export const useCrewStore = defineStore('crews', {
                 this.teamEntities[id].shirt_number = number;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong editing the shirt number'
-                );
+                showError('Something went wrong editing the shirt number');
+            }
+        },
+        async calculateShirtNumbers(settings: ShirtNumberSettings) {
+            try {
+                // FIXME: add all to server
+                for (const id of settings.blocks) {
+                    const allTeams = this.allTeamsByBlock(id);
+                    allTeams.forEach((team: Team, i: number) => {
+                        this.teamEntities[team.id].shirt_number = i;
+                    });
+                }
+
+                showToast({
+                    type: ToastType.SUCCESS,
+                    message: 'Calculated the shirt numbers'
+                });
+            } catch (error) {
+                console.error(error);
+                showError('Something went wrong calculating the shirt numbers');
             }
         }
     }

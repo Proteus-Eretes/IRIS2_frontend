@@ -138,7 +138,7 @@
             </AccordionContainer>
         </div>
 
-        <ShirtNumbersSlideOver
+        <ShirtNumberEditSlideOver
             v-model:open="showShirtNumberEditor"
             :data="shirtNumberEditorData"
             @save="saveShirtNumberEditor($event)"

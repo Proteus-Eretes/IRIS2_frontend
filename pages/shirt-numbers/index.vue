@@ -1,6 +1,6 @@
 <template>
     <NuxtLayout name="main">
-        <div class="grid w-full grid-cols-2/3 gap-3 px-5 py-3">
+        <div class="flex w-full gap-3 px-5 py-3">
             <Panel>
                 <template #header>Blocks</template>
 
@@ -45,19 +45,31 @@
                             </span>
                         </template>
                     </Table>
+
+                    <div class="flex w-full justify-center p-2">
+                        <button
+                            type="button"
+                            class="button icon-button button-secondary"
+                            @click="showCalculation = true"
+                        >
+                            <ph-list-numbers class="icon text-gray-400" />
+                            <span>Calculate numbers</span>
+                        </button>
+                    </div>
                 </template>
             </Panel>
 
-            <Panel has-padding>
-                <template #header>Calculation</template>
-            </Panel>
-
-            <BlocksDrawSlideOver v-model:open="showCalculation" />
+            <ShirtNumberCalculationSlideOver
+                v-model:open="showCalculation"
+                @save="crews.calculateShirtNumbers"
+            />
         </div>
     </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
+import { PhListNumbers } from 'phosphor-vue';
+
 import { useRegattaStore } from '~~/stores/regatta';
 import { useBlockStore } from '~~/stores/block';
 import { useRoundStore } from '~~/stores/round';

@@ -76,6 +76,14 @@ export interface NewShirtNumber {
     shirt_number: number | null;
 }
 
+export interface ShirtNumberSettings {
+    blocks: string[];
+    min_number: number;
+    max_number: number;
+    missing: string;
+    gap: number;
+}
+
 export interface Fine {
     id: string;
     crew_id: string;
