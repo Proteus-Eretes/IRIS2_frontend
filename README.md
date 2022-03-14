@@ -50,7 +50,6 @@ Dit is een lijst met extensies die heel handig zijn voor deze applicatie.
     -   [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
     -   [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
     -   [Prettier ESLint](https://marketplace.visualstudio.com/items?itemName=rvest.vs-code-prettier-eslint)
-    -   [axe Accessibility Linter](https://marketplace.visualstudio.com/items?itemName=deque-systems.vscode-axe-linter)
     -   [Paste JSON as Code](https://marketplace.visualstudio.com/items?itemName=quicktype.quicktype)
     -   [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
     -   [TODO Highlight](https://marketplace.visualstudio.com/items?itemName=wayou.vscode-todo-highlight)
@@ -107,6 +106,7 @@ Voor documentatie: [tailwindcss.com](https://tailwindcss.com/)
     -   [PWA](https://pwa.nuxtjs.org/) zodat de applicatie ook als PWA gebruikt kan worden op mobiele devices.
     -   [i18n](https://i18n.nuxtjs.org/) voor makkelijke vertalingen voor het geval dat de applicatie ook vertaald moet worden. [@intlify/nuxt3](https://github.com/intlify/nuxt3) kan ook een interessante optie zijn.
     -   [validate](https://github.com/lewyuburi/nuxt-validate) is een module voor de package [vee-validate](https://github.com/logaretm/vee-validate). Hiermee kun je forms valideren en ervoor zorgen dat inputs goed zijn en ook kun je betere feedback geven aan gebruikers.
+    -   [FormKit](https://formkit.com/) is een goed alternatief voor `validate` en daar worden formulieren ook misschien makkelijker van. Het kostte nu te veel tijd om het te implementeren voor mij (en het is ook nog niet stabiel), maar het heeft veel potentie.
     -   [dayjs](https://github.com/nuxt-community/dayjs-module) is een module voor de dependency die ik al gebruikt heb; [dayjs](https://day.js.org/en/).
     -   [tailwindcss](https://tailwindcss.nuxtjs.org/) is de module voor de dependency TailwindCSS.
     -   [gtm](https://github.com/nuxt-community/gtm-module) is een module voor de Google Tags Manager. Ik dacht dat ik dat ook in de oude IRIS zag en dus is deze module handig als jullie dit later nog willen toevoegen.
