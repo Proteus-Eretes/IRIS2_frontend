@@ -4306,7 +4306,7 @@ nuxt-lodash@^2.1.1:
     "@types/lodash-es" "^4.17.5"
     lodash-es "^4.17.21"
 
-nuxt3@latest:
+nuxt3@^3.0.0-27444434.856c01a:
   version "3.0.0-27444434.856c01a"
   resolved "https://registry.npmjs.org/nuxt3/-/nuxt3-3.0.0-27444434.856c01a.tgz"
   integrity sha512-iNsVxAkRnygjvQSLM0NEezzX9fwSAVuP+qUffp7naqXYfByvkpSIsBFzOnQys+A2v8F6cZ2xcHVw2TPEPpvLNg==

@@ -22,7 +22,10 @@
         </a>
 
         <div
-            :class="['accordion-content', isCollapsed ? 'h-0' : 'h-full pb-4']"
+            :class="[
+                'accordion-content',
+                isCollapsed ? 'h-0 opacity-0' : 'h-full pb-4 opacity-100'
+            ]"
         >
             <slot name="items"></slot>
         </div>

@@ -87,6 +87,7 @@ export const useCrewStore = defineStore('crews', {
             const selectedId = useBlockStore().selectedId;
 
             return (id: string = selectedId) => {
+                // Get all teams based on the fields from the block
                 return useEventStore()
                     .allFieldsByBlock(id)
                     .flatMap((f) =>

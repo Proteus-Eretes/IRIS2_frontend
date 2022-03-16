@@ -6,10 +6,13 @@
         @cancel="$emit('cancel')"
     >
         <template #header>
-            <span>Settings shirt numbers</span>
+            <span>Calculate shirt numbers</span>
         </template>
         <template #subheader>
-            <span>Define the settings for the range of shirt numbers.</span>
+            <span>
+                Define the settings for the range of shirt numbers and calculate
+                them.
+            </span>
         </template>
 
         <!-- Blocks -->

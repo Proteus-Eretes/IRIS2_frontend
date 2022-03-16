@@ -4,6 +4,18 @@
             <h2>
                 <slot name="header" />
             </h2>
+
+            <span>
+                <span
+                    v-show="$slots['header-status']"
+                    class="pill bg-white text-secondary-500"
+                >
+                    <slot name="header-status" />
+                </span>
+                <span v-show="$slots['header-button']">
+                    <slot name="header-button" />
+                </span>
+            </span>
         </div>
 
         <div :class="['grow overflow-y-scroll', hasPadding ? 'p-2' : '']">

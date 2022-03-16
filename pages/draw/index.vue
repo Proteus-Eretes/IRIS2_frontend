@@ -1,65 +1,95 @@
 <template>
     <NuxtLayout name="main">
-        <div class="grid w-full grid-cols-2/3 gap-3 px-5 py-3">
-            <Panel>
-                <template #header>Blocks</template>
+        <div class="flex w-full gap-3 px-5 py-3">
+            <div class="panel-container">
+                <Panel>
+                    <template #header>Blocks</template>
+                    <template #header-button>
+                        <a
+                            @click="showDrawSettings = true"
+                            title="Draw settings"
+                        >
+                            <ph-faders-horizontal
+                                weight="bold"
+                                class="icon text-white"
+                            />
+                            <span class="sr-only">Draw settings</span>
+                        </a>
+                    </template>
 
-                <template #default>
-                    <Table
-                        title="Blocks"
-                        :headers="blockTableHeaders"
-                        :items="blocks.allBlocks"
-                        has-headers
-                    >
-                        <template #block="{ item }">
-                            <span class="badge bg-primary-800 text-white">
-                                {{ item.block }}
-                            </span>
-                        </template>
+                    <template #default>
+                        <Table
+                            title="Blocks"
+                            :headers="tableHeaders"
+                            :items="blocks.allBlocks"
+                            has-headers
+                        >
+                            <template #block="{ item }">
+                                <span class="badge bg-primary-800 text-white">
+                                    {{ item.block }}
+                                </span>
+                            </template>
 
-                        <template #start-date="{ item }">
-                            <span class="text-sm">
-                                {{ formatDate(item.start_time) }}
-                            </span>
-                        </template>
+                            <template #start-date="{ item }">
+                                <span class="text-sm">
+                                    {{ formatDate(item.start_time) }}
+                                </span>
+                            </template>
 
-                        <template #start-time="{ item }">
-                            <span class="text-sm">
-                                {{ formatTime(item.start_time) }}
-                            </span>
-                        </template>
+                            <template #start-time="{ item }">
+                                <span class="text-sm">
+                                    {{ formatTime(item.start_time) }}
+                                </span>
+                            </template>
 
-                        <template #button="{ item }">
+                            <template #status="{ item }">
+                                <span
+                                    v-if="
+                                        item.status >= BlockStatus.START_ORDER
+                                    "
+                                    class="pill border border-gray-200 bg-white text-primary-400"
+                                >
+                                    Drawn
+                                </span>
+                                <span
+                                    v-else
+                                    class="pill bg-warning-500 text-white"
+                                >
+                                    Undrawn
+                                </span>
+                            </template>
+                        </Table>
+
+                        <div class="flex w-full justify-center p-2">
                             <button
                                 type="button"
-                                class="button button-primary w-auto py-1 px-3"
-                                @click="draw(item.id)"
-                                :disabled="
-                                    item.status >= BlockStatus.START_ORDER
-                                "
+                                class="button icon-button button-secondary"
+                                @click="showDraw = true"
                             >
-                                {{
-                                    item.status >= BlockStatus.START_ORDER
-                                        ? 'Drawn'
-                                        : 'Draw separately'
-                                }}
+                                <ph-coin-vertical class="icon text-gray-400" />
+                                <span>Draw lots</span>
                             </button>
-                        </template>
-                    </Table>
-                </template>
-            </Panel>
+                        </div>
+                    </template>
+                </Panel>
+            </div>
 
-            <Panel has-padding>
-                <template #header>Draw all</template>
-            </Panel>
+            <DrawSlideOver v-model:open="showDraw" />
 
-            <BlocksDrawSlideOver v-model:open="showDraw" />
+            <DrawSettingsSlideOver
+                v-model:open="showDrawSettings"
+                :data="
+                    regattas.selectedRegattaDetail
+                        ? regattas.selectedRegattaDetail.lottery_settings
+                        : null
+                "
+            />
         </div>
     </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
-import { PhPlus } from 'phosphor-vue';
+import { PhCoinVertical, PhFadersHorizontal } from 'phosphor-vue';
 
 import { useRegattaStore } from '~~/stores/regatta';
 import { useBlockStore } from '~~/stores/block';
@@ -93,20 +123,19 @@ onMounted(async () => {
 
     await crews.loadCrews();
     await crews.loadTeams();
+
+    await regattas.loadSelectedRegatta();
 });
 
 const showDraw = ref(false);
-const blockTableHeaders: TableHeader[] = [
+const showDrawSettings = ref(false);
+
+const tableHeaders: TableHeader[] = [
     { id: 'Block', sortable: false },
     { id: 'Start date', sortable: false },
     { id: 'Start time', sortable: false },
-    { id: 'Button', sortable: false }
+    { id: 'Status', sortable: false }
 ];
-
-const draw = (id: string) => {
-    showDraw.value = true;
-    blocks.selectedId = id;
-};
 
 definePageMeta({
     layout: false

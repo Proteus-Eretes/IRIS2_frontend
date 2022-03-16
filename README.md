@@ -97,7 +97,7 @@ Voor documentatie: [pinia.vuejs.org](https://pinia.vuejs.org/)
 
 ### tailwindcss
 
-Waarschijnlijk hebben jullie er al wel van gehoord, maar TailwindCSS is een manier om CSS in de HTML markup te schrijven. Hierdoor zit je niet met ids, classes en verschillende bestanden te werken. Daarnaast is het ook heel makkelijk om consistentie in kleuren en groottes te krijgen. De configuratie voor TailwindCSS staat in [tailwind.config.js](tailwind.config.js) en een paar extra classes voor dingen die vaak terugkomen staan in [assets/css/tailwind.css](assets/css/tailwind.css).
+Waarschijnlijk hebben jullie er al wel van gehoord, maar TailwindCSS is een manier om CSS in de HTML markup te schrijven. Hierdoor zit je niet met ids, classes en verschillende bestanden te werken. Daarnaast is het ook heel makkelijk om consistentie in kleuren en groottes te krijgen. De configuratie voor TailwindCSS staat in [tailwind.config.js](tailwind.config.js). Daar kun je kleuren aanpassen of speciale waardes voor CSS aanmaken. Kijk hiervoor naar de documentatie van TailwindCSS. Een paar extra classes voor dingen die vaak terugkomen staan in [assets/css/tailwind.css](assets/css/tailwind.css).
 
 Voor documentatie: [tailwindcss.com](https://tailwindcss.com/)
 

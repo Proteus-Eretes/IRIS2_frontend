@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout name="main">
         <div class="flex h-full w-full flex-col gap-3 px-5 py-3">
-            <AccordionContainer>
+            <div class="panel-container">
                 <template
                     v-for="(block, index) in blocks.allBlocks"
                     :key="block.id"
@@ -135,7 +135,7 @@
                         </template>
                     </Accordion>
                 </template>
-            </AccordionContainer>
+            </div>
         </div>
 
         <ShirtNumberEditSlideOver

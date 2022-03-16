@@ -34,7 +34,7 @@ export interface LotterySettings {
     matchingRowersFor4: number;
     matchingRowersFor2: number;
     matchingRowersFor1: number;
-    previousYearClubsExcludeCombiationCrews: number;
+    previousYearClubsExcludeCombiationCrews: boolean;
 }
 
 export enum RegattaType {

@@ -24,6 +24,9 @@
     .moving-container .moving-column {
         @apply translate-x-0 transition-transform;
     }
+    .panel-container {
+        @apply container mx-auto;
+    }
     .panel {
         @apply flex
 			min-w-single-column flex-col
@@ -79,7 +82,7 @@
 			gap-3
 			overflow-hidden
 			px-4
-			transition-[height];
+			transition-all;
     }
     .table-header-group .table-cell {
         @apply truncate

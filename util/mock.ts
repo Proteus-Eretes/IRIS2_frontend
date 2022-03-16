@@ -850,7 +850,7 @@ export const fieldsMock: Field[] = [
         round_id: '11ec-4c5c-7c72dd38-b16a-fa53f5d3a545'
     },
     {
-        block_id: '11ec-4fe5-a92bc36c-bd79-fa53f5d3a545',
+        block_id: '11ec-4fe5-b2954964-9edf-fa53f5d3a545',
         event_id: '11ec-4c5c-3f08f9aa-bdb4-fa53f5d3a545',
         id: '11ec-505f-9ed438a2-a17c-fa53f5d3a545',
         regatta_id: '11ec-28fd-389c2006-8fe8-fa53f5d3a532',
@@ -953,7 +953,7 @@ export const regattaDetailsMock: RegattaDetail[] = [
             matchingRowersFor4: 2,
             matchingRowersFor2: 1,
             matchingRowersFor1: 1,
-            previousYearClubsExcludeCombiationCrews: 1
+            previousYearClubsExcludeCombiationCrews: true
         },
         correction_factor_settings: false,
         correction_factor_type: null
@@ -976,7 +976,7 @@ export const regattaDetailsMock: RegattaDetail[] = [
             matchingRowersFor4: 2,
             matchingRowersFor2: 1,
             matchingRowersFor1: 1,
-            previousYearClubsExcludeCombiationCrews: 1
+            previousYearClubsExcludeCombiationCrews: true
         },
         correction_factor_settings: false,
         correction_factor_type: null

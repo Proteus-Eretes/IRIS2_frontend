@@ -1,63 +1,67 @@
 <template>
     <NuxtLayout name="main">
         <div class="flex w-full gap-3 px-5 py-3">
-            <Panel>
-                <template #header>Blocks</template>
+            <div class="panel-container">
+                <Panel>
+                    <template #header>Blocks</template>
 
-                <template #default>
-                    <Table
-                        title="Blocks"
-                        :headers="blockTableHeaders"
-                        :items="blocks.allBlocks"
-                        has-headers
-                    >
-                        <template #block="{ item }">
-                            <span class="badge bg-primary-800 text-white">
-                                {{ item.block }}
-                            </span>
-                        </template>
-
-                        <template #fields="{ item }">
-                            <span class="text-sm">
-                                {{ events.allFieldsByBlock(item.id).length }}
-                                fields
-                            </span>
-                        </template>
-
-                        <template #crews="{ item }">
-                            <span class="text-sm">
-                                {{ crews.allTeamsByBlock(item.id).length }}
-                                fields
-                            </span>
-                        </template>
-
-                        <template #shirt-numbers="{ item }">
-                            <span class="text-sm">{{
-                                crews.allTeamsByBlock(item.id)
-                                    ? getShirtNumbers(item.id)
-                                    : '-'
-                            }}</span>
-                        </template>
-
-                        <template #status="{ item }">
-                            <span class="pill bg-primary-400 text-white">
-                                {{ getBlockStatusLabel(item.status) }}
-                            </span>
-                        </template>
-                    </Table>
-
-                    <div class="flex w-full justify-center p-2">
-                        <button
-                            type="button"
-                            class="button icon-button button-secondary"
-                            @click="showCalculation = true"
+                    <template #default>
+                        <Table
+                            title="Blocks"
+                            :headers="blockTableHeaders"
+                            :items="blocks.allBlocks"
+                            has-headers
                         >
-                            <ph-list-numbers class="icon text-gray-400" />
-                            <span>Calculate numbers</span>
-                        </button>
-                    </div>
-                </template>
-            </Panel>
+                            <template #block="{ item }">
+                                <span class="badge bg-primary-800 text-white">
+                                    {{ item.block }}
+                                </span>
+                            </template>
+
+                            <template #fields="{ item }">
+                                <span class="text-sm">
+                                    {{
+                                        events.allFieldsByBlock(item.id).length
+                                    }}
+                                    fields
+                                </span>
+                            </template>
+
+                            <template #crews="{ item }">
+                                <span class="text-sm">
+                                    {{ crews.allTeamsByBlock(item.id).length }}
+                                    fields
+                                </span>
+                            </template>
+
+                            <template #shirt-numbers="{ item }">
+                                <span class="text-sm">{{
+                                    crews.allTeamsByBlock(item.id)
+                                        ? getShirtNumbers(item.id)
+                                        : '-'
+                                }}</span>
+                            </template>
+
+                            <template #status="{ item }">
+                                <span class="pill bg-primary-400 text-white">
+                                    {{ getBlockStatusLabel(item.status) }}
+                                </span>
+                            </template>
+                        </Table>
+
+                        <div class="flex w-full justify-center p-2">
+                            <button
+                                type="button"
+                                class="button icon-button button-secondary"
+                                @click="showCalculation = true"
+                            >
+                                <ph-list-numbers class="icon text-gray-400" />
+                                <span>Calculate numbers</span>
+                            </button>
+                        </div>
+                    </template>
+                </Panel>
+            </div>
 
             <ShirtNumberCalculationSlideOver
                 v-model:open="showCalculation"
