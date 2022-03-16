@@ -32,10 +32,12 @@
 <script lang="ts" setup>
 import { PhCaretDown } from 'phosphor-vue';
 
-const props = defineProps<{
-    index: number;
-    selectedAccordion: number;
-}>();
+interface Props {
+    index: number; // The index of the current Accordion in its container
+    selectedAccordion: number; // The index of the selected Accordion (used to collapse or expand the current Accordion)
+}
+
+const props = defineProps<Props>();
 const emits = defineEmits<{
     (e: 'update:index', index: number): void;
 }>();

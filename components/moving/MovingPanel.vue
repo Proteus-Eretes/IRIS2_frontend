@@ -60,11 +60,11 @@
 import { PhX } from 'phosphor-vue';
 
 interface Props {
-    index: number;
-    activePanel: number;
-    search?: string | null;
-    searchOptions?: string[];
-    hasSearch?: boolean;
+    index: number; // The index of the current MovingPanel in its container
+    activePanel: number; // The index of the selected MovingPanel (used to collapse or expand the current MovingPanel)
+    search?: string | null; // The search query
+    searchOptions?: string[]; // The autocomplete options for searching
+    hasSearch?: boolean; // Say if the moving panel should have search or not
 }
 
 const props = withDefaults(defineProps<Props>(), {

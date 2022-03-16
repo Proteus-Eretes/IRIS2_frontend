@@ -143,16 +143,16 @@ import { PhCaretDown, PhCaretUp } from 'phosphor-vue';
 import { TableHeader, TableSortDirection } from '~~/models/table';
 
 interface Props {
-    title: string;
-    errorMessage?: string;
+    title: string; // If a table has no headers, this is used as title but always give it a name for the error message
+    errorMessage?: string; // This is the message that is shown when there are no items. This is generated based on the title but you can give a custom message
     headers: TableHeader[]; // Worden ook als slot names gebruikt
-    actions?: string[];
+    actions?: string[]; // These are all the actions for an item. The attributes and ids are in `stores/index.ts`
     items: any[];
-    activeId?: string;
-    hasHeaders?: boolean;
-    maxRows?: number;
-    sortId?: string;
-    sortDirection?: TableSortDirection;
+    activeId?: string; // The id of the item to highlight
+    hasHeaders?: boolean; // Say if the table should show headers
+    maxRows?: number; // For pagination, say what the maximum amount of rows is
+    sortId?: string; // For sorting, say what column should be sorted
+    sortDirection?: TableSortDirection; // For sorting, say which direction to sort
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -170,11 +170,9 @@ const emits = defineEmits<{
 
 const paginationIndex = ref(1);
 
-// Make header name lowercase and replace whitespace with dash
+// Generate slot name based on header in kebab-case
 const getSlotName = (header: string): string => {
-    const regex = /\s/gi;
-    const name = header.replaceAll(regex, '-');
-    return name.toLowerCase();
+    return useKebabCase(header);
 };
 const isInRange = (index: number): boolean => {
     return (

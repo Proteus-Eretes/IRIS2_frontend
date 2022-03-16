@@ -36,8 +36,8 @@
 import { PhMagnifyingGlass } from 'phosphor-vue';
 
 interface Props {
-    query: string | null;
-    options: string[];
+    query: string | null; // The search query
+    options: string[]; // The autocomplete options for searching
 }
 
 const props = defineProps<Props>();
@@ -46,6 +46,7 @@ const emits = defineEmits<{
     (e: 'update:query', query: string): void;
 }>();
 
+// While typing, update the query in the parents
 const value = computed({
     get() {
         return props.query;

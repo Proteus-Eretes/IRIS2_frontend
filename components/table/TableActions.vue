@@ -73,10 +73,12 @@ import {
 import { useMainStore } from '~~/stores';
 const main = useMainStore();
 
-const props = defineProps<{
-    actions?: string[];
-    item: any;
-}>();
+interface Props {
+    actions?: string[]; // These are all the actions for an item. The attributes and ids are in `stores/index.ts`
+    item: any; // Current item to feed back into the action call
+}
+
+const props = defineProps<Props>();
 
 const emits = defineEmits<{
     (e: 'action', action: { action: string; item: any }): void;

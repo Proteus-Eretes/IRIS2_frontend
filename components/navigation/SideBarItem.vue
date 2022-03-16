@@ -75,6 +75,7 @@ const isParentActive = (base: string): boolean => {
     return router.currentRoute.value.fullPath.includes(base);
 };
 
+// Get the icon component based on its string
 const getIcon = (icon: string) => {
     switch (icon) {
         case 'ph-gauge':
@@ -99,7 +100,7 @@ const getIcon = (icon: string) => {
 };
 
 const props = defineProps<{
-    item: RouteItem;
-    showText?: boolean;
+    item: RouteItem; // The item defined in stores/index.ts
+    showText?: boolean; // Boolean to show the title of the item
 }>();
 </script>

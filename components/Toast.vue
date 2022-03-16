@@ -196,6 +196,7 @@ import { PhX } from 'phosphor-vue';
 
 import { Toast, ToastType } from '~~/models/toast';
 
+// Get the current Toast and active boolean from useState
 const active = useState<boolean>('showToast', () => false);
 const toast = useState<Toast>('toast');
 
@@ -203,15 +204,7 @@ const interval = ref(null);
 const timeLeft = ref(0);
 const speed = ref(100);
 
-const timeLeftPercent = computed(() => {
-    return Math.round(
-        (((timeLeft.value * 100) / (toast.value.timeout * 1000)) * 100) / 100
-    );
-});
-const progressStyle = computed(() => {
-    return `width: ${timeLeftPercent}%; transition: width 0.1s linear;`;
-});
-
+// When the toast is shown, start the interval timer
 watch(
     () => active.value,
     (isOpen, prevIsOpen) => {
@@ -222,26 +215,25 @@ watch(
     }
 );
 
+// Update the interval timer
 const updateTime = () => {
     timeLeft.value -= speed.value;
     if (timeLeft.value === 0) destroy();
 };
+// Remove the current Toast
 const destroy = () => {
     active.value = false;
-    // emits('update:open', false);
     clearInterval(interval.value);
 };
+
+// Callback for the primary action
 const primaryAction = () => {
     toast.value.primary.action();
     destroy();
 };
+// Callback for the secondary action
 const secondaryAction = () => {
     toast.value.secondary.action();
     destroy();
-};
-
-const removeElement = (el: HTMLElement) => {
-    if (typeof el.remove !== 'undefined') el.remove();
-    else el.parentNode.removeChild(el);
 };
 </script>

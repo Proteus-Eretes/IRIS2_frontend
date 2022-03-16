@@ -121,13 +121,12 @@ import {
 import { PhX } from 'phosphor-vue';
 
 interface Props {
-    open: boolean;
+    open: boolean; // Say if the SlideOver should be shown
 }
 
 const props = withDefaults(defineProps<Props>(), {
     open: false
 });
-
 const emits = defineEmits<{
     (e: 'update:open', open: boolean): void;
     (e: 'save', event: any): void;

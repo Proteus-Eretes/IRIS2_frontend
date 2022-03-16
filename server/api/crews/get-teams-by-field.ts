@@ -6,5 +6,11 @@ import { Team } from '~~/models/crew';
 
 export default async (req: IncomingMessage, res: ServerResponse) => {
     const { fieldId } = useQuery(req);
-    return teamsMock.filter((team: Team) => team.field_id == fieldId);
+    return [
+        ...teamsMock,
+        ...teamsMock,
+        ...teamsMock,
+        ...teamsMock,
+        ...teamsMock
+    ].filter((team: Team) => team.field_id == fieldId);
 };

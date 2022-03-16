@@ -91,6 +91,7 @@ Website met documentatie en lijst van icoontjs: [phosphoricons.com](https://phos
 ### pinia
 
 Een alternatief voor Vuex, maar deze werkt beter met Nuxt en Vue 3. Een voorbeeld is het gebruik van [composables](https://v3.nuxtjs.org/docs/directory-structure/composables/) (bijvoorbeeld `useStore()` of `useRouter()`). Dit is een 'nieuwe' manier van schrijven in Vue waardoor alles in de `setup` staat en het meer voelt als normale Javascript. Dit wordt/is de standaard in Vue 3. Daarnaast werkt pinia ook veel beter met SSR, [Vue DevTools](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg) en TypeScript.
+De bedenker van Vue heeft trouwens ook net bekend gemaakt dat Pinia nu de standaard is voor Vue 3 (en dus ook Nuxt 3) ipv Vuex.
 
 Voor documentatie: [pinia.vuejs.org](https://pinia.vuejs.org/)
 

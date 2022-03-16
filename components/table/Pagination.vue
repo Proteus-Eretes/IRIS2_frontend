@@ -52,15 +52,14 @@
 import { PhCaretLeft, PhCaretRight } from 'phosphor-vue';
 
 interface Props {
-    index: number;
-    amount: number;
-    spacing: number;
+    index: number; // The index of pagination (1, 2, 3, etc.)
+    amount: number; // The amount of items there are
+    spacing: number; // The maxRows to show at one time
 }
 
 const props = withDefaults(defineProps<Props>(), {
     index: 1
 });
-
 const emits = defineEmits<{
     (e: 'update:index', index: number): void;
 }>();
@@ -70,16 +69,19 @@ const max = computed(() => {
     return Math.ceil(props.amount / props.spacing);
 });
 
+// If the max index is more than a number, show an ellipsis
 const isTooWide = computed(() => {
     return max.value > 5;
 });
+// Show the number buttons but not if it is too wide
 const safeRange = computed(() => {
     return max.value > 5
-        ? range(3, Math.max(1, Math.min(max.value - 2, props.index - 1)))
+        ? range(3, useClamp(props.index - 1, 1, max.value - 2).value)
         : range(max.value, min);
 });
 
-const range = (size: number, startAt: number = 0): ReadonlyArray<number> => {
-    return [...Array(size).keys()].map((i) => i + startAt);
+// Generate a array of numbers for a given range
+const range = (size: number, startAt: number = 1) => {
+    return useRange(startAt, size + startAt);
 };
 </script>

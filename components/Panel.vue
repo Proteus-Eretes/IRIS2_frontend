@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 interface Props {
-    hasPadding?: boolean;
+    hasPadding?: boolean; // Switch on the padding of the body of the Panel
 }
 
 const props = withDefaults(defineProps<Props>(), {
