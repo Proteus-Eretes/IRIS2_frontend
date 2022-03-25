@@ -1,0 +1,20 @@
+version: "3.6"
+
+services:
+  application:
+    image: node:17-slim
+    volumes:
+      - ".:/app"
+    working_dir: /app
+    entrypoint: [ yarn, dev ]
+    user: "${UID:-1000}:${GID:-1000}"
+    ports:
+      - "3000:3000"
+
+  yarn:
+    image: node:17-slim
+    volumes:
+      - ".:/app"
+    working_dir: /app
+    entrypoint: [ yarn ]
+    user: "${UID:-1000}:${GID:-1000}"
