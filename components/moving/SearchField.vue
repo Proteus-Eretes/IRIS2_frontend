@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import {    PhMagnifyingGlass } from 'phosphor-vue';
+import { PhMagnifyingGlass } from 'phosphor-vue';
 
 interface Props {
     query: string | null; // The search query

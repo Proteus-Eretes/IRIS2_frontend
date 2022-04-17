@@ -16,5 +16,5 @@ jobs:
       - uses: sibiraj-s/action-eslint@v2
         with:
           eslint-args: '--ignore-path=.gitignore --quiet'
-          extensions: 'ts,vue'
+          extensions: 'ts,vue,js'
           annotations: true
