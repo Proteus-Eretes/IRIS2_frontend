@@ -12,7 +12,7 @@ Gebruik deze commands voor deployment:
 De eerste keer moeten alle dependencies worden geïnstalleerd:
 
 ```bash
-yarn install
+./strta/bootstap
 ```
 
 ### Development
@@ -20,16 +20,12 @@ yarn install
 Dit command start een development server op [http://localhost:3000](http://localhost:3000):
 
 ```bash
-yarn dev
+strta/server
 ```
 
 ### Production
 
-Om de applicatie te bouwen voor productie gebruik je dit command:
-
-```bash
-yarn build
-```
+Om de applicatie te bouwen. Dat wordt gedaan door autodeploy. 
 
 > Bekijk hier de [documentation voor deployment](https://v3.nuxtjs.org/docs/deployment).
 
