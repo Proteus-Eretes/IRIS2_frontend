@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# strta/server: Launch the application and any extra required processes
+#                locally.
+set -euo pipefail
+shopt -s inherit_errexit
+PROJECT_ROOT=$(git rev-parse --show-toplevel)
+
+docker-compose down
