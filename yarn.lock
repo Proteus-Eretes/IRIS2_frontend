@@ -4306,9 +4306,9 @@ nuxt-lodash@^2.1.1:
     "@types/lodash-es" "^4.17.5"
     lodash-es "^4.17.21"
 
-nuxt3@^3.0.0-27444434.856c01a:
+nuxt3@3.0.0:
   version "3.0.0-27444434.856c01a"
-  resolved "https://registry.npmjs.org/nuxt3/-/nuxt3-3.0.0-27444434.856c01a.tgz"
+  resolved "https://registry.yarnpkg.com/nuxt3/-/nuxt3-3.0.0-27444434.856c01a.tgz#86b8223c3fcbc1c2d4e4dc16de5c065046d9d03b"
   integrity sha512-iNsVxAkRnygjvQSLM0NEezzX9fwSAVuP+qUffp7naqXYfByvkpSIsBFzOnQys+A2v8F6cZ2xcHVw2TPEPpvLNg==
   dependencies:
     "@nuxt/design" "^0.1.5"
