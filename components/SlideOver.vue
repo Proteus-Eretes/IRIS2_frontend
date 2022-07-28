@@ -31,7 +31,7 @@
                     >
                         <div class="relative w-screen max-w-md">
                             <form
-                                @submit.prevent=save_function
+                                @submit.prevent="save_function"
                                 class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl"
                             >
                                 <div
@@ -138,5 +138,5 @@ const cancel = () => {
 const save_function = () => {
     emits('save', null);
     emits('update:open', false);
-}
+};
 </script>
