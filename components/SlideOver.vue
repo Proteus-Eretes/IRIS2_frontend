@@ -31,10 +31,7 @@
                     >
                         <div class="relative w-screen max-w-md">
                             <form
-                                @submit.prevent="
-                                    $emit('save', null);
-                                    $emit('update:open', false);
-                                "
+                                @submit.prevent=save_function
                                 class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl"
                             >
                                 <div
@@ -137,4 +134,9 @@ const cancel = () => {
     emits('update:open', false);
     emits('cancel');
 };
+
+const save_function = () => {
+    emits('save', null);
+    emits('update:open', false);
+}
 </script>

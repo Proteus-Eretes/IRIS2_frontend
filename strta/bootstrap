@@ -7,6 +7,6 @@ shopt -s inherit_errexit
 PROJECT_ROOT=$(git rev-parse --show-toplevel)
 
 echo "==> Installing npm dependencies…"
-docker-compose run --rm yarn install
+docker compose run --rm yarn install
 
 echo "==> Bootstrapping is now done!"

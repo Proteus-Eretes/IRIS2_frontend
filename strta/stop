@@ -6,4 +6,4 @@ set -euo pipefail
 shopt -s inherit_errexit
 PROJECT_ROOT=$(git rev-parse --show-toplevel)
 
-docker-compose down
+docker compose down

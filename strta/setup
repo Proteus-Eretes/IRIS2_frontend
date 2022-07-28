@@ -7,7 +7,7 @@ shopt -s inherit_errexit
 PROJECT_ROOT=$(git rev-parse --show-toplevel)
 
 echo "==> Cleaning up…"
-docker-compose down
+docker compose down
 
 "${PROJECT_ROOT}/strta/bootstrap"
 
