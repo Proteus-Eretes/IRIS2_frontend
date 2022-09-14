@@ -50,8 +50,8 @@ export const useRegattaStore = defineStore('regattas', {
             try {
                 const loadedRegattas = await regattaService.loadRegattas();
 
-                const regattaIds = loadedRegattas.map((regatta) => regatta.id);
-                const regattaEntities = loadedRegattas.reduce(
+                const regattaIds = loadedRegattas.regattas.map((regatta) => regatta.id);
+                const regattaEntities = loadedRegattas.regattas.reduce(
                     (entities: { [id: string]: Regatta }, regatta: Regatta) => {
                         return { ...entities, [regatta.id]: regatta };
                     },
