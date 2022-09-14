@@ -44,8 +44,8 @@ export const useBlockStore = defineStore('blocks', {
             try {
                 const loadedBlocks = await blockService.loadBlocks(regattaId);
 
-                const blockIds = loadedBlocks.map((block) => block.id);
-                const blockEntities = loadedBlocks.reduce(
+                const blockIds = loadedBlocks.blocks.map((block) => block.id);
+                const blockEntities = loadedBlocks.blocks.reduce(
                     (entities: { [id: string]: Block }, block: Block) => {
                         return { ...entities, [block.id]: block };
                     },
@@ -63,7 +63,8 @@ export const useBlockStore = defineStore('blocks', {
         },
         async add(newBlock: NewBlock) {
             try {
-                const block = await blockService.addBlock(newBlock);
+                const regattaId = useRegattaStore().selectedId;
+                const block = await blockService.addBlock(regattaId, newBlock);
 
                 this.ids = [...this.ids, block.id];
                 this.entities = {
