@@ -6,9 +6,9 @@ export const useBlockService = () => {
     return {
         async loadBlocks(id: string) {
             const url = 'http://localhost:8080/blocks/index/' + id;
-            return await $fetch<{blocks: Block[]}>(url, {
+            return await $fetch<{ blocks: Block[] }>(url, {
                 headers: {
-                    authorization: 'bearer ' + localStorage.getItem('IdToken'),
+                    authorization: 'bearer ' + localStorage.getItem('IdToken')
                 }
             });
         },
@@ -23,7 +23,7 @@ export const useBlockService = () => {
                     start_date: block.start_time.toISOString().slice(0, 10)
                 },
                 headers: {
-                    authorization: 'bearer ' + localStorage.getItem('IdToken'),
+                    authorization: 'bearer ' + localStorage.getItem('IdToken')
                 }
             });
         },
