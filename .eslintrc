@@ -33,6 +33,7 @@
             "ignoreRegExpLiterals": false,
             "ignoreHTMLAttributeValues": false,
             "ignoreHTMLTextContents": false
-        }]
+        }],
+        "max-len": ["error", {"code": 120}],
     }
 }
