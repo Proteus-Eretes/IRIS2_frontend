@@ -5,9 +5,9 @@ const BASE_URL = 'http://localhost:8080/regattas';
 export const useRegattaService = () => {
     return {
         async loadRegattas() {
-            return await $fetch<{regattas: Regatta[]}>(BASE_URL, {
-                'headers': {
-                    'authorization': 'bearer ' + localStorage.getItem('IdToken'),
+            return await $fetch<{ regattas: Regatta[] }>(BASE_URL, {
+                headers: {
+                    authorization: 'bearer ' + localStorage.getItem('IdToken')
                 }
             });
         },
