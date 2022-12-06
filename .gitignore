@@ -9,3 +9,6 @@ node_modules
 *.log
 
 .env
+
+# Yarn >= v2
+.yarn

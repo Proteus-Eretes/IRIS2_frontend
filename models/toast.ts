@@ -13,7 +13,7 @@ export interface Toast {
 
 export interface ToastButton {
     label: string;
-    action: Function;
+    action: () => void;
 }
 
 export enum ToastType {

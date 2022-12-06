@@ -11,15 +11,15 @@ import {
     NewTeam,
     ShirtNumberSettings,
     Team
-} from '~~/models/crew';
-import { Rower } from '~~/models/rower';
-import { Event } from '~~/models/event';
+} from '~/models/crew';
+import { Rower } from '~/models/rower';
+import { Event } from '~/models/event';
 
-import { useCrewService } from '~~/composables/useCrewService';
+import { useCrewService } from '~/composables/useCrewService';
 const crewService = useCrewService();
 
 import { useBlockStore } from './block';
-import { ToastType } from '~~/models/toast';
+import { ToastType } from '~/models/toast';
 const { showError, showToast } = useToastService();
 
 interface CrewState {
@@ -390,9 +390,7 @@ export const useCrewStore = defineStore('crews', {
         },
         async editCrew(id: string, data: NewCrew) {
             try {
-                const editedCrew = await crewService.editCrew(id, data);
-
-                this.crewEntities[id] = editedCrew;
+                this.crewEntities[id] = await crewService.editCrew(id, data);
             } catch (error) {
                 console.error(error);
                 showError('Something went wrong editing the crew');

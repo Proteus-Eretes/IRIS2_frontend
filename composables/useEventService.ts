@@ -1,4 +1,4 @@
-import { Event, EventDetail, Field, NewEvent, NewField } from '~~/models/event';
+import { Event, EventDetail, Field, NewEvent, NewField } from '~/models/event';
 
 const BASE_URL = '/api/events';
 

@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
 import { useRegattaStore } from './regatta';
 
-import { Block, NewBlock } from '~~/models/block';
-import { useBlockService } from '~~/composables/useBlockService';
+import { Block, NewBlock } from '~/models/block';
+import { useBlockService } from '~/composables/useBlockService';
 const blockService = useBlockService();
 
-import { useToastService } from '~~/composables/useToastService';
+import { useToastService } from '~/composables/useToastService';
 const { showError } = useToastService();
 
 interface BlockState {
@@ -56,9 +56,7 @@ export const useBlockStore = defineStore('blocks', {
                 this.entities = blockEntities;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the blocks'
-                );
+                showError('Something went wrong loading the blocks');
             }
         },
         async add(newBlock: NewBlock) {
@@ -72,9 +70,7 @@ export const useBlockStore = defineStore('blocks', {
                 };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong adding the new block'
-                );
+                showError('Something went wrong adding the new block');
             }
         },
         delete(id: string) {
@@ -83,14 +79,10 @@ export const useBlockStore = defineStore('blocks', {
         },
         async edit(id: string, data: NewBlock) {
             try {
-                const editedRower = await blockService.editBlock(id, data);
-
-                this.entities[id] = editedRower;
+                this.entities[id] = await blockService.editBlock(id, data);
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong editing the block'
-                );
+                showError('Something went wrong editing the block');
             }
         }
     }

@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 
 export const useDateFormatter = () => {
     return {
@@ -15,7 +15,7 @@ export const useDateFormatter = () => {
 
             return 0;
         },
-        formatDate: (date: Date, includeYear: boolean = false) => {
+        formatDate: (date: Date, includeYear = false) => {
             const format = `DD MMM${includeYear ? ' YYYY' : ''}`;
             return dayjs(date).format(format);
         },
