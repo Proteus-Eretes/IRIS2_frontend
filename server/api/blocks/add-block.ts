@@ -1,10 +1,7 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useBody } from 'h3';
+import { Block, BlockStatus, NewBlock } from '~/models/block';
 
-import { Block, BlockStatus, NewBlock } from '~~/models/block';
-
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const newBlock: NewBlock = await useBody(req);
+export default defineEventHandler(async (event) => {
+    const newBlock: NewBlock = await readBody(event);
 
     const randomId = String(Math.floor(Math.random() * 10000));
     const block: Block = {
@@ -16,4 +13,4 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     };
 
     return block;
-};
+});

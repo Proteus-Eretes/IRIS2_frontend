@@ -1,10 +1,7 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useBody } from 'h3';
+import { Regatta, NewRegatta } from '~/models/regatta';
 
-import { Regatta, NewRegatta } from '~~/models/regatta';
-
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const newRegatta: NewRegatta = await useBody(req);
+export default defineEventHandler(async (event) => {
+    const newRegatta: NewRegatta = await readBody(event);
 
     const randomId = String(Math.floor(Math.random() * 10000));
     const field: Regatta = {
@@ -18,4 +15,4 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     };
 
     return field;
-};
+});

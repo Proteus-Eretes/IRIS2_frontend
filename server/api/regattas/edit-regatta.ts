@@ -1,11 +1,8 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useBody, useQuery } from 'h3';
+import { Regatta, NewRegatta } from '~/models/regatta';
 
-import { Regatta, NewRegatta } from '~~/models/regatta';
-
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const { regattaId } = useQuery(req);
-    const regatta: NewRegatta = await useBody(req);
+export default defineEventHandler(async (event) => {
+    const { regattaId } = getQuery(event);
+    const regatta: NewRegatta = await readBody(event);
 
     const editedRegatta: Regatta = {
         id: String(regattaId),
@@ -18,4 +15,4 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     };
 
     return editedRegatta;
-};
+});

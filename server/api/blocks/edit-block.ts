@@ -1,11 +1,8 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useBody, useQuery } from 'h3';
+import { Block, BlockStatus, NewBlock } from '~/models/block';
 
-import { Block, BlockStatus, NewBlock } from '~~/models/block';
-
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const { blockId } = useQuery(req);
-    const block: NewBlock = await useBody(req);
+export default defineEventHandler(async (event) => {
+    const { blockId } = getQuery(event);
+    const block: NewBlock = await readBody(event);
 
     const editedBlock: Block = {
         id: String(blockId),
@@ -16,4 +13,4 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     };
 
     return editedBlock;
-};
+});

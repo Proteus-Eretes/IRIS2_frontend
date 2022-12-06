@@ -7,7 +7,7 @@ export interface Crew {
     status: CrewStatus;
     clubName: string;
     displayName: string; // Preferred display name
-    displayStatus: CrewStatus;
+    displayStatus: CrewStatus | null;
     knrb_num: number;
     category: string; // Preferred category (this is used)
 }
