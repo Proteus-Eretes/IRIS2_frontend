@@ -12,10 +12,10 @@
                 <slot name="header">Header</slot>
             </h2>
 
-            <ph-caret-down
-                weight="bold"
+            <Icon
+                name="ph:caret-down"
                 :class="[
-                    'icon text-primary-700 transition-transform',
+                    'font-bold text-primary-700 transition-transform',
                     isCollapsed ? '-rotate-90' : ''
                 ]"
             />
@@ -33,8 +33,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PhCaretDown } from 'phosphor-vue';
-
 interface Props {
     index: number; // The index of the current Accordion in its container
     selectedAccordion: number; // The index of the selected Accordion (used to collapse or expand the current Accordion)

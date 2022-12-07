@@ -1,7 +1,5 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-
 import { roundsMock } from '~/util/mock';
 
-export default async (req: IncomingMessage, res: ServerResponse) => {
+export default defineEventHandler(async () => {
     return roundsMock;
-};
+});

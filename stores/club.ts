@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
 
-import { Club, ClubDetail } from '~~/models/club';
-import { useClubService } from '~~/composables/useClubService';
+import { Club, ClubDetail } from '~/models/club';
+import { useClubService } from '~/composables/useClubService';
 const clubService = useClubService();
 
-import { useToastService } from '~~/composables/useToastService';
+import { useToastService } from '~/composables/useToastService';
 import { useRegattaStore } from './regatta';
 const { showError } = useToastService();
 
@@ -69,9 +69,7 @@ export const useClubStore = defineStore('clubs', {
                 this.entities = clubEntities;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the clubs'
-                );
+                showError('Something went wrong loading the clubs');
             }
         },
         async loadSelectedClub() {
@@ -90,9 +88,7 @@ export const useClubStore = defineStore('clubs', {
                 };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the selected club'
-                );
+                showError('Something went wrong loading the selected club');
             }
         }
     }

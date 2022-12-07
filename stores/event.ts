@@ -2,11 +2,11 @@ import { defineStore } from 'pinia';
 import { useBlockStore } from './block';
 import { useRegattaStore } from './regatta';
 
-import { Event, EventDetail, Field, NewEvent, NewField } from '~~/models/event';
-import { useEventService } from '~~/composables/useEventService';
+import { Event, EventDetail, Field, NewEvent, NewField } from '~/models/event';
+import { useEventService } from '~/composables/useEventService';
 const eventService = useEventService();
 
-import { useToastService } from '~~/composables/useToastService';
+import { useToastService } from '~/composables/useToastService';
 const { showError } = useToastService();
 
 interface EventState {
@@ -110,9 +110,7 @@ export const useEventStore = defineStore('events', {
                 this.eventEntities = eventEntities;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the events'
-                );
+                showError('Something went wrong loading the events');
             }
         },
         async loadSelectedEvent() {
@@ -132,9 +130,7 @@ export const useEventStore = defineStore('events', {
                 };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the selected event'
-                );
+                showError('Something went wrong loading the selected event');
             }
         },
         async loadFields() {
@@ -153,9 +149,7 @@ export const useEventStore = defineStore('events', {
                 this.fieldEntities = fieldEntities;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the fields'
-                );
+                showError('Something went wrong loading the fields');
             }
         },
         async loadFieldsByBlock() {
@@ -187,9 +181,7 @@ export const useEventStore = defineStore('events', {
                 };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the fields'
-                );
+                showError('Something went wrong loading the fields');
             }
         },
         async addEvent(newEvent: NewEvent) {
@@ -203,9 +195,7 @@ export const useEventStore = defineStore('events', {
                 };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong adding the event'
-                );
+                showError('Something went wrong adding the event');
             }
         },
         async addField(newField: NewField) {
@@ -219,9 +209,7 @@ export const useEventStore = defineStore('events', {
                 };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong adding the field'
-                );
+                showError('Something went wrong adding the field');
             }
         },
         deleteEvent(id: string) {
@@ -234,14 +222,10 @@ export const useEventStore = defineStore('events', {
         },
         async editEvent(id: string, data: NewEvent) {
             try {
-                const editedEvent = await eventService.editEvent(id, data);
-
-                this.eventEntities[id] = editedEvent;
+                this.eventEntities[id] = await eventService.editEvent(id, data);
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong editing the event'
-                );
+                showError('Something went wrong editing the event');
             }
         }
     }

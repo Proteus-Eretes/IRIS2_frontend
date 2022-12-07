@@ -1,4 +1,4 @@
-import { Toast, ToastType } from '~~/models/toast';
+import { Toast, ToastType } from '~/models/toast';
 
 export const useToastService = () => {
     const defaults = {

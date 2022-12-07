@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { RouteItem } from '~~/models/route-item';
 import { TableAction } from '~~/models/table';
-import { Toast } from '~~/models/toast';
 
 interface RootState {
     mainNavigation: RouteItem[];
@@ -13,11 +12,11 @@ interface RootState {
 export const useMainStore = defineStore('main', {
     state: (): RootState => ({
         mainNavigation: [
-            { name: 'Dashboard', to: '/', icon: 'ph-gauge' },
+            { name: 'Dashboard', to: '/', icon: 'ph:gauge' },
             {
                 name: 'Blocks',
                 to: '/blocks',
-                icon: 'ph-squares-four',
+                icon: 'ph:squares-four',
                 items: [
                     {
                         name: 'Assign Events & Rounds',
@@ -29,7 +28,7 @@ export const useMainStore = defineStore('main', {
             {
                 name: 'Draw lots',
                 to: '/draw',
-                icon: 'ph-coin-vertical',
+                icon: 'ph:coin-vertical',
                 items: [
                     {
                         name: 'Starting order',
@@ -41,7 +40,7 @@ export const useMainStore = defineStore('main', {
             {
                 name: 'Shirt numbers',
                 to: '/shirt-numbers',
-                icon: 'ph-list-numbers',
+                icon: 'ph:list-numbers',
                 items: [
                     {
                         name: 'Overview',
@@ -50,52 +49,52 @@ export const useMainStore = defineStore('main', {
                     }
                 ]
             },
-            { name: 'Crews', to: '/crews', icon: 'ph-users-three', items: [] },
+            { name: 'Crews', to: '/crews', icon: 'ph:users-three', items: [] },
             {
                 name: 'Events',
                 to: '/events',
-                icon: 'ph-calendar-blank'
+                icon: 'ph:calendar-blank'
             }
         ],
         competitionNavigation: [
-            { name: 'Export', to: '/export', icon: 'ph-export', items: [] },
+            { name: 'Export', to: '/export', icon: 'ph:export', items: [] },
             {
                 name: 'Live recording',
                 to: '/live-recording',
-                icon: 'ph-microphone'
+                icon: 'ph:microphone'
             }
         ],
         adminNavigation: [
             {
                 name: 'Regattas',
                 to: '/regattas',
-                icon: 'ph-clipboard-text'
+                icon: 'ph:clipboard-text'
             }
         ],
         tableActions: [
             {
                 id: 'assign',
-                icon: 'ph-calendar-plus',
+                icon: 'ph:calendar-plus',
                 setting: 'Assign events and Rounds'
             },
             {
                 id: 'draw',
-                icon: 'ph-coin-vertical',
+                icon: 'ph:coin-vertical',
                 setting: 'Draw lots'
             },
             {
                 id: 'shirts',
-                icon: 'ph-list-numbers',
+                icon: 'ph:list-numbers',
                 setting: 'Assign shirt numbers'
             },
             {
                 id: 'delete',
-                icon: 'ph-trash',
+                icon: 'ph:trash',
                 setting: 'Delete'
             },
             {
                 id: 'edit',
-                icon: 'ph-pencil',
+                icon: 'ph:pencil',
                 setting: 'Edit'
             }
         ]

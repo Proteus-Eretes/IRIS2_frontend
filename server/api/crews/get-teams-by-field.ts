@@ -1,11 +1,8 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useQuery } from 'h3';
-
 import { teamsMock } from '~/util/mock';
-import { Team } from '~~/models/crew';
+import { Team } from '~/models/crew';
 
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const { fieldId } = useQuery(req);
+export default defineEventHandler(async (event) => {
+    const { fieldId } = getQuery(event);
     return [
         ...teamsMock,
         ...teamsMock,
@@ -13,4 +10,4 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
         ...teamsMock,
         ...teamsMock
     ].filter((team: Team) => team.field_id == fieldId);
-};
+});

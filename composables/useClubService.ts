@@ -1,4 +1,4 @@
-import { Club, ClubDetail } from '~~/models/club';
+import { Club, ClubDetail } from '~/models/club';
 
 const BASE_URL = '/api/clubs';
 

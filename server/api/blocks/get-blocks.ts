@@ -1,10 +1,7 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useQuery } from 'h3';
-
 import { blocksMock } from '~/util/mock';
-import { Block } from '~~/models/block';
+import { Block } from '~/models/block';
 
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const { regattaId } = useQuery(req);
+export default defineEventHandler(async (event) => {
+    const { regattaId } = getQuery(event);
     return blocksMock.filter((block: Block) => block.regatta_id == regattaId);
-};
+});

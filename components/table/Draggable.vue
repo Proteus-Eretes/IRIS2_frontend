@@ -21,14 +21,13 @@
                     class="table-header-group bg-secondary-300"
                 >
                     <div class="table-row">
-                        <div scope="col" class="table-cell">
-                            <span class="hidden" aria-hidden>Drag handle</span>
+                        <div class="table-cell">
+                            <span class="hidden" aria-hidden="true">Drag handle</span>
                         </div>
 
                         <div
                             v-for="header in headers"
                             :key="header.id"
-                            scope="col"
                             class="table-cell px-3 py-2 text-xs"
                         >
                             <div class="flex items-center gap-1">
@@ -38,7 +37,6 @@
 
                         <div
                             v-if="actions"
-                            scope="col"
                             class="relative table-cell px-3 py-2"
                         >
                             <span class="sr-only">Actions</span>
@@ -54,15 +52,16 @@
                     <template #item="{ element }">
                         <div
                             :class="[
-                                activeId == element.id
+                                activeId === element.id
                                     ? 'bg-secondary-50'
                                     : 'bg-white odd:bg-gray-50 hover:bg-gray-100',
                                 'group table-row cursor-pointer'
                             ]"
                         >
                             <div class="handle table-cell py-2 text-center">
-                                <ph-dots-six-vertical
-                                    class="icon mx-1 text-white group-hover:text-primary-400"
+                                <Icon
+                                    name="ph:dots-six-vertical"
+                                    class="mx-1 text-white group-hover:text-primary-400"
                                     aria-hidden="true"
                                 />
                             </div>
@@ -101,8 +100,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PhDotsSixVertical } from 'phosphor-vue';
-
 // Draggable component: https://github.com/SortableJS/vue.draggable.next
 import Draggable from 'vuedraggable';
 
@@ -110,7 +107,7 @@ import { TableHeader } from '~~/models/table';
 
 interface Props {
     title: string; // If a table has no headers, this is used as title but always give it a name for the error message
-    errorMessage?: string; // This is the message that is shown when there are no items. This is generated based on the title but you can give a custom message
+    errorMessage?: string; // This is the message that is shown when there are no items. This is generated based on the title, but you can give a custom message
     headers: TableHeader[]; // Worden ook als slot names gebruikt
     actions?: string[]; // These are all the actions for an item. The attributes and ids are in `stores/index.ts`
     items: any[];
@@ -133,7 +130,7 @@ const getSlotName = (header: string): string => {
     return useKebabCase(header);
 };
 
-const changeList = (e) => {
+const changeList = (e: any) => {
     if (!e.moved) return;
 
     emits('drag', {

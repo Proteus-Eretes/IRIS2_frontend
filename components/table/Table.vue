@@ -24,7 +24,6 @@
                         <div
                             v-for="header in headers"
                             :key="header.id"
-                            scope="col"
                             class="table-cell px-3 py-2 text-xs"
                         >
                             <div class="flex items-center gap-1">
@@ -34,32 +33,31 @@
                                     v-if="header.sortable"
                                     @click="toggleSortDirection(header.sortId)"
                                     :class="[
-                                        sortId == header.sortId
+                                        sortId === header.sortId
                                             ? ''
                                             : 'text-opacity-70',
                                         'text-white'
                                     ]"
                                 >
-                                    <ph-caret-up
+                                    <Icon
                                         v-if="
-                                            sortId == header.sortId &&
-                                            sortDirection ==
+                                            sortId === header.sortId &&
+                                            sortDirection ===
                                                 TableSortDirection.UP
                                         "
-                                        weight="bold"
-                                        class="h-4 w-4"
+                                        name="ph:caret-up"
+                                        class="font-bold h-4 w-4"
                                     />
-                                    <ph-caret-down
+                                    <Icon
+                                        name="ph:caret-down"
                                         v-else
-                                        weight="bold"
-                                        class="h-4 w-4"
+                                        class="font-bold h-4 w-4"
                                     />
                                 </a>
                             </div>
                         </div>
                         <div
                             v-if="actions"
-                            scope="col"
                             class="relative table-cell px-3 py-2"
                         >
                             <span class="sr-only">Actions</span>
@@ -71,7 +69,7 @@
                         <div
                             v-if="isInRange(index)"
                             :class="[
-                                activeId == item.id
+                                activeId === item.id
                                     ? 'bg-secondary-50'
                                     : 'bg-white odd:bg-gray-50 hover:bg-gray-100',
                                 'table-row cursor-pointer'
@@ -138,13 +136,11 @@
 </template>
 
 <script lang="ts" setup>
-import { PhCaretDown, PhCaretUp } from 'phosphor-vue';
-
 import { TableHeader, TableSortDirection } from '~~/models/table';
 
 interface Props {
     title: string; // If a table has no headers, this is used as title but always give it a name for the error message
-    errorMessage?: string; // This is the message that is shown when there are no items. This is generated based on the title but you can give a custom message
+    errorMessage?: string; // This is the message that is shown when there are no items. This is generated based on the title, but you can give a custom message
     headers: TableHeader[]; // Worden ook als slot names gebruikt
     actions?: string[]; // These are all the actions for an item. The attributes and ids are in `stores/index.ts`
     items: any[];

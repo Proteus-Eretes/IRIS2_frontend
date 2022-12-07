@@ -1,11 +1,8 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useBody, useQuery } from 'h3';
+import { Crew, NewCrew } from '~/models/crew';
 
-import { Crew, NewCrew } from '~~/models/crew';
-
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const { crewId } = useQuery(req);
-    const crew: NewCrew = await useBody(req);
+export default defineEventHandler(async (event) => {
+    const { crewId } = getQuery(event);
+    const crew: NewCrew = await readBody(event);
 
     const editedCrew: Crew = {
         id: String(crewId),
@@ -22,4 +19,4 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     };
 
     return editedCrew;
-};
+});

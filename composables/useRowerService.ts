@@ -1,4 +1,4 @@
-import { NewRower, Rower, RowerDetail } from '~~/models/rower';
+import { NewRower, Rower, RowerDetail } from '~/models/rower';
 
 const BASE_URL = '/api/rowers';
 

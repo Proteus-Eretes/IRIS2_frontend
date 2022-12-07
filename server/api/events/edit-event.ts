@@ -1,11 +1,8 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useBody, useQuery } from 'h3';
+import { Event, NewEvent } from '~/models/event';
 
-import { Event, NewEvent } from '~~/models/event';
-
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const { eventId } = useQuery(req);
-    const event: NewEvent = await useBody(req);
+export default defineEventHandler(async (e) => {
+    const { eventId } = getQuery(e);
+    const event: NewEvent = await readBody(e);
 
     const editedEvent: Event = {
         id: String(eventId),
@@ -22,4 +19,4 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     };
 
     return editedEvent;
-};
+});

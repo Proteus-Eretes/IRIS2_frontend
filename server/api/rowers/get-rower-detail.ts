@@ -1,10 +1,7 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useQuery } from 'h3';
-
 import { rowerDetailsMock } from '~/util/mock';
-import { Rower } from '~~/models/rower';
+import { Rower } from '~/models/rower';
 
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const { rowerId } = useQuery(req);
+export default defineEventHandler(async (event) => {
+    const { rowerId } = getQuery(event);
     return rowerDetailsMock.find((rower: Rower) => rower.id == rowerId);
-};
+});

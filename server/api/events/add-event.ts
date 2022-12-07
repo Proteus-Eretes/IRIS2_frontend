@@ -1,10 +1,7 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useBody } from 'h3';
+import { Event, NewEvent } from '~/models/event';
 
-import { Event, NewEvent } from '~~/models/event';
-
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const newEvent: NewEvent = await useBody(req);
+export default defineEventHandler(async (e) => {
+    const newEvent: NewEvent = await readBody(e);
 
     const randomId = String(Math.floor(Math.random() * 10000));
     const event: Event = {
@@ -22,4 +19,4 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     };
 
     return event;
-};
+});

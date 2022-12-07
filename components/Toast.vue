@@ -19,7 +19,7 @@
                     <div
                         v-if="active && !toast.primary"
                         :class="[
-                            toast.type == ToastType.DENIED
+                            toast.type === ToastType.DENIED
                                 ? 'bg-danger-600'
                                 : 'bg-white',
                             'relative overflow-hidden rounded-lg p-3 shadow-lg'
@@ -31,7 +31,7 @@
                                 <p
                                     v-if="toast.title"
                                     :class="[
-                                        toast.type == ToastType.DENIED
+                                        toast.type === ToastType.DENIED
                                             ? 'text-danger-100'
                                             : 'text-gray-900',
                                         'text-sm font-medium leading-5'
@@ -41,7 +41,7 @@
                                 </p>
                                 <p
                                     :class="[
-                                        toast.type == ToastType.DENIED
+                                        toast.type === ToastType.DENIED
                                             ? 'text-danger-200'
                                             : 'text-gray-500',
                                         toast.title ? 'mt-1' : ''
@@ -55,13 +55,14 @@
                                     class="inline-flex text-gray-400 transition duration-150 ease-in-out focus:text-gray-500 focus:outline-none"
                                     @click="destroy"
                                 >
-                                    <ph-x
+                                    <Icon
                                         :class="[
-                                            toast.type == ToastType.DENIED
+                                            toast.type === ToastType.DENIED
                                                 ? 'text-danger-300'
                                                 : 'text-gray-400',
                                             'h-4 w-4'
                                         ]"
+                                        name="ph:x"
                                     />
                                 </button>
                             </div>
@@ -70,7 +71,7 @@
                     <div
                         v-if="active && toast.primary && toast.secondary"
                         :class="[
-                            toast.type == ToastType.DENIED
+                            toast.type === ToastType.DENIED
                                 ? 'bg-danger-600'
                                 : 'bg-white',
                             'rounded-lg shadow-lg'
@@ -83,7 +84,7 @@
                                     <p
                                         v-if="toast.title"
                                         :class="[
-                                            toast.type == ToastType.DENIED
+                                            toast.type === ToastType.DENIED
                                                 ? 'text-danger-100'
                                                 : 'text-gray-900',
                                             'text-sm font-medium leading-5'
@@ -93,7 +94,7 @@
                                     </p>
                                     <p
                                         :class="[
-                                            toast.type == ToastType.DENIED
+                                            toast.type === ToastType.DENIED
                                                 ? 'text-danger-200'
                                                 : 'text-gray-500',
                                             toast.title ? 'mt-1' : ''
@@ -111,7 +112,7 @@
                                         <button
                                             class="flex w-full items-center justify-center rounded-tr-lg border border-transparent px-4 py-1 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none"
                                             :class="[
-                                                toast.type == ToastType.DENIED
+                                                toast.type === ToastType.DENIED
                                                     ? 'text-danger-100'
                                                     : 'focus:shadow-outline-blue text-secondary-500 hover:text-secondary-400'
                                             ]"
@@ -124,7 +125,7 @@
                                         <button
                                             class="flex w-full items-center justify-center rounded-br-lg border border-transparent px-4 py-1 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none"
                                             :class="
-                                                toast.type == ToastType.DENIED
+                                                toast.type === ToastType.DENIED
                                                     ? ''
                                                     : 'focus:shadow-outline-blue text-gray-700 hover:text-gray-500 active:bg-gray-50 active:text-gray-800'
                                             "
@@ -140,7 +141,7 @@
                     <div
                         v-if="active && toast.primary && !toast.secondary"
                         :class="[
-                            toast.type == ToastType.DENIED
+                            toast.type === ToastType.DENIED
                                 ? 'bg-danger-600'
                                 : 'bg-white',
                             'rounded-lg shadow-lg'
@@ -157,7 +158,7 @@
                                     <button
                                         class="ml-3 shrink-0 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none"
                                         :class="
-                                            toast.type == ToastType.DENIED
+                                            toast.type === ToastType.DENIED
                                                 ? ''
                                                 : 'text-secondary-500 hover:text-secondary-400'
                                         "
@@ -171,13 +172,14 @@
                                         class="inline-flex text-gray-400 transition duration-150 ease-in-out focus:text-gray-500 focus:outline-none"
                                         @click="destroy"
                                     >
-                                        <ph-x
+                                        <Icon
                                             :class="[
-                                                toast.type == ToastType.DENIED
+                                                toast.type === ToastType.DENIED
                                                     ? 'text-danger-300'
                                                     : 'text-gray-400',
                                                 'h-4 w-4'
                                             ]"
+                                            name="ph:x"
                                         />
                                     </button>
                                 </div>
@@ -192,7 +194,6 @@
 
 <script lang="ts" setup>
 import { TransitionChild, TransitionRoot } from '@headlessui/vue';
-import { PhX } from 'phosphor-vue';
 
 import { Toast, ToastType } from '~~/models/toast';
 

@@ -1,10 +1,7 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useBody } from 'h3';
+import { Rower, NewRower } from '~/models/rower';
 
-import { Rower, NewRower } from '~~/models/rower';
-
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const newRower: NewRower = await useBody(req);
+export default defineEventHandler(async (event) => {
+    const newRower: NewRower = await readBody(event);
 
     const randomId = String(Math.floor(Math.random() * 10000));
     const fullName = `${newRower.firstname[0]}. ${newRower.middlename[0]}. ${newRower.lastname}`;
@@ -22,4 +19,4 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     };
 
     return rower;
-};
+});

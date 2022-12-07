@@ -1,10 +1,7 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useQuery } from 'h3';
-
 import { crewDetailsMock } from '~/util/mock';
-import { Crew } from '~~/models/crew';
+import { Crew } from '~/models/crew';
 
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const { crewId } = useQuery(req);
+export default defineEventHandler(async (event) => {
+    const { crewId } = getQuery(event);
     return crewDetailsMock.find((crew: Crew) => crew.id == crewId);
-};
+});

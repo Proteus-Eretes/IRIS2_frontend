@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
 import { useBlockStore } from './block';
 
-import { Round } from '~~/models/round';
-import { useRoundService } from '~~/composables/useRoundService';
+import { Round } from '~/models/round';
+import { useRoundService } from '~/composables/useRoundService';
 const roundService = useRoundService();
 
-import { useToastService } from '~~/composables/useToastService';
+import { useToastService } from '~/composables/useToastService';
 const { showError } = useToastService();
 
 interface RoundState {
@@ -62,9 +62,7 @@ export const useRoundStore = defineStore('rounds', {
                 this.entities = roundEntities;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the rounds'
-                );
+                showError('Something went wrong loading the rounds');
             }
         },
         async loadRoundsByBlock() {
@@ -91,9 +89,7 @@ export const useRoundStore = defineStore('rounds', {
                 this.entities = roundEntities;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the rounds'
-                );
+                showError('Something went wrong loading the rounds');
             }
         },
         assignRounds(list: string[]) {

@@ -55,7 +55,7 @@
                                 class="button icon-button button-secondary"
                                 @click="showCalculation = true"
                             >
-                                <ph-list-numbers class="icon text-gray-400" />
+                                <Icon name="ph:list-numbers" class="text-gray-400" />
                                 <span>Calculate numbers</span>
                             </button>
                         </div>
@@ -72,8 +72,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PhListNumbers } from 'phosphor-vue';
-
 import { useRegattaStore } from '~~/stores/regatta';
 import { useBlockStore } from '~~/stores/block';
 import { useRoundStore } from '~~/stores/round';
@@ -83,6 +81,8 @@ import { useCrewStore } from '~~/stores/crew';
 import { getBlockStatusLabel } from '~~/models/block';
 
 import { TableHeader } from '~~/models/table';
+
+import { useUrlSearchParams } from "@vueuse/core";
 
 const regattas = useRegattaStore();
 const blocks = useBlockStore();

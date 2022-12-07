@@ -1,10 +1,7 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useQuery } from 'h3';
-
 import { eventDetailsMock } from '~/util/mock';
-import { Event } from '~~/models/event';
+import { Event } from '~/models/event';
 
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const { eventId } = useQuery(req);
+export default defineEventHandler(async (e) => {
+    const { eventId } = getQuery(e);
     return eventDetailsMock.find((event: Event) => event.id == eventId);
-};
+});

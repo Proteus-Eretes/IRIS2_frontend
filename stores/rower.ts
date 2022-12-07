@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
 import { useRegattaStore } from './regatta';
 
-import { NewRower, Rower, RowerDetail, RowerRole } from '~~/models/rower';
-import { useRowerService } from '~~/composables/useRowerService';
+import { NewRower, Rower, RowerDetail, RowerRole } from '~/models/rower';
+import { useRowerService } from '~/composables/useRowerService';
 const rowerService = useRowerService();
 
-import { useToastService } from '~~/composables/useToastService';
+import { useToastService } from '~/composables/useToastService';
 import { useCrewStore } from './crew';
 const { showError } = useToastService();
 
@@ -116,9 +116,7 @@ export const useRowerStore = defineStore('rowers', {
                 this.entities = rowerEntities;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the rowers'
-                );
+                showError('Something went wrong loading the rowers');
             }
         },
         async loadRowersByCrew() {
@@ -146,9 +144,7 @@ export const useRowerStore = defineStore('rowers', {
                 this.entities = { ...this.entities, ...rowerEntities };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the rowers'
-                );
+                showError('Something went wrong loading the rowers');
             }
         },
         async loadSelectedRower() {
@@ -167,9 +163,7 @@ export const useRowerStore = defineStore('rowers', {
                 };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the selected rower'
-                );
+                showError('Something went wrong loading the selected rower');
             }
         },
         async add(newRower: NewRower) {
@@ -183,9 +177,7 @@ export const useRowerStore = defineStore('rowers', {
                 };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong adding the rower'
-                );
+                showError('Something went wrong adding the rower');
             }
         },
         delete(id: string) {
@@ -197,14 +189,10 @@ export const useRowerStore = defineStore('rowers', {
         },
         async edit(id: string, data: NewRower) {
             try {
-                const editedRower = await rowerService.editRower(id, data);
-
-                this.entities[id] = editedRower;
+                this.entities[id] = await rowerService.editRower(id, data);
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong editing the rower'
-                );
+                showError('Something went wrong editing the rower');
             }
         }
     }

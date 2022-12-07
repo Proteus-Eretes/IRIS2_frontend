@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia';
 
-import { NewRegatta, Regatta, RegattaDetail } from '~~/models/regatta';
-import { useRegattaService } from '~~/composables/useRegattaService';
+import { NewRegatta, Regatta, RegattaDetail } from '~/models/regatta';
+import { useRegattaService } from '~/composables/useRegattaService';
 const regattaService = useRegattaService();
 
-import { useDateFormatter } from '~~/composables/useDateFormatter';
+import { useDateFormatter } from '~/composables/useDateFormatter';
+import { useToastService } from '~/composables/useToastService';
 const { isBeforeOrAfter } = useDateFormatter();
+const { showError } = useToastService();
 
 interface RegattaState {
     ids: string[];
@@ -62,9 +64,7 @@ export const useRegattaStore = defineStore('regattas', {
                 this.entities = regattaEntities;
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the regattas'
-                );
+                showError('Something went wrong loading the regattas');
             }
         },
         async loadSelectedRegatta() {
@@ -85,9 +85,7 @@ export const useRegattaStore = defineStore('regattas', {
                 };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong loading the selected regatta'
-                );
+                showError('Something went wrong loading the selected regatta');
             }
         },
         async add(newRegatta: NewRegatta) {
@@ -101,9 +99,7 @@ export const useRegattaStore = defineStore('regattas', {
                 };
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong adding the regatta'
-                );
+                showError('Something went wrong adding the regatta');
             }
         },
         delete(id: string) {
@@ -115,17 +111,10 @@ export const useRegattaStore = defineStore('regattas', {
         },
         async edit(id: string, data: NewRegatta) {
             try {
-                const editedRegatta = await regattaService.editRegatta(
-                    id,
-                    data
-                );
-
-                this.entities[id] = editedRegatta;
+                this.entities[id] = await regattaService.editRegatta(id, data);
             } catch (error) {
                 console.error(error);
-                useToastService().showError(
-                    'Something went wrong editing the regatta'
-                );
+                showError('Something went wrong editing the regatta');
             }
         }
     }

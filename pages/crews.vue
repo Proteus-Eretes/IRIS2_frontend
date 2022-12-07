@@ -85,7 +85,7 @@
                                 class="button icon-button button-secondary"
                                 @click="addCrew()"
                             >
-                                <ph-plus class="icon text-gray-400" />
+                                <Icon name="ph:plus" class="text-gray-400" />
                                 <span>Add Crew</span>
                             </button>
                         </div>
@@ -121,8 +121,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PhPlus } from 'phosphor-vue';
-
 import { useRegattaStore } from '~~/stores/regatta';
 import { useCrewStore } from '~~/stores/crew';
 import { useRowerStore } from '~~/stores/rower';

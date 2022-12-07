@@ -6,7 +6,7 @@
             >
                 <span class="sr-only">Open action menu</span>
 
-                <ph-dots-three class="icon inline-block text-gray-400" />
+                <Icon name="ph:dots-three" class="inline-block text-gray-400" />
             </MenuButton>
             <Transition
                 enter-active-class="transition ease-out duration-100"
@@ -27,7 +27,7 @@
                         <a
                             :class="[
                                 active ? 'bg-gray-100' : '',
-                                action == 'delete'
+                                action === 'delete'
                                     ? 'text-danger-700'
                                     : 'text-gray-700',
                                 'icon-button'
@@ -39,13 +39,12 @@
                                 })
                             "
                         >
-                            <component
-                                :is="main.getTableActionById(action).icon"
+                            <Icon
+                                :name="main.getTableActionById(action).icon"
                                 :class="[
-                                    action == 'delete'
+                                    action === 'delete'
                                         ? 'text-danger-400'
-                                        : 'text-gray-400',
-                                    'icon'
+                                        : 'text-gray-400'
                                 ]"
                             />
                             <span>
@@ -61,14 +60,6 @@
 
 <script lang="ts" setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import {
-    PhCalendarPlus,
-    PhCoinVertical,
-    PhListNumbers,
-    PhTrash,
-    PhPencil,
-    PhDotsThree
-} from 'phosphor-vue';
 
 import { useMainStore } from '~~/stores';
 const main = useMainStore();

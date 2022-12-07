@@ -1,10 +1,7 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useQuery } from 'h3';
-
 import { finesMock } from '~/util/mock';
-import { Fine } from '~~/models/crew';
+import { Fine } from '~/models/crew';
 
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const { crewId } = useQuery(req);
+export default defineEventHandler(async (event) => {
+    const { crewId } = getQuery(event);
     return finesMock.filter((fine: Fine) => fine.crew_id == crewId);
-};
+});

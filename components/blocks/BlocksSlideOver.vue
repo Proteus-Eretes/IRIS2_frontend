@@ -6,11 +6,11 @@
         @cancel="$emit('cancel')"
     >
         <template #header>
-            <span v-if="state == SlideOverState.ADD">Create a new block</span>
+            <span v-if="state === SlideOverState.ADD">Create a new block</span>
             <span v-else>Edit this block</span>
         </template>
         <template #subheader>
-            <span v-if="state == SlideOverState.ADD">
+            <span v-if="state === SlideOverState.ADD">
                 Create a new block for this regatta.
             </span>
         </template>

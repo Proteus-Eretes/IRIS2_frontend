@@ -1,4 +1,4 @@
-import { NewRegatta, Regatta, RegattaDetail } from '~~/models/regatta';
+import { NewRegatta, Regatta, RegattaDetail } from '~/models/regatta';
 
 const BASE_URL = '/api/regattas';
 

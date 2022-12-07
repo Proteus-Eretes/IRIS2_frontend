@@ -1,10 +1,7 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { useBody } from 'h3';
+import { NewTeam, Team, TeamResultStatus } from '~/models/crew';
 
-import { NewTeam, Team, TeamResultStatus } from '~~/models/crew';
-
-export default async (req: IncomingMessage, res: ServerResponse) => {
-    const newTeam: NewTeam = await useBody(req);
+export default defineEventHandler(async (event) => {
+    const newTeam: NewTeam = await readBody(event);
 
     const randomId = String(Math.floor(Math.random() * 10000));
     const team: Team = {
@@ -19,4 +16,4 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     };
 
     return team;
-};
+});
