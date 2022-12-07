@@ -6,10 +6,10 @@
         <button
             class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:text-gray-300"
             @click="$emit('update:index', index - 1)"
-            :disabled="index == min"
+            :disabled="index === min"
         >
             <span class="sr-only">Previous</span>
-            <ph-caret-left class="icon" aria-hidden="true" />
+          <Icon name="ph:caret-left" aria-hidden="true" />
         </button>
         <span
             v-if="isTooWide && index - 1 > min"
@@ -22,7 +22,7 @@
             :key="i"
             aria-current="page"
             :class="[
-                i == index
+                i === index
                     ? 'z-10 border-secondary-500 bg-secondary-50 text-secondary-600'
                     : 'border-gray-300 bg-white text-gray-500 hover:bg-gray-50',
                 'relative inline-flex items-center border px-4 py-2 text-sm font-medium'
@@ -40,17 +40,15 @@
         <button
             class="relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:text-gray-300"
             @click="$emit('update:index', index + 1)"
-            :disabled="index == max"
+            :disabled="index === max"
         >
             <span class="sr-only">Next</span>
-            <ph-caret-right class="icon" aria-hidden="true" />
+            <Icon name="ph:caret-right" aria-hidden="true" />
         </button>
     </nav>
 </template>
 
 <script lang="ts" setup>
-import { PhCaretLeft, PhCaretRight } from 'phosphor-vue';
-
 interface Props {
     index: number; // The index of pagination (1, 2, 3, etc.)
     amount: number; // The amount of items there are
@@ -76,7 +74,7 @@ const isTooWide = computed(() => {
 // Show the number buttons but not if it is too wide
 const safeRange = computed(() => {
     return max.value > 5
-        ? range(3, useClamp(props.index - 1, 1, max.value - 2).value)
+        ? range(3, useClamp(props.index - 1, 1, max.value - 2))
         : range(max.value, min);
 });
 

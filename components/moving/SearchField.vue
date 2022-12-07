@@ -19,7 +19,7 @@
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 peer-focus:text-primary-700"
             >
                 <span class="text-sm">
-                    <ph-magnifying-glass weight="bold" title="Search" />
+                    <Icon name="ph:magnifying-glass" class="font-bold" />
                 </span>
             </div>
         </div>
@@ -33,8 +33,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PhMagnifyingGlass } from 'phosphor-vue';
-
 interface Props {
     query: string | null; // The search query
     options: string[]; // The autocomplete options for searching

@@ -75,13 +75,14 @@
                                 'group flex w-full space-x-3 rounded-md px-3 py-2 text-base font-medium text-primary-500 hover:bg-primary-600 hover:text-white'
                             ]"
                         >
-                            <ph-caret-double-down
+                            <Icon
                                 :class="[
                                     'h-6 w-6 text-primary-500 transition-transform group-hover:text-white',
                                     isSideBarCollapsed
                                         ? '-rotate-90'
                                         : 'rotate-90'
                                 ]"
+                                name="ph:caret-double-down"
                                 aria-hidden="true"
                             />
                             <span v-show="!isSideBarCollapsed">Collapse</span>
@@ -94,11 +95,11 @@
 </template>
 
 <script lang="ts" setup>
-import { PhCaretDoubleDown } from 'phosphor-vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
-import { useMainStore } from '~/stores/index';
+import { useMainStore } from "~/stores";
 import { useRegattaStore } from '~~/stores/regatta';
+import { useToggle } from "@vueuse/core";
 
 const main = useMainStore();
 const regattas = useRegattaStore();

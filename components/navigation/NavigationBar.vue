@@ -18,9 +18,9 @@
                         class="mt-0 flex flex-row flex-wrap gap-3 sm:gap-6"
                     >
                         <div class="mt-1 flex items-center text-sm">
-                            <ph-calendar-blank
-                                weight="bold"
-                                class="icon mr-1.5 shrink-0 text-primary-400"
+                            <Icon
+                                name="ph:calendar-blank"
+                                class="font-bold mr-1.5 shrink-0 text-primary-400"
                                 aria-hidden="true"
                             />
                             <UseTimeAgo
@@ -41,22 +41,22 @@
                             </UseTimeAgo>
                         </div>
                         <div class="mt-1 flex items-center text-sm">
-                            <ph-arrows-counter-clockwise
+                            <Icon
                                 v-if="
-                                    regattas.selectedRegatta.race_type ==
+                                    regattas.selectedRegatta.race_type ===
                                     RegattaType.CHASE
                                 "
-                                weight="bold"
-                                class="icon mr-1.5 shrink-0 text-primary-400"
+                                name="ph:arrows-counter-clockwise"
+                                class="font-bold mr-1.5 shrink-0 text-primary-400"
                                 aria-hidden="true"
                             />
-                            <ph-clock-counter-clockwise
+                            <Icon
                                 v-if="
-                                    regattas.selectedRegatta.race_type ==
+                                    regattas.selectedRegatta.race_type ===
                                     RegattaType.ALL_ROUND
                                 "
-                                weight="bold"
-                                class="icon mr-1.5 shrink-0 text-primary-400"
+                                name="ph:clock-counter-clockwise"
+                                class="font-bold mr-1.5 shrink-0 text-primary-400"
                                 aria-hidden="true"
                             />
                             <span class="text-primary-500">
@@ -78,9 +78,9 @@
                         class="relative rounded-full bg-white p-1 text-primary-600 hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2 focus:ring-offset-white"
                     >
                         <span class="sr-only">View notifications</span>
-                        <ph-bell
-                            weight="bold"
-                            class="icon"
+                        <Icon
+                            name="ph:bell"
+                            class="font-bold"
                             aria-hidden="true"
                         />
                         <div
@@ -138,9 +138,7 @@
                                             'icon-button text-danger-700'
                                         ]"
                                     >
-                                        <ph-sign-out
-                                            class="icon text-danger-400"
-                                        />
+                                        <Icon name="ph:sign-out" class="icon text-danger-400" />
                                         <span>Sign out</span>
                                     </a>
                                 </MenuItem>
@@ -157,13 +155,6 @@
 import { UseTimeAgo } from '@vueuse/components';
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import {
-    PhCalendarBlank,
-    PhArrowsCounterClockwise,
-    PhClockCounterClockwise,
-    PhBell,
-    PhSignOut
-} from 'phosphor-vue';
 
 import { useRegattaStore } from '~~/stores/regatta';
 import { useMainStore } from '~~/stores';

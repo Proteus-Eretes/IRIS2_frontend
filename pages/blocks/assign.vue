@@ -174,6 +174,8 @@ import Draggable from 'vuedraggable';
 
 import { SlideOverState } from '~~/models/slide-over-state';
 
+import { useUrlSearchParams } from "@vueuse/core";
+
 import { useToastService } from '~~/composables/useToastService';
 const { showError } = useToastService();
 
@@ -197,7 +199,7 @@ onMounted(async () => {
     await crews.loadCrews();
 });
 
-const changeList = (evt, blockId: string, roundId: string) => {
+const changeList = (evt: any, blockId: string, roundId: string) => {
     if (evt.added) {
         // console.log('Added', evt.added.element);
         addField(evt.added.element, blockId, roundId);

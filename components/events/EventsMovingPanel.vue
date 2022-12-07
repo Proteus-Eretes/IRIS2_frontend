@@ -63,10 +63,7 @@
 
                 <template #rowers-count="{ item }">
                     <div class="flex items-center gap-2">
-                        <ph-users-three
-                            class="icon text-primary-400"
-                            aria-hidden="true"
-                        />
+                        <Icon name="ph:users-three" class="text-primary-400" />
 
                         <span class="text-xs font-medium">
                             {{
@@ -86,7 +83,7 @@
                     class="button icon-button button-secondary"
                     @click="addCrew()"
                 >
-                    <ph-plus class="icon text-gray-400" />
+                    <Icon name="ph:plus" class="text-gray-400" />
                     <span>Add Crew</span>
                 </button>
             </div>
@@ -105,8 +102,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PhUsersThree, PhPlus } from 'phosphor-vue';
-
 import { useRegattaStore } from '~~/stores/regatta';
 import { useEventStore } from '~~/stores/event';
 import { useCrewStore } from '~~/stores/crew';

@@ -14,7 +14,7 @@
                             @click="editRegatta(regatta.id)"
                             title="Edit regatta"
                         >
-                            <ph-pencil class="icon text-gray-500" />
+                            <Icon name="ph:pencil" class="text-gray-500" />
                         </button>
 
                         <button
@@ -22,7 +22,7 @@
                             @click="deleteRegatta(regatta.id)"
                             title="Delete regatta"
                         >
-                            <ph-trash class="icon text-danger-500" />
+                            <Icon name="ph:trash" class="text-danger-500" />
                         </button>
                     </div>
 
@@ -37,16 +37,16 @@
                             :title="getRegattaTypeLabel(regatta.race_type)"
                         >
                             <!-- {{ getYear(regatta.start_date) }} -->
-                            <ph-arrows-counter-clockwise
-                                v-if="regatta.race_type == RegattaType.CHASE"
-                                weight="fill"
+                            <Icon
+                                v-if="regatta.race_type === RegattaType.CHASE"
+                                name="ph:arrows-counter-clockwise"
                                 class="h-14 w-14"
                             />
-                            <ph-clock-counter-clockwise
+                            <Icon
                                 v-if="
-                                    regatta.race_type == RegattaType.ALL_ROUND
+                                    regatta.race_type === RegattaType.ALL_ROUND
                                 "
-                                weight="fill"
+                                name="ph:clock-counter-clockwise"
                                 class="h-14 w-14"
                             />
                         </div>
@@ -80,7 +80,7 @@
                 class="button icon-button button-secondary"
                 @click="addRegatta()"
             >
-                <ph-plus class="icon text-gray-400" />
+                <Icon name="ph:plus" class="text-gray-400" />
                 <span>Add Regatta</span>
             </button>
         </div>
@@ -97,14 +97,6 @@
 
 <script lang="ts" setup>
 import {
-    PhPencil,
-    PhTrash,
-    PhArrowsCounterClockwise,
-    PhClockCounterClockwise,
-    PhPlus
-} from 'phosphor-vue';
-
-import {
     RegattaType,
     getRegattaTypeLabel,
     NewRegatta
@@ -113,6 +105,8 @@ import { useRegattaStore } from '~~/stores/regatta';
 
 import { SlideOverState } from '~~/models/slide-over-state';
 import { useDateFormatter } from '~~/composables/useDateFormatter';
+
+import { useUrlSearchParams } from "@vueuse/core";
 
 const { getYear, formatDate } = useDateFormatter();
 const regattas = useRegattaStore();

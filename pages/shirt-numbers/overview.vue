@@ -157,6 +157,8 @@ import { useCrewStore } from '~~/stores/crew';
 import { TableHeader } from '~~/models/table';
 import { NewShirtNumber, Team } from '~~/models/crew';
 
+import { useUrlSearchParams } from "@vueuse/core";
+
 const regattas = useRegattaStore();
 const blocks = useBlockStore();
 const events = useEventStore();

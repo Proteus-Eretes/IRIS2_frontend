@@ -9,9 +9,9 @@
                             @click="showDrawSettings = true"
                             title="Draw settings"
                         >
-                            <ph-faders-horizontal
-                                weight="bold"
-                                class="icon text-white"
+                            <Icon
+                                name="ph:faders-horizontal"
+                                class="font-bold text-white"
                             />
                             <span class="sr-only">Draw settings</span>
                         </a>
@@ -66,7 +66,7 @@
                                 class="button icon-button button-secondary"
                                 @click="showDraw = true"
                             >
-                                <ph-coin-vertical class="icon text-gray-400" />
+                                <Icon name="ph:coin-vertical" class="text-gray-400" />
                                 <span>Draw lots</span>
                             </button>
                         </div>
@@ -89,8 +89,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PhCoinVertical, PhFadersHorizontal } from 'phosphor-vue';
-
 import { useRegattaStore } from '~~/stores/regatta';
 import { useBlockStore } from '~~/stores/block';
 import { useRoundStore } from '~~/stores/round';
@@ -101,6 +99,8 @@ import { BlockStatus } from '~~/models/block';
 
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 import { TableHeader } from '~~/models/table';
+
+import { useUrlSearchParams } from "@vueuse/core";
 
 const { formatDate, formatTime } = useDateFormatter();
 

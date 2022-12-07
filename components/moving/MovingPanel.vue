@@ -46,7 +46,7 @@
                 title="Close panel"
             >
                 <span class="sr-only">Close panel</span>
-                <ph-x class="icon text-white" />
+                <Icon name="ph:x" class="text-white" />
             </button>
         </div>
 
@@ -57,8 +57,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PhX } from 'phosphor-vue';
-
 interface Props {
     index: number; // The index of the current MovingPanel in its container
     activePanel: number; // The index of the selected MovingPanel (used to collapse or expand the current MovingPanel)

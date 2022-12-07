@@ -153,6 +153,8 @@ import { useCrewStore } from '~~/stores/crew';
 
 import { TableHeader } from '~~/models/table';
 
+import { useUrlSearchParams } from "@vueuse/core";
+
 const regattas = useRegattaStore();
 const blocks = useBlockStore();
 const events = useEventStore();

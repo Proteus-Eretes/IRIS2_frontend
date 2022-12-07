@@ -112,7 +112,7 @@
                     class="button icon-button button-secondary"
                     @click="addRower(RowerRole.ROWER)"
                 >
-                    <ph-plus class="icon text-gray-400" />
+                    <Icon name="ph:plus" class="text-gray-400" />
                     <span>Add Rower</span>
                 </button>
             </div>
@@ -151,7 +151,7 @@
                     class="button icon-button button-secondary"
                     @click="addRower(RowerRole.COACH)"
                 >
-                    <ph-plus class="icon text-gray-400" />
+                    <Icon name="ph:plus" class="text-gray-400" />
                     <span>Add Coach</span>
                 </button>
             </div>
@@ -190,7 +190,7 @@
                     class="button icon-button button-secondary"
                     @click="addRower(RowerRole.COX)"
                 >
-                    <ph-plus class="icon text-gray-400" />
+                    <Icon name="ph:plus" class="text-gray-400" />
                     <span>Add Cox</span>
                 </button>
             </div>
@@ -223,7 +223,7 @@
                     class="button icon-button button-secondary"
                     @click=""
                 >
-                    <ph-plus class="icon text-gray-400" />
+                    <Icon name="ph:plus" class="text-gray-400" />
                     <span>Add Fine</span>
                 </button>
             </div>
@@ -243,8 +243,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PhPlus } from 'phosphor-vue';
-
 import { useRegattaStore } from '~~/stores/regatta';
 import { useEventStore } from '~~/stores/event';
 import { useCrewStore } from '~~/stores/crew';

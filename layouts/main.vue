@@ -20,6 +20,7 @@
 
 <script lang="ts" setup>
 import { useRegattaStore } from '~~/stores/regatta';
+import { useUrlSearchParams } from "@vueuse/core";
 
 const regattas = useRegattaStore();
 

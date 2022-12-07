@@ -5491,7 +5491,6 @@ __metadata:
     nuxt: ^3.0.0
     nuxt-icon: ^0.1.8
     nuxt-lodash: ^2.1.1
-    phosphor-vue: ^4.4.0
     pinia: ^2.0.12
     postcss: ^8.4.4
     prettier: ^2.8.0
@@ -7414,15 +7413,6 @@ __metadata:
   version: 0.1.3
   resolution: "perfect-debounce@npm:0.1.3"
   checksum: c77465eb23d87669e5ee646d12331507c45278e0f2e6fc20a587104b956c1a53f9afe723915d882f73fa588e42770a2edd2bbd93eb0b958c9ff1eb7b915ccdc1
-  languageName: node
-  linkType: hard
-
-"phosphor-vue@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "phosphor-vue@npm:4.4.0"
-  peerDependencies:
-    vue: ^3.0.0 <3.0.3
-  checksum: 721e222e6ec4fbc6d2a18dc92f96183beb3542b41a8fb4396bcdf77e9319b89a79c8742767632632d080914578afaeb8f27eeed6ba345e6192b60cc3c14559b3
   languageName: node
   linkType: hard
 

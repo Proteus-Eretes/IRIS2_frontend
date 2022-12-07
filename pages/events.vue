@@ -46,8 +46,9 @@
 
                             <template #crews="{ item }">
                                 <div class="flex items-center gap-2">
-                                    <ph-users-three
-                                        class="icon text-primary-400"
+                                    <Icon
+                                        name="ph:users-three"
+                                        class="text-primary-400"
                                         aria-hidden="true"
                                     />
 
@@ -84,7 +85,7 @@
                                 class="button icon-button button-secondary"
                                 @click="addEvent()"
                             >
-                                <ph-plus class="icon text-gray-400" />
+                                <Icon name="ph:plus" class="text-gray-400" />
                                 <span>Add Event</span>
                             </button>
                         </div>
@@ -127,8 +128,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PhPlus, PhUsersThree } from 'phosphor-vue';
-
 import { useRegattaStore } from '~~/stores/regatta';
 import { useCrewStore } from '~~/stores/crew';
 import { useEventStore } from '~~/stores/event';
@@ -140,6 +139,8 @@ import { TableHeader } from '~~/models/table';
 import { Event, EventStatus, NewEvent } from '~~/models/event';
 import { SlideOverState } from '~~/models/slide-over-state';
 import { Gender } from '~~/models/rower';
+
+import { useUrlSearchParams } from "@vueuse/core";
 
 const { formatDate } = useDateFormatter();
 

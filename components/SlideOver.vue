@@ -64,7 +64,8 @@
                                             <span class="sr-only">
                                                 Close panel
                                             </span>
-                                            <ph-x
+                                            <Icon
+                                                name="ph:x"
                                                 class="h-6 w-6"
                                                 aria-hidden="true"
                                             />
@@ -115,7 +116,6 @@ import {
     TransitionChild,
     TransitionRoot
 } from '@headlessui/vue';
-import { PhX } from 'phosphor-vue';
 
 interface Props {
     open: boolean; // Say if the SlideOver should be shown

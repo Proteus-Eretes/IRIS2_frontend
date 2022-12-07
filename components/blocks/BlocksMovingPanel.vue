@@ -62,8 +62,9 @@
 
                 <template #teams="{ item }">
                     <div class="flex items-center gap-2">
-                        <ph-users-three
-                            class="icon text-primary-400"
+                        <Icon
+                            name="ph:users-three"
+                            class="text-primary-400"
                             aria-hidden="true"
                         />
 
@@ -85,8 +86,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PhUsersThree } from 'phosphor-vue';
-
 import { useBlockStore } from '~~/stores/block';
 import { useCrewStore } from '~~/stores/crew';
 import { useEventStore } from '~~/stores/event';

@@ -5,9 +5,9 @@ import { useRegattaService } from '~/composables/useRegattaService';
 const regattaService = useRegattaService();
 
 import { useDateFormatter } from '~/composables/useDateFormatter';
-const { showError } = useToastService();
 import { useToastService } from '~/composables/useToastService';
 const { isBeforeOrAfter } = useDateFormatter();
+const { showError } = useToastService();
 
 interface RegattaState {
     ids: string[];

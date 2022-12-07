@@ -57,7 +57,7 @@
                                 class="button icon-button button-secondary"
                                 @click="addBlock()"
                             >
-                                <ph-plus class="icon text-gray-400" />
+                                <Icon name="ph:plus" class="text-gray-400" />
                                 <span>Add Block</span>
                             </button>
                         </div>
@@ -110,8 +110,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PhPlus } from 'phosphor-vue';
-
 import { useRegattaStore } from '~~/stores/regatta';
 import { useBlockStore } from '~~/stores/block';
 import { useCrewStore } from '~~/stores/crew';
@@ -124,6 +122,8 @@ import { Block, getBlockStatusLabel, NewBlock } from '~~/models/block';
 import { useDateFormatter } from '~~/composables/useDateFormatter';
 import { TableHeader } from '~~/models/table';
 import { SlideOverState } from '~~/models/slide-over-state';
+
+import { useUrlSearchParams } from "@vueuse/core";
 
 const { formatDate, formatTime } = useDateFormatter();
 
